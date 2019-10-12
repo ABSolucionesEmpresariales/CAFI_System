@@ -93,7 +93,7 @@ if (!isset($_SESSION['acceso'])) {
             <div class="col-6">
                 <p class="statusMsg"></p>
                 <div class="row mb-2">
-                    <button id="guardar_compra" class="btn btn-primary mr-2 compra_finalizada">Guardar Compra</button>
+                    <button id="compra_finalizada" class="btn btn-primary mr-2">Guardar Compra</button>
                     <button id="cancelar_compra" class="btn btn-danger">Cancelar Compra</button>
                 </div>
                 <form class="form-group border p-3" id="formgastos">
@@ -129,40 +129,56 @@ if (!isset($_SESSION['acceso'])) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="d-block col-lg-12">
+                        <div class="d-block col-lg-6">
+                            <p class="general">Descuento:</p>
+                            <input type="number" min="0" value="0" id="descuento" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off" >
+                        </div>
+                        <div class="d-block col-lg-6">
                             <p class="importante">Forma de pago:</p>
                             <select id="forma_de_pago" class="form form-control form-control-sm" >
                                 <option value="De Contado">De Contado</option>
                                 <option value="Credito">Credito</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="fechascredito d-none col-lg-4">
-                            <p class="general">Inicio del credito:</p>
+                            <p class="importante">Inicio del credito:</p>
                             <input class="form-control form-control-sm" id="inicio_de_credito" type="date" name="DFecha" >
                         </div>
                         <div class="fechascredito d-none col-lg-4">
-                            <p class="general">Fecha del credito:</p>
+                            <p class="importante">Fecha del credito:</p>
                             <input class="form-control form-control-sm" id="fecha_del_credito" type="date" name="DFecha" >
+                        </div>
+                        <div class="fechascredito d-none col-lg-4">
+                            <p class="general">Anticipo:</p>
+                            <input type="number" min="0" value="0" id="anticipo" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off" >
                         </div>
                     </div>
                 </form>
-                <div class="border mt-3 p-2 shadow">
+                <div class="border p-2 shadow">
                         <div class="row">
-                            <div class="d-block col-lg-6">
-                                <p class="general">Codigo:</p>
+                            <div class="d-block col-lg-4">
+                                <p class="importante">Codigo:</p>
                                 <input id="codigo_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off" >
                             </div>
-                            <div class="d-block col-lg-6">
+                            <div class="d-block col-lg-4">
                                 <p class="importante">Nombre:</p>
                                 <input id="nombre_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off" >
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="d-block col-lg-6">
+                            <div class="d-block col-lg-4">
                                 <p class="importante">Costo:</p>
                                 <input type="number" min="1" id="costo_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off" >
+                                <input type="checkbox" id="iva">
+                                <label class="general" for="iva">IVA</label>
                             </div>
-                            <div class="d-block col-lg-6">
+                        </div>
+                        <div class="row">
+                            <div class="d-block col-lg-4">
+                                <p class="general">IEPS:</p>
+                                <input type="number" min="0" value="0" id="ieps" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off" >
+                            </div>
+                            <div class="d-block col-lg-4">
                                 <p class="importante">Cantidad:</p>
                                 <input type="number" min="1" id="cantidad" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off" >
                             </div>
@@ -183,8 +199,10 @@ if (!isset($_SESSION['acceso'])) {
                                     <th class="text-nowrap text-center" onclick="sortTable(1)">Codigo</th>
                                     <th class="text-nowrap text-center" onclick="sortTable(2)">Nombre</th>
                                     <th class="text-nowrap text-center" onclick="sortTable(3)">Costo</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(4)">Cantidad</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(5)">Subtotal</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(4)">IVA</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(5)">IEPS</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(6)">Cantidad</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(7)">Subtotal</th>
                                 </tr>
                             </thead>
                             <tbody id="tabla_compra">
@@ -193,8 +211,15 @@ if (!isset($_SESSION['acceso'])) {
                         </table>
                     </div><!--table container-->
                 </div>
-                <p class="p-2 text-nowrap text-right font-weight-bold bg-dark text-white">Total: <span id="total_compra" class="text-nowrap text-center font-weight-bold">$0</span></p>
-            </div><!--col-7-->
+                <div class="col-6 p-2 text-nowrap text-right font-weight-bold bg-dark text-white">
+                    <p class="mb-0">Subtotal: <span id="info_subtotal" class="text-nowrap text-center font-weight-bold">$0</span></p>
+                    <!-- <p class="mb-0">Descuento: <span id="info_descuento" class="text-nowrap text-center font-weight-bold">$0</span></p> -->
+                    <p class="mb-0">IVA: <span id="info_iva" class="text-nowrap text-center font-weight-bold">$0</span></p>
+                    <p class="mb-0">IEPS: <span id="info_ieps" class="text-nowrap text-center font-weight-bold">$0</span></p>
+                    <!-- <p class="mb-0">Anticipo: <span id="info_anticipo" class="text-nowrap text-center font-weight-bold">$0</span></p> -->
+                    <p class="mb-0">Total: <span id="info_total" class="text-nowrap text-center font-weight-bold">$0</span></p>
+                </div>
+            </div><!--col-6-->
         </div><!--row compra-->
     </div><!--container-->
     
