@@ -1,4 +1,5 @@
 <?php
+
 include_once '../Models/Conexion.php';
 
 if(isset($_POST['Dfecha_activacion']) && isset($_POST['Dfecha_vencimiento']) && isset($_POST['Sestado']) 

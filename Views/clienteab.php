@@ -2,20 +2,20 @@
 <html lang="en" dir="ltr">
 
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/sweetalert.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="img/logo/nav1.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="../css/bootstrap.css">
+        <link rel="stylesheet" href="../css/sweetalert.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="icon" href="img/logo/nav1.png">
 
-    <script src="../js/sweetalert.js"></script>
-    <script src="../js/sweetalert.min.js"></script>
-    <script src="../js/jquery.js"></script>
-    <script src="../js/index.js"></script>
+        <script src="../js/sweetalert.js"></script>
+        <script src="../js/sweetalert.min.js"></script>
+        <script src="../js/jquery.js"></script>
+        <script src="../js/index.js"></script>
 
-    <title>Usuarios</title>
+    <title>Cliente AB</title>
     <script>
       function cerrar() {
         window.close();
@@ -24,6 +24,10 @@
   </head>
 
   <body onload="inicio();">
+  <?php
+    $sel = "usuarios";
+    include("../Controllers/NavbarAB.php")
+    ?>
 
         <div class="contenedor container-fluid">
           <div class="row align-items-start">
@@ -44,7 +48,7 @@
                   <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
                     <thead class="thead-dark">
                       <tr class="encabezados">
-                        <th class="text-nowrap text-center" onclick="sortTable(0)">Email</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(0)">EMAIL</th>
                         <th class="text-nowrap text-center" onclick="sortTable(1)">RFC</th>
                         <th class="text-nowrap text-center" onclick="sortTable(2)">Nombre</th>
                         <th class="text-nowrap text-center" onclick="sortTable(3)">Codigo Postal</th>
@@ -57,10 +61,8 @@
                         <th class="text-nowrap text-center" onclick="sortTable(10)">Telefono</th>
                         <th class="text-nowrap text-center" onclick="sortTable(11)">Fecha nacimiento</th>
                         <th class="text-nowrap text-center" onclick="sortTable(12)">Sexo</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(13)">Acceso</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(14)">Entrada</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(15)">Contrasena</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(16)">Accion</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(13)">Entrada</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(14)">Accion</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>
@@ -90,11 +92,11 @@
                     <div class="d-block d-lg-flex row">
                       <div class="col-lg-4">
                         <h5 class="general">Email:</h5>
-                        <input id="email" class="form form-control" onkeypress="return check(event)" type="email" name="Temail" placeholder="email" autocomplete="new-password" required>
+                        <input id="email" class="form form-control" onkeypress="return check(event)" type="email" name="Temail" placeholder="Email" autocomplete="new-password" required>
                       </div>
                       <div class="col-lg-4">
                         <h5 class="general">RFC:</h5>
-                        <input id="rfc" class="form form-control" onkeypress="return check(event)" type="text" name="Trfc" placeholder="rfc" autocomplete="new-password">
+                        <input id="rfc" class="form form-control" onkeypress="return check(event)" type="text" name="Trfc" placeholder="RFC" autocomplete="new-password">
                       </div>
                       <div class="col-lg-4">
                         <h5 class="general">Nombre:</h5>
@@ -123,42 +125,42 @@
                         <input id="municipio" class="form form-control" type="text" onkeypress="return check(event)" name="Tmunicipio" placeholder="Municipio" autocomplete="new-password"><br>
                       </div>
                       <div class="col-lg-4">
-                        <h5 class="general">Estado:</h5>
-                        <select class="form form-control" id="estado" name="Sestado">
-                          <option value="Aguascalientes">Aguascalientes</option>
-                          <option value="Baja California">Baja California	</option>
-                          <option value="Baja California Sur">Baja California Sur</option>
-                          <option value="Campeche">Campeche</option>
-                          <option value="Chiapas">Chiapas</option>
-                          <option value="Chihuahua">Chihuahua</option>
-                          <option value="Ciudad de México">Ciudad de México</option>
-                          <option value="Coahuila">Coahuila</option>
-                          <option value="Colima">Colima</option>
-                          <option value="Durango">Durango</option>
-                          <option value="Guanajuato">Guanajuato</option>
-                          <option value="Guerrero">Guerrero</option>
-                          <option value="Hidalgo">Hidalgo</option>
-                          <option value="Jalisco">Jalisco</option>
-                          <option value="México">México</option>
-                          <option value="Michoacán">Michoacán</option>
-                          <option value="Morelos">Morelos</option>
-                          <option value="Nayarit">Nayarit</option>
-                          <option value="Nuevo León">Nuevo León</option>
-                          <option value="Oaxaca">Oaxaca</option>
-                          <option value="Puebla">Puebla</option>
-                          <option value="Querétaro">Querétaro</option>
-                          <option value="Quintana Roo">Quintana Roo</option>
-                          <option value="San Luis Potosí">San Luis Potosí</option>
-                          <option value="Sinaloa">Sinaloa</option>
-                          <option value="Sonora">Sonora</option>
-                          <option value="Tabasco">Tabasco</option>
-                          <option value="Tamaulipas">Tamaulipas</option>
-                          <option value="Tlaxcala">Tlaxcala</option>
-                          <option value="Veracruz">Veracruz</option>
-                          <option value="Yucatán">Yucatán</option>
-                          <option value="Zacatecas">Zacatecas</option>
-                        </select>
-                      </div>
+                            <h5 class="general">Estado:</h5>
+                            <select class="form form-control" id="estado" name="Sestado">
+                              <option value="Aguascalientes">Aguascalientes</option>
+                              <option value="Baja California">Baja California	</option>
+                              <option value="Baja California Sur">Baja California Sur</option>
+                              <option value="Campeche">Campeche</option>
+                              <option value="Chiapas">Chiapas</option>
+                              <option value="Chihuahua">Chihuahua</option>
+                              <option value="Ciudad de México">Ciudad de México</option>
+                              <option value="Coahuila">Coahuila</option>
+                              <option value="Colima">Colima</option>
+                              <option value="Durango">Durango</option>
+                              <option value="Guanajuato">Guanajuato</option>
+                              <option value="Guerrero">Guerrero</option>
+                              <option value="Hidalgo">Hidalgo</option>
+                              <option value="Jalisco">Jalisco</option>
+                              <option value="México">México</option>
+                              <option value="Michoacán">Michoacán</option>
+                              <option value="Morelos">Morelos</option>
+                              <option value="Nayarit">Nayarit</option>
+                              <option value="Nuevo León">Nuevo León</option>
+                              <option value="Oaxaca">Oaxaca</option>
+                              <option value="Puebla">Puebla</option>
+                              <option value="Querétaro">Querétaro</option>
+                              <option value="Quintana Roo">Quintana Roo</option>
+                              <option value="San Luis Potosí">San Luis Potosí</option>
+                              <option value="Sinaloa">Sinaloa</option>
+                              <option value="Sonora">Sonora</option>
+                              <option value="Tabasco">Tabasco</option>
+                              <option value="Tamaulipas">Tamaulipas</option>
+                              <option value="Tlaxcala">Tlaxcala</option>
+                              <option value="Veracruz">Veracruz</option>
+                              <option value="Yucatán">Yucatán</option>
+                              <option value="Zacatecas">Zacatecas</option>
+                            </select>
+                          </div>
                       <div class="col-lg-4">
                         <h5 class="general">Pais:</h5>
                         <input id="pais" class="form form-control" type="text" onkeypress="return check(event)" name="Tpais" placeholder="País" autocomplete="new-password"><br>
@@ -180,14 +182,6 @@
                           <option value="F">Femenino</option>
                         </select>
                       </div>
-                      <div class="d-block d-lg-flex row">
-                        <div class="col-lg-12">
-                          <h5 class="general">Acceso:</h5>
-                          <select class="form form-control" id="acceso" name="Sacceso" required>
-                            <option value="CEOAB">CEO</option>
-                            <option value="ManagerAB">Manager</option>
-                          </select>
-                        </div>
 
                         <div class="d-block d-lg-flex row">
                           <div class="col-lg-12">
@@ -211,10 +205,9 @@
               </div>
               <!-- Modal -->
         <script src="../js/user_jquery.js"></script>
-        <script src="../js/usuariosab.js"></script>
+        <script src="../js/clientes.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
       </body>
 
     </html>

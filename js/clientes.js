@@ -60,7 +60,7 @@ $(document).ready(function () {
 
         success: function (response) {
           console.log(response);
-         let datos = JSON.parse(response);
+          let datos = JSON.parse(response);
           let template = "";
           $.each(datos, function (i, item) {
             template += `

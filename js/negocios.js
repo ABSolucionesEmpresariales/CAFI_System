@@ -40,6 +40,10 @@ $(document).ready(function () {
       console.log(response);
       $("#mensaje").css("display", "block");
       if (response == "1") {
+        if(editar == true){
+          $('.modal').modal('hide');
+          $("#mensaje").css("display", "none");
+        }
         $("#mensaje").text("Registro Exitoso");
         $("#mensaje").css("color", "green");
         $("#email").focus();

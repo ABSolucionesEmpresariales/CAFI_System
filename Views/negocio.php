@@ -20,6 +20,10 @@
 </head>
 
 <body >
+<?php
+    $sel = "negocios";
+    include("../Controllers/NavbarAB.php")
+    ?>
     <!-- Modal -->
     <div class="modal fade" id="modalForm" role="dialog">
         <div class="modal-dialog">
