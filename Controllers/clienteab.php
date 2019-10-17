@@ -75,7 +75,7 @@ echo $conexion->consultaPreparada($datos_usuariocafi,$consulta_usuariocafi,1,$ti
   //respuesta al front
   echo $conexion->consultaPreparada($datos_usuariocafi,$editar,1,$tipo_datos);
 }
-}else if(isset($_POST['tabla'])){
+}else if(isset($_POST['tabla']) && $_POST['tabla'] === "tabla"){
     //obtencion del json para pintar la tabla
     $conexion = new Models\Conexion();
     $consulta = "SELECT persona.email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento,

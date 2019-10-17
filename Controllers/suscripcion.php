@@ -63,7 +63,7 @@ if(isset($_POST['Dfecha_activacion']) && isset($_POST['Dfecha_vencimiento']) && 
     echo $respuesta;
     //respuesta al front
     
-    }else if(isset($_POST['tabla'])){
+    }else if(isset($_POST['tabla']) && $_POST['tabla'] === "tabla"){
     //obtencion del json para pintar los renglones de la tabla
     $conexion = new Models\Conexion();
     $consulta = "SELECT idsuscripcion,fecha_activacion,fecha_vencimiento,suscripcion.estado,monto,paquete,
@@ -71,7 +71,7 @@ if(isset($_POST['Dfecha_activacion']) && isset($_POST['Dfecha_vencimiento']) && 
     $jsonstring = json_encode($conexion->obtenerDatosDeTabla($consulta));
     echo $jsonstring;
     
-}else if(isset($_POST['combo'])){
+}else if(isset($_POST['combo']) && $_POST['combo'] === "combo"){
   //obtencion de json para pinta los renglones del combo box
   $conexion = new Models\Conexion();
   $consulta = "SELECT idnegocios,nombre FROM negocios t1

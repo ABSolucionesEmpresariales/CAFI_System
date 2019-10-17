@@ -56,13 +56,13 @@ array_push( $datos_negocio,
 echo $conexion->consultaPreparada($datos_negocio,$consulta,1,$tipo_datos);
 //respuesta al front
 
-}else if(isset($_POST['tabla'])){
+}else if(isset($_POST['tabla']) && $_POST['tabla'] ==="tabla"){
     //obtencion del json para pintar los renglones de la tabla
     $conexion = new Models\Conexion();
     $consulta = "SELECT * FROM negocios";
     $jsonstring = json_encode($conexion->obtenerDatosDeTabla($consulta));
     echo $jsonstring;
-}else if(isset($_POST['combo'])){
+}else if(isset($_POST['combo']) && $_POST['combo'] === "combo"){
   //obtencion de json para pinta los renglones del combo box
   $conexion = new Models\Conexion();
   $consulta = "SELECT email FROM usuarioscafi WHERE acceso = ?";
