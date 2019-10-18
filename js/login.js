@@ -12,23 +12,19 @@ $(document).ready(function () {
 
   $("#formulario").submit(function (e) {
     $.post("../Controllers/login.php",$("#formulario").serialize(), function (response) {
-      let datos = JSON.parse(response);
-      console.log(datos[0][1]);
-      if(typeof(datos[0][3]) != "undefined"){
-         console.log('existe');
-      }
-
+      console.log(response);
       $("#mensaje").css("display", "block");
         if (response != "[]") {
           let datos = JSON.parse(response);
           $.each(datos, function (i, item) {
               if (typeof (item[3]) != 'undefined' ) {
                 if (item[2]=='A') {
-                  if (item[1] == 'CEO' && item[3] == 'null'){
+                  if (item[1] == 'CEO' && item[3] == null){
                     $('.ocultar').hide();
                     $('.mostrar').show();
                       var negocio= $(this).val();
                       $.post("../Controllers/login.php","combo=combo",function (response) {
+                        console.log(response);
                         let datos =JSON.parse(response);
                         var template='';
                         $.each(datos, function(i, item) {

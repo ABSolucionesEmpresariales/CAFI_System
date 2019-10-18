@@ -14,14 +14,17 @@ if(isset($_POST['Pcontrasena']) && isset($_POST['Temail'])){
     $consulta="SELECT email,acceso,entrada_sistema,negocio FROM usuarioscafi WHERE BINARY  email = ?  AND BINARY contrasena = ?";
     $tipo_datos="ss";
     $respuesta = json_encode($conexion->consultaPreparada($login,$consulta,2,$tipo_datos));
+
     if($respuesta === "[]"){
         $consulta="SELECT email,acceso,entrada_sistema FROM usuariosab WHERE BINARY  email = ?  AND BINARY contrasena = ?";
         $tipo_datos="ss";
         //para el front
         $respuesta = json_encode($conexion->consultaPreparada($login,$consulta,2,$tipo_datos));
-        $result = json_decode($respuesta);
-        //para el back
+        
+        
     }
+    //para el back
+    $result = json_decode($respuesta);
     if($respuesta != "[]" && $result[0][2] === "A"){
         $_SESSION['email'] = $result[0][0];
         $_SESSION['acceso'] = $result[0][1];
@@ -34,7 +37,7 @@ if(isset($_POST['Pcontrasena']) && isset($_POST['Temail'])){
      echo $respuesta;
     
     }
-    if(isset($_POST['combo']) && $_POST['combo'] === "combo"){
+    if(isset($_POST['combo']) && $_POST['combo'] == "combo"){
         $conexion = new Models\Conexion();
         $consulta="SELECT idnegocios,nombre FROM negocios WHERE dueno = ?";
         $dato = array();

@@ -6,8 +6,8 @@ function token(){
     $codeAlphabet .= "abcdefghijklmnopqrstuvwxyz";
     $codeAlphabet .= "0123456789";
     $max = strlen($codeAlphabet);
-
-    for ($i = 0; $i < $length; $i++) {
+    $conexion = new Models\Conexion();
+    for ($i = 0; $i < 10; $i++) {
     $token .= $codeAlphabet[random_int(0, $max - 1)];
      }
     
@@ -23,7 +23,7 @@ function token(){
         $consulta="UPDATE sesiones SET token= ?, inicio = ? WHERE usuario = ?";
         $datos = array();
         array_push($datos,$token,$datetime,$_SESSION['email']);
-        $conexion->consultaPreparada($datos,$consulta,"sss");
+        $conexion->consultaPreparada($datos,$consulta,1,"sss");
     } else {
         $consulta="INSERT INTO sesiones(usuario,token,inicio) VALUES(?,?,?)";
         $datos = array();
