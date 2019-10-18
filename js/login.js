@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
-  $('Snegocios').on('change',function(){
+  $('#Snegocios').on('change',function(){
+    
     if ($(this).val() != '') {
       $.ajax({
         url: "../Controllers/login.php",
@@ -9,7 +10,7 @@ $(document).ready(function () {
 
         success: function (response) {
         console.log(response);
-        //window.location.replace('');
+        window.location.replace('');
         }
       });
     }
@@ -54,7 +55,7 @@ $(document).ready(function () {
                 }
 
               }else{
-                window.location.replace('usuariosab.html')
+                window.location.replace('usuariosab.php')
                   console.log('Usuario AB');
               }
           });
