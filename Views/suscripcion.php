@@ -1,3 +1,7 @@
+<?php 
+include_once '../Controllers/NavbarAB.php';
+privilegios("Todos");
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
