@@ -39,7 +39,9 @@ function privilegios($privilegios){
         </div>
         <div class="collapse navbar-collapse col-9 d-flex justify-content-center align-items-center" id="navbarNav">
             <ul class="navbar-nav">
-                <?php if($_SESSION['acceso'] === "CEOAB"){?>
+                <?php 
+                session_start();
+                if($_SESSION['acceso'] === "CEOAB"){?>
                     <li class="nav-item mx-2 text-center">        
                         <a id="orange" class="<?php if($sel === 'usuarios'){ echo seleccionado; } ?> nav-link text-white" onclick="window.location.href='usuariosab.php'" title="Usuarios"><img src="../img/clientes.png">Usuarios</a>
                     </li>

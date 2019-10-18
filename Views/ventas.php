@@ -24,6 +24,10 @@
   </head>
 
   <body onload="inicio();">
+      <?php
+    $sel = "venta";
+    include("../Controllers/NavbarCafi.php");
+    ?>
 
         <div class="contenedor container-fluid">
           <div class="row align-items-start">

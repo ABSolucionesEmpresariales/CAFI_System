@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
   $('#Snegocios').on('change',function(){
+    
     if ($(this).val() != '') {
       $.ajax({
         url: "../Controllers/login.php",
@@ -9,7 +10,7 @@ $(document).ready(function () {
 
         success: function (response) {
         console.log(response);
-        //window.location.replace('');
+        window.location.replace('ventas.php');
         }
       });
     }
@@ -46,7 +47,7 @@ $(document).ready(function () {
                       }
                       });
                   }else{
-                    console.log('Trabajador');
+                    window.location.replace('ventas.php');
                   }
                 }else{
                   $("#mensaje").text("Usuario inactivo");
@@ -54,8 +55,13 @@ $(document).ready(function () {
                 }
 
               }else{
-                window.location.replace('usuariosab.html')
-                  console.log('Usuario AB');
+                if (item[2]=='A') {
+                  window.location.replace('usuariosab.php');
+                }else{
+                  $("#mensaje").text("Usuario inactivo");
+                  $("#mensaje").css("color", "red");
+                }
+                  
               }
           });
         }else{
