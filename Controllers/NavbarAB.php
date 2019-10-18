@@ -1,3 +1,37 @@
+<?php 
+session_start();
+include_once '../Models/Conexion.php';
+session_start();
+
+//token
+if (isset($_SESSION['email'])) {
+    $conexion = new Models\Conexion();
+    $consulta="SELECT token FROM sesiones WHERE usuario = ?";
+    $dato = array();
+    array_push($dato, $_SESSION['email']);
+    $result=$conexion->consultaPreparada($dato,$consulta,2,"s");
+    if (isset($result[0][0])) {
+     $token = $result[0][0];
+    if ($_SESSION['token'] != $token) {
+      header('Location: ./../Views/login.php');
+    }
+    }
+    }
+function privilegios($privilegios){
+    if (!isset($_SESSION['acceso']) && $_SESSION['entrada_sistema'] != "A") {
+        header('Location: ./../Views/login.php');
+    }
+    if($privilegios === "Todos"){
+      if ($_SESSION['acceso'] != "ManagerAB" && $_SESSION['acceso'] != "CEOAB") {
+            header('Location: ./../Views/login.php');
+        }
+    }else if($privilegios === "Superiores"){
+       if($_SESSION['acceso'] != "CEO"){
+            header('Location: ./../Views/login.php');
+       }
+    } 
+}
+?>
 <div class="container-fluid px-0 d-none d-lg-block fixed-top">
     <nav style="background-color: black;" class="navbar navbar-expand-lg navbar-dark justify-content-around p-0">
         <div class="col-1 d-flex justify-content-between align-items-center">
