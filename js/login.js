@@ -1,11 +1,16 @@
 $(document).ready(function () {
 
-  $('.mostrar').css('display','none');
-
   $('Snegocios').on('change',function(){
     if ($(this).val() != '') {
-      $.post("../Controllers/login.php","negocio="+ $(this).val(),function(response){
-        window.location.replace('');
+      $.ajax({
+        url: "../Controllers/login.php",
+        type: "POST",
+        data: "negocio=" + $(this).val(),
+
+        success: function (response) {
+        console.log(response);
+        //window.location.replace('');
+        }
       });
     }
   });
@@ -22,17 +27,23 @@ $(document).ready(function () {
                   if (item[1] == 'CEO' && item[3] == null){
                     $('.ocultar').hide();
                     $('.mostrar').show();
-                      var negocio= $(this).val();
-                      $.post("../Controllers/login.php","combo=combo",function (response) {
+
+                    $.ajax({
+                      url: "../Controllers/login.php",
+                      type: "POST",
+                      data: "combo=combo",
+
+                      success: function (response) {
                         console.log(response);
                         let datos =JSON.parse(response);
-                        var template='';
+                        var template='<option value="">Elegir Sucursal</option>';
                         $.each(datos, function(i, item) {
                           template += `
                           <option value="${item[0]}">${item[1]}</option>
                           `;
                         });
                         $('#Snegocios').html(template);
+                      }
                       });
                   }else{
                     console.log('Trabajador');

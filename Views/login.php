@@ -28,7 +28,7 @@
 
 
         <div id="index_form" class="card card-body row d-block col-md-4">
-          <div class="mostrar">
+          <div class="mostrar" style="display: none">
             <div class="col-lg-12">
               <h5 class="general">Selecionar negocio:</h5>
               <select class="form form-control" id="Snegocios" name="Snegocio" required>
