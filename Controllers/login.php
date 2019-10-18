@@ -47,7 +47,7 @@ if(isset($_POST['Pcontrasena']) && isset($_POST['Temail'])){
 
     if(isset($_POST['negocio'])){
         $_SESSION['negocio'] =  Models\Conexion::eliminar_simbolos($_POST['negocio']);
-        echo $_SESSION['negocio'];
+        echo "exito";
     }
    
     if (isset($_GET['cerrar_sesion'])) {

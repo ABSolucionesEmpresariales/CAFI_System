@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  $('Snegocios').on('change',function(){
+  $('#Snegocios').on('change',function(){
     if ($(this).val() != '') {
       $.ajax({
         url: "../Controllers/login.php",
