@@ -22,7 +22,7 @@
             </ul>
         </div>
         <div class="col-1 d-flex justify-content-end align-items-center text-center text-uppercase">
-            <a id="nav-salir" class="nav-link text-danger font-weight-bold" href="index.php?cerrar_sesion" title="Salir"><img src="../img/logout.png">Salir</a>
+            <a id="nav-salir" class="nav-link text-danger font-weight-bold" href="../Controllers/login.php?cerrar_sesion" title="Salir"><img src="../img/logout.png">Salir</a>
         </div>
     </nav>
 </div>
@@ -61,7 +61,7 @@
                 </div>
                 
                 <li class="nav-item mx-2 text-center">
-                    <a id="nav-salir" class="nav-link text-white" href="index.php?cerrar_sesion" title="Salir"><img src="../img/salir.png">Salir</a>
+                    <a id="nav-salir" class="nav-link text-white" href="../Controllers/login.php?cerrar_sesion" title="Salir"><img src="../img/salir.png">Salir</a>
                 </li>
             </ul>
         </div>

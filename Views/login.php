@@ -18,6 +18,7 @@
   <script type="text/javascript"></script>
 </head>
 
+
 <body style="background-color: white;">
   <div class="container text-center">
 
@@ -25,7 +26,19 @@
       <img src="../img/logo/2.png" alt="" id="logo" class="animaLogo">
       <div>
 
+
         <div id="index_form" class="card card-body row d-block col-md-4">
+          <div class="mostrar">
+            <div class="col-lg-12">
+              <h5 class="general">Selecionar negocio:</h5>
+              <select class="form form-control" id="Snegocios" name="Snegocio" required>
+                <option value="">Elegir Sucursal</option>
+              </select>
+          </div>
+
+          </div>
+          <div class="ocultar">
+
           <legend>Ingrese su usuario y contraseña:</legend>
           <form class="form-group" id="formulario" action="login.html" method="post">
             <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
@@ -34,9 +47,16 @@
             <input id="index_button" type="submit" class="btn btn-secondary btn-lg btn-block btn-dark" name="Login" value="Continuar">
           </form>
         </div>
+      </div>
 
       </div>
       <script src="../js/login.js"></script>
 </body>
 
 </html>
+
+<?php
+
+
+
+?>
