@@ -1,5 +1,6 @@
-<?php 
-include_once '../Controllers/NavbarAB.php';
+<?php
+session_start();
+require_once('../Controllers/seguridadAB.php');
 privilegios("Superiores");
 ?>
 <!DOCTYPE html>
@@ -31,6 +32,7 @@ privilegios("Superiores");
   <?php
     $sel = "usuarios";
     include("../Controllers/NavbarAB.php");
+ 
     ?>
 
         <div class="contenedor container-fluid">

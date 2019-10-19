@@ -1,19 +1,18 @@
 <?php
+session_start();
 include_once '../Models/Conexion.php';
 
 if(isset($_POST['Tnombre']) && isset($_POST['Sgiro']) && isset($_POST['Tcalle_numero']) && isset($_POST['Tcolonia']) 
 && isset($_POST['Tlocalidad']) && isset($_POST['Tmunicipio']) && isset($_POST['Sestado'])  && isset($_POST['Spais']) 
-&& isset($_POST['Ttelefono']) && isset($_POST['Simpresora']) && isset($_POST['Sdueno']))
+&& isset($_POST['Ttelefono']) && isset($_POST['Simpresora']) && isset($_POST['Sdueno']) && isset($_POST['idnegocios']))
 {
 
 if($_POST['accion'] === 'false'){
 
 $conexion = new Models\Conexion();
-$idnegocio = NULL;
-$usuarioab = NULL;
 $datos_negocio = array();
 array_push( $datos_negocio,
-            $idnegocio,
+            $conexion->eliminar_simbolos($_POST['idnegocios']),
             $conexion->eliminar_simbolos($_POST['Tnombre']),
             $conexion->eliminar_simbolos($_POST['Sgiro']),
             $conexion->eliminar_simbolos($_POST['Tcalle_numero']),
@@ -25,14 +24,13 @@ array_push( $datos_negocio,
             $conexion->eliminar_simbolos($_POST['Ttelefono']),
             $conexion->eliminar_simbolos($_POST['Simpresora']),
             $conexion->eliminar_simbolos($_POST['Sdueno']),
-            $usuarioab
+            $_SESSION['email']
 );
     $consulta = "INSERT INTO negocios (idnegocios,nombre,giro,calle_numero,colonia,localidad,municipio,estado,pais,telefono,impresora,dueno,usuarioab) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
     $tipo_datos = "sssssssssssss";
 }else{
     
 $conexion = new Models\Conexion();
-$usuarioab=NULL;
 $datos_negocio = array();
 array_push( $datos_negocio,
             $conexion->eliminar_simbolos($_POST['Tnombre']),
@@ -46,7 +44,7 @@ array_push( $datos_negocio,
             $conexion->eliminar_simbolos($_POST['Ttelefono']),
             $conexion->eliminar_simbolos($_POST['Simpresora']),
             $conexion->eliminar_simbolos($_POST['Sdueno']),
-            $usuarioab, 
+            $_SESSION['email'], 
             $_POST['idnegocios']
 );
     $consulta= "UPDATE negocios SET nombre = ?, giro = ?, calle_numero = ?, colonia = ?, localidad = ?, municipio = ?, 

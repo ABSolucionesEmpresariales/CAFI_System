@@ -1,37 +1,4 @@
-<?php 
-session_start();
-include_once '../Models/Conexion.php';
-session_start();
 
-//token
-if (isset($_SESSION['email'])) {
-    $conexion = new Models\Conexion();
-    $consulta="SELECT token FROM sesiones WHERE usuario = ?";
-    $dato = array();
-    array_push($dato, $_SESSION['email']);
-    $result=$conexion->consultaPreparada($dato,$consulta,2,"s");
-    if (isset($result[0][0])) {
-     $token = $result[0][0];
-    if ($_SESSION['token'] != $token) {
-      header('Location: ./../Views/login.php');
-    }
-    }
-    }
-function privilegios($privilegios){
-    if (!isset($_SESSION['acceso']) && $_SESSION['entrada_sistema'] != "A") {
-        header('Location: ./../Views/login.php');
-    }
-    if($privilegios === "Todos"){
-      if ($_SESSION['acceso'] != "ManagerAB" && $_SESSION['acceso'] != "CEOAB") {
-            header('Location: ./../Views/login.php');
-        }
-    }else if($privilegios === "Superiores"){
-       if($_SESSION['acceso'] != "CEO"){
-            header('Location: ./../Views/login.php');
-       }
-    } 
-}
-?>
 <div class="container-fluid px-0 d-none d-lg-block fixed-top">
     <nav style="background-color: black;" class="navbar navbar-expand-lg navbar-dark justify-content-around p-0">
         <div class="col-1 d-flex justify-content-between align-items-center">
@@ -40,7 +7,6 @@ function privilegios($privilegios){
         <div class="collapse navbar-collapse col-9 d-flex justify-content-center align-items-center" id="navbarNav">
             <ul class="navbar-nav">
                 <?php 
-                session_start();
                 if($_SESSION['acceso'] === "CEOAB"){?>
                     <li class="nav-item mx-2 text-center">        
                         <a id="orange" class="<?php if($sel === 'usuarios'){ echo seleccionado; } ?> nav-link text-white" onclick="window.location.href='usuariosab.php'" title="Usuarios"><img src="../img/clientes.png">Usuarios</a>
@@ -73,7 +39,7 @@ function privilegios($privilegios){
                 <div class="row">
                     <div class="col-6">
                         <li class="nav-item mx-2 text-center">        
-                            <a id="orange" class="<?php if($sel === 'usuarios'){ echo seleccionado; } ?> nav-link text-white" onclick="window.location.href='VUsuarios_ab.php'" title="Usuarios"><img src="../img/clientes.png">Usuarios</a>
+                <a id="orange" class="<?php if($sel === 'usuarios'){ echo seleccionado; } ?> nav-link text-white" onclick="window.location.href='VUsuarios_ab.php'" title="Usuarios"><img src="../img/clientes.png">Usuarios</a>
                         </li>
                     </div>
                     <div class="col-6">
