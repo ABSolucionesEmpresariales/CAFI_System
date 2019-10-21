@@ -6,6 +6,7 @@ if(isset($_POST['Tnombre']) && isset($_POST['Sgiro']) && isset($_POST['Tcalle_nu
 && isset($_POST['Tlocalidad']) && isset($_POST['Tmunicipio']) && isset($_POST['Sestado'])  && isset($_POST['Spais']) 
 && isset($_POST['Ttelefono']) && isset($_POST['Simpresora']) && isset($_POST['Sdueno']) && isset($_POST['idnegocios']))
 {
+    $conexion = new Models\Conexion();
     $datos_negocio = array(  
     $conexion->eliminar_simbolos($_POST['idnegocios']),
     $conexion->eliminar_simbolos($_POST['Tnombre']),
@@ -22,14 +23,11 @@ if(isset($_POST['Tnombre']) && isset($_POST['Sgiro']) && isset($_POST['Tcalle_nu
     $_SESSION['email']);
 
 if($_POST['accion'] === 'false'){
-    $conexion = new Models\Conexion();
     $consulta = "INSERT INTO negocios (idnegocios,nombre,giro,calle_numero,colonia,localidad,municipio,estado,pais,telefono,impresora,dueno,usuarioab) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
     $tipo_datos = "sssssssssssss";
     echo $conexion->consultaPreparada($datos_negocio,$consulta,1,$tipo_datos,false);
     //respuesta al front
 }else{
-    
-    $conexion = new Models\Conexion();
     $consulta= "UPDATE negocios SET nombre = ?, giro = ?, calle_numero = ?, colonia = ?, localidad = ?, municipio = ?, 
     estado = ?, pais = ?, telefono = ?,impresora = ?, dueno = ?, usuarioab = ? WHERE idnegocios = ?";
     $tipo_datos = "ssssssssssssi";
