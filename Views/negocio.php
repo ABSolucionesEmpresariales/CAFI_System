@@ -84,7 +84,6 @@ privilegios("Todos");
                                       <option value="Campeche">Campeche</option>
                                       <option value="Chiapas">Chiapas</option>
                                       <option value="Chihuahua">Chihuahua</option>
-                                      <option value="Ciudad de México">Ciudad de México</option>
                                       <option value="Coahuila">Coahuila</option>
                                       <option value="Colima">Colima</option>
                                       <option value="Durango">Durango</option>

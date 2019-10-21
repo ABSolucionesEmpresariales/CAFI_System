@@ -9,7 +9,6 @@ if(isset($_POST['Pcontrasena']) && isset($_POST['Temail'])){
     array_push($login,
                $conexion->eliminar_simbolos($_POST['Temail']) , 
                $conexion->eliminar_simbolos($_POST['Pcontrasena'])
-          
     );
     $consulta="SELECT email,acceso,entrada_sistema,negocio FROM usuarioscafi WHERE BINARY  email = ?  AND BINARY contrasena = ?";
     $tipo_datos="ss";

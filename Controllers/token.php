@@ -17,9 +17,8 @@ function token(){
     $usuario = array();
     array_push($usuario,$_SESSION['email']);
     $idsesiones = $conexion->consultaPreparada($usuario,$consulta,2,"s");
-  
 
-    if ($idsesiones != "[]") {
+    if ($idsesiones != null) {
         $consulta="UPDATE sesiones SET token= ?, inicio = ? WHERE usuario = ?";
         $datos = array();
         array_push($datos,$token,$datetime,$_SESSION['email']);

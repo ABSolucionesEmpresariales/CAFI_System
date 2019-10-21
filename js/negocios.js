@@ -68,7 +68,12 @@ $(document).ready(function () {
        let datos = JSON.parse(response);
         let template = "";
         $.each(datos, function (i, item) {
-          template += `
+          for(var y = 0; y < 12; y++){
+            template += `
+            <tr>
+                  <td class="text-nowrap text-center d-none">${item[y]}</td>`;
+          }
+          /* template += `
           <tr>
                 <td class="text-nowrap text-center d-none">${item[0]}</td>
                 <td class="text-nowrap text-center">${item[1]}</td>
@@ -99,8 +104,8 @@ $(document).ready(function () {
                         Editar
                       </a>
                   </div>
-                  </th>`;
-                }
+                  </th>`; 
+                }*/
 
         });
         $("#cuerpo").html(template);

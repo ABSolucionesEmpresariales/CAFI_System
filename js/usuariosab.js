@@ -60,6 +60,14 @@ $(document).ready(function () {
        let datos = JSON.parse(response);
         let template = "";
         $.each(datos, function (i, item) {
+          template += `<tr>
+`;
+          for(var y = 0; y <= 15; y++){
+            template += `<td class="text-nowrap text-center ">${item[y]}</td>
+            `;
+          }
+
+       /*  $.each(datos, function (i, item) {
           template += `
           <tr>
                 <td class="text-nowrap text-center email">${item[0]}</td>
@@ -90,12 +98,14 @@ $(document).ready(function () {
                     </a>
                 </div>
                 </th>
-          `;
+          `; */
         });
+        console.log(template);
         $("#cuerpo").html(template); 
       }
     });
   }
+
   $(document).on("click",".Beliminar",function(){
     var valor = $(this).parents("tr").find("td").eq(0).text();
     swal({

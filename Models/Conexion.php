@@ -59,6 +59,7 @@ class Conexion
             return mysqli_fetch_all($stmt->get_result());
         }
     }
+
    public function eliminar_simbolos($string){
         $string = trim($string);
         $string = str_replace(

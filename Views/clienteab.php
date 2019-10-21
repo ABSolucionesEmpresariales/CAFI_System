@@ -1,6 +1,5 @@
 <?php 
 include_once '../Controllers/NavbarAB.php';
-privilegios("Todos");
 ?>
 
 <!DOCTYPE html>
