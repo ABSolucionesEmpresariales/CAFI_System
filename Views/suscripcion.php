@@ -1,5 +1,6 @@
-<?php 
-include_once '../Controllers/NavbarAB.php';
+<?php
+session_start();
+require_once('../Controllers/seguridadAB.php');
 privilegios("Todos");
 ?>
 <!DOCTYPE html>
@@ -121,12 +122,11 @@ privilegios("Todos");
 
                       <div class="col-lg-12 ocultar">
                         <h5 class="general">Negocio:</h5>
-                        <select class="form form-control" id="negocio" name="Snegocio">
-                        </select>
+                        <select class="form form-control" id="negocio" name="Snegocio"></select>
                       </div>
                       <div class="col-lg-12">
                           <h5 class="general">Monto:</h5>
-                          <input id="monto" class="form form-control" onkeypress="return check(event)" type="text" name="Tmonto" placeholder="Monto" autocomplete="new-password" required disabled>
+                          <input id="monto" class="form form-control" onkeypress="return check(event)" type="text" name="Tmonto" placeholder="Monto" autocomplete="new-password" required >
                         </div>
 
                         <input id="bclose" type="submit" class="mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">

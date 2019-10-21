@@ -1,4 +1,8 @@
-
+<?php
+session_start();
+require_once('../Controllers/seguridadAB.php');
+privilegios("Superiores");
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -28,6 +32,7 @@
   <?php
     $sel = "usuarios";
     include("../Controllers/NavbarAB.php");
+ 
     ?>
 
         <div class="contenedor container-fluid">

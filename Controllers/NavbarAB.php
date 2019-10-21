@@ -1,3 +1,4 @@
+
 <div class="container-fluid px-0 d-none d-lg-block fixed-top">
     <nav style="background-color: black;" class="navbar navbar-expand-lg navbar-dark justify-content-around p-0">
         <div class="col-1 d-flex justify-content-between align-items-center">
@@ -6,7 +7,6 @@
         <div class="collapse navbar-collapse col-9 d-flex justify-content-center align-items-center" id="navbarNav">
             <ul class="navbar-nav">
                 <?php 
-                session_start();
                 if($_SESSION['acceso'] === "CEOAB"){?>
                     <li class="nav-item mx-2 text-center">        
                         <a id="orange" class="<?php if($sel === 'usuarios'){ echo seleccionado; } ?> nav-link text-white" onclick="window.location.href='usuariosab.php'" title="Usuarios"><img src="../img/clientes.png">Usuarios</a>
@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-6">
                         <li class="nav-item mx-2 text-center">        
-                            <a id="orange" class="<?php if($sel === 'usuarios'){ echo seleccionado; } ?> nav-link text-white" onclick="window.location.href='VUsuarios_ab.php'" title="Usuarios"><img src="../img/clientes.png">Usuarios</a>
+                <a id="orange" class="<?php if($sel === 'usuarios'){ echo seleccionado; } ?> nav-link text-white" onclick="window.location.href='VUsuarios_ab.php'" title="Usuarios"><img src="../img/clientes.png">Usuarios</a>
                         </li>
                     </div>
                     <div class="col-6">

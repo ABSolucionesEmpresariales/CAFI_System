@@ -61,44 +61,35 @@ $(document).ready(function () {
         let template = "";
         $.each(datos, function (i, item) {
           template += `<tr>
-`;
-          for(var y = 0; y <= 15; y++){
-            template += `<td class="text-nowrap text-center ">${item[y]}</td>
-            `;
-          }
-
-       /*  $.each(datos, function (i, item) {
-          template += `
-          <tr>
-                <td class="text-nowrap text-center email">${item[0]}</td>
-                <td class="text-nowrap text-center">${item[1]}</td>
-                <td class="text-nowrap text-center">${item[2]}</td>
-                <td class="text-nowrap text-center">${item[3]}</td>
-                <td class="text-nowrap text-center">${item[4]}</td>
-                <td class="text-nowrap text-center">${item[5]}</td>
-                <td class="text-nowrap text-center">${item[6]}</td>
-                <td class="text-nowrap text-center">${item[7]}</td>
-                <td class="text-nowrap text-center">${item[8]}</td>
-                <td class="text-nowrap text-center">${item[9]}</td>
-                <td class="text-nowrap text-center">${item[10]}</td>
-                <td class="text-nowrap text-center">${item[11]}</td>
-                <td class="text-nowrap text-center">${item[12]}</td>
-                <td class="text-nowrap text-center">${item[13]}</td>
-                <td class="text-nowrap text-center">${item[14]}</td>
-                <td class="text-nowrap text-center">${item[15]}</td>
-                <th class="text-nowrap text-center" style="width:100px;">
-                <div class="row">
-                    <a data-toggle="modal" data-target="#modalForm" style="margin: 0 auto;" class="BeditarUsuarios btn btn-danger" href="#">
-                      Editar
-                    </a>
-                    </div>
-                    <div class="row">
-                    <a  style="margin: 0 auto;" class="Beliminar btn btn-danger" href="#">
-                      Eliminado
-                    </a>
-                </div>
-                </th>
-          `; */
+<td class="text-nowrap text-center email">${item[0]}</td>
+<td class="text-nowrap text-center">${item[1]}</td>
+<td class="text-nowrap text-center">${item[2]}</td>
+<td class="text-nowrap text-center">${item[3]}</td>
+<td class="text-nowrap text-center">${item[4]}</td>
+<td class="text-nowrap text-center">${item[5]}</td>
+<td class="text-nowrap text-center">${item[6]}</td>
+<td class="text-nowrap text-center">${item[7]}</td>
+<td class="text-nowrap text-center">${item[8]}</td>
+<td class="text-nowrap text-center">${item[9]}</td>
+<td class="text-nowrap text-center">${item[10]}</td>
+<td class="text-nowrap text-center">${item[11]}</td>
+<td class="text-nowrap text-center">${item[12]}</td>
+<td class="text-nowrap text-center">${item[13]}</td>
+<td class="text-nowrap text-center">${item[14]}</td>
+<td class="text-nowrap text-center">${item[15]}</td>
+<th class="text-nowrap text-center" style="width:100px;">
+<div class="row">
+    <a data-toggle="modal" data-target="#modalForm" style="margin: 0 auto;" class="BeditarUsuarios btn btn-danger" href="#">
+      Editar
+    </a>
+    </div>
+    <div class="row">
+    <a  style="margin: 0 auto;" class="Beliminar btn btn-danger" href="#">
+      Eliminado
+    </a>
+</div>
+</th>
+          `;
         });
         console.log(template);
         $("#cuerpo").html(template); 

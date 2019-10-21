@@ -15,6 +15,27 @@ $(document).ready(function () {
     $("#mensaje").css("display", "none");
   });
 
+  $('#usuario_extra').on('keyup',function(){
+
+      var paquete = $('#paquete').val();
+      if(paquete == 0){
+        pack = 0;
+      }
+      if(paquete == 1){
+        pack = uno;
+      }else if(paquete == 2){
+        pack = dos;
+      }else if(paquete == 3){
+        pack = tres;
+      }
+      if($(this).val() == ''){
+        total_usuarios = parseInt(0) * extra + pack;
+      }else{
+        $('#monto').val(total_usuarios = parseInt($(this).val()) * extra + pack);
+      }
+  });
+
+
   $('#paquete').on('change',function(){
     var paquete = $(this).val();
     var cant_usuario_extra = $('#usuario_extra').val();
@@ -27,6 +48,7 @@ $(document).ready(function () {
       $('#monto').val(total_usuarios = parseInt(cant_usuario_extra) * extra + tres);
     }
   });
+
 
   $('#estado').on('change',function(){
     if(editar == true && $(this).val() == 'I'){
@@ -53,20 +75,26 @@ $(document).ready(function () {
     }
     $('#monto').val(total_usuarios = parseInt(cant_usuario_extra) * extra + pack);
   });
+
+
+
   function obtenerNegocios(){
     $.ajax({
       url: "../Controllers/suscripcion.php",
       type: "POST",
       data: "combo=combo",
+
       success: function (response) {
         let datos = JSON.parse(response);
-        let template = "";
-        $.each(datos, function (i, item) {
-          template += `
-          <option value='${item[0]}'>${item[1]}<option>
+        console.log(datos);
+        let template1 = "";
+
+        $.each(datos, function(i, item) {
+          template1 += `
+          <option value="${item[0]}">${item[1]}</option>
           `;
         });
-        $('#negocio').html(template);
+        $('#negocio').html(template1);
     }
   });
   }
@@ -91,12 +119,14 @@ $(document).ready(function () {
   });
 
   $("#formulario").submit(function (e) {
+
     $.post("../Controllers/suscripcion.php",$("#formulario").serialize() + '&idsuscripcion=' + idSuscripcion + '&accion=' + editar, function (response) {
       console.log(response);
       $("#mensaje").css("display", "block");
       if (response == "1") {
         if(editar == true){
           $('.modal').modal('hide');
+          $("#mensaje").css("display", "none");
         }
         $("#mensaje").text("Registro Exitoso");
         $("#mensaje").css("color", "green");
@@ -133,7 +163,8 @@ $(document).ready(function () {
                 <td class="text-nowrap text-center">${item[5]}</td>
                 <td class="text-nowrap text-center">${item[6]}</td>
                 <td class="text-nowrap text-center">${item[7]}</td>
-                <td class="text-nowrap text-center">${item[8]}</td>
+                <td class="text-nowrap text-center d-none">${item[8]}</td>
+                <td class="text-nowrap text-center">${item[9]}</td>
                 <th class="text-nowrap text-center" style="width:100px;">
                 <div class="row">
                     <a data-toggle="modal" data-target="#modalForm" style="margin: 0 auto;" class="Beditar btn btn-danger" href="#">
@@ -165,8 +196,8 @@ $(document).ready(function () {
     $("#monto").val(datos[4]);
     $("#paquete").val(datos[5]);
     $("#usuario_extra").val(datos[6]);
-    $("#negocio").val(datos[7]);
-    $("#usuarioab").val(datos[8]);
+    var template = `<option value='${datos[8]}'>${datos[7]}</option>`;
+    $("#negocio").html(template);
     editar = true;
   });
 });

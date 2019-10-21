@@ -1,3 +1,8 @@
+<?php
+session_start();
+require_once('../Controllers/seguridadCafi.php');
+privilegios("Todos");
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 

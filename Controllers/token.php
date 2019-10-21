@@ -14,20 +14,18 @@ function token(){
     $_SESSION['token'] = $token;
 
     $consulta="SELECT id FROM sesiones WHERE usuario= ?";
-    $usuario = array();
-    array_push($usuario,$_SESSION['email']);
-    $idsesiones = $conexion->consultaPreparada($usuario,$consulta,2,"s");
+    $usuario = array($_SESSION['email']);
+    $idsesiones = $conexion->consultaPreparada($usuario,$consulta,2,"s",false);
+  
 
     if ($idsesiones != null) {
         $consulta="UPDATE sesiones SET token= ?, inicio = ? WHERE usuario = ?";
-        $datos = array();
-        array_push($datos,$token,$datetime,$_SESSION['email']);
-        $conexion->consultaPreparada($datos,$consulta,1,"sss");
+        $datos = array($token,$datetime,$_SESSION['email']);
+        $conexion->consultaPreparada($datos,$consulta,1,"sss",false);
     } else {
         $consulta="INSERT INTO sesiones(usuario,token,inicio) VALUES(?,?,?)";
-        $datos = array();
-        array_push($datos,$_SESSION['email'],$token,$datetime);
-        $conexion->consultaPreparada($datos,$consulta,1,"sss");
+        $datos = array($_SESSION['email'],$token,$datetime);
+        $conexion->consultaPreparada($datos,$consulta,1,"sss",false);
     }
 }
 function getDateTime()

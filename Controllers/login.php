@@ -5,20 +5,19 @@ require_once 'token.php';
 if(isset($_POST['Pcontrasena']) && isset($_POST['Temail'])){
     $conexion = new Models\Conexion();
     
-    $login = array();
-    array_push($login,
-               $conexion->eliminar_simbolos($_POST['Temail']) , 
-               $conexion->eliminar_simbolos($_POST['Pcontrasena'])
-    );
+    $login = array( 
+    $conexion->eliminar_simbolos($_POST['Temail']) , 
+    $conexion->eliminar_simbolos($_POST['Pcontrasena']));
+
     $consulta="SELECT email,acceso,entrada_sistema,negocio FROM usuarioscafi WHERE BINARY  email = ?  AND BINARY contrasena = ?";
     $tipo_datos="ss";
-    $respuesta = json_encode($conexion->consultaPreparada($login,$consulta,2,$tipo_datos));
+    $respuesta = json_encode($conexion->consultaPreparada($login,$consulta,2,$tipo_datos,false));
 
     if($respuesta === "[]"){
         $consulta="SELECT email,acceso,entrada_sistema FROM usuariosab WHERE BINARY  email = ?  AND BINARY contrasena = ?";
         $tipo_datos="ss";
         //para el front
-        $respuesta = json_encode($conexion->consultaPreparada($login,$consulta,2,$tipo_datos));
+        $respuesta = json_encode($conexion->consultaPreparada($login,$consulta,2,$tipo_datos,false));
         
         
     }
@@ -39,9 +38,8 @@ if(isset($_POST['Pcontrasena']) && isset($_POST['Temail'])){
     if(isset($_POST['combo']) && $_POST['combo'] === "combo"){
         $conexion = new Models\Conexion();
         $consulta="SELECT idnegocios,nombre FROM negocios WHERE dueno = ?";
-        $dato = array();
-        array_push($dato, $_SESSION['email']);
-        echo json_encode($conexion->consultaPreparada($dato,$consulta,2,"s"));
+        $dato = array($_SESSION['email']);
+        echo json_encode($conexion->consultaPreparada($dato,$consulta,2,"s",false));
     }
 
     if(isset($_POST['negocio'])){

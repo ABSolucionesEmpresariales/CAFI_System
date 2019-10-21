@@ -1,5 +1,7 @@
-<?php 
-include_once '../Controllers/NavbarAB.php';
+<?php
+session_start();
+require_once('../Controllers/seguridadAB.php');
+privilegios("Todos");
 ?>
 
 <!DOCTYPE html>

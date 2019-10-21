@@ -34,9 +34,20 @@ class Conexion
     }
 
 
-    public function consultaPreparada($datos,$consulta,$accion,$datatipe){
-       
-        
+    public function consultaPreparada($datos,$consulta,$accion,$datatipe,$reestructurar_arreglo){
+
+        if($reestructurar_arreglo === true){
+            //se cambia el elemento que esta en la posicion 1 del array a la ultima posicion para hacer update
+            for($i=0; $i < sizeof($datos)-1; $i++){
+                if($i === 0){
+              $temporal = $datos[$i];
+                }
+              $datos[$i] = $datos[$i+1]; 
+            }
+             $datos[$i] = $temporal;
+            
+        }
+           
         $stmt = $this->con->prepare($consulta);
         
         $args = array(&$datatipe);
@@ -45,8 +56,8 @@ class Conexion
         }
        
         call_user_func_array(array($stmt,'bind_param'), $args);
-        //accion 1 para insertar o actualizar
-        if($accion == 1){
+        //accion 1 para insertar y para actualizar
+        if($accion === 1){
             if($stmt->execute()){
               $mensaje="1";
             }else{
@@ -63,32 +74,32 @@ class Conexion
    public function eliminar_simbolos($string){
         $string = trim($string);
         $string = str_replace(
-            array('á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
-            array('a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
+            array('à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+            array('a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'),
             $string
         );
      
         $string = str_replace(
-            array('é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
-            array('e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'),
+            array('è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+            array('e', 'e', 'e', 'E', 'E', 'E', 'E'),
             $string
         );
      
         $string = str_replace(
-            array('í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
-            array('i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'),
+            array('ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+            array('i', 'i', 'i', 'I', 'I', 'I', 'I'),
             $string
         );
      
         $string = str_replace(
-            array('ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
-            array('o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'),
+            array('ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+            array('o', 'o', 'o', 'O', 'O', 'O', 'O'),
             $string
         );
      
         $string = str_replace(
-            array('ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
-            array('u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'),
+            array('ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+            array('u', 'u', 'u', 'U', 'U', 'U', 'U'),
             $string
         );
      
@@ -106,7 +117,7 @@ class Conexion
                  "¿", "[", "^", "<code>", "]",
                  "+", "}", "{", "¨", "´",
                  ">", "< ", ";", ",", ":",
-                "''"," "),
+                "''"),
             '',
             $string
         );
