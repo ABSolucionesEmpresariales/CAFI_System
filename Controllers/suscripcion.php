@@ -20,6 +20,7 @@ if( isset($_POST['Dfecha_activacion']) && isset($_POST['Dfecha_vencimiento']) &&
         $conexion->eliminar_simbolos($_POST['Snegocio']),
         $conexion->eliminar_simbolos($_SESSION['email']));
     
+
     if($_POST['accion'] == 'false'){
         $consulta = "INSERT INTO suscripcion (idsuscripcion,fecha_activacion,fecha_vencimiento,estado,monto,paquete,usuario_extra,negocio,usuarioab) VALUES (?,?,?,?,?,?,?,?,?)";
         $tipo_datos = "sssssssss";
