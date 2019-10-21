@@ -96,6 +96,7 @@ $(document).ready(function () {
       }
     });
   }
+
   $(document).on("click",".Beliminar",function(){
     var valor = $(this).parents("tr").find("td").eq(0).text();
     swal({

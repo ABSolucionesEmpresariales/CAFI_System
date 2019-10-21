@@ -33,6 +33,10 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                             echo seleccionado;
                                         } ?> nav-link text-white" onclick="window.location.href='VRetiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
                     </li>
+              
+
+                        
+                    
 
                     <?php if ($_SESSION['acceso'] === "Manager") { ?>
                         <li class="nav-item mx-2 text-center">
@@ -64,7 +68,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                 </ul>
             </div>
             <div class="col-1 d-flex justify-content-end align-items-center text-center">
-                <a class="nav-link text-danger font-weight-bold" href="index.php?cerrar_sesion" title="Salir"><img src="../img/logout.png">Salir</a>
+                <a class="nav-link text-danger font-weight-bold" href="../Controllers/login.php?cerrar_sesion" title="Salir"><img src="../img/logout.png">Salir</a>
             </div>
         </nav>
     </div>
@@ -100,7 +104,6 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 </li>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-4">
                                 <li class="nav-item mx-2 text-center">
@@ -128,7 +131,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                         <div class="row">
                             <div class="col-12">
                                 <li class="nav-item mx-2 text-center">
-                                    <a id="nav-salir" class="nav-link font-weight-bold" href="index.php?cerrar_sesion" title="Salir"><img src="../img/logout.png">Salir</a>
+                                    <a id="nav-salir" class="nav-link font-weight-bold" href="../Controllers/login.php?cerrar_sesion" title="Salir"><img src="../img/logout.png">Salir</a>
                                 </li>
                             </div>
                         </div>

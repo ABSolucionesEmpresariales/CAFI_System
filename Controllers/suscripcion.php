@@ -8,6 +8,7 @@ if( isset($_POST['Dfecha_activacion']) && isset($_POST['Dfecha_vencimiento']) &&
  && isset($_POST['idsuscripcion']) 
 )
 {
+    $conexion = new Models\Conexion();
     $datos_suscripcion = array( 
         $conexion->eliminar_simbolos($_POST['idsuscripcion']),
         $conexion->eliminar_simbolos($_POST['Dfecha_activacion']),
@@ -19,20 +20,16 @@ if( isset($_POST['Dfecha_activacion']) && isset($_POST['Dfecha_vencimiento']) &&
         $conexion->eliminar_simbolos($_POST['Snegocio']),
         $conexion->eliminar_simbolos($_SESSION['email']));
     
+
     if($_POST['accion'] == 'false'){
-    
-        $conexion = new Models\Conexion();
         $consulta = "INSERT INTO suscripcion (idsuscripcion,fecha_activacion,fecha_vencimiento,estado,monto,paquete,usuario_extra,negocio,usuarioab) VALUES (?,?,?,?,?,?,?,?,?)";
         $tipo_datos = "sssssssss";
         $respuesta = $conexion->consultaPreparada($datos_suscripcion,$consulta,1,$tipo_datos,false);
 
     }else{
-       
-        $conexion = new Models\Conexion();
-
-        $consulta= "UPDATE suscripcion SET fecha_activacion = ?, fecha_vencimiento = ?, estado = ?, monto = ?, paquete = ?, usuario_extra = ?, 
+        $consulta= "UPDATE suscripcion SET fecha_activacion = ?, fecha_vencimiento = ?, estado = ?, monto = ?, paquete = ?, usuario_extra = ?,negocio = ?,
         usuarioab = ? WHERE idsuscripcion = ?";
-        $tipo_datos = "ssssssss";
+        $tipo_datos = "sssssssss";
 
         $respuesta = $conexion->consultaPreparada($datos_suscripcion,$consulta,1,$tipo_datos,true);
 
