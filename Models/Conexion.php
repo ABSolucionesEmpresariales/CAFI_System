@@ -34,9 +34,20 @@ class Conexion
     }
 
 
-    public function consultaPreparada($datos,$consulta,$accion,$datatipe){
-       
-        
+    public function consultaPreparada($datos,$consulta,$accion,$datatipe,$reestructurar_arreglo){
+
+        if($reestructurar_arreglo === true){
+            //se cambia el elemento que esta en la posicion 1 del array a la ultima posicion para hacer update
+            for($i=0; $i < sizeof($datos)-1; $i++){
+                if($i === 0){
+              $temporal = $datos[$i];
+                }
+              $datos[$i] = $datos[$i+1]; 
+            }
+             $datos[$i] = $temporal;
+            
+        }
+           
         $stmt = $this->con->prepare($consulta);
         
         $args = array(&$datatipe);
@@ -45,8 +56,8 @@ class Conexion
         }
        
         call_user_func_array(array($stmt,'bind_param'), $args);
-        //accion 1 para insertar o actualizar
-        if($accion == 1){
+        //accion 1 para insertar y para actualizar
+        if($accion === 1){
             if($stmt->execute()){
               $mensaje="1";
             }else{

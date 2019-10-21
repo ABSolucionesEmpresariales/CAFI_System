@@ -4,9 +4,8 @@ include_once '../Models/Conexion.php';
 if (isset($_SESSION['email'])) {
     $conexion = new Models\Conexion();
     $consulta = "SELECT token FROM sesiones WHERE usuario = ?";
-    $dato = array();
-    array_push($dato, $_SESSION['email']);
-    $result = $conexion->consultaPreparada($dato, $consulta, 2, "s");
+    $dato = array($_SESSION['email']);
+    $result = $conexion->consultaPreparada($dato, $consulta, 2, "s",false);
     if (isset($result[0][0])) {
         $token = $result[0][0];
         if ($_SESSION['token'] != $token) {
