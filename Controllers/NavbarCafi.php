@@ -33,10 +33,10 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                             echo seleccionado;
                                         } ?> nav-link text-white" onclick="window.location.href='VRetiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
                     </li>
-              
 
-                        
-                    
+
+
+
 
                     <?php if ($_SESSION['acceso'] === "Manager") { ?>
                         <li class="nav-item mx-2 text-center">
