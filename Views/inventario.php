@@ -88,8 +88,7 @@ privilegios("Superiores");
                   <form class="form-group" id="formulario">
                     <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                     <div class="d-block d-lg-flex row">
-                      <div class="col-lg-4">
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                           <h5 class="general">Localización:</h5>
                           <input id="localizacion" class="form form-control" onkeypress="return check(event)" type="text" name="Tlocalizacion" placeholder="Localización" autocomplete="new-password" >
                         </div>
@@ -97,7 +96,9 @@ privilegios("Superiores");
                           <h5 class="general">Stock:</h5>
                           <input id="stock" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock" placeholder="Stock" autocomplete="new-password" required>
                         </div>
-                        <div class="col-lg-4">
+                      </div>
+                      <div class="d-block d-lg-flex row">
+                        <div class="col-lg-6">
                           <h5 class="general">Stock minimo:</h5>
                           <input id="stock_minimo" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock_minimo" placeholder="Stock minimo" autocomplete="new-password" >
                         </div>
@@ -108,10 +109,11 @@ privilegios("Superiores");
                         <input id="bclose" type="submit" class="mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">
                       </form>
                       <div id="tableHolder" class="row justify-content-center"></div>
-                    </div>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
               <!-- Modal -->
         <script src="../js/user_jquery.js"></script>
         <script src="../js/clientes.js"></script>
