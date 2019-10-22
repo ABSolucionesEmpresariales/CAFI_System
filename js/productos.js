@@ -1,7 +1,7 @@
 $(document).ready(function () {
-  
-console.log("entro");
-$.ajax({
+editar = false;
+console.log("entro al js");
+/* $.ajax({
   url: "../Controllers/generador.php",
   type: "GET",
 
@@ -13,28 +13,23 @@ $.ajax({
     });
       $("#").val(datos[1]);
   }
-  });
+  }); */
 
   $("#formulario").submit(function (e) {
-
-    $.post("../Controllers/producto.php",$("#formulario").serialize(), function (response) {
-      console.log(response);
-      $("#mensaje").css("display", "block");
-      if (response == "1") {
-        if(editar == true){
-          $('.modal').modal('hide');
-          $("#mensaje").css("display", "none");
-        }
-        $("#mensaje").text("Registro Exitoso");
-        $("#mensaje").css("color", "green");
-        $("#email").focus();
-        $("#formulario").trigger("reset");
-      } else {
-        $("#mensaje").text("Registro fallido");
-        $("#mensaje").css("color", "red");
-        $("#email").focus();
+    var formData = new FormData(this);
+    
+    $.ajax({
+      url: "../Controllers/productos.php",
+      type: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      
+      success: function(response) {
+          console.log("Respuesta: "+response);
+         
       }
-
-      obtenerDatosTablaUsuarios();
-    });
+  });
+e.preventDefault();
+  });
 });

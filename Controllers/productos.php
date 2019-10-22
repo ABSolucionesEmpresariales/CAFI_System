@@ -3,7 +3,18 @@ session_start();
 include_once '../Models/Archivos.php';
 include_once '../Models/Conexion.php';
 
-echo "llego";
+var_dump($_POST['Tcodigo_barras'],$_POST['Tmodelo'],$_POST['Tnombre'],$_POST['Tdescripcion'],
+$_POST['Scategoria'],$_POST['Smarca'],$_POST['Tproveedor'],$_POST['Scolor'],
+$_POST['Fimagen'],
+$_POST['Nprecio_compra'],
+$_POST['Nprecio_venta'],
+$_POST['Ndescuento'],
+$_POST['Sunidad_medida'],
+$_POST['Ntasa_iva'],
+$_POST['Ntasa_ipes'],
+$_POST['Stalla_numero'],
+$_POST['accion'])
+;
 
 if (
     isset($_POST['Tcodigo_barras']) && isset($_POST['Tmodelo']) && isset($_POST['Tnombre']) && isset($_POST['Tdescripcion']) &&
@@ -11,6 +22,7 @@ if (
     isset($_POST['Fimagen']) && isset($_POST['Nprecio_compra']) && isset($_POST['Nprecio_venta']) && isset($_POST['Ndescuento'])
     && isset($_POST['Sunidad_medida']) && isset($_POST['Ntasa_iva']) && isset($_POST['Ntasa_ipes']) && isset($_POST['Stalla_numero'])
 ) {
+    
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Funcion para no repetir codigo de guardar <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     function guardar_datos_productos($estado_imagen,$accion)
     {
@@ -70,6 +82,7 @@ if (
             $conexion->eliminar_simbolos($_SESSION['negocio']),
             $conexion->eliminar_simbolos(0)
         );
+
         if($accion == 1){
             $consulta_guardar_stock = "INSERT INTO stock (producto,localizacion,stock,stock_minimio,estado,
             usuariocafi,negocio,eliminado) VALUES (?,?,?,?,?,?,?,?)";
@@ -163,7 +176,7 @@ if (
 
 
 }
-
+echo "llego1";
 if(isset($_POST['tabla'])){
     $conexion = new Models\Conexion();
     $consulta = "SELECT codigo_barras,modelo,nombre,descripcion,categoria,marca,proveedor,color,imagen,precio_compra,precio_venta,descuento

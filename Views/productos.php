@@ -53,7 +53,7 @@ privilegios("Superiores");
                             <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeyup="busqueda()" onkeypress="return check(event)" placeholder="Buscar..." title="Type in a name" value="">
                             <button class="d-lg-none btn btn-danger col-6 mb-3 p-3 agrega mostra" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Imprimir Codigos</button>
                             
-                            <input type="submit" style="display: none;">
+                            
                             <button class="d-none d-lg-flex btn btn-primary ml-5 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
                             <button class="d-none d-lg-flex btn btn-danger ml-5 agregar" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Generar codigo de barras</button>
                         </div>
@@ -182,6 +182,7 @@ privilegios("Superiores");
                     <div class="col-lg-4">
                       <h5 class="general">Tasa IPES:</h5>
                       <input id="tasa_ipes" class="form form-control" type="number" onkeypress="return check(event)" name="Ntasa_ipes" placeholder="Tasa IPES" autocomplete="new-password" required><br>
+                      <input type="hidden" name="accion" value="false">
                     </div>
                     <div class="col-lg-12">
                       <h5 class="general">Talla:</h5>
