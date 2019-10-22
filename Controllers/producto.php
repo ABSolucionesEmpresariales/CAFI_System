@@ -3,6 +3,8 @@ session_start();
 include_once '../Models/Archivos.php';
 include_once '../Models/Conexion.php';
 
+echo "llego";
+
 if (
     isset($_POST['Tcodigo_barras']) && isset($_POST['Tmodelo']) && isset($_POST['Tnombre']) && isset($_POST['Tdescripcion']) &&
     isset($_POST['Scategoria']) && isset($_POST['Smarca']) && isset($_POST['Tproveedor']) && isset($_POST['Scolor']) &&
@@ -165,4 +167,5 @@ if (
 if(isset($_POST['tabla'])){
     $conexion = new Models\Conexion();
     $consulta = "SELECT codigo_barras,modelo,nombre,descripcion,categoria,marca,proveedor,color,imagen,precio_compra,precio_venta,descuento
-    ,unidad_medida,tasa_iva,tasa_ipes,talla_numero FROM producto WHERE dueno"
+    ,unidad_medida,tasa_iva,tasa_ipes,talla_numero FROM producto WHERE dueno";
+}

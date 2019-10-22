@@ -40,10 +40,8 @@ privilegios("Superiores");
             <div id="tableContainer" class="d-block col-lg-12">
                     <div class="row col-12">
                         <div class="input-group mb-2">
-
                             <div class="row col-12">
                                 <button class="d-lg-none btn btn-primary col-6 mb-3 p-3 agrega mostra" data-toggle="modal" data-target="#modalForm">Agregar Productos</button>
-                                <button class="d-lg-none btn btn-danger col-6 mb-3 p-3 agrega mostra" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Imprimir Codigos</button>
                                 <p id="stockrequerido"></p>
                             </div>
 
@@ -53,7 +51,8 @@ privilegios("Superiores");
                             </div>
 
                             <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeyup="busqueda()" onkeypress="return check(event)" placeholder="Buscar..." title="Type in a name" value="">
-
+                            <button class="d-lg-none btn btn-danger col-6 mb-3 p-3 agrega mostra" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Imprimir Codigos</button>
+                            
                             <input type="submit" style="display: none;">
                             <button class="d-none d-lg-flex btn btn-primary ml-5 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
                             <button class="d-none d-lg-flex btn btn-danger ml-5 agregar" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Generar codigo de barras</button>
@@ -105,6 +104,11 @@ privilegios("Superiores");
                   <form class="form-group" id="formulario">
                     <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                     <div class="d-block d-lg-flex row">
+                    <div class="col-lg-4">
+                        <h5 class="general">Codigo</h5>
+                        <input id="codigo_barras" class="form form-control" onkeypress="return check(event)" type="text" name="Tcodigo_barras" placeholder="Codigo" autocomplete="new-password" >
+
+                      </div>
                       <div class="col-lg-4">
                         <h5 class="general">Modelo</h5>
                         <input id="modelo" class="form form-control" onkeypress="return check(event)" type="text" name="Tmodelo" placeholder="Modelo" autocomplete="new-password" >
@@ -134,7 +138,7 @@ privilegios("Superiores");
                     </div>
                     <div class="col-lg-4">
                       <h5 class="general">Proveedor:</h5>
-                      <input id="proveedor" class="form form-control" onkeypress="return check(event)" type="number" name="Nproveedor" placeholder="Proveedor" autocomplete="new-password" >
+                      <input id="proveedor" class="form form-control" onkeypress="return check(event)" type="text" name="Tproveedor" placeholder="Proveedor" autocomplete="new-password" >
                     </div>
                   </div>
                     <div class="d-block d-lg-flex row">
@@ -189,7 +193,7 @@ privilegios("Superiores");
                       </select>
                     </div>
                         <input id="bclose" type="submit" class="mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">
-                      </form>
+                    </form>
                       <div id="tableHolder" class="row justify-content-center"></div>
                     </div>
                   </div>
