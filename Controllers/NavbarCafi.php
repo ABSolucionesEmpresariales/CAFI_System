@@ -33,10 +33,10 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                             echo seleccionado;
                                         } ?> nav-link text-white" onclick="window.location.href='VRetiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
                     </li>
-              
 
-                        
-                    
+
+
+
 
                     <?php if ($_SESSION['acceso'] === "Manager") { ?>
                         <li class="nav-item mx-2 text-center">
@@ -52,12 +52,12 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                         <li class="nav-item mx-2 text-center">
                             <a class="<?php if ($sel === 'inventario') {
                                                     echo seleccionado;
-                                                } ?> nav-link text-white" onclick="window.location.href='VInventario.php'" title="Inventario"><img src="../img/Inventory-dark.png">Reporte Inventario</a>
+                                                } ?> nav-link text-white" onclick="window.location.href='inventario.php'" title="Inventario"><img src="../img/Inventory-dark.png">Reporte Inventario</a>
                         </li>
                         <li class="nav-item mx-2 text-center">
                             <a style="color: #fe6f00;" class="<?php if ($sel === 'productos') {
                                                                             echo seleccionado;
-                                                                        } ?> nav-link" onclick="window.location.href='VProductos.php'" title="Productos"><img src="../img/products.png">Productos</a>
+                                                                        } ?> nav-link" onclick="window.location.href='productos.php'" title="Productos"><img src="../img/products.png">Productos</a>
                         </li>
                     <?php } ?>
                     <li class="nav-item mx-2 text-center">
@@ -198,14 +198,14 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 <li class="nav-item mx-2 text-center">
                                     <a id="orange" class="<?php if ($sel === 'inventario') {
                                                                         echo seleccionado;
-                                                                    } ?> nav-link font-weight-bold text-white" onclick="window.location.href='VInventario.php'" title="Inventario"><img src="../img/Inventory-dark.png">Reporte Inventario</a>
+                                                                    } ?> nav-link font-weight-bold text-white" onclick="window.location.href='inventario.php'" title="Inventario"><img src="../img/Inventory-dark.png">Reporte Inventario</a>
                                 </li>
                             </div>
                             <div class="col-4">
                                 <li class="nav-item mx-2 text-center">
                                     <a style="color: #fe6f00;" class="<?php if ($sel === 'productos') {
                                                                                     echo seleccionado;
-                                                                                } ?> nav-link font-weight-bold" onclick="window.location.href='VProductos.php'" title="Productos"><img src="../img/products.png">Productos</a>
+                                                                                } ?> nav-link font-weight-bold" onclick="window.location.href='productos.php'" title="Productos"><img src="../img/products.png">Productos</a>
                                 </li>
                             </div>
                         </div>
@@ -294,12 +294,12 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'inventario') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VInventario.php'" title="Inventario"><img src="../img/Inventory-dark.png">Inventario</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='inventario.php'" title="Inventario"><img src="../img/Inventory-dark.png">Inventario</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'productos') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VProductos.php'" title="Productos"><img src="../img/products.png">Productos</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='productos.php'" title="Productos"><img src="../img/products.png">Productos</a>
                     </li>
 
                     <li class="nav-item mx-2 text-center">
@@ -407,14 +407,14 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                             <li class="nav-item mx-2 text-center">
                                 <a class="<?php if ($sel === 'inventario') {
                                                     echo seleccionado;
-                                                } ?> nav-link text-white" onclick="window.location.href='VInventario.php'" title="Inventario"><img src="../img/Inventory-dark.png">Inventario</a>
+                                                } ?> nav-link text-white" onclick="window.location.href='inventario.php'" title="Inventario"><img src="../img/Inventory-dark.png">Inventario</a>
                             </li>
                         </div>
                         <div class="col-4">
                             <li class="nav-item mx-2 text-center">
                                 <a class="<?php if ($sel === 'productos') {
                                                     echo seleccionado;
-                                                } ?> nav-link text-white" onclick="window.location.href='VProductos.php'" title="Productos"><img src="../img/products.png">Productos</a>
+                                                } ?> nav-link text-white" onclick="window.location.href='productos.php'" title="Productos"><img src="../img/products.png">Productos</a>
                             </li>
                         </div>
                     </div>

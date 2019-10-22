@@ -48,7 +48,7 @@ privilegios("Todos");
                   </div>
                   <div id="combo"></div>
                   <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name" value="">
-                  <button class="agregar d-none d-lg-flex btn btn-primary ml-3 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
+                  <button class="agregar d-none d-lg-flex btn btn-primary ml-3" data-toggle="modal" data-target="#modalForm">Agregar</button>
                 </div>
                 <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                   <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">

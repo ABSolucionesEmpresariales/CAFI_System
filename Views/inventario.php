@@ -1,19 +1,25 @@
+<?php
+session_start();
+require_once('../Controllers/seguridadCafi.php');
+privilegios("Superiores");
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/sweetalert.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="img/logo/nav1.png">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="../css/bootstrap.css">
+        <link rel="stylesheet" href="../css/sweetalert.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="icon" href="img/logo/nav1.png">
 
-    <script src="../js/sweetalert.js"></script>
-    <script src="../js/sweetalert.min.js"></script>
-    <script src="../js/jquery.js"></script>
-    <script src="../js/index.js"></script>
+        <script src="../js/sweetalert.js"></script>
+        <script src="../js/sweetalert.min.js"></script>
+        <script src="../js/jquery.js"></script>
+        <script src="../js/index.js"></script>
 
     <title>Inventario</title>
     <script>
@@ -24,6 +30,10 @@
   </head>
 
   <body onload="inicio();">
+  <?php
+    $sel = "usuarios";
+    include("../Controllers/NavbarCafi.php")
+    ?>
 
         <div class="contenedor container-fluid">
           <div class="row align-items-start">
@@ -50,6 +60,7 @@
                         <th class="text-nowrap text-center" onclick="sortTable(3)">Stock minimo</th>
                         <th class="text-nowrap text-center" onclick="sortTable(4)">Estado</th>
                         <th class="text-nowrap text-center" onclick="sortTable(8)">Usuario CAFI</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(8)">Negocio</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>
@@ -78,26 +89,22 @@
                     <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                     <div class="d-block d-lg-flex row">
                       <div class="col-lg-4">
-                        <h5 class="general">Producto:</h5>
-                        <input id="producto" class="form form-control" onkeypress="return check(event)" type="text" name="Tproducto" placeholder="Producto" autocomplete="new-password" required>
-                      </div>
-                      <div class="col-lg-4">
-                        <h5 class="general">Localización:</h5>
-                        <input id="localizacion" class="form form-control" onkeypress="return check(event)" type="text" name="Tlocalizacion" placeholder="Localización" autocomplete="new-password" >
-                      </div>
-                      <div class="col-lg-4">
-                        <h5 class="general">Stock:</h5>
-                        <input id="stock" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock" placeholder="Stock" autocomplete="new-password" required>
-                      </div>
-                      <div class="col-lg-4">
-                        <h5 class="general">Stock minimo:</h5>
-                        <input id="stock_minimio" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock_minimio" placeholder="Stock minimo" autocomplete="new-password" >
-                      </div>
-                      <div class="col-lg-4">
-                        <h5 class="general">Estado:</h5>
-                        <input id="estado" class="form form-control" onkeypress="return check(event)" type="text" name="Testado" placeholder="Estado" autocomplete="new-password" required>
-                      </div>
-
+                        <div class="col-lg-4">
+                          <h5 class="general">Localización:</h5>
+                          <input id="localizacion" class="form form-control" onkeypress="return check(event)" type="text" name="Tlocalizacion" placeholder="Localización" autocomplete="new-password" >
+                        </div>
+                        <div class="col-lg-4">
+                          <h5 class="general">Stock:</h5>
+                          <input id="stock" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock" placeholder="Stock" autocomplete="new-password" required>
+                        </div>
+                        <div class="col-lg-4">
+                          <h5 class="general">Stock minimo:</h5>
+                          <input id="stock_minimo" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock_minimo" placeholder="Stock minimo" autocomplete="new-password" >
+                        </div>
+                        <div class="col-lg-4">
+                          <h5 class="general">Estado:</h5>
+                          <input id="estado" class="form form-control" onkeypress="return check(event)" type="text" name="Testado" placeholder="Estado" autocomplete="new-password" required>
+                        </div>
                         <input id="bclose" type="submit" class="mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">
                       </form>
                       <div id="tableHolder" class="row justify-content-center"></div>
@@ -107,10 +114,9 @@
               </div>
               <!-- Modal -->
         <script src="../js/user_jquery.js"></script>
-        <script src="../js/usuariosab.js"></script>
+        <script src="../js/clientes.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
       </body>
 
     </html>
