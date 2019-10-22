@@ -18,7 +18,8 @@ if( isset($_POST['Dfecha_activacion']) && isset($_POST['Dfecha_vencimiento']) &&
         $conexion->eliminar_simbolos($_POST['Spaquete']),
         $conexion->eliminar_simbolos($_POST['Susuario_extra']),
         $conexion->eliminar_simbolos($_POST['Snegocio']),
-        $conexion->eliminar_simbolos($_SESSION['email']));
+        $conexion->eliminar_simbolos($_SESSION['email'])
+    );
     
 
     if($_POST['accion'] == 'false'){
