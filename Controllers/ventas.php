@@ -2,7 +2,19 @@
 session_start();
 include_once '../Models/Conexion.php';
 include_once '../Models/Fecha.php';
-if (
+
+if (isset($_POST['search'])) {
+    $conexion = new Models\Conexion();
+
+    $consulta = "SELECT producto.codigo_barras,imagen,nombre,marca,modelo,color,talla_numero,unidad_medida,precio_venta,stock FROM producto INNER JOIN stock ON codigo_barras = producto
+    WHERE CONCAT_WS(' ',nombre,marca,modelo,color,descripcion,talla_numero,codigo_barras) LIKE ? AND negocio = ?";
+    
+    $datos = array(
+        "%" . $_POST['search'] . "%",
+        $_SESSION['negocio']
+    );
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ss", false));
+} else if (
     isset($_POST['idventa']) && isset($_POST['descuento'])  && isset($_POST['total']) && isset($_POST['pago']) && isset($_POST['cambio']) && isset($_POST['forma_pago'])
     && isset($_POST['json_string']) && !isset($_POST['totaldeuda']) && !isset($_POST['anticipo'])
 ) {
@@ -11,12 +23,12 @@ if (
     $conexion = new Models\Conexion();
     $fecha = new Models\Fecha();
     $datos = array(
-        $conexion->eliminar_simbolos($_POST['idventa']),
-        $conexion->eliminar_simbolos($_POST['descuento']),
-        $conexion->eliminar_simbolos($_POST['total']),
-        $conexion->eliminar_simbolos($_POST['pago']),
-        $conexion->eliminar_simbolos($_POST['cambio']),
-        $conexion->eliminar_simbolos($_POST['forma_pago']),
+        $_POST['idventa'],
+        $_POST['descuento'],
+        $_POST['total'],
+        $_POST['pago'],
+        $_POST['cambio'],
+        $_POST['forma_pago'],
         $fecha->getFecha(),
         $fecha->getHora(),
         "A",

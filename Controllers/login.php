@@ -6,8 +6,8 @@ if (isset($_POST['Pcontrasena']) && isset($_POST['Temail'])) {
     $conexion = new Models\Conexion();
 
     $login = array(
-        $conexion->eliminar_simbolos($_POST['Temail']),
-        $conexion->eliminar_simbolos($_POST['Pcontrasena'])
+        $_POST['Temail'],
+        $_POST['Pcontrasena']
     );
 
     $consulta = "SELECT email,acceso,entrada_sistema,negocio FROM usuarioscafi WHERE BINARY  email = ?  AND BINARY contrasena = ?";

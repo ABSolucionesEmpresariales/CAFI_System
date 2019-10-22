@@ -52,6 +52,7 @@ class Conexion
         
         $args = array(&$datatipe);
         for ($i = 0; $i < sizeof($datos); $i++) {
+            $datos[$i] = Conexion::eliminar_simbolos($datos[$i]);
             $args[] = &$datos[$i];
         }
        
@@ -112,7 +113,7 @@ class Conexion
         $string = str_replace(
             array("\\", "¨", "º", "~",
                  "|", "!", "\"",
-                 "·", "$", "%", "&",
+                 "·", "$", "&",
                  "(", ")", "?", "'", "¡",
                  "¿", "[", "^", "<code>", "]",
                  "+", "}", "{", "¨", "´",

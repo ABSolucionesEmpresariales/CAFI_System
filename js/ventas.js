@@ -416,27 +416,36 @@ $(document).ready(function () {
   function filtradoProductos() {
       let search = $('#busquedap').val();
       $.ajax({
-        url: 'bproductodv.php',
+        url: '../Controllers/ventas.php',
         type: 'POST',
         data: { search },
         success: function (response) {
           let datos = JSON.parse(response);
           let template = '';
-          datos.forEach(datos => {
+          $.each(datos, function (i, item) {
+          
+          for(i=0; i < item.length; i++){
+            if(item[i] === null){
+               item[i] = "";
+            }
+          }
             template += `<tr>
                         <td> 
                           <div class="row">
                             <a class="bagregardv btn btn-secondary ml-1" href="#">
-                                <img src="img/carrito.png">
+                                <img src="../img/carrito.png">
                             </a>
                           </div>
                         </td>
-                        <td><img src="${datos.imagen}" height="50" width="50" /></td>
-                        <td>${datos.nombre} ${datos.marca} ${datos.color} talla ${datos.talla_numero} um ${datos.unidad_medida}</td>
-                        <td class="datos font-weight-bold">${datos.codigo_barras}</td>
-                        <td class="datos">${datos.existencia}</td>
-                        <td class="datos">${datos.precio}</td>
+                        <td><img src="${item[1]}" height="50" width="50" /></td>
                         <td><input class='incan' type="number" value="1" name="quantity" min="1" max="" style="width: 60px; height: 38px;"></td>
+                        <td>${item[7]}</td>
+                        <td>${item[2]} ${item[3]} ${item[6]} </td>
+                        <td class="datos">${item[8]}</td>
+                        <td class="datos font-weight-bold">${item[0]}</td>
+                        <td>${item[5]}</td>
+                        <td>${item[4]}</td>
+                        <td class="datos">${item[9]}</td>
                       </tr>`;
           });
           datos = "";

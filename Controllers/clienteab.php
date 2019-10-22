@@ -12,19 +12,19 @@ if (
   if ($_POST['accion'] == 'false') {
     //guardar
     $datos_persona = array(
-      $conexion->eliminar_simbolos($_POST['Temail']),
-      $conexion->eliminar_simbolos($_POST['Trfc']),
-      $conexion->eliminar_simbolos($_POST['Tnombre']),
-      $conexion->eliminar_simbolos($_POST['Tcp']),
-      $conexion->eliminar_simbolos($_POST['Tcalle_numero']),
-      $conexion->eliminar_simbolos($_POST['Tcolonia']),
-      $conexion->eliminar_simbolos($_POST['Tlocalidad']),
-      $conexion->eliminar_simbolos($_POST['Tmunicipio']),
-      $conexion->eliminar_simbolos($_POST['Sestado']),
-      $conexion->eliminar_simbolos($_POST['Tpais']),
-      $conexion->eliminar_simbolos($_POST['Ttelefono']),
-      $conexion->eliminar_simbolos($_POST['Dfecha_nacimiento']),
-      $conexion->eliminar_simbolos($_POST['Ssexo']),
+      $_POST['Temail'],
+      $_POST['Trfc'],
+      $_POST['Tnombre'],
+      $_POST['Tcp'],
+      $_POST['Tcalle_numero'],
+      $_POST['Tcolonia'],
+      $_POST['Tlocalidad'],
+      $_POST['Tmunicipio'],
+      $_POST['Sestado'],
+      $_POST['Tpais'],
+      $_POST['Ttelefono'],
+      $_POST['Dfecha_nacimiento'],
+      $_POST['Ssexo'],
       0 //eliminado false
     );
 
@@ -47,21 +47,21 @@ if (
   } else {
     //editar  
     $datos_usuariocafi = array(
-      $conexion->eliminar_simbolos($_POST['Trfc']),
-      $conexion->eliminar_simbolos($_POST['Tnombre']),
-      $conexion->eliminar_simbolos($_POST['Tcp']),
-      $conexion->eliminar_simbolos($_POST['Tcalle_numero']),
-      $conexion->eliminar_simbolos($_POST['Tcolonia']),
-      $conexion->eliminar_simbolos($_POST['Tlocalidad']),
-      $conexion->eliminar_simbolos($_POST['Tmunicipio']),
-      $conexion->eliminar_simbolos($_POST['Sestado']),
-      $conexion->eliminar_simbolos($_POST['Tpais']),
-      $conexion->eliminar_simbolos($_POST['Ttelefono']),
-      $conexion->eliminar_simbolos($_POST['Dfecha_nacimiento']),
-      $conexion->eliminar_simbolos($_POST['Ssexo']),
-      $conexion->eliminar_simbolos($_POST['Sentrada_sistema']),
-      $conexion->eliminar_simbolos($_POST['Pcontrasena']),
-      $conexion->eliminar_simbolos($_POST['Temail'])
+      $_POST['Trfc'],
+      $_POST['Tnombre'],
+      $_POST['Tcp'],
+      $_POST['Tcalle_numero'],
+      $_POST['Tcolonia'],
+      $_POST['Tlocalidad'],
+      $_POST['Tmunicipio'],
+      $_POST['Sestado'],
+      $_POST['Tpais'],
+      $_POST['Ttelefono'],
+      $_POST['Dfecha_nacimiento'],
+      $_POST['Ssexo'],
+      $_POST['Sentrada_sistema'],
+      $_POST['Pcontrasena'],
+      $_POST['Temail']
     );
 
 

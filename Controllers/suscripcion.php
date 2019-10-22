@@ -10,15 +10,15 @@ if (
 ) {
     $conexion = new Models\Conexion();
     $datos_suscripcion = array(
-        $conexion->eliminar_simbolos($_POST['idsuscripcion']),
-        $conexion->eliminar_simbolos($_POST['Dfecha_activacion']),
-        $conexion->eliminar_simbolos($_POST['Dfecha_vencimiento']),
-        $conexion->eliminar_simbolos($_POST['Sestado']),
-        $conexion->eliminar_simbolos($_POST['Tmonto']),
-        $conexion->eliminar_simbolos($_POST['Spaquete']),
-        $conexion->eliminar_simbolos($_POST['Susuario_extra']),
-        $conexion->eliminar_simbolos($_POST['Snegocio']),
-        $conexion->eliminar_simbolos($_SESSION['email'])
+        $_POST['idsuscripcion'],
+        $_POST['Dfecha_activacion'],
+        $_POST['Dfecha_vencimiento'],
+        $_POST['Sestado'],
+        $_POST['Tmonto'],
+        $_POST['Spaquete'],
+        $_POST['Susuario_extra'],
+        $_POST['Snegocio'],
+        $_SESSION['email']
     );
 
 
@@ -36,8 +36,8 @@ if (
         //se cambia el estado a los usuarios pertenecientes a ese negocio
         $consulta2 = "UPDATE usuarioscafi SET entrada_sistema = ? WHERE negocio = ?";
         $datos = array(
-            $conexion->eliminar_simbolos($_POST['Sestado']),
-            $conexion->eliminar_simbolos($_POST['Snegocio'])
+            $_POST['Sestado'],
+            $_POST['Snegocio']
         );
 
         $respuesta = $conexion->consultaPreparada($datos, $consulta2, 1, "si", false);

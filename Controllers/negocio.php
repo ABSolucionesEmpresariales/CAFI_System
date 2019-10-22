@@ -9,18 +9,18 @@ if (
 ) {
     $conexion = new Models\Conexion();
     $datos_negocio = array(
-        $conexion->eliminar_simbolos($_POST['idnegocios']),
-        $conexion->eliminar_simbolos($_POST['Tnombre']),
-        $conexion->eliminar_simbolos($_POST['Sgiro']),
-        $conexion->eliminar_simbolos($_POST['Tcalle_numero']),
-        $conexion->eliminar_simbolos($_POST['Tcolonia']),
-        $conexion->eliminar_simbolos($_POST['Tlocalidad']),
-        $conexion->eliminar_simbolos($_POST['Tmunicipio']),
-        $conexion->eliminar_simbolos($_POST['Sestado']),
-        $conexion->eliminar_simbolos($_POST['Spais']),
-        $conexion->eliminar_simbolos($_POST['Ttelefono']),
-        $conexion->eliminar_simbolos($_POST['Simpresora']),
-        $conexion->eliminar_simbolos($_POST['Sdueno']),
+        $_POST['idnegocios'],
+        $_POST['Tnombre'],
+        $_POST['Sgiro'],
+        $_POST['Tcalle_numero'],
+        $_POST['Tcolonia'],
+        $_POST['Tlocalidad'],
+        $_POST['Tmunicipio'],
+        $_POST['Sestado'],
+        $_POST['Spais'],
+        $_POST['Ttelefono'],
+        $_POST['Simpresora'],
+        $_POST['Sdueno'],
         $_SESSION['email']
     );
 
