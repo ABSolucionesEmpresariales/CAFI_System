@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
 $.ajax({
   url: "../Controllers/generador.php",
   type: "GET",
@@ -12,6 +13,7 @@ $.ajax({
       $("#").val(datos[1]);
   }
   });
+  
   $("#formulario").submit(function (e) {
 
     $.post("../Controllers/productos.php",$("#formulario").serialize(), function (response) {
