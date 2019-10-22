@@ -6,8 +6,8 @@ include_once '../Models/Conexion.php';
 if (
     isset($_POST['Tcodigo_barras']) && isset($_POST['Tmodelo']) && isset($_POST['Tnombre']) && isset($_POST['Tdescripcion']) &&
     isset($_POST['Scategoria']) && isset($_POST['Smarca']) && isset($_POST['Tproveedor']) && isset($_POST['Scolor']) &&
-    isset($_POST['Fimagen']) && isset($_POST['Tprecio_compra']) && isset($_POST['Tprecio_venta']) && isset($_POST['Tdescuento'])
-    && isset($_POST['Sunidad_medida']) && isset($_POST['Ttasa_iva']) && isset($_POST['Ttasa_ipes']) && isset($_POST['Stalla_numero'])
+    isset($_POST['Fimagen']) && isset($_POST['Nprecio_compra']) && isset($_POST['Nprecio_venta']) && isset($_POST['Ndescuento'])
+    && isset($_POST['Sunidad_medida']) && isset($_POST['Ntasa_iva']) && isset($_POST['Ntasa_ipes']) && isset($_POST['Stalla_numero'])
 ) {
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Funcion para no repetir codigo de guardar <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     function guardar_datos_productos($estado_imagen,$accion)
@@ -23,12 +23,12 @@ if (
             $conexion->eliminar_simbolos($_POST['Tproveedor']),
             $conexion->eliminar_simbolos($_POST['Scolor']),
             $estado_imagen,
-            $conexion->eliminar_simbolos($_POST['Tprecio_compra']),
-            $conexion->eliminar_simbolos($_POST['Tprecio_venta']),
-            $conexion->eliminar_simbolos($_POST['Tdescuento']),
+            $conexion->eliminar_simbolos($_POST['Nprecio_compra']),
+            $conexion->eliminar_simbolos($_POST['Nprecio_venta']),
+            $conexion->eliminar_simbolos($_POST['Ndescuento']),
             $conexion->eliminar_simbolos($_POST['Sunidad_medida']),
-            $conexion->eliminar_simbolos($_POST['Ttasa_iva']),
-            $conexion->eliminar_simbolos($_POST['Ttasa_ipes']),
+            $conexion->eliminar_simbolos($_POST['Ntasa_iva']),
+            $conexion->eliminar_simbolos($_POST['Ntasa_ipes']),
             $conexion->eliminar_simbolos($_POST['Stalla_numero']),
             $conexion->eliminar_simbolos($_SESSION['patron'])
         );
@@ -161,3 +161,8 @@ if (
 
 
 }
+
+if(isset($_POST['tabla'])){
+    $conexion = new Models\Conexion();
+    $consulta = "SELECT codigo_barras,modelo,nombre,descripcion,categoria,marca,proveedor,color,imagen,precio_compra,precio_venta,descuento
+    ,unidad_medida,tasa_iva,tasa_ipes,talla_numero FROM producto WHERE dueno"
