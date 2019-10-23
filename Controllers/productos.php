@@ -1,9 +1,9 @@
 <?php
 session_start();
-include_once '../Models/Archivos.php';
+include '../Models/Archivos.php';
 include_once '../Models/Conexion.php';
 
-var_dump($_POST['Tcodigo_barras'],$_POST['Tmodelo'],$_POST['Tnombre'],$_POST['Tdescripcion'],
+/* var_dump($_POST['Tcodigo_barras'],$_POST['Tmodelo'],$_POST['Tnombre'],$_POST['Tdescripcion'],
 $_POST['Scategoria'],$_POST['Smarca'],$_POST['Tproveedor'],$_POST['Scolor'],
 $_POST['Fimagen'],
 $_POST['Nprecio_compra'],
@@ -15,14 +15,13 @@ $_POST['Ntasa_ipes'],
 $_POST['Stalla_numero'],
 $_POST['accion'])
 ;
-
+ */
 if (
     isset($_POST['Tcodigo_barras']) && isset($_POST['Tmodelo']) && isset($_POST['Tnombre']) && isset($_POST['Tdescripcion']) &&
     isset($_POST['Scategoria']) && isset($_POST['Smarca']) && isset($_POST['Tproveedor']) && isset($_POST['Scolor']) &&
-    isset($_POST['Fimagen']) && isset($_POST['Nprecio_compra']) && isset($_POST['Nprecio_venta']) && isset($_POST['Ndescuento'])
+     isset($_POST['Nprecio_compra']) && isset($_POST['Nprecio_venta']) && isset($_POST['Ndescuento'])
     && isset($_POST['Sunidad_medida']) && isset($_POST['Ntasa_iva']) && isset($_POST['Ntasa_ipes']) && isset($_POST['Stalla_numero'])
 ) {
-    
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Funcion para no repetir codigo de guardar <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     function guardar_datos_productos($estado_imagen,$accion)
     {
@@ -44,19 +43,20 @@ if (
             $conexion->eliminar_simbolos($_POST['Ntasa_iva']),
             $conexion->eliminar_simbolos($_POST['Ntasa_ipes']),
             $conexion->eliminar_simbolos($_POST['Stalla_numero']),
-            $conexion->eliminar_simbolos($_SESSION['patron'])
+            $conexion->eliminar_simbolos("2")
         );
+        
         if($accion == 1){
             $consulta_guardar_producto = "INSERT INTO producto (codigo_barras,modelo,nombre,descripcion,categoria,
             marca,proveedor,color,imagen,precio_compra,precio_venta,descuento,unidad_medida,tasa_iva,
             tasa_ipes,talla_numero,dueno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $tipos_de_datos = "ssssssissdddsddss";
-            $respuesta = $conexion->consultaPreparada($datos_productos, $consulta_guardar_producto, 1, $tipos_de_datos, false);
+            $respuesta = $conexion->consultaPreparada($datos_productos, $consulta_guardar_producto,1, $tipos_de_datos, false);
             return $respuesta;
         }else{
-            $consulta_editar_producto = "UPDATE producto SET modelo=?,nombre=?,descripcion=?,categoria=?,marca=?,proveedor=?
-            color=?,imagen=?,precio_compra=?,precio_venta=?,descuento=?,unidad_medida=?,tasa_iva=?,tasa_ipes=?,
-            talla_numero=?,dueno=? WHERE codigo_barras = ?";
+            $consulta_editar_producto = "UPDATE producto SET modelo = ?,nombre = ?,descripcion = ?,categoria = ?,marca = ?,proveedor = ?,
+            color = ?,imagen = ? ,precio_compra = ?,precio_venta = ?,descuento = ?,unidad_medida = ?,tasa_iva = ?,tasa_ipes = ?,
+            talla_numero = ?,dueno = ? WHERE codigo_barras = ?";
             $tipos_de_datos = "sssssissdddsddsss";
             $respuesta = $conexion->consultaPreparada($datos_productos, $consulta_editar_producto,1, $tipos_de_datos, true);
             return $respuesta;
@@ -104,7 +104,8 @@ if (
         $consulta = "SELECT imagen FROM producto WHERE codigo_barras = ?";
         $datos = array($codigo);
         $tipo = "s";
-        return $conexion->consultaPreparada($datos, $consulta,2, $tipo, false);
+        $resul = $conexion->consultaPreparada($datos, $consulta,2, $tipo, false);
+        echo $resul[0][0];
     }
 
 
@@ -115,8 +116,8 @@ if (
 
     if ($_POST['accion'] == 'false') {
 
-        if (strlen($_FILES['FImagen']['tmp_name']) != 0) {
-            $archivo = subir_archivo('FImagen');
+        if (strlen($_FILES['Fimagen']['tmp_name']) != 0) {
+            $archivo = subir_archivo('Fimagen',1);
             if ($archivo == "Error") {
                 echo $archivo;
             } else if ($archivo == "imagenNoValida") {
@@ -128,27 +129,27 @@ if (
                 if ($respuesta != 0) {
                     echo guardar_datos_stock(1);
                 } else {
-                    echo "Error2";
-                }
+                    echo $respuesta;
+                } 
             }
         } else {
             $respuesta = guardar_datos_productos("",1);
             if ($respuesta != 0) {
                 echo guardar_datos_stock(1);
             } else {
-                echo "Error2";
+                echo "Error2-2";
             }
         }
     } else {
 
-        if (strlen($_FILES['FImagen']['tmp_name']) != 0) {
-            $ruta = ruta($_POST['Tcodigo_barras']);
-            if($ruta != ""){
-               if(!unlink($ruta)){
+        if (strlen($_FILES['Fimagen']['tmp_name']) != 0) {
+/*             $ruta = ruta($_POST['Tcodigo_barras']);
+             if($ruta != ""){
+               if(unlink($ruta)){
                     echo "Error Imagen";
                }
-            }
-            $archivo = subir_archivo('FImagen');
+            } */
+            $archivo = subir_archivo('Fimagen',1);
             if ($archivo == "Error") {
                 echo $archivo;
             } else if ($archivo == "imagenNoValida") {
@@ -162,13 +163,13 @@ if (
                 } else {
                     echo "Error2";
                 }
-            }
+            } 
         }else{
             $respuesta = guardar_datos_productos("",2);
             if ($respuesta != 0) {
                 echo guardar_datos_stock(2);
             } else {
-                echo "Error2";
+                echo "Error2-2";
             }
         }
     }
@@ -176,7 +177,7 @@ if (
 
 
 }
-echo "llego1";
+
 if(isset($_POST['tabla'])){
     $conexion = new Models\Conexion();
     $consulta = "SELECT codigo_barras,modelo,nombre,descripcion,categoria,marca,proveedor,color,imagen,precio_compra,precio_venta,descuento

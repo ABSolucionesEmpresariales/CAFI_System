@@ -28,6 +28,7 @@ function token(){
         $conexion->consultaPreparada($datos,$consulta,1,"sss",false);
     }
 }
+
 function getDateTime()
 {
   date_default_timezone_set("America/Mexico_City");

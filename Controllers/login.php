@@ -18,8 +18,6 @@ if(isset($_POST['Pcontrasena']) && isset($_POST['Temail'])){
         $tipo_datos="ss";
         //para el front
         $respuesta = json_encode($conexion->consultaPreparada($login,$consulta,2,$tipo_datos,false));
-        
-        
     }
     //para el back
     $result = json_decode($respuesta);
@@ -30,9 +28,9 @@ if(isset($_POST['Pcontrasena']) && isset($_POST['Temail'])){
         if(isset($result[0][3])){
         $_SESSION['negocio'] = $result[0][3];
         }
-       token();
+       //token();
     }
-     echo $respuesta;
+     echo  $respuesta;
     
     }
     if(isset($_POST['combo']) && $_POST['combo'] === "combo"){
