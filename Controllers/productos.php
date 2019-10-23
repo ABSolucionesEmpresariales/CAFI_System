@@ -105,7 +105,7 @@ if (
         $datos = array($codigo);
         $tipo = "s";
         $resul = $conexion->consultaPreparada($datos, $consulta,2, $tipo, false);
-        echo $resul[0][0];
+        return $resul[0][0];
     }
 
 
@@ -143,12 +143,12 @@ if (
     } else {
 
         if (strlen($_FILES['Fimagen']['tmp_name']) != 0) {
-/*             $ruta = ruta($_POST['Tcodigo_barras']);
+            $ruta = ruta($_POST['Tcodigo_barras']);
              if($ruta != ""){
-               if(unlink($ruta)){
+               if(!unlink($ruta)){
                     echo "Error Imagen";
                }
-            } */
+            } 
             $archivo = subir_archivo('Fimagen',1);
             if ($archivo == "Error") {
                 echo $archivo;
@@ -180,6 +180,16 @@ if (
 
 if(isset($_POST['tabla'])){
     $conexion = new Models\Conexion();
-    $consulta = "SELECT codigo_barras,modelo,nombre,descripcion,categoria,marca,proveedor,color,imagen,precio_compra,precio_venta,descuento
-    ,unidad_medida,tasa_iva,tasa_ipes,talla_numero FROM producto WHERE dueno";
+    $consulta = "SELECT codigo_barras,modelo,nombre,descripcion,categoria,marca,proveedor,color,imagen,precio_compra,
+    precio_venta,descuento,unidad_medida,tasa_iva,tasa_ipes,talla_numero FROM producto p INNER JOIN stock s
+     WHERE p.codigo_barras = s.producto AND s.negocio = $_SESSION[negocio]";
+     $jsonstring = json_encode($conexion->obtenerDatosDeTabla($consulta));
+     echo $jsonstring;
+}
+
+if(isset($_POST['negocios'])){
+    $conexion = new Models\Conexion();
+    $consulta = "SELECT idnegocios,nombre FROM negocios WHERE dueno = $_SESSION[negocio]";
+    $jsonstring = json_encode($conexion->obtenerDatosDeTabla($consulta));
+    echo $jsonstring;
 }
