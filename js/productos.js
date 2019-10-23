@@ -15,7 +15,7 @@ console.log("entro al js");
   }
   }); */
   $(document).on('click','#bclose', function(){
-    else if(boton == "bclose"){
+     if(boton == "bclose"){
         var codigo = $('#codigo_barras').val();
         var modelo = $('#modelo').val();
         var nombre = $('#nombre').val();
@@ -85,9 +85,8 @@ console.log("entro al js");
         }
   });
 
-  $("#formulario").submit(function (e) {
-    var formData = new FormData(this);
 
+function obtenerDatosTablaUsuarios() {
     $.ajax({
       url: "../Controllers/productos.php",
       type: 'POST',
@@ -131,9 +130,11 @@ console.log("entro al js");
       }
 e.preventDefault();
   });
+}
+  
 });
 
-$(document).on("click", ".Beditar", function () {
+$(document).on("click", ".Beditar, #agregar_p", function () {
   var valores = "";
   // Obtenemos todos los valores contenidos en los <td> de la fila
   // seleccionada
