@@ -57,13 +57,13 @@ class Conexion
        
         call_user_func_array(array($stmt,'bind_param'), $args);
         //accion 1 para insertar y para actualizar
-        if($accion === 1){
+        if($accion == 1){
             if($stmt->execute()){
               $mensaje="1";
             }else{
               $mensaje="0";
             }
-          return $mensaje;
+            return $mensaje;
         }else if($accion == 2){
              //accion 2 para retornar datos en una matriz
             $stmt->execute();

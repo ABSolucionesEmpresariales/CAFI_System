@@ -22,6 +22,7 @@ $(document).ready(function () {
       $("#mensaje").css("display", "block");
         if (response != "[]") {
           let datos = JSON.parse(response);
+          
           $.each(datos, function (i, item) {
               if (typeof (item[3]) != 'undefined' ) {
                 if (item[2]=='A') {

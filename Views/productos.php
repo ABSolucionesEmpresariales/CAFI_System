@@ -182,7 +182,7 @@ privilegios("Superiores");
                     <div class="col-lg-4">
                       <h5 class="general">Tasa IPES:</h5>
                       <input id="tasa_ipes" class="form form-control" type="number" onkeypress="return check(event)" name="Ntasa_ipes" placeholder="Tasa IPES" autocomplete="new-password" required><br>
-                      <input type="hidden" name="accion" value="false">
+                      <input type="hidden" name="accion" value="true">
                     </div>
                     <div class="col-lg-12">
                       <h5 class="general">Talla:</h5>
