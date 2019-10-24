@@ -5,7 +5,6 @@ include_once '../Models/Conexion.php';
 
 /* var_dump($_POST['Tcodigo_barras'],$_POST['Tmodelo'],$_POST['Tnombre'],$_POST['Tdescripcion'],
 $_POST['Scategoria'],$_POST['Smarca'],$_POST['Tproveedor'],$_POST['Scolor'],
-$_POST['Fimagen'],
 $_POST['Nprecio_compra'],
 $_POST['Nprecio_venta'],
 $_POST['Ndescuento'],
@@ -15,7 +14,7 @@ $_POST['Ntasa_ipes'],
 $_POST['Stalla_numero'],
 $_POST['accion'])
 ;
- */
+*/
 if (
     isset($_POST['Tcodigo_barras']) && isset($_POST['Tmodelo']) && isset($_POST['Tnombre']) && isset($_POST['Tdescripcion']) &&
     isset($_POST['Scategoria']) && isset($_POST['Smarca']) && isset($_POST['Tproveedor']) && isset($_POST['Scolor']) &&
@@ -45,7 +44,7 @@ if (
             $conexion->eliminar_simbolos($_POST['Stalla_numero']),
             $conexion->eliminar_simbolos("2")
         );
-        
+
         if($accion == 1){
             $consulta_guardar_producto = "INSERT INTO producto (codigo_barras,modelo,nombre,descripcion,categoria,
             marca,proveedor,color,imagen,precio_compra,precio_venta,descuento,unidad_medida,tasa_iva,
@@ -115,7 +114,7 @@ if (
 
 
     if ($_POST['accion'] == 'false') {
-
+      echo "entro";
         if (strlen($_FILES['Fimagen']['tmp_name']) != 0) {
             $archivo = subir_archivo('Fimagen',1);
             if ($archivo == "Error") {
@@ -130,7 +129,7 @@ if (
                     echo guardar_datos_stock(1);
                 } else {
                     echo $respuesta;
-                } 
+                }
             }
         } else {
             $respuesta = guardar_datos_productos("",1);
@@ -148,7 +147,7 @@ if (
                if(!unlink($ruta)){
                     echo "Error Imagen";
                }
-            } 
+            }
             $archivo = subir_archivo('Fimagen',1);
             if ($archivo == "Error") {
                 echo $archivo;
@@ -163,7 +162,7 @@ if (
                 } else {
                     echo "Error2";
                 }
-            } 
+            }
         }else{
             $respuesta = guardar_datos_productos("",2);
             if ($respuesta != 0) {

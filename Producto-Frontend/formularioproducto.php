@@ -64,7 +64,7 @@
   <div class="d-block d-lg-flex row">
     <div class="col-lg-6">
       <h5 class="general">Unidad de medida:</h5>
-      <select class="form form-control" id="unidad_medida" name="Sunidad_medida">
+      <select class="form form-control" id="unidad_medida" name="Sunidad_medida" required>
         <option value="pieza">Pieza</option>
         <option value="par">Par</option>
         <option value="paquete">Paquete</option>
@@ -83,17 +83,17 @@
   <div class="d-block d-lg-flex row">
   <div class="col-lg-4">
     <h5 class="general">Tasa IVA:</h5>
-    <input id="tasa_iva" class="form form-control" type="number" onkeypress="return check(event)" name="Ntasa_iva" placeholder="Tasa IVA" autocomplete="new-password" required><br>
+    <input id="tasa_iva" class="form form-control" type="number" onkeypress="return check(event)" name="Ntasa_iva" placeholder="Tasa IVA" autocomplete="new-password" ><br>
   </div>
 
   <div class="col-lg-4">
     <h5 class="general">Tasa IPES:</h5>
-    <input id="tasa_ipes" class="form form-control" type="number" onkeypress="return check(event)" name="Ntasa_ipes" placeholder="Tasa IPES" autocomplete="new-password" required><br>
+    <input id="tasa_ipes" class="form form-control" type="number" onkeypress="return check(event)" name="Ntasa_ipes" placeholder="Tasa IPES" autocomplete="new-password" ><br>
     <input type="hidden" name="accion" value="false">
   </div>
   <div class="col-lg-4">
     <h5 class="general">Descuento:</h5>
-    <input id="descuento" class="form form-control" type="number" onkeypress="return check(event)" name="Ndescuento" placeholder="Descuento" autocomplete="new-password" required><br>
+    <input id="descuento" class="form form-control" type="number" onkeypress="return check(event)" name="Ndescuento" placeholder="Descuento" autocomplete="new-password" ><br>
   </div>
 
       <input id="bclose" type="submit" class="mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">

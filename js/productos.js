@@ -15,6 +15,8 @@ console.log("entro al js");
   }
   }); */
   $(document).on('click','#bclose', function(){
+    var boton = $(this).attr('id');
+    
      if(boton == "bclose"){
         var codigo = $('#codigo_barras').val();
         var modelo = $('#modelo').val();
@@ -85,22 +87,39 @@ console.log("entro al js");
         }
   });
 
+  $("#formulario").submit(function (e) {
+ var formData = new FormData(this);
 
-function obtenerDatosTablaUsuarios() {
-    $.ajax({
-      url: "../Controllers/productos.php",
-      type: 'POST',
-      data: formData,
-      contentType: false,
-      processData: false,
+ $.ajax({
+   url: "../Controllers/productos.php",
+   type: 'POST',
+   data: formData,
+   contentType: false,
+   processData: false,
 
-      success: function (response) {
-        console.log(response);
-        let datos = JSON.parse(response);
-        let template = "";
-        $.each(datos, function (i, item) {
-          template += `
-          <tr>
+   success: function(response) {
+       console.log("Respuesta: "+response);
+
+   }
+
+ });
+ e.preventDefault();
+ });
+
+
+ function obtenerDatosTablaUsuarios() {
+   $.ajax({
+     url: "../Controllers/clienteab.php",
+     type: "GET",
+     data: "tabla=tabla",
+
+     success: function (response) {
+       console.log(response);
+       let datos = JSON.parse(response);
+       let template = "";
+       $.each(datos, function (i, item) {
+         template += `
+         <tr>
                 <td class="text-nowrap text-center">${item[0]}</td>
                 <td class="text-nowrap text-center">${item[1]}</td>
                 <td class="text-nowrap text-center">${item[2]}</td>
@@ -128,11 +147,8 @@ function obtenerDatosTablaUsuarios() {
         });
         $("#cuerpo").html(template);
       }
-e.preventDefault();
   });
 }
-  
-});
 
 $(document).on("click", ".Beditar, #agregar_p", function () {
   var valores = "";

@@ -1,4 +1,4 @@
-<form class="form-group" id="formulario" method="POST">>
+<form class="form-group" id="inventario" method="POST">
   <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
   <div class="d-block d-lg-flex row">
       <div class="col-lg-6">
