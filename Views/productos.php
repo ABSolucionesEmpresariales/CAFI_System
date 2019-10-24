@@ -67,19 +67,21 @@ privilegios("Superiores");
             <div class="ml-0 ml-lg-3 input-group-prepend">
                 <div class="input-group-text"><i class="fa fa-search"></i></div>
             </div>
+
             <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeyup="busqueda()" onkeypress="return check(event)" placeholder="Buscar..." title="Type in a name" value="">
-
-            <input type="submit" style="display: none;">
-
-
-            <button class="d-none d-lg-flex btn btn-primary ml-5 agregar" data-toggle="modal" id="agregar_p" data-target="#modalForm">Agregar</button>
-            <button class="d-none d-lg-flex btn btn-danger ml-5 agregar" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Imprimir codigo de barras</button>
             <div class="col-lg-4">
               <h5 class="general">Negocio:</h5>
               <select class="form form-control" id="negocio" name="Snegocio">
                 <option value="idnegocio"></option>
               </select>
             </div>
+
+            <input type="submit" style="display: none;">
+
+
+            <button class="d-none d-lg-flex btn btn-primary ml-3 agregar" data-toggle="modal" id="agregar_p" data-target="#modalForm">Agregar</button>
+            <button class="d-none d-lg-flex btn btn-danger ml-3 agregar" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Imprimir codigo de barras</button>
+
         </div>
       </div>
 
@@ -103,6 +105,9 @@ privilegios("Superiores");
                         <th class="text-nowrap text-center" onclick="sortTable(13)">Tasa de iva</th>
                         <th class="text-nowrap text-center" onclick="sortTable(14)">Tasa de ipes</th>
                         <th class="text-nowrap text-center" onclick="sortTable(15)">Talla numero</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(1)">Localización</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(2)">Stock</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(3)">Stock minimo</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>

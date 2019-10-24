@@ -16,7 +16,7 @@ console.log("entro al js");
   }); */
   $(document).on('click','#bclose', function(){
     var boton = $(this).attr('id');
-    
+
      if(boton == "bclose"){
         var codigo = $('#codigo_barras').val();
         var modelo = $('#modelo').val();
@@ -34,6 +34,9 @@ console.log("entro al js");
         var iva = $('#tasa_iva').val();
         var ipes = $('#tasa_ipes').val();
         var descuento = $('#descuento').val();
+        var localizacion = $('#localizacion').val();
+        var stock = $('#stock').val();
+        var stock_minimo = $('#stock_minimo').val();
 
         if(codigo.trim() == ''){
             $('#codigo_barras').focus();
@@ -80,8 +83,14 @@ console.log("entro al js");
         }else if(ipes.trim() == '' || ipes.trim() < 1){
             $('#tasa_ipes').focus();
             return false;
-        }else if(descuento.trim() == '' || descuento.trim() < 1){
-            $('#descuento').focus();
+        }else if(localizacion.trim() == '' || localizacion.trim() < 1){
+            $('#localizacion').focus();
+            return false;
+          }else if(stock.trim() == '' || stock.trim() < 1){
+              $('#stock').focus();
+              return false;
+        }else if(stock_minimo.trim() == '' || stock_minimo.trim() < 1){
+            $('#stock_minimo').focus();
             return false;
           }
         }
