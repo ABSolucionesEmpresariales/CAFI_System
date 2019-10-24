@@ -186,6 +186,8 @@ if(isset($_POST['tabla'])){
      echo $jsonstring;
 }
 
+
+
 if(isset($_POST['negocios'])){
     $conexion = new Models\Conexion();
     $consulta = "SELECT idnegocios,nombre FROM negocios WHERE dueno = $_SESSION[negocio]";
