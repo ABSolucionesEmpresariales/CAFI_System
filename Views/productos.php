@@ -35,71 +35,63 @@ privilegios("Superiores");
     include("../Controllers/NavbarCafi.php")
     ?>
 
-  <div class="contenedor container-fluid">
-  <div class="row align-items-start">
-  <div id="tableContainer" class="d-block col-lg-12">
+    <div class="contenedor container-fluid">
+            <div class="row align-items-start">
+                <div id="tableContainer" class="d-block col-lg-12">
+                        <div class="row col-12">
+                            <div class="input-group mb-2">
 
+                                <div class="row col-12">
+                                    <button class="d-lg-none btn btn-primary col-6 mb-3 p-3 agrega mostra" data-toggle="modal" data-target="#modalForm">Agregar Productos</button>
+                                    <button class="d-lg-none btn btn-danger col-6 mb-3 p-3 agrega mostra" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Imprimir Codigos</button>
+                                    <p id="stockrequerido"></p>
+                                </div>
 
-    <div class="row col-12">
-        <div class="input-group mb-2">
-          <div class="row col-12">
-            <button class="d-lg-none btn btn-primary col-6 mb-3 p-3 agrega mostra" data-toggle="modal" data-target="#modalForm">Agregar Productos</button>
-            <button class="d-lg-none btn btn-danger col-6 mb-3 p-3 agrega mostra" id="BcodigoBarra"  data-toggle="modal" data-target="#modalFormCodigo">Imprimir Codigos</button>
-              <p id="stockrequerido"></p>
-          </div>
+                                <div class="ml-0 ml-lg-3 input-group-prepend">
+                                    <div class="input-group-text"><i class="fa fa-search"></i>
+                                    </div>
+                                </div>
 
+                                <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeyup="busqueda()" onkeypress="return check(event)" placeholder="Buscar..." title="Type in a name" value="">
 
+                                  <h5 class="general">Negocio:</h5>
+                                  <select class="form form-control" id="negocio" name="Snegocio">
+                                    <option value="idnegocio"></option>
+                                  </select>
 
-
-            <div class="ml-0 ml-lg-3 input-group-prepend">
-                <div class="input-group-text"><i class="fa fa-search"></i></div>
-            </div>
-
-            <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeyup="busqueda()" onkeypress="return check(event)" placeholder="Buscar..." title="Type in a name" value="">
-            <div class="col-lg-4">
-              <h5 class="general">Negocio:</h5>
-              <select class="form form-control" id="negocio" name="Snegocio">
-                <option value="idnegocio"></option>
-              </select>
-            </div>
-
-            <input type="submit" style="display: none;">
-
-
-            <button class="d-none d-lg-flex btn btn-primary ml-3 agregar" data-toggle="modal" id="agregar_p" data-target="#modalForm">Agregar</button>
-            <button class="d-none d-lg-flex btn btn-danger ml-3 agregar" id="BcodigoBarra"  data-toggle="modal" data-target="#modalFormCodigo">Imprimir codigo de barras</button>
-
-        </div>
-      </div>
-
-                <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
-                  <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
-                    <thead class="thead-dark">
-                      <tr class="encabezados">
-                        <th class="text-nowrap text-center" onclick="sortTable(0)">Codigo de barras</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(1)">Modelo</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(2)">Nombre</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(3)">Descripción</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(4)">Categoria</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(5)">Marca</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(6)">Proveedor</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(7)">Color</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(8)">Imagen</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(9)">Precio compra</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(10)">Precio venta</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(11)">Descuento</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(12)">Unidad de medida</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(13)">Tasa de iva</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(14)">Tasa de ipes</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(15)">Talla numero</th>
-                      </tr>
-                    </thead>
-                    <tbody id="cuerpo"></tbody>
-                  </table>
+                                <input type="submit" style="display: none;">
+                                <button class="d-none d-lg-flex btn btn-primary ml-5 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
+                                <button class="d-none d-lg-flex btn btn-danger ml-5 agregar" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Generar codigo de barras</button>
+                            </div>
+                    </div>
+                    <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
+                      <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
+                        <thead class="thead-dark">
+                          <tr class="encabezados">
+                            <th class="text-nowrap text-center" onclick="sortTable(0)">Codigo de barras</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(1)">Modelo</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(2)">Nombre</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(3)">Descripción</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(4)">Categoria</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(5)">Marca</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(6)">Proveedor</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(7)">Color</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(8)">Imagen</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(9)">Precio compra</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(10)">Precio venta</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(11)">Descuento</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(12)">Unidad de medida</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(13)">Tasa de iva</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(14)">Tasa de ipes</th>
+                            <th class="text-nowrap text-center" onclick="sortTable(15)">Talla numero</th>
+                          </tr>
+                        </thead>
+                        <tbody id="cuerpo"></tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
 
           <!-- Modal -->
           <div class="modal fade" id="modalForm" role="dialog">
@@ -215,12 +207,12 @@ privilegios("Superiores");
                               <input id="descuento" class="form form-control" type="number" onkeypress="return check(event)" name="Ndescuento" placeholder="Descuento" autocomplete="new-password" ><br>
                             </div>
                           </div>
-                            <div class=""
+                            <div class="d-block d-lg-flex row">
                             <div class="col-lg-6">
                               <h5 class="general">Localización:</h5>
                               <input id="localizacion" class="form form-control" onkeypress="return check(event)" type="text" name="Tlocalizacion" placeholder="Localización" autocomplete="new-password" >
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                               <h5 class="general">Stock:</h5>
                               <input id="stock" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock" placeholder="Stock" autocomplete="new-password" required>
                             </div>
