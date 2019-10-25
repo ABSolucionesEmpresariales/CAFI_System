@@ -1,6 +1,7 @@
 $(document).ready(function () {
 editar = false;
 console.log("entro al js");
+obtenerDatosTablaProductos();
 /* $.ajax({
   url: "../Controllers/generador.php",
   type: "GET",
@@ -62,10 +63,10 @@ console.log("entro al js");
  });
 
 
- function obtenerDatosTablaUsuarios() {
+ function obtenerDatosTablaProductos() {
    $.ajax({
-     url: "../Controllers/clienteab.php",
-     type: "GET",
+     url: "../Controllers/productos.php",
+     type: "POST",
      data: "tabla=tabla",
 
      success: function (response) {
