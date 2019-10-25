@@ -14,8 +14,7 @@ $_POST['Ntasa_iva'],
 $_POST['Ntasa_ipes'],
 $_POST['Stalla_numero'],
 $_POST['accion'])
-;
- */
+;*/
 if (
     isset($_POST['Tcodigo_barras']) && isset($_POST['Tmodelo']) && isset($_POST['Tnombre']) && isset($_POST['Tdescripcion']) &&
     isset($_POST['Scategoria']) && isset($_POST['Smarca']) && isset($_POST['Tproveedor']) && isset($_POST['Scolor']) &&
@@ -27,23 +26,23 @@ if (
     {
         $conexion = new Models\Conexion();
         $datos_productos = array(
-            $conexion->eliminar_simbolos($_POST['Tcodigo_barras']),
-            $conexion->eliminar_simbolos($_POST['Tmodelo']),
-            $conexion->eliminar_simbolos($_POST['Tnombre']),
-            $conexion->eliminar_simbolos($_POST['Tdescripcion']),
-            $conexion->eliminar_simbolos($_POST['Scategoria']),
-            $conexion->eliminar_simbolos($_POST['Smarca']),
-            $conexion->eliminar_simbolos($_POST['Tproveedor']),
-            $conexion->eliminar_simbolos($_POST['Scolor']),
+            $_POST['Tcodigo_barras'],
+            $_POST['Tmodelo'],
+            $_POST['Tnombre'],
+            $_POST['Tdescripcion'],
+            $_POST['Scategoria'],
+            $_POST['Smarca'],
+            $_POST['Tproveedor'],
+            $_POST['Scolor'],
             $estado_imagen,
-            $conexion->eliminar_simbolos($_POST['Nprecio_compra']),
-            $conexion->eliminar_simbolos($_POST['Nprecio_venta']),
-            $conexion->eliminar_simbolos($_POST['Ndescuento']),
-            $conexion->eliminar_simbolos($_POST['Sunidad_medida']),
-            $conexion->eliminar_simbolos($_POST['Ntasa_iva']),
-            $conexion->eliminar_simbolos($_POST['Ntasa_ipes']),
-            $conexion->eliminar_simbolos($_POST['Stalla_numero']),
-            $conexion->eliminar_simbolos("2")
+            $_POST['Nprecio_compra'],
+            $_POST['Nprecio_venta'],
+            $_POST['Ndescuento'],
+            $_POST['Sunidad_medida'],
+            $_POST['Ntasa_iva'],
+            $_POST['Ntasa_ipes'],
+            $_POST['Stalla_numero'],
+            $_SESSION['email']
         );
         
         if($accion == 1){
@@ -73,14 +72,14 @@ if (
     {
         $conexion = new Models\Conexion();
         $datos_stock = array(
-            $conexion->eliminar_simbolos($_POST['Tcodigo_barras']),
-            $conexion->eliminar_simbolos("Almazen"),
-            $conexion->eliminar_simbolos(11),
-            $conexion->eliminar_simbolos(1),
-            $conexion->eliminar_simbolos("A"),
-            $conexion->eliminar_simbolos($_SESSION['email']),
-            $conexion->eliminar_simbolos($_SESSION['negocio']),
-            $conexion->eliminar_simbolos(0)
+            $_POST['Tcodigo_barras'],
+            $_POST['Tlocalizacion'],
+            $_POST['Nstock'],
+            $_POST['Nstock_minimio'],
+            "A",
+            $_SESSION['email'],
+            $_SESSION['negocio'],
+            0
         );
 
         if($accion == 1){
@@ -182,7 +181,7 @@ if(isset($_POST['tabla'])){
     $conexion = new Models\Conexion();
     $consulta = "SELECT codigo_barras,modelo,nombre,descripcion,categoria,marca,proveedor,color,imagen,precio_compra,
     precio_venta,descuento,unidad_medida,tasa_iva,tasa_ipes,talla_numero FROM producto p INNER JOIN stock s
-     WHERE p.codigo_barras = s.producto AND s.negocio = $_SESSION[negocio]";
+     WHERE p.codigo_barras = s.producto AND s.negocio = $_SESSION[negocio] AND s.eliminado = '0'";
      $jsonstring = json_encode($conexion->obtenerDatosDeTabla($consulta));
      echo $jsonstring;
 }
@@ -194,4 +193,32 @@ if(isset($_POST['negocios'])){
     $consulta = "SELECT idnegocios,nombre FROM negocios WHERE dueno = $_SESSION[negocio]";
     $jsonstring = json_encode($conexion->obtenerDatosDeTabla($consulta));
     echo $jsonstring;
+}
+
+if(isset($_POST['producto'])){
+    $conexion = new Models\Conexion();
+    $consulta = "SELECT t1.codigo_barras,t1.nombre,t1.color,t1.marca,t1.talla_numero FROM producto t1
+    WHERE t1.dueno = $_SESSION[email]
+    AND NOT EXISTS (SELECT NULL FROM stock t2 WHERE t2.producto = t1.codigo_barras AND t2.negocio = $_SESSION[negocio])";
+    $jsonstring = json_encode($conexion->obtenerDatosDeTabla($consulta));
+    echo $jsonstring;
+}
+
+if(isset($_POST['Tstock2']) && isset($_POST['Sproducto'])){
+    $datos_stock = array(
+        $_POST['Sproducto'],
+        $_POST['Talmazen'],
+        $_POST['Tstock2'],
+        $_POST['Tstock_minimo'],
+        "A",
+        $_SESSION['email'],
+        $_SESSION['negocio'],
+        0
+    );
+    $consulta_guardar_stock = "INSERT INTO stock (producto,localizacion,stock,stock_minimio,estado,
+    usuariocafi,negocio,eliminado) VALUES (?,?,?,?,?,?,?,?)";
+    $tipos_de_datos_stock = "ssiissii";
+
+    return $conexion->consultaPreparada($datos_stock, $consulta_guardar_stock, 1, $tipos_de_datos_stock, false);
+
 }

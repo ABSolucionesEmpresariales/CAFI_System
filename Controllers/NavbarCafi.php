@@ -16,7 +16,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'abonos') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VAbonos.php'" title="Abonos"><img src="../img/abonos-dark.png">Abonos</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='abonos.php'" title="Abonos"><img src="../img/abonos-dark.png">Abonos</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'adeudos') {
@@ -150,7 +150,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 <li class="nav-item mx-2 text-center">
                                     <a class="<?php if ($sel === 'abonos') {
                                                             echo seleccionado;
-                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='VAbonos.php'" title="Abonos"><img src="../img/abonos-dark.png">Abonos</a>
+                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='abonos.php'" title="Abonos"><img src="../img/abonos-dark.png">Abonos</a>
                                 </li>
                             </div>
                             <div class="col-4">
@@ -262,7 +262,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'abonos') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VAbonos.php'" title="Abonos"><img src="../img/abonos-dark.png">Abonos</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='abonos.php'" title="Abonos"><img src="../img/abonos-dark.png">Abonos</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'adeudos') {
@@ -359,7 +359,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                             <li class="nav-item mx-2 text-center">
                                 <a class="<?php if ($sel === 'abonos') {
                                                     echo seleccionado;
-                                                } ?> nav-link text-white" onclick="window.location.href='VAbonos.php'" title="Abonos"><img src="../img/abonos-dark.png">Abonos</a>
+                                                } ?> nav-link text-white" onclick="window.location.href='abonos.php'" title="Abonos"><img src="../img/abonos-dark.png">Abonos</a>
                             </li>
                         </div>
                         <div class="col-4">

@@ -1,3 +1,9 @@
+<?php
+session_start();
+require_once('../Controllers/seguridadCafi.php');
+privilegios("Todos");
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -24,6 +30,10 @@
   </head>
 
   <body onload="inicio();">
+  <?php
+    $sel = "abonos";
+    include("../Controllers/NavbarCafi.php")
+    ?>
 
         <div class="contenedor container-fluid">
           <div class="row align-items-start">
