@@ -11,7 +11,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a style="color: #fe6f00;" class="<?php if ($sel === 'venta') {
                                                                     echo seleccionado;
-                                                                } ?> nav-link" onclick="window.location.href='VVentas.php'" title="Venta"><img src="../img/sell.png">Venta</a>
+                                                                } ?> nav-link" onclick="window.location.href='ventas.php'" title="Venta"><img src="../img/sell.png">Venta</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'abonos') {
@@ -86,7 +86,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 <li class="nav-item mx-2 text-center">
                                     <a style="color: #fe6f00;" class="<?php if ($sel === 'venta') {
                                                                                     echo seleccionado;
-                                                                                } ?> nav-link font-weight-bold" onclick="window.location.href='VVentas.php'" title="Venta"><img src="../img/sell.png">Vender</a>
+                                                                                } ?> nav-link font-weight-bold" onclick="window.location.href='ventas.php'" title="Venta"><img src="../img/sell.png">Vender</a>
                                 </li>
                             </div>
                             <div class="col-4">
@@ -143,7 +143,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 <li class="nav-item mx-2 text-center">
                                     <a id="orange" class="<?php if ($sel === 'venta') {
                                                                         echo seleccionado;
-                                                                    } ?> nav-link font-weight-bold text-white" onclick="window.location.href='VVentas.php'" title="Venta"><img src="../img/sell.png">Vender</a>
+                                                                    } ?> nav-link font-weight-bold text-white" onclick="window.location.href='ventas.php'" title="Venta"><img src="../img/sell.png">Vender</a>
                                 </li>
                             </div>
                             <div class="col-4">
@@ -257,7 +257,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'venta') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VVentas.php'" title="Venta"><img src="../img/sell.png">Vender</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='ventas.php'" title="Venta"><img src="../img/sell.png">Vender</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'abonos') {
@@ -352,7 +352,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                             <li class="nav-item mx-2 text-center">
                                 <a class="<?php if ($sel === 'venta') {
                                                     echo seleccionado;
-                                                } ?> nav-link text-white" onclick="window.location.href='VVentas.php'" title="Venta"><img src="../img/sell.png">Vender</a>
+                                                } ?> nav-link text-white" onclick="window.location.href='ventas.php'" title="Venta"><img src="../img/sell.png">Vender</a>
                             </li>
                         </div>
                         <div class="col-4">
