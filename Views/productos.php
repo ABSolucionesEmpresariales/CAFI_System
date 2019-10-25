@@ -80,7 +80,7 @@ privilegios("Superiores");
 
 
             <button class="d-none d-lg-flex btn btn-primary ml-3 agregar" data-toggle="modal" id="agregar_p" data-target="#modalForm">Agregar</button>
-            <button class="d-none d-lg-flex btn btn-danger ml-3 agregar" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Imprimir codigo de barras</button>
+            <button class="d-none d-lg-flex btn btn-danger ml-3 agregar" id="BcodigoBarra"  data-toggle="modal" data-target="#modalFormCodigo">Imprimir codigo de barras</button>
 
         </div>
       </div>
@@ -105,9 +105,6 @@ privilegios("Superiores");
                         <th class="text-nowrap text-center" onclick="sortTable(13)">Tasa de iva</th>
                         <th class="text-nowrap text-center" onclick="sortTable(14)">Tasa de ipes</th>
                         <th class="text-nowrap text-center" onclick="sortTable(15)">Talla numero</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(1)">Localización</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(2)">Stock</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(3)">Stock minimo</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>
@@ -230,6 +227,20 @@ privilegios("Superiores");
                               <h5 class="general">Descuento:</h5>
                               <input id="descuento" class="form form-control" type="number" onkeypress="return check(event)" name="Ndescuento" placeholder="Descuento" autocomplete="new-password" ><br>
                             </div>
+                          </div>
+                            <div class=""
+                            <div class="col-lg-6">
+                              <h5 class="general">Localización:</h5>
+                              <input id="localizacion" class="form form-control" onkeypress="return check(event)" type="text" name="Tlocalizacion" placeholder="Localización" autocomplete="new-password" >
+                            </div>
+                            <div class="col-lg-4">
+                              <h5 class="general">Stock:</h5>
+                              <input id="stock" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock" placeholder="Stock" autocomplete="new-password" required>
+                            </div>
+                          <div class="col-lg-6">
+                            <h5 class="general">Stock minimo:</h5>
+                            <input id="stock_minimo" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock_minimo" placeholder="Stock minimo" autocomplete="new-password" >
+                          </div>
 
                                 <input id="bclose" type="submit" class="mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">
                             </form>
