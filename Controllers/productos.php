@@ -72,9 +72,9 @@ if (
         $conexion = new Models\Conexion();
         $datos_stock = array(
             $_POST['Tcodigo_barras'],
-            $_POST['Tlocalizacion'],
-            $_POST['Nstock'],
-            $_POST['Nstock_minimio'],
+            "Almacen",
+            11,
+            2,
             "A",
             $_SESSION['email'],
             $_SESSION['negocio'],
@@ -113,7 +113,6 @@ if (
 
 
     if ($_POST['accion'] == 'false') {
-      echo "entro";
         if (strlen($_FILES['Fimagen']['tmp_name']) != 0) {
             $archivo = subir_archivo('Fimagen',1);
             if ($archivo == "Error") {

@@ -48,20 +48,7 @@ privilegios("Superiores");
               <p id="stockrequerido"></p>
           </div>
 
-          <select class="form form-control sucursal col-6 col-lg-2" name="Snegocio">
-              <?php
-              $negocios = $_SESSION['idnegocios'];
-              $con = new Models\Conexion();
-              $query = "SELECT nombre, idnegocios FROM negocios
-              WHERE usuarioscafi = (SELECT Manager AS CEO FROM negocios WHERE negocios.idnegocios='$negocio')";
-              $row = $con->consultaListar($query);
-              $con->cerrarConexion();
-              $cont = 0;
-              while ($renglon = mysqli_fetch_array($row)) {
-                  echo "<option value =".$renglon['idnegocios'].">" . $renglon['nombre_negocio'] . "</option>";
-              }
-              ?>
-          </select>
+
 
 
             <div class="ml-0 ml-lg-3 input-group-prepend">
