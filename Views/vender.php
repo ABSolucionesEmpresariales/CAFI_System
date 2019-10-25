@@ -44,13 +44,14 @@ privilegios("Todos");
                                     <th class="text-nowrap text-center">Subtotal</th>
                                 </tr>
                             </thead>
-                            <tbody id="renglones">
+                            <tbody id="tbcarrito">
 
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div id="divtotal" style="background:  #3366ff;" class="text-white text-right font-weight-bold p-1 col-12">
+                <h2 class="totalcarrito"></h2>
                 </div>
                 <div class="d-block d-lg-flex mt-4 justify-content-center">
                     <button value="Efectivo" class="col-12 col-lg-4 m-1 bpago1 btn btn-dark text-white" type="button">Pago en efectivo</button>
@@ -135,10 +136,15 @@ privilegios("Todos");
                             <thead>
                                 <tr>
                                     <th class="text-nowrap text-center"></th>
-                                    <th class="text-nowrap text-center d-none">idcliente</th>
-                                    <th class="text-nowrap text-center">Cliente</th>
-                                    <th class="text-nowrap text-center">Teléfono</th>
+                                    <th class="text-nowrap text-center">Email</th>
+                                    <th class="text-nowrap text-center">Nombre</th>
+                                    <th class="text-nowrap text-center">Domicilio</th>
+                                    <th class="text-nowrap text-center">Colonia</th>
+                                    <th class="text-nowrap text-center">Localidad</th>
+                                    <th class="text-nowrap text-center">Municipio</th>
+                                    <th class="text-nowrap text-center">Telefono</th>  
                                     <th class="text-nowrap text-center">Estado</th>
+                                    <th class="text-nowrap text-center">Credito</th>
                                     <th class="text-nowrap text-center">Adeudos</th>
                                 </tr>
                             </thead>
@@ -166,6 +172,7 @@ privilegios("Todos");
         </div>
     </div>
     <!-- Modal -->
+   
     <script src="../js/user_jquery.js"></script>
     <script src="../js/ventas.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

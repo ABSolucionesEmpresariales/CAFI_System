@@ -1,25 +1,89 @@
 $(document).ready(function () {
-  let pago;
-  let cambio;
-  let descuento = 0.0;
+  let pago = 0.0;
+  let cambio = 0.0;
+  let descuento = 0.0;  
   let anticipo = 0.0;
   let forma_pago;
   let totalglobal = 0.0;
-  let codigo;
-  let cantidad;
+  let cliente = "";
   filtradoProductos();
-  optenerDatosTabla(0);
+  pintarTablaCarrito();
   //cerrar el modal
   $(document).on('click', '.close', function () {
-    optenerDatosTabla(0);
+    pintarTablaCarrito();
     //hacer la suma de los subtotales para la variable global total
   });
+function mandarporPost(){
+  const postData = {
+    idventa: "",
+    descuento: descuento,
+    total: totalglobal,
+    pago: pago,
+    cambio: cambio,
+    forma_pago: forma_pago,
+    json_string: convertirJsonCarritoenArray(),
+    idadeudo: "",
+    totaldeuda: totalglobal-anticipo,
+    anticipo: anticipo,
+    cliente: cliente
+  
+  };
+  $.post('../Controllers/ventas.php', postData, function (response) {
+    console.log(response);
+    if (response === "Exitoprinter") {
+        window.open('ticketVenta.php');
+    }
+    if (response) {
+      var explode = function () {
+        swal({
+          title: 'Exito',
+          text: 'Venta realizada exitosamente',
+          type: 'success'
+        },
+          function (isConfirm) {
+            if (isConfirm) {
+              sessionStorage.setItem('info', JSON.stringify(""));
+              location.reload();
+            }
+          });
+      };
+      setTimeout(explode, 200);
+    } else {
+      var explode = function () {
+        swal({
+          title: 'Alerta',
+          text: 'Venta no realizada',
+          type: 'warning'
+        },
+          function (isConfirm) {
+            if (isConfirm) {
+              sessionStorage.setItem('info', JSON.stringify(""));
+              location.reload();
+            }
+          });
+      };
+      setTimeout(explode, 200);
+    }
+  });
+}
+function convertirJsonCarritoenArray(){
+  var carrito = sessionStorage.getItem('info');
+  var carrito = JSON.parse(carrito);
+   for(i=0; i< carrito.length; i++){
+    for(j=0; j<carrito[i].length; j++){
+      if(j === 1){
+       carrito[i].splice(j,2);
+      }
+    }
+  } 
 
+  return JSON.stringify(carrito);
+  
+}
 
   //terminar la venta
   $(document).on('click', '.bvender', function () {
-    //pago efectivo
-    if ($('.tpago').val().length > 0 && $('.tanticipo').val().length < 1 && forma_pago === "Efectivo" && totalglobal>0) {
+    if ($('.tpago').val().length > 0 && $('.tanticipo').val().length < 1 && forma_pago === "Efectivo" && totalglobal > 0) {
       valor = $('.tpago').val();
       pago = valor = parseFloat(valor);
       if (valor < totalglobal) {
@@ -46,55 +110,15 @@ $(document).ready(function () {
           function (isConfirm) {
             if (isConfirm) {
               $('.tpago').val("");
+              mandarporPost();
             } else {
               $('.tpago').val("");
             }
-
-            const postData = {
-              total: totalglobal,
-              pago: pago,
-              cambio: cambio,
-              descuento: descuento,
-              formapago: forma_pago
-            };
-            $.post('post-guardar.php', postData, function (response) {
-              if (response === "Exitoprinter") {
-                window.open('ticketVenta.php');
-              }
-              if (response) {
-                var explode = function () {
-                  swal({
-                    title: 'Exito',
-                    text: 'Venta realizada exitosamente',
-                    type: 'success'
-                  },
-                    function (isConfirm) {
-                      if (isConfirm) {
-                        location.reload();
-                      }
-                    });
-                };
-                setTimeout(explode, 200);
-              } else {
-                var explode = function () {
-                  swal({
-                    title: 'Alerta',
-                    text: 'Venta no realizada',
-                    type: 'warning'
-                  },
-                    function (isConfirm) {
-                      if (isConfirm) {
-                        location.reload();
-                      }
-                    });
-                };
-                setTimeout(explode, 200);
-              }
-            });
+           
           });
       }
       //pago a credito
-    } else if ($('.tpago').val().length > 0 && $('.tanticipo').val().length > 0 && forma_pago === "Crédito" && totalglobal>0) {
+    } else if ($('.tpago').val().length > 0 && $('.tanticipo').val().length > 0 && forma_pago === "Crédito" && totalglobal > 0) {
       valor = $('.tpago').val();
       pago = valor = parseFloat(valor);
       anticipo = parseFloat($('.tanticipo').val());
@@ -117,50 +141,7 @@ $(document).ready(function () {
             if (isConfirm) {
               $('.tpago').val("");
               $('.tanticipo').val("");
-              const postData = {
-                total: totalglobal,
-                pago: pago,
-                cambio: cambio,
-                totaldeuda: totalglobal - anticipo,
-                anticipo: anticipo,
-                descuento: descuento,
-                formapago: forma_pago
-              };
-              $.post('post-guardar.php', postData, function (response) {
-                if (response === "Exitoprinter") {
-                  window.open('ticketVenta.php');
-                }
-                if (response) {
-                  var explode = function () {
-                    swal({
-                      title: 'Exito',
-                      text: 'Venta realizada exitosamente',
-                      type: 'success'
-                    },
-                      function (isConfirm) {
-                        if (isConfirm) {
-                          location.reload();
-                        }
-                      });
-                  };
-                  setTimeout(explode, 200);
-                } else {
-                  var explode = function () {
-                    swal({
-                      title: 'Alerta',
-                      text: 'Venta no realizada',
-                      type: 'warning'
-                    },
-                      function (isConfirm) {
-                        if (isConfirm) {
-                          location.reload();
-                        }
-                      });
-                  };
-                  setTimeout(explode, 200);
-                }
-              });
-
+              mandarporPost();
             } else {
               $('.tpago').val("");
               $('.tanticipo').val("");
@@ -175,51 +156,12 @@ $(document).ready(function () {
         });
       }
 
-    } else if ($('.tpago').val().length < 1 && $('.tanticipo').val().length < 1 && forma_pago === "Tarjeta" && totalglobal>0) {
+    } else if ($('.tpago').val().length < 1 && $('.tanticipo').val().length < 1 && forma_pago === "Tarjeta" && totalglobal > 0) {
       //pago con tarjeta
       if (totalglobal) {
-        const postData = {
-          total: totalglobal,
-          descuento: descuento,
-          formapago: forma_pago
-        };
-        $.post('post-guardar.php', postData, function (response) {
-          if (response === "Exitoprinter") {
-            window.open('ticketVenta.php');
-          }
-          if (response) {
-            var explode = function () {
-              swal({
-                title: 'Exito',
-                text: 'Venta realizada exitosamente',
-                type: 'success'
-              },
-                function (isConfirm) {
-                  if (isConfirm) {
-                    location.reload();
-                  }
-                });
-            };
-            setTimeout(explode, 200);
-          } else {
-            var explode = function () {
-              swal({
-                title: 'Alerta',
-                text: 'Venta no realizada',
-                type: 'warning'
-              },
-                function (isConfirm) {
-                  if (isConfirm) {
-                    location.reload();
-                  }
-                });
-            };
-            setTimeout(explode, 200);
-          }
-        });
-
+        mandarporPost();
       }
-    }
+    } 
   });
 
   //boton descuento en pesos
@@ -359,100 +301,46 @@ $(document).ready(function () {
     $('.hmtotal').html(menseaje);
   });
 
-
-  //boton delete concepto venta
-  $(document).on('click', '.bdelete', function () {
-    let element = $(this)[0].parentElement.parentElement;
-    const codigo = $(element).attr('codigoBa');
-    const postData = {
-      codigo: codigo
-    };
-    $.post('post-delete.php', postData, function (response) {
-      if (response === "1") {
-
-      } else {
-        swal({
-          title: 'Alerta',
-          text: 'No eliminado',
-          type: 'warning'
-        });
-      }
-
-    });
-    optenerDatosTabla(0);
-
-  });
-
-  function optenerDatosTabla(total) {
+  function filtradoProductos() {
+    let searchproducto = $('#busquedap').val();
     $.ajax({
-      url: 'tabladetalleventa.php',
-      type: 'GET',
+      url: '../Controllers/ventas.php',
+      type: 'POST',
+      data: { searchproducto },
       success: function (response) {
         let datos = JSON.parse(response);
         let template = '';
-        datos.forEach(datos => {
-          sbtotal = parseFloat(datos.subtotal);
-          total += sbtotal;
-          template += `
-                  <tr codigoBa="${datos.codigo}">
-                  <td class="text-nowrap text-center"><button class="bdelete btn btn-danger">x</button></td>
-                  <td class="text-nowrap text-center d-none">${datos.codigo}</td>
-                  <td>${datos.nombre} ${datos.marca} ${datos.color} talla ${datos.talla_numero} um ${datos.unidad_medida}</td>
-                  <td class="tdcosto text-nowrap text-center">${datos.precio}</td>
-                  <td class="text-nowrap text-center">${datos.cantidad}</td>
-                  <td class="text-nowrap text-center">${datos.subtotal}</td>
-              </tr>`;
-        });
-        $('#renglones').html(template);
-        totalglobal = total;
-        template = `
-              <h5>Total: $${total}</h5>`;
-        $('#divtotal').html(template);
-      }
+        $.each(datos, function (i, item) {
 
-    })
-  }
-
-  function filtradoProductos() {
-      let search = $('#busquedap').val();
-      $.ajax({
-        url: '../Controllers/ventas.php',
-        type: 'POST',
-        data: { search },
-        success: function (response) {
-          let datos = JSON.parse(response);
-          let template = '';
-          $.each(datos, function (i, item) {
-          
-          for(i=0; i < item.length; i++){
-            if(item[i] === null){
-               item[i] = "";
+          for (i = 0; i < item.length; i++) {
+            if (item[i] === null) {
+              item[i] = "";
             }
           }
-            template += `<tr>
-                        <td> 
-                          <div class="row">
-                            <a class="bagregardv btn btn-secondary ml-1" href="#">
-                                <img src="../img/carrito.png">
-                            </a>
-                          </div>
-                        </td>
-                        <td><img src="${item[1]}" height="50" width="50" /></td>
-                        <td><input class='incan' type="number" value="1" name="quantity" min="1" max="" style="width: 60px; height: 38px;"></td>
-                        <td>${item[7]}</td>
-                        <td>${item[2]} ${item[3]} ${item[6]} </td>
-                        <td class="datos">${item[8]}</td>
-                        <td class="datos font-weight-bold">${item[0]}</td>
-                        <td>${item[5]}</td>
-                        <td>${item[4]}</td>
-                        <td class="datos">${item[9]}</td>
-                      </tr>`;
-          });
-          datos = "";
-          $('#cuerpo').html(template);
+          template += `<tr>
+                          <td> 
+                             <div class="row">
+                                <a class="bagregardv btn btn-secondary ml-1" href="#">
+                                   <img src="../img/carrito.png">
+                                </a>
+                              </div>
+                           </td>
+                           <td><img src="${item[1]}" height="50" width="50" /></td>
+                           <td><input id='incantidad' type="number" value="1" name="quantity" min="1" max="" style="width: 60px; height: 38px;"></td>
+                           <td>${item[7]}</td>
+                           <td class="datos">${item[2]} ${item[3]} ${item[6]} </td>
+                           <td class="datos">${item[8]}</td>
+                           <td class="datos font-weight-bold">${item[0]}</td>
+                           <td>${item[5]}</td>
+                           <td>${item[4]}</td>
+                           <td>${item[9]}</td>
+                        </tr>`;
+        });
+        datos = "";
+        $('#cuerpo').html(template);
 
-        }
-      });
+      }
+    });
 
   }
 
@@ -465,22 +353,28 @@ $(document).ready(function () {
   //filtrado tabla clientes
   $('#busquedac').keyup(function (e) {
     if ($('#busquedac').val()) {
-      let search = $('#busquedac').val();
+      let searchcliente = $('#busquedac').val();
       $.ajax({
-        url: 'bcliente.php',
+        url: '../Controllers/ventas.php',
         type: 'POST',
-        data: { search },
+        data: { searchcliente },
         success: function (response) {
           let datos = JSON.parse(response);
           let template = '';
-          datos.forEach(datos => {
+          $.each(datos, function (i, item) {
             template += `<tr>
                         <td> <button class="text-nowrap text-center bagregarc btn bg-secondary text-white">ok</button></td>
-                        <td class="text-nowrap text-center datoscliente d-none">${datos.idcliente}</td>
-                        <td class="text-center datoscliente">${datos.nombre}</td>
-                        <td class="text-nowrap text-center">${datos.telefono}</td>
-                        <td class="text-nowrap text-center datoscliente">${datos.estado}</td>
-                        <td class="text-nowrap text-center">${datos.adeudos}</td>
+                        <td class="text-nowrap text-center datoscliente">${item[0]}</td>
+                        <td class="text-center datoscliente">${item[1]}</td>
+                        <td class="text-nowrap text-center">${item[2]}</td>
+                        <td class="text-nowrap text-center">${item[3]}</td>
+                        <td class="text-nowrap text-center">${item[4]}</td>
+                        <td class="text-nowrap text-center">${item[5]}</td>
+                        <td class="text-nowrap text-center">${item[6]}</td>
+                        <td class="text-nowrap text-center">${item[7]}</td>
+                        <td class="text-nowrap text-center datoscliente">${item[8]}</td>
+                        <td class="text-nowrap text-center">${item[9]}</td>
+                      
                         </tr>`;
           });
           $('#cuerpotcliente').html(template);
@@ -501,14 +395,10 @@ $(document).ready(function () {
       valores += $(this).html() + "?";
     });
     renglon = valores.split("?");
-    const postData = {
-      idcliente: renglon[0],
-      estcliente: renglon[2]
-    };
 
-    $.post('post-guardar.php', postData, function (response) {
-
-      if (response === "no agregado a la sesion") {
+    cliente = renglon[0];
+    let estcliente = renglon[2];
+      if (estcliente != "A") {
         swal({
           title: 'Alerta',
           text: 'No se puede agregar un cliente inactivo',
@@ -521,46 +411,114 @@ $(document).ready(function () {
         $('#divanticipo').show();
         $('#divpago').show();
       }
-    });
+ 
 
 
   });
 
+
+$(document).on('click','.beliminar',function(){
+ var objeto = $(this).parents("tr");
+  $(this).parents("tr").remove();
+  obtenerDatosCarrito();
+});
+   
   //boton agregar al concepto venta
   $(document).on('click', '.bagregardv', function () {
+    let encontrado = false;
+    let cantidadinput = $(this).parents("tr").find('#incantidad').val();
     var valores = "";
-    let cantidad = $(this).parents("tr").find('.incan').val();
+    let val = "";
+
     $(this).parents("tr").find(".datos").each(function () {
       valores += $(this).html() + "?";
     });
-    valores += cantidad;
+    
+    valores += cantidadinput;
     result = valores.split("?");
 
-    const postData = {
-      codigo: result[0],
-      existencia: result[1],
-      precio: result[2],
-      cantidad: result[3]
-    };
-
-    $.post('post-guardar.php', postData, function (response) {
-      optenerDatosTabla(0);
-
-      if (response === "-1") {
-        swal({
-          title: 'Alerta',
-          text: 'Producto agregado, por favor intente de nuevo',
-          type: 'warning'
-        });
-      } else if (response === "stock") {
-        swal({
-          title: 'Alerta',
-          text: 'Compruebe el stock del producto',
-          type: 'warning'
-        });
-      }
-
+    $('#tbcarrito').find("#" + result[2]).find("td").each(function () {
+      encontrado = true;
+      val += $(this).html() + "?";
     });
+    row = val.split("?");
+     
+    
+    let costo = parseFloat(result[1]);
+    let cantidad = parseInt(result[3]);
+    let subtotal = cantidad * costo;
+
+  if(encontrado === false){
+
+    template = `<tr id="${result[2]}">
+    <td> <input type="button" class="beliminar" value="Eliminar"></td>
+    <td class="datos d-none">${result[2]}</td>
+    <td class="datos">${result[0]}</td>
+    <td class="datos">${result[1]}</td>
+    <td class="datos">${cantidad}</td>
+    <td class="datos">${subtotal}</td>
+ </tr>`;
+
+  }else{
+    $('#tbcarrito').find("#" + result[2]).remove();
+    cantidad += parseInt(row[4]);
+    subtotal = cantidad * costo;
+    template = `<tr id="${result[2]}">
+    <td> <input type="button" class="beliminar" value="Eliminar"></td>
+    <td class="datos d-none">${result[2]}</td>
+    <td class="datos">${result[0]}</td>
+    <td class="datos">${result[1]}</td>
+    <td class="datos">${cantidad}</td>
+    <td class="datos">${subtotal}</td>
+ </tr>`;
+  }
+  $('#tbcarrito').append(template);
+  obtenerDatosCarrito();
   });
 
+  function obtenerDatosCarrito(){
+    var cont = 0;
+    var cont2 = 0;
+    var filas = "";
+    var datostabla = [];
+  
+     $('#tbcarrito').find("tr").find(".datos").each(function() {
+       if(cont == 4){
+          filas+= $(this).html();
+          datos = filas.split("?");
+          datostabla[cont2] = datos;
+          datos = [];
+          cont = 0;
+          filas = "";
+          cont2++;
+       }else{
+        filas+= $(this).html()+"?";
+        cont++;
+       }
+       
+    });
+    sessionStorage.setItem('info', JSON.stringify(datostabla));
+    pintarTablaCarrito();
+  }
+
+  function pintarTablaCarrito(){
+    var carrito = sessionStorage.getItem('info');
+    var carrito = JSON.parse(carrito);
+    console.log(carrito);
+    var template = "";
+    totalglobal = 0.0;
+    $.each(carrito, function (i, item) {
+      totalglobal +=  parseInt(item[4]);
+      template += `<tr id="${item[0]}">
+      <td> <input type="button" class="beliminar" value="Eliminar"></td>
+      <td class="datos d-none">${item[0]}</td>
+      <td class="datos">${item[1]}</td>
+      <td class="datos">${item[2]}</td>
+      <td class="datos">${item[3]}</td>
+      <td class="datos">${item[4]}</td>
+   </tr>`;
+    });
+    $('#tbcarrito').html(template);
+    $('.totalcarrito').html(totalglobal);
+  }
 });
