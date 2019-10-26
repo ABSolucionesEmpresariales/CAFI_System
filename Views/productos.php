@@ -41,27 +41,22 @@ privilegios("Superiores");
                         <div class="row col-12">
                             <div class="input-group mb-2">
 
-                                <div class="row col-12">
-                                    <button class="d-lg-none btn btn-primary col-6 mb-3 p-3 agrega mostra" data-toggle="modal" data-target="#modalForm">Agregar Productos</button>
-                                    <button class="d-lg-none btn btn-danger col-6 mb-3 p-3 agrega mostra" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Imprimir Codigos</button>
-                                    <p id="stockrequerido"></p>
-                                </div>
-
                                 <div class="ml-0 ml-lg-3 input-group-prepend">
                                     <div class="input-group-text"><i class="fa fa-search"></i>
                                     </div>
                                 </div>
 
-                                <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeyup="busqueda()" onkeypress="return check(event)" placeholder="Buscar..." title="Type in a name" value="">
+                                <input class="form-control col-lg-4" type="text" id="busqueda" onkeyup="busqueda()" onkeypress="return check(event)" placeholder="Buscar..." title="Type in a name" value="">
 
                                   <h5 class="general">Negocio:</h5>
-                                  <select class="form form-control" id="negocio" name="Snegocio">
+                                  <select class="form form-control col-lg-4" id="negocio" name="Snegocio">
                                     <option value="idnegocio"></option>
                                   </select>
 
                                 <input type="submit" style="display: none;">
-                                <button class="d-none d-lg-flex btn btn-primary ml-5 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
-                                <button class="d-none d-lg-flex btn btn-danger ml-5 agregar" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Generar codigo de barras</button>
+                                <button class="d-none d-sm-flex btn btn-primary ml-5 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
+                                <button class="d-none d-sm-flex btn btn-success ml-5 agregar" data-toggle="modal" data-target="#modalStock">Inventariar</button>
+                                <button class="d-none d-sm-flex btn btn-danger ml-5 agregar" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Generar codigo de barras</button>
                             </div>
                     </div>
                     <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
@@ -113,11 +108,17 @@ privilegios("Superiores");
                             <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
 
                             <div class="d-block d-lg-flex row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <h5 class="general" style="color: #EF5602">Codigo</h5>
                                 <input id="codigo_barras" class="form form-control" onkeypress="return check(event)" type="text" name="Tcodigo_barras" placeholder="Codigo" autocomplete="new-password" required>
-
                               </div>
+                              <div class="col-lg-6">
+                                <h5 class="general"></h5>
+                                <button type="button" class="btn btn-danger agregar" style="padding: 13px;" id="BcodigoBarra" data-toggle="modal" data-target="#modalFormCodigo">Generar codigo</button>
+                                <!-- <button class="d-none d-lg-flex btn- btn-danger agregar" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Generar codigo</button> -->
+                              </div>
+                            </div>
+                            <div class="d-block d-lg-flex row">
                               <div class="col-lg-4">
                                 <h5 class="general">Modelo</h5>
                                 <input id="modelo" class="form form-control" onkeypress="return check(event)" type="text" name="Tmodelo" placeholder="Modelo" autocomplete="new-password" >
@@ -148,7 +149,9 @@ privilegios("Superiores");
                             <div class="d-block d-lg-flex row">
                             <div class="col-lg-4">
                               <h5 class="general">Proveedor:</h5>
-                              <input id="proveedor" class="form form-control" onkeypress="return check(event)" type="text" name="Tproveedor" placeholder="Proveedor" autocomplete="new-password" >
+                              <select class="form form-control" id="proveedor" name="Tproveedor">
+                                <option value="NULL"></option>
+                              </select>
                             </div>
                               <div class="col-lg-4">
                                 <h5 class="general">Color:</h5>
@@ -156,15 +159,30 @@ privilegios("Superiores");
                                   <option value="rojo">rojo</option>
                                 </select>
                               </div>
-                              <div class="col-lg-4">
-                                <h5 class="general">Imagen:</h5>
-                                <input id="imagen" class="form form-control" type="file" onkeypress="return check(event)" name="Fimagen" placeholder="imagen" autocomplete="new-password"><br>
+                            </div>
+                            <div class="d-block d-lg-flex row">
+                              <div class="row text-center">
+                                  <div class="col-lg-6">
+                                      <h5><label for="imagen" class="general">Imagen:</label></h5>
+
+                                      <div id="preview">
+                                          <img id="imagen" src="" width="100" height="100" />
+                                      </div>
+
+                                      <div id="rowMostrar">
+
+                                      </div>
+
+                                      <div>
+                                          <input onclick="ejecutar();" style="margin-left: 10px; margin-top: 10px;" id="imagen" style="margin-left: 4px;" type="file" name="Fimagen" />
+                                      </div>
+                                  </div>
                               </div>
                             </div>
                             <div class="d-block d-lg-flex row">
                               <div class="col-lg-5">
                                 <h5 class="general">Precio compra:</h5>
-                                <input id="precio_compra" class="form form-control" type="number" onkeypress="return check(event)" name="Nprecio_compra" placeholder="Precio compra" autocomplete="new-password"><br>
+                                <input id="precio_compra" class="form form-control" type="" onkeypress="return check(event)" name="Nprecio_compra" placeholder="Precio compra" autocomplete="new-password"><br>
                               </div>
 
                               <div class="col-lg-5">
@@ -192,19 +210,19 @@ privilegios("Superiores");
                                 </div>
                             </div>
                             <div class="d-block d-lg-flex row">
-                            <div class="col-lg-4">
-                              <h5 class="general">Tasa IVA:</h5>
-                              <input id="tasa_iva" class="form form-control" type="number" onkeypress="return check(event)" name="Ntasa_iva" placeholder="Tasa IVA" autocomplete="new-password" ><br>
-                            </div>
-
+                              <div class="col-lg-4">
+                                <h5 class="general">Tasa IVA:</h5>
+                                <label><input id="tasa_iva" type="checkbox" onkeypress="return check(event)" name="Ntasa_iva" placeholder="Tasa IVA" autocomplete="new-password" value="si">Iva incluido</label>
+                                <input type="hidden" name="accion" value="false">
+                              </div>
                             <div class="col-lg-4">
                               <h5 class="general">Tasa IPES:</h5>
-                              <input id="tasa_ipes" class="form form-control" type="number" onkeypress="return check(event)" name="Ntasa_ipes" placeholder="Tasa IPES" autocomplete="new-password" ><br>
-                              <input type="hidden" name="accion" value="false">
+                              <input id="tasa_ipes" class="form form-control" type="text" onkeypress="return check(event)" name="Ntasa_ipes" placeholder="Tasa IPES" autocomplete="new-password" ><br>
+                              <input type="hidden" name="accion" id="accion" value="false">
                             </div>
                             <div class="col-lg-4">
                               <h5 class="general">Descuento:</h5>
-                              <input id="descuento" class="form form-control" type="number" onkeypress="return check(event)" name="Ndescuento" placeholder="Descuento" autocomplete="new-password" ><br>
+                              <input id="descuento" class="form form-control" type="text" onkeypress="return check(event)" name="Ndescuento" placeholder="Descuento" autocomplete="new-password" ><br>
                             </div>
                           </div>
                             <div class="d-block d-lg-flex row">

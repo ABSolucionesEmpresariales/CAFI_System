@@ -82,12 +82,12 @@ if (
         );
 
         if($accion == 1){
-            $consulta_guardar_stock = "INSERT INTO stock (producto,localizacion,stock,stock_minimio,estado,
+            $consulta_guardar_stock = "INSERT INTO stock (producto,localizacion,stock,stock_minimo,estado,
             usuariocafi,negocio,eliminado) VALUES (?,?,?,?,?,?,?,?)";
             $tipos_de_datos_stock = "ssiissii";
             return $conexion->consultaPreparada($datos_stock, $consulta_guardar_stock, 1, $tipos_de_datos_stock, false);
         }else{
-            $consulta_editar_stock = "UPDATE stock SET localizacion=?,stock=?,stock_minimio=?,estado=?,usuariocafi=?,
+            $consulta_editar_stock = "UPDATE stock SET localizacion=?,stock=?,stock_minimo=?,estado=?,usuariocafi=?,
             negocio=?,eliminado=? WHERE producto=?";
             $tipos_de_datos_stock = "siissiis";
             return $conexion->consultaPreparada($datos_stock, $consulta_editar_stock, 1, $tipos_de_datos_stock, true);
