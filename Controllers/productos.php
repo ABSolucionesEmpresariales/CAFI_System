@@ -3,7 +3,7 @@ session_start();
 include '../Models/Archivos.php';
 include_once '../Models/Conexion.php';
 
-/* var_dump($_POST['Tcodigo_barras'],$_POST['Tmodelo'],$_POST['Tnombre'],$_POST['Tdescripcion'],
+/*var_dump($_POST['Tcodigo_barras'],$_POST['Tmodelo'],$_POST['Tnombre'],$_POST['Tdescripcion'],
 $_POST['Scategoria'],$_POST['Smarca'],$_POST['Tproveedor'],$_POST['Scolor'],
 $_POST['Nprecio_compra'],
 $_POST['Nprecio_venta'],
