@@ -1,4 +1,30 @@
 $(document).ready(function () {
+  $(document).on("dblclick","td", function(e) {
+   // code here
+
+
+       var valores = "";
+      $(this).parents("tr").find("td").each(function () {
+         valores+= $(this).html()+"?";
+       });
+
+       datos = valores.split("?");
+       console.log(datos);
+
+       $("#producto").val(datos[0]);
+       $("#localizacion").val(datos[1]);
+       $("#stock").val(datos[2]);
+       $("#stock_minimo").val(datos[3]);
+       $("#estado").val(datos[4]);
+       $("#usuariocafi").val(datos[5]);
+       $("#negocio").val(datos[6]);
+
+       $('#modalForm2').modal('show');
+
+     $('#accion').val("true");
+
+      });
+
 editar = false;
 console.log("entro al js");
 
@@ -7,23 +33,14 @@ console.log("entro al js");
 
      if(boton == "bclose"){
         var producto = $('#producto').val();
-        var localizacion = $('#localizacion').val();
         var stock = $('#stock').val();
-        var stock_minimo = $('#stock_minimo').val();
         var estado = $('#estado').val();
-        var negocio = $('#negocio').val();
 
         if(producto.trim() == ''){
             $('#producto').focus();
             return false;
-        }if(localizacion.trim() == ''){
-            $('#localizacion').focus();
-            return false;
         }if(stock.trim() == ''){
             $('#stock').focus();
-            return false;
-        }else if(stock_minimo.trim() == '' || stock_minimo.trim() < 1){
-            $('#stock_minimo').focus();
             return false;
         }else if(estado.trim() == '' || estado.trim() < 1){
             $('#estado').focus();
@@ -36,7 +53,7 @@ console.log("entro al js");
  var formData = new FormData(this);
 
  $.ajax({
-   url: "../Controllers/stock.php",
+   url: "../Controllers/productos.php",
    type: 'POST',
    data: formData,
    contentType: false,
@@ -74,7 +91,7 @@ console.log("entro al js");
                 <td class="text-nowrap text-center d-none">${item[6]}</td>
                 <th class="text-nowrap text-center" style="width:100px;">
                 <div class="row">
-                    <a data-toggle="modal" data-target="#modalForm" style="margin: 0 auto;" class="Beditar btn btn-danger" href="#">
+                    <a data-toggle="modal" data-target="#modalStock" style="margin: 0 auto;" class="Beditar btn btn-success" href="#">
                       Editar
                     </a>
                 </div>
@@ -86,7 +103,7 @@ console.log("entro al js");
   });
 }
 
-$(document).on("click", ".Beditar, #agregar_p", function () {
+$(document).on("click", ".Beditar, #tableHolder", function () {
   var valores = "";
   // Obtenemos todos los valores contenidos en los <td> de la fila
   // seleccionada
@@ -100,7 +117,8 @@ $(document).on("click", ".Beditar, #agregar_p", function () {
   $("#stock").val(datos[2]);
   $("#stock_minimo").val(datos[3]);
   $("#estado").val(datos[4]);
-  $("#negocio").val(datos[5]);
+  $('#usuariocafi').val(datos[5]);
+  $("#negocio").val(datos[6]);
   editar = true;
 });
 
