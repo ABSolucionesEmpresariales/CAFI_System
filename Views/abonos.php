@@ -87,6 +87,7 @@ privilegios("Todos");
                 <div class="modal-body">
                     <p class="statusMsg"></p>
                     <form class="form-group" id="formulario">
+                    <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <h5 class="general">Estado:</h5>

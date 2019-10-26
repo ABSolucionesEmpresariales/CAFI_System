@@ -81,7 +81,7 @@ if(isset($_POST['Sestado']) && isset($_POST['idabono'])){
     $consulta="";
     $datos = array($_POST['Sestado'],$_SESSION['email'],$_POST['idabono']);
     $tipo_datos = "ssi";
-    if($_POST['Sestado'] == "R"){
+    if($_POST['Sestado'] == "A"){
         $consulta = "UPDATE adeudos INNER JOIN abono ON adeudos.idadeudos = abono.adeudos_id 
         SET adeudos.totaldeuda = (adeudos.totaldeuda-abono.cantidad),abono.estado = ? ,abono.usuariocafi = ?
         WHERE abono.idabono = ?";

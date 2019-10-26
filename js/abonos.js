@@ -8,24 +8,13 @@ $(document).ready(function () {
     $.post("../Controllers/consultasadeudos.php",$("#formulario").serialize() + "&idabono=" + idabono, function (response) {
       console.log(response);
       if (response == "1") {
-        swal({
-          title: 'Exito',
-          text: 'Registro exitoso!',
-          type: 'success'
-      },function (isConfirm){
-        if(isConfirm){
-            $('#formulario').trigger('reset');
-            $('.modal').modal('hide');
-            obtenerDatosTablaUsuarios();
-        }
-    });
+        $('.modal').modal('hide');
       } else {
-        swal({
-          title: 'oh,oh',
-          text: 'Algo salio mal',
-          type: 'warning'
-      });
-      } 
+        $("#mensaje").text("Registro fallido");
+        $("#mensaje").css("color", "red");
+        $("#email").focus();
+      }
+      obtenerDatosTablaUsuarios();
     });
     e.preventDefault();
   });
