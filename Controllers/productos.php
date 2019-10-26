@@ -3,7 +3,7 @@ session_start();
 include '../Models/Archivos.php';
 include_once '../Models/Conexion.php';
 
-/* var_dump($_POST['Tcodigo_barras'],$_POST['Tmodelo'],$_POST['Tnombre'],$_POST['Tdescripcion'],
+/*var_dump($_POST['Tcodigo_barras'],$_POST['Tmodelo'],$_POST['Tnombre'],$_POST['Tdescripcion'],
 $_POST['Scategoria'],$_POST['Smarca'],$_POST['Tproveedor'],$_POST['Scolor'],
 $_POST['Nprecio_compra'],
 $_POST['Nprecio_venta'],
@@ -82,7 +82,7 @@ if (
         );
 
         if($accion == 1){
-            $consulta_guardar_stock = "INSERT INTO stock (producto,localizacion,stock,stock_minimio,estado,
+            $consulta_guardar_stock = "INSERT INTO stock (producto,localizacion,stock,stock_minimo,estado,
             usuariocafi,negocio,eliminado) VALUES (?,?,?,?,?,?,?,?)";
             $tipos_de_datos_stock = "ssiissii";
             return $conexion->consultaPreparada($datos_stock, $consulta_guardar_stock, 1, $tipos_de_datos_stock, false);

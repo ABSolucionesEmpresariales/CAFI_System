@@ -45,19 +45,7 @@ if (isset($_POST['Pcontrasena']) && isset($_POST['Temail'])) {
         $_SESSION['negocio'] =  Models\Conexion::eliminar_simbolos($_POST['negocio']);
         echo "exito";
     }
-    echo $respuesta;
 
-if (isset($_POST['combo']) && $_POST['combo'] === "combo") {
-    $conexion = new Models\Conexion();
-    $consulta = "SELECT idnegocios,nombre FROM negocios WHERE dueno = ?";
-    $dato = array($_SESSION['email']);
-    echo json_encode($conexion->consultaPreparada($dato, $consulta, 2, "s", false));
-}
-
-if (isset($_POST['negocio'])) {
-    $_SESSION['negocio'] =  Models\Conexion::eliminar_simbolos($_POST['negocio']);
-    echo "exito";
-}
 
 if (isset($_GET['cerrar_sesion'])) {
     session_unset();
