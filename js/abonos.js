@@ -1,45 +1,30 @@
 $(document).ready(function () {
-  //VUsuarios_ab
-  let editar = false;
-  let idabono = "";
+  
+  idabono = "";
+
   obtenerDatosTablaUsuarios();
 
-  $(".close").click(function () {
-    $("#formulario").trigger("reset");
-    $("#mensaje").css("display", "none");
-  });
-
-
-  $('.agregar').click(function(){
-    editar = false;
-  });
-
-
   $("#formulario").submit(function (e) {
-    $.post("../Controllers/negocios.php",$("#formulario").serialize() + '&idabono=' + idabono + '&accion=' + editar, function (response) {
+    $.post("../Controllers/consultasadeudos.php",$("#formulario").serialize() + "&idabono=" + idabono, function (response) {
       console.log(response);
-      $("#mensaje").css("display", "block");
       if (response == "1") {
-        $("#mensaje").text("Registro Exitoso");
-        $("#mensaje").css("color", "green");
-        $("#email").focus();
-        $("#formulario").trigger("reset");
+        $('.modal').modal('hide');
       } else {
         $("#mensaje").text("Registro fallido");
         $("#mensaje").css("color", "red");
         $("#email").focus();
       }
+      obtenerDatosTablaUsuarios();
     });
     e.preventDefault();
   });
 
   function obtenerDatosTablaUsuarios() {
     $.ajax({
-      url: "../Controllers/clienteab.php",
+      url: "../Controllers/consultasadeudos.php",
       type: "POST",
-      data: "tabla=tabla",
+      data: "tabla_abonos=tabla_abonos",
       success: function (response) {
-
        let datos = JSON.parse(response);
         let template = "";
         $.each(datos, function (i, item) {
@@ -77,14 +62,8 @@ $(document).ready(function () {
       valores += $(this).html() + "?";
     });
     datos = valores.split("?");
-    console.log(datos);
-    
+    console.log(datos[0]);
     idabono = datos[0];
     $("#estado").val(datos[1]);
-    $("#cantidad").val(datos[2]);
-    $("#pago").val(datos[3]);
-    $("#colonia").val(datos[4]);
-    $("#forma_pago").val(datos[5]);
-    editar = true;
   });
 });

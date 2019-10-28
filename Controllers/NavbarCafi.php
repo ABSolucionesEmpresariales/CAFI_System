@@ -21,7 +21,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'adeudos') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VConsultasAdeudos.php'" title="Adeudos"><img src="../img/adeudos-dark.png">Adeudos</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='consultasadeudos.php'" title="Adeudos"><img src="../img/adeudos-dark.png">Adeudos</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'gastos') {
@@ -31,7 +31,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'retiros') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VRetiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='retiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
                     </li>
 
 
@@ -100,7 +100,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 <li class="nav-item mx-2 text-center">
                                     <a class="<?php if ($sel === 'adeudos') {
                                                             echo seleccionado;
-                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='VConsultasAdeudos.php'" title="Adeudos"><img src="../img/adeudos-dark.png">Adeudos</a>
+                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='consultasadeudos.php'" title="Adeudos"><img src="../img/adeudos-dark.png">Adeudos</a>
                                 </li>
                             </div>
                         </div>
@@ -116,7 +116,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 <li class="nav-item mx-2 text-center">
                                     <a class="<?php if ($sel === 'retiros') {
                                                             echo seleccionado;
-                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='VRetiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
+                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='retiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
                                 </li>
                             </div>
                             <div class="col-4">
@@ -157,7 +157,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 <li class="nav-item mx-2 text-center">
                                     <a class="<?php if ($sel === 'adeudos') {
                                                             echo seleccionado;
-                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='VConsultasAdeudos.php'" title="Adeudos"><img src="../img/adeudos-dark.png">Adeudos</a>
+                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='consultasadeudos.php'" title="Adeudos"><img src="../img/adeudos-dark.png">Adeudos</a>
                                 </li>
                             </div>
                         </div>
@@ -174,7 +174,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 <li class="nav-item mx-2 text-center">
                                     <a class="<?php if ($sel === 'retiros') {
                                                             echo seleccionado;
-                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='VRetiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
+                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='retiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
                                 </li>
                             </div>
                             <div class="col-4">
@@ -267,7 +267,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'adeudos') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VConsultasAdeudos.php'" title="Adeudos"><img src="../img/adeudos-dark.png">Adeudos</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='consultasadeudos.php'" title="Adeudos"><img src="../img/adeudos-dark.png">Adeudos</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'gastos') {
@@ -277,7 +277,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'retiros') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VRetiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='retiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
                     </li>
 
 
@@ -366,7 +366,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                             <li class="nav-item mx-2 text-center">
                                 <a class="<?php if ($sel === 'adeudos') {
                                                     echo seleccionado;
-                                                } ?> nav-link text-white" onclick="window.location.href='VConsultasAdeudos.php'" title="Adeudos"><img src="../img/adeudos-dark.png">Adeudos</a>
+                                                } ?> nav-link text-white" onclick="window.location.href='consultasadeudos.php'" title="Adeudos"><img src="../img/adeudos-dark.png">Adeudos</a>
                             </li>
                         </div>
                     </div>
@@ -383,7 +383,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                             <li class="nav-item mx-2 text-center">
                                 <a class="<?php if ($sel === 'retiros') {
                                                     echo seleccionado;
-                                                } ?> nav-link text-white" onclick="window.location.href='VRetiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
+                                                } ?> nav-link text-white" onclick="window.location.href='retiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
                             </li>
                         </div>
                         <div class="col-4">
