@@ -55,7 +55,7 @@ privilegios("Superiores");
 
                                 <input type="submit" style="display: none;">
                                 <button class="d-none d-sm-flex btn btn-primary ml-5 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
-                                <button class="d-none d-sm-flex btn btn-success ml-5 agregar" data-toggle="modal" data-target="#modalStock">Inventariar</button>
+                                <button class="d-none d-sm-flex btn btn-success ml-5 agregar" data-toggle="modal" id="Binventariar" data-target="#modalForminventariar">Inventariar</button>
                                 <button class="d-none d-sm-flex btn btn-danger ml-5 agregar" id="Bcodigobarra"  data-toggle="modal" data-target="#modalFormCodigo">Generar codigo de barras</button>
                             </div>
                     </div>

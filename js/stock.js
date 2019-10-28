@@ -1,29 +1,29 @@
 $(document).ready(function () {
-  $(document).on("dblclick","td", function(e) {
-   // code here
-
-
-       var valores = "";
-      $(this).parents("tr").find("td").each(function () {
-         valores+= $(this).html()+"?";
-       });
-
-       datos = valores.split("?");
-       console.log(datos);
-
-       $("#producto").val(datos[0]);
-       $("#localizacion").val(datos[1]);
-       $("#stock").val(datos[2]);
-       $("#stock_minimo").val(datos[3]);
-       $("#estado").val(datos[4]);
-       $("#usuariocafi").val(datos[5]);
-       $("#negocio").val(datos[6]);
-
-       $('#modalForm2').modal('show');
-
-     $('#accion').val("true");
-
-      });
+  // $(document).on("dblclick","td", function(e) {
+  //  // code here
+  //
+  //
+  //      var valores = "";
+  //     $(this).parents("tr").find("td").each(function () {
+  //        valores+= $(this).html()+"?";
+  //      });
+  //
+  //      datos = valores.split("?");
+  //      console.log(datos);
+  //
+  //      $("#producto").val(datos[0]);
+  //      $("#localizacion").val(datos[1]);
+  //      $("#stock").val(datos[2]);
+  //      $("#stock_minimo").val(datos[3]);
+  //      $("#estado").val(datos[4]);
+  //      $("#usuariocafi").val(datos[5]);
+  //      $("#negocio").val(datos[6]);
+  //
+  //      $('#modalForm2').modal('show');
+  //
+  //    $('#accion').val("true");
+  //
+  //     });
 
 editar = false;
 console.log("entro al js");
@@ -49,11 +49,29 @@ console.log("entro al js");
         }
   });
 
-  $("#formulario, #formulario2").submit(function (e) {
+  editar = false;
+  console.log("entro al js");
+  obtenerDatosTablaProductos();
+
+  $(document).on('click','#Binventariar',function(){
+    $.ajax({
+      url: "../Controllers/generador.php",
+      type: "Get",
+
+      success: function (response) {
+
+        $('#modalStock').modal('show');
+
+      }
+      });
+  });
+
+
+  $("#inventario2").submit(function (e) {
  var formData = new FormData(this);
 
  $.ajax({
-   url: "../Controllers/productos.php",
+   url: "../Controllers/stock.php",
    type: 'POST',
    data: formData,
    contentType: false,
@@ -91,9 +109,9 @@ console.log("entro al js");
                 <td class="text-nowrap text-center d-none">${item[6]}</td>
                 <th class="text-nowrap text-center" style="width:100px;">
                 <div class="row">
-                    <a data-toggle="modal" data-target="#modalStock" style="margin: 0 auto;" class="Beditar btn btn-success" href="#">
-                      Editar
-                    </a>
+                <a data-toggle="modal" data-target="#modalStock" style="margin: 0 auto;" class="Beditar btn btn-danger" href="#">
+                  Editar
+                </a>
                 </div>
                 </th>
           `;

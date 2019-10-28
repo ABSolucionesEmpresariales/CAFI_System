@@ -41,7 +41,6 @@ $('#accion').val("true");
 
 
 editar = false;
-console.log("entro al js");
 obtenerDatosTablaProductos();
 
 $(document).on('click','#BcodigoBarra',function(){
@@ -55,6 +54,45 @@ $(document).on('click','#BcodigoBarra',function(){
     }
     });
 });
+
+
+editar = false;
+console.log("entro al js");
+obtenerDatosTablaProductos();
+
+$(document).on('click','#Binventariar',function(){
+  $.ajax({
+    url: "../Controllers/generador.php",
+    type: "GET",
+
+    success: function (response) {
+
+      $('#modalStock').modal('show');
+
+    }
+    });
+});
+
+
+
+editar = false;
+obtenerDatosTablaProductos();
+
+$(document).on('click','#Bcodigobarra',function(){
+  $.ajax({
+    url: "../Controllers/generador.php",
+    type: "GET",
+
+    success: function (response) {
+
+      $('#modalForm').modal('show');
+
+        $('#codigo_barras').val(response);
+    }
+    });
+});
+
+
 
 
   $(document).on('click','#bclose', function(){
