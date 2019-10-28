@@ -1,6 +1,4 @@
 <?php 
-
-    
     function subir_archivo($nombre, $accion){
 
                     if($accion == 1){
