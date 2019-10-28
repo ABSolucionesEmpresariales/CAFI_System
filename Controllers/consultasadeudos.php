@@ -55,10 +55,14 @@ if(isset($_POST['Tabono']) && isset($_POST['Tcantidad']) && isset($_POST['idadeu
     $datos_adeudo = array($_POST['totaldeuda'],$_POST['idadeudo']);
     $result =  $conexion->consultaPreparada($datos_abono, $consulta_abonos,1, $tipo_datos, false);
     if($result == 1){
-        $result =  $conexion->consultaPreparada($datos_adeudo, $consulta_adeudo,1, $tipo_datos_adeudo, false);
+        $result2 =  $conexion->consultaPreparada($datos_adeudo, $consulta_adeudo,1, $tipo_datos_adeudo, false);
+        echo $result2;
+    }else{
+        echo "0";
     }
     $conexion->consultaPreparada($datos, $consulta_estado,1, $tipo, false);
-    echo $result;
+    
+    
     
 }
 

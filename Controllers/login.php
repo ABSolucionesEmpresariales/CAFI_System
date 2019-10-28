@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../Models/Conexion.php';
+require_once '../Models/Fecha.php';
 require_once 'token.php';
 if (isset($_POST['Pcontrasena']) && isset($_POST['Temail'])) {
     $conexion = new Models\Conexion();
@@ -18,7 +19,7 @@ if (isset($_POST['Pcontrasena']) && isset($_POST['Temail'])) {
         $consulta = "SELECT email,acceso,entrada_sistema FROM usuariosab WHERE BINARY  email = ?  AND BINARY contrasena = ?";
         $tipo_datos = "ss";
         //para el front
-        $respuesta = json_encode($conexion->consultaPreparada($login,$consulta,2,$tipo_datos,false));
+        $respuesta = json_encode($conexion->consultaPreparada($login, $consulta, 2, $tipo_datos, false));
     }
     //para el back
     $result = json_decode($respuesta);
@@ -31,23 +32,23 @@ if (isset($_POST['Pcontrasena']) && isset($_POST['Temail'])) {
         }
         token();
     }
-     echo  $respuesta;
-    
-    }
-    if(isset($_POST['combo']) && $_POST['combo'] === "combo"){
-        $conexion = new Models\Conexion();
-        $consulta="SELECT idnegocios,nombre FROM negocios WHERE dueno = ?";
-        $dato = array($_SESSION['email']);
-        echo json_encode($conexion->consultaPreparada($dato,$consulta,2,"s",false));
-    }
+    echo  $respuesta;
+}
+if (isset($_POST['combo']) && $_POST['combo'] === "combo") {
+    $conexion = new Models\Conexion();
+    $consulta = "SELECT idnegocios,nombre FROM negocios WHERE dueno = ?";
+    $dato = array($_SESSION['email']);
+    echo json_encode($conexion->consultaPreparada($dato, $consulta, 2, "s", false));
+}
 
-    if(isset($_POST['negocio'])){
-        $_SESSION['negocio'] =  Models\Conexion::eliminar_simbolos($_POST['negocio']);
-        echo "exito";
-    }
 
+if (isset($_POST['negocio'])) {
+    $_SESSION['negocio'] =  Models\Conexion::eliminar_simbolos($_POST['negocio']);
+    echo "exito";
+}
 
 if (isset($_GET['cerrar_sesion'])) {
+    tokenSalida();
     session_unset();
     session_destroy();
     header('Location: ./../Views/login.php');

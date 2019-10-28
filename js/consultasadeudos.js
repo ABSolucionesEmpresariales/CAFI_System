@@ -50,12 +50,6 @@ $(document).ready(function () {
                 if(pago == ''){
                     $('.tpago').focus();
                     return false;
-                }else{
-                    if (abono > pago) {
-                        console.log("entro");
-                        $('.inabono').focus();
-                        return false;
-                    }
                 }
             }
         }else{
