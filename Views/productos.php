@@ -92,9 +92,6 @@ privilegios("Superiores");
                         <th class="text-nowrap text-center" onclick="sortTable(13)">Tasa de iva</th>
                         <th class="text-nowrap text-center" onclick="sortTable(14)">Tasa de ipes</th>
                         <th class="text-nowrap text-center" onclick="sortTable(15)">Talla numero</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(1)">Localización</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(2)">Stock</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(3)">Stock minimo</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>

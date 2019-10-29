@@ -1,3 +1,8 @@
+<?php
+session_start();
+require_once('../Controllers/seguridadCafi.php');
+privilegios("Superiores");
+?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -25,6 +30,11 @@
 
   <body onload="inicio();">
 
+  <?php
+    $sel = "ingresos";
+    include("../Controllers/NavbarCafi.php");
+    ?>
+
         <div class="contenedor container-fluid">
           <div class="row align-items-start">
             <div class="col-lg-12">
@@ -51,6 +61,7 @@
                         <th class="text-nowrap text-center" onclick="sortTable(4)">Fecha</th>
                         <th class="text-nowrap text-center" onclick="sortTable(5)">Estado</th>
                         <th class="text-nowrap text-center" onclick="sortTable(6)">Usuario CAFI</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(7)">Accion</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>
@@ -77,29 +88,47 @@
                   <p class="statusMsg"></p>
                   <form class="form-group" id="formulario">
                     <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
-                    <div class="d-block d-lg-flex row">
-                      <div class="col-lg-4">
-                        <h5 class="general">Cantidad:</h5>
-                        <input id="cantidad" class="form form-control" onkeypress="return check(event)" type="number" name="Ncantidad" placeholder="Cantidad" autocomplete="new-password" required>
-                      </div>
-                      <div class="col-lg-4">
-                        <h5 class="general">Tipo:</h5>
-                        <input id="tipo" class="form form-control" onkeypress="return check(event)" type="text" name="Ttipo" placeholder="Tipo" autocomplete="new-password" required>
-                      </div>
-                      <div class="col-lg-4">
-                        <h5 class="general">Forma de ingreso:</h5>
-                        <input id="forma_ingreso" class="form form-control" onkeypress="return check(event)" type="text" name="Tforma_ingreso" placeholder="Forma de ingreso" autocomplete="new-password" required>
-                      </div>
-                      <div class="col-lg-4">
-                        <h5 class="general">Fecha:</h5>
-                        <input id="fecha" class="form form-control" onkeypress="return check(event)" type="date" name="Dfecha" placeholder="Fecha" autocomplete="new-password" required>
-                      </div>
-                      <div class="col-lg-4">
-                        <h5 class="general">Estado:</h5>
-                        <input id="estado" class="form form-control" onkeypress="return check(event)" type="text" name="Testado" placeholder="Estado" autocomplete="new-password" required>
-                      </div>
-
-                        <input id="bclose" type="submit" class="mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">
+                    <div id="hideedit">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h5 class="importante">Cantidad:</h5>
+                                    <input id="cantidad" name="Tcantidad" class="form form-control" onkeypress="return check(event)" type="text" placeholder="" autocomplete="off">
+                                </div>
+                                <div class="col-lg-6">
+                                    <h5 class="general">Tipo :</h5>
+                                    <select id="tipo" name="Stipo" id="concepto" class="form form-control" >
+                                        <option></option>
+                                        <option>Dinero a caja</option>
+                                        <option>Capital Externo</option>
+                                        <option>Prestamo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h5 class="general">Forma de Ingreso :</h5>
+                                    <select name="Sforma_ingreso" id="forma_ingreso" class="form form-control" >
+                                        <option></option>
+                                        <option>Efectivo</option>
+                                        <option>Banco</option>
+                                    </select> <br>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h5 class="general">Fecha :</h5>
+                                    <input class="form-control" id="fecha" type="date" name="Dfecha" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="general">Estatus:</h5>
+                                <select class="form form-control" id="estado" name="Sestado">
+                                    <option value="A">Activo</option>
+                                    <option value="I">Inactivo</option>
+                                </select>  
+                            </div>
+                        </div>
+                        <input type="submit" class="mt-3 btn btn-lg btn-block btn-dark text-primary" name="" value="Guardar">
                       </form>
                       <div id="tableHolder" class="row justify-content-center"></div>
                     </div>
@@ -108,7 +137,7 @@
               </div>
               <!-- Modal -->
         <script src="../js/user_jquery.js"></script>
-        <script src="../js/usuariosab.js"></script>
+        <script src="../js/otros_ingresos.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
