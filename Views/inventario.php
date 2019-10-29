@@ -59,8 +59,8 @@ privilegios("Superiores");
                         <th class="text-nowrap text-center" onclick="sortTable(2)">Stock</th>
                         <th class="text-nowrap text-center" onclick="sortTable(3)">Stock minimo</th>
                         <th class="text-nowrap text-center" onclick="sortTable(4)">Estado</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(8)">Usuario CAFI</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(8)">Negocio</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(5)">Usuario CAFI</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(6)">Negocio</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>
@@ -85,7 +85,7 @@ privilegios("Superiores");
                 <!-- Modal Body -->
                 <div class="modal-body">
                   <p class="statusMsg"></p>
-                  <form class="form-group" id="formulario">
+                  <form class="form-group" id="inventario">
                     <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                     <div class="d-block d-lg-flex row">
                         <div class="col-lg-6">
@@ -116,60 +116,10 @@ privilegios("Superiores");
           </div>
               <!-- Modal -->
 
-              <div class="modal fade" id="modalForm2" role="dialog">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <!-- Modal Header -->
-                          <div class="modal-header administrador">
-                            <button type="button" class="close" data-dismiss="modal">
-                              <span aria-hidden="true">×</span>
-                              <span class="sr-only">Close</span>
-                            </button>
-                          </div>
 
-                          <!-- Modal Body -->
-                          <div class="modal-body">
-                            <p class="statusMsg"></p>
-                            <form class="form-group" id="formulario2">
-                              <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
-                              <div class="d-block d-lg-flex row">
-                                <div class="col-lg-4">
-                                  <h5 class="general">Negocio:</h5>
-                                  <select class="form form-control" id="negocio" name="Snegocio">
-                                    <option value="idnegocio"></option>
-                                  </select>
-                                </div>
-                                  <div class="col-lg-6">
-                                    <h5 class="general">Localización:</h5>
-                                    <input id="localizacion" class="form form-control" onkeypress="return check(event)" type="text" name="Tlocalizacion" placeholder="Localización" autocomplete="new-password" >
-                                  </div>
-                                  <div class="col-lg-4">
-                                    <h5 class="general">Stock:</h5>
-                                    <input id="stock" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock" placeholder="Stock" autocomplete="new-password" required>
-                                  </div>
-                                </div>
-                                <div class="d-block d-lg-flex row">
-                                  <div class="col-lg-6">
-                                    <h5 class="general">Stock minimo:</h5>
-                                    <input id="stock_minimo" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock_minimo" placeholder="Stock minimo" autocomplete="new-password" >
-                                  </div>
-                                  <div class="col-lg-4">
-                                    <h5 class="general">Estado:</h5>
-                                    <input id="estado" class="form form-control" onkeypress="return check(event)" type="text" name="Testado" placeholder="Estado" autocomplete="new-password" required>
-                                  </div>
-                                  <input id="bclose" type="submit" class="mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">
-                                </form>
-                                <div id="tableHolder" class="row justify-content-center"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                        <!-- Modal -->
-                        
 
         <script src="../js/user_jquery.js"></script>
-        <script src="../js/clientes.js"></script>
+        <script src="../js/productos.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
       </body>
