@@ -160,5 +160,5 @@ if (isset($_POST['tablacantidades'])) {
 
     $consulta = "UPDATE retiros SET estado = ? WHERE idretiro = ?";
 
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 1, "si", false));
+    echo $conexion->consultaPreparada($datos, $consulta, 1, "si", false);
 }
