@@ -10,6 +10,7 @@ $(document).ready(function (){
 
     });
 
+    
     var touchtime = 0;
     $(document).on("click", "td", function () {
         if (touchtime == 0) {
