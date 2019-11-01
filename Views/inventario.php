@@ -20,7 +20,7 @@ privilegios("Todos");
     <script src="../js/jquery.js"></script>
     <script src="../js/index.js"></script>
 
-    <title>Gastos</title>
+    <title>Inventario</title>
     <script>
         function cerrar() {
             window.close();
