@@ -10,14 +10,27 @@ $(document).ready(function () {
   obtenerProductosCodigoBarras();
   $('.esconderCantidad').hide();
   $('.esconderProducto').hide();
+  $('.esconder').css('display','none');
 
   $(document).on('change','#Elejir',function(){
     if($(this).val() == 'Todos'){
       $('.esconderCantidad').show();
+      $('.esconderProducto').hide();
+      $('.esconder').show();
     }else if($(this).val() == 'Producto'){
       $('.esconderCantidad').show();
       $('.esconderProducto').show();
+      $('.esconderProducto').show();
     }
+  });
+
+  $(document).on('click','.close',function(){
+    $('.esconderCantidad').hide();
+    $('.esconderProducto').hide();
+    $('.esconder').css('display','none');
+    $("#formularioInventario").trigger("reset");
+    $("#formularioBarras").trigger("reset");
+    $("#formularioInventario").trigger("reset");
   });
 
   $(document).on("click", ".close", function (e) {

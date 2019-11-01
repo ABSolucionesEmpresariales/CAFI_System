@@ -128,7 +128,7 @@ privilegios("Superiores");
 
         <!-- Modal Body -->
         <div class="modal-body">
-          <form action="../Controllers/codigoBarras.php"  method="POST" target="_blank">
+          <form action="../Controllers/codigoBarras.php" id="formularioBarras"  method="POST" target="_blank">
           <h4 class="importante">Que desea Impimir</h4>
           <div class="row">
           <div class="col-12">
@@ -153,7 +153,7 @@ privilegios("Superiores");
                     </select>
                 </div>
             </div>
-                <input class="btn btn-danger text-center" type="submit" value="Imprimir">
+                <input class="mt-3 btn bg-dark text-primary btn-lg btn-block esconder" type="submit" value="Imprimir">
           </div>
           </form>
         </div>

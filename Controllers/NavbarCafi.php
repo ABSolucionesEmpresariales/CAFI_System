@@ -241,7 +241,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a id="orange" class="<?php if ($sel === 'trabajadores') {
                                                         echo seleccionado;
-                                                    } ?> nav-link text-white" onclick="window.location.href='VTrabajador.php'" title="Trabajadores"><img src="../img/clientes.png">Trabajadores</a>
+                                                    } ?> nav-link text-white" onclick="window.location.href='trabajadorCafi.php'" title="Trabajadores"><img src="../img/clientes.png">Trabajadores</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'edr') {
@@ -328,7 +328,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                             <li class="nav-item mx-2 text-center">
                                 <a class="<?php if ($sel === 'trabajadores') {
                                                     echo seleccionado;
-                                                } ?> nav-link text-white" onclick="window.location.href='VTrabajador.php'" title="Trabajadores"><img src="../img/clientes.png">Trabajadores</a>
+                                                } ?> nav-link text-white" onclick="window.location.href='trabajadorCafi.php'" title="Trabajadores"><img src="../img/clientes.png">Trabajadores</a>
                             </li>
                         </div>
                         <div class="col-4">
