@@ -42,8 +42,9 @@ privilegios("Todos");
 
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <p class="mensaje"></p>
+               
                     <form class="form-group" id="formulario1">
+                    <div class="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <h5 class="general">Cantidad:</h5>
@@ -108,8 +109,9 @@ privilegios("Todos");
 
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <p class="mensaje"></p>
+                
                     <form class="form-group" id="formulario2">
+                    <div class="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <h5 class="general">Estado:</label></h5>
@@ -137,12 +139,12 @@ privilegios("Todos");
             <div class="col-md-12">
                 <div id="tableContainer" class="d-block col-lg-12">
                     <div class="input-group mb-2">
-                        <button class="d-lg-none btn  btn-danger col-12 mb-3 p-3 bclose" data-toggle="modal" data-target="#modalForm">Retirar</button>
+                        <button class="d-lg-none btn  btn-danger col-12 mb-3 p-3 retirar" data-toggle="modal" data-target="#modalForm">Retirar</button>
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-search"></i></div>
                         </div>
                         <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name">
-                        <button class="d-none d-lg-flex btn btn-danger ml-3 bclose" data-toggle="modal" data-target="#modalForm">Retirar</button>
+                        <button class="d-none d-lg-flex btn btn-danger ml-3 retirar" data-toggle="modal" data-target="#modalForm">Retirar</button>
                     </div>
                     <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                         <table style="border-radius: 10px;" class="table table-hover table-striped table-light">

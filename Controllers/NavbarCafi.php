@@ -26,7 +26,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'gastos') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VGastos.php'" title="Gastos"><img src="../img/expenses.png">Gastos</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='../Views/gastos.php'" title="Gastos"><img src="../img/expenses.png">Gastos</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'retiros') {
@@ -63,7 +63,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'ventas') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VConsultasVentas.php'" title="Venta"><img src="../img/sales.png">Historial Ventas</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='consultasventas.php'" title="Venta"><img src="../img/sales.png">Historial Ventas</a>
                     </li>
                 </ul>
             </div>
@@ -109,7 +109,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 <li class="nav-item mx-2 text-center">
                                     <a class="<?php if ($sel === 'gastos') {
                                                             echo seleccionado;
-                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='VGastos.php'" title="Gastos"><img src="../img/expenses.png">Gastos</a>
+                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='../Views/gastos.php'" title="Gastos"><img src="../img/expenses.png">Gastos</a>
                                 </li>
                             </div>
                             <div class="col-4">
@@ -123,7 +123,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 <li class="nav-item mx-2 text-center">
                                     <a class="<?php if ($sel === 'ventas') {
                                                             echo seleccionado;
-                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='VConsultasVentas.php'" title="Venta"><img src="../img/sales.png">Ventas</a>
+                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='consultasventas.php'" title="Venta"><img src="../img/sales.png">Ventas</a>
                                 </li>
                             </div>
                         </div>
@@ -167,7 +167,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 <li class="nav-item mx-2 text-center">
                                     <a class="<?php if ($sel === 'gastos') {
                                                             echo seleccionado;
-                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='VGastos.php'" title="Gastos"><img src="../img/expenses.png">Gastos</a>
+                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='../Views/gastos.php'" title="Gastos"><img src="../img/expenses.png">Gastos</a>
                                 </li>
                             </div>
                             <div class="col-4">
@@ -215,7 +215,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 <li class="nav-item mx-2 text-center">
                                     <a class="<?php if ($sel === 'ventas') {
                                                             echo seleccionado;
-                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='VConsultasVentas.php'" title="Venta"><img src="../img/sales.png">Ventas</a>
+                                                        } ?> nav-link font-weight-bold text-white" onclick="window.location.href='consultasventas.php'" title="Venta"><img src="../img/sales.png">Ventas</a>
                                 </li>
                             </div>
                             <div class="col-6">
@@ -246,7 +246,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'edr') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VEstadoResultados.php'" title="Estado de Resultados"><img src="../img/line-chart.png">E.R</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='estadoresultados.php'" title="Estado de Resultados"><img src="../img/line-chart.png">E.R</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'fde') {
@@ -272,7 +272,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'gastos') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VGastos.php'" title="Gastos"><img src="../img/expenses.png">Gastos</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='../Views/gastos.php'" title="Gastos"><img src="../img/expenses.png">Gastos</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'retiros') {
@@ -305,7 +305,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'ventas') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VConsultasVentas.php'" title="Venta"><img src="../img/sales.png">Ventas</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='consultasventas.php'" title="Venta"><img src="../img/sales.png">Ventas</a>
                     </li>
                 </ul>
             </div>
@@ -335,14 +335,14 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                             <li class="nav-item mx-2 text-center">
                                 <a class="<?php if ($sel === 'edr') {
                                                     echo seleccionado;
-                                                } ?> nav-link text-white" onclick="window.location.href='VEstadoResultados.php'" title="Estado de Resultados"><img src="../img/line-chart.png">E.R</a>
+                                                } ?> nav-link text-white" onclick="window.location.href='estadoresultados.php'" title="Estado de Resultados"><img src="../img/line-chart.png">E.R</a>
                             </li>
                         </div>
                         <div class="col-4">
                             <li class="nav-item mx-2 text-center">
                                 <a class="<?php if ($sel === 'fde') {
                                                     echo seleccionado;
-                                                } ?> nav-link text-white" onclick="window.location.href='VFlujoEfectivo.php'" title="Flujo de Efectivo"><img src="../img/cake-graphic.png">F.E</a>
+                                                } ?> nav-link text-white" onclick="window.location.href='flujoefectivo.php'" title="Flujo de Efectivo"><img src="../img/cake-graphic.png">F.E</a>
                             </li>
                         </div>
                     </div>
@@ -376,7 +376,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                             <li class="nav-item mx-2 text-center">
                                 <a class="<?php if ($sel === 'gastos') {
                                                     echo seleccionado;
-                                                } ?> nav-link text-white" onclick="window.location.href='VGastos.php'" title="Gastos"><img src="../img/expenses.png">Gastos</a>
+                                                } ?> nav-link text-white" onclick="window.location.href='../Views/gastos.php'" title="Gastos"><img src="../img/expenses.png">Gastos</a>
                             </li>
                         </div>
                         <div class="col-4">
@@ -424,7 +424,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                             <li class="nav-item mx-2 text-center">
                                 <a class="<?php if ($sel === 'ventas') {
                                                     echo seleccionado;
-                                                } ?> nav-link text-white" onclick="window.location.href='VConsultasVentas.php'" title="Venta"><img src="../img/sales.png">Ventas</a>
+                                                } ?> nav-link text-white" onclick="window.location.href='consultasventas.php'" title="Venta"><img src="../img/sales.png">Ventas</a>
                             </li>
                         </div>
                         <div class="col-6">
