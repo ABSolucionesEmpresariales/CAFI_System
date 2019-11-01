@@ -61,7 +61,6 @@ privilegios("Superiores");
                         <th class="text-nowrap text-center" onclick="sortTable(4)">Fecha</th>
                         <th class="text-nowrap text-center" onclick="sortTable(5)">Estado</th>
                         <th class="text-nowrap text-center" onclick="sortTable(6)">Usuario CAFI</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(7)">Accion</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>
@@ -95,7 +94,7 @@ privilegios("Superiores");
                                     <input id="cantidad" name="Tcantidad" class="form form-control" onkeypress="return check(event)" type="text" placeholder="" autocomplete="off">
                                 </div>
                                 <div class="col-lg-6">
-                                    <h5 class="general">Tipo :</h5>
+                                    <h5 class="importante">Tipo :</h5>
                                     <select id="tipo" name="Stipo" id="concepto" class="form form-control" >
                                         <option></option>
                                         <option>Dinero a caja</option>
@@ -106,7 +105,7 @@ privilegios("Superiores");
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h5 class="general">Forma de Ingreso :</h5>
+                                    <h5 class="importante">Forma de Ingreso :</h5>
                                     <select name="Sforma_ingreso" id="forma_ingreso" class="form form-control" >
                                         <option></option>
                                         <option>Efectivo</option>
@@ -114,14 +113,14 @@ privilegios("Superiores");
                                     </select> <br>
                                 </div>
                                 <div class="col-lg-6">
-                                    <h5 class="general">Fecha :</h5>
+                                    <h5 class="importante">Fecha :</h5>
                                     <input class="form-control" id="fecha" type="date" name="Dfecha" >
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <h5 class="general">Estatus:</h5>
+                                <h5 class="importante">Estatus:</h5>
                                 <select class="form form-control" id="estado" name="Sestado">
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option>

@@ -66,6 +66,10 @@ privilegios("Todos");
                         <th class="text-nowrap text-center" onclick="sortTable(10)">Telefono</th>
                         <th class="text-nowrap text-center" onclick="sortTable(11)">Fecha nacimiento</th>
                         <th class="text-nowrap text-center" onclick="sortTable(12)">Sexo</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(13)">Acceso</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(14)">Estado</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(15)">Contraseña</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(16)">Accion</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>
