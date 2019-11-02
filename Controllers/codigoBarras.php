@@ -1,15 +1,6 @@
-<?php
+<?php 
 session_start();
-$negocios = $_SESSION['idnegocios'];
-if (!isset($_SESSION['acceso']) && !isset($_SESSION['estado'])) {
-    header('location: login.php');
-} else if ($_SESSION['estado'] == "I") {
-    header('location: login.php');
-} else if (
-    $_SESSION['acceso'] != "Manager" && $_SESSION['acceso'] != "Employes"
-) {
-    header('location: login.php');
-}
+include_once '../Models/Conexion.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,28 +25,44 @@ if (!isset($_SESSION['acceso']) && !isset($_SESSION['estado'])) {
 </head>
 
 <body>
-    <table>
-        <thead>
-        </thead>
-        <tbody>
+
             <?php
-            if (isset($_POST['cantidad'])) {
-                require_once "Config/Autoload.php";
-                Config\Autoload::run();
+            if (isset($_POST['Selejir'])) {
+                if($_POST['Selejir'] == 'Todos'){
+
+                $negocios = $_SESSION['negocio'];
                 $con = new Models\Conexion();
                 $cantidad = $_POST['cantidad'];
                 $numeracion = true;
-                $sql = "SELECT codigo_barras FROM producto WHERE negocios_idnegocios = '$negocios'";
+                $sql = "SELECT p.codigo_barras FROM producto p, stock s WHERE p.codigo_barras = s.producto AND S.negocio = '$negocios'";
                 $resultado = $con->consultaListar($sql);
                 while ($row = mysqli_fetch_array($resultado)) {
                     for ($i = 0; $i < $cantidad; $i++) { ?>
                         <img src="barcode.php?text=<?php echo $row['codigo_barras']; ?>&size=50&orientation=horizontal&codetype=Code39&print=true&sizefactor=1" />
-            <?php }
+            <?php 
+                  }
                 }
+              }else if($_POST['Selejir'] == 'Producto'){
+
+                $negocios = $_SESSION['negocio'];
+                $codigoPro = $_POST['Sproducto'];
+                $con = new Models\Conexion();
+                $cantidad = $_POST['cantidad'];
+                $numeracion = true;
+                $sql = "SELECT p.codigo_barras FROM producto p, stock s WHERE p.codigo_barras = s.producto AND S.negocio = '$negocios' AND p.codigo_barras = '$codigoPro'";
+                $resultado = $con->consultaListar($sql);
+                while ($row = mysqli_fetch_array($resultado)) {
+                    for ($i = 0; $i < $cantidad; $i++) {
+                  ?>
+                    <img src="barcode.php?text=<?php echo $row['codigo_barras']; ?>&size=50&orientation=horizontal&codetype=Code39&print=true&sizefactor=1" />
+            <?php 
+                  }?>
+
+      <?php }
             }
+        }
             ?>
-        </tbody>
-    </table>
+
 
 
 </body>

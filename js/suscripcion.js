@@ -165,13 +165,6 @@ $(document).ready(function () {
                 <td class="text-nowrap text-center">${item[7]}</td>
                 <td class="text-nowrap text-center d-none">${item[8]}</td>
                 <td class="text-nowrap text-center">${item[9]}</td>
-                <th class="text-nowrap text-center" style="width:100px;">
-                <div class="row">
-                    <a data-toggle="modal" data-target="#modalForm" style="margin: 0 auto;" class="Beditar btn btn-danger" href="#">
-                      Editar
-                    </a>
-                </div>
-                </th>
           `;
         });
         $("#cuerpo").html(template);
@@ -179,25 +172,39 @@ $(document).ready(function () {
     });
   }
 
-  $(document).on("click", ".Beditar", function () {
-    var valores = "";
-    // Obtenemos todos los valores contenidos en los <td> de la fila
-    // seleccionada
-    $(this).parents("tr").find("td").each(function () {
-      valores += $(this).html() + "?";
-    });
-    datos = valores.split("?");
-    console.log(datos[0]);
-    idSuscripcion = datos[0];
-    $('.ocultar').hide();
-    $("#fecha_activacion").val(datos[1]);
-    $("#fecha_vencimiento").val(datos[2]);
-    $("#estado").val(datos[3]);
-    $("#monto").val(datos[4]);
-    $("#paquete").val(datos[5]);
-    $("#usuario_extra").val(datos[6]);
-    var template = `<option value='${datos[8]}'>${datos[7]}</option>`;
-    $("#negocio").html(template);
-    editar = true;
-  });
+  var touchtime = 0;
+  $(document).on("click", "td", function () {
+      if (touchtime == 0) {
+        touchtime = new Date().getTime();
+      } else {
+        // compare first click to this click and see if they occurred within double click threshold
+        if (new Date().getTime() - touchtime < 800) {
+          // double click occurred
+          var valores = "";
+          // Obtenemos todos los valores contenidos en los <td> de la fila
+          // seleccionada
+          $(this).parents("tr").find("td").each(function () {
+            valores += $(this).html() + "?";
+          });
+          datos = valores.split("?");
+          console.log(datos[0]);
+          idSuscripcion = datos[0];
+          $('.ocultar').hide();
+          $("#fecha_activacion").val(datos[1]);
+          $("#fecha_vencimiento").val(datos[2]);
+          $("#estado").val(datos[3]);
+          $("#monto").val(datos[4]);
+          $("#paquete").val(datos[5]);
+          $("#usuario_extra").val(datos[6]);
+          var template = `<option value='${datos[8]}'>${datos[7]}</option>`;
+          $("#negocio").html(template);
+          editar = true;
+        $("#modalForm").modal("show");
+        } else {
+          // not a double click so set as a new first click
+          touchtime = new Date().getTime();
+        }
+      }
+  }); 
+
 });

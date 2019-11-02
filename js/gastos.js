@@ -30,15 +30,7 @@ $(document).ready(function() {
                     <td class="datos">${item[3]}</td>
                     <td class="datos">${item[4]}</td>
                     <td class="datos">${item[5]}</td>
-                    <td class="datos">${item[6]}</td>
-                    <td style="width:100px;">
-                    <div class="row">
-                        <a data-toggle="modal" data-target="#modalForm" style="margin: 0 auto;" class="beditar btn btn-danger" href="#">
-                            Editar
-                        </a>
-                    </div>
-                </td>
-                   </tr> `;
+                    <td class="datos">${item[6]}</td> `;
         });
         $("#cuerpo").html(template);
       }
@@ -91,25 +83,39 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  $(document).on("click", ".beditar", function() {
-    $(".ocultar").hide();
-    $("#mensaje").css("display", "none");
-    let valores = "";
-    $(this)
-      .parents("tr")
-      .find(".datos")
-      .each(function() {
-        valores += $(this).html() + "?";
-      });
+  var touchtime = 0;
+  $(document).on("click", "td", function () {
+      if (touchtime == 0) {
+        touchtime = new Date().getTime();
+      } else {
+        // compare first click to this click and see if they occurred within double click threshold
+        if (new Date().getTime() - touchtime < 800) {
+          // double click occurred
+          $(".ocultar").hide();
+          $("#mensaje").css("display", "none");
+          let valores = "";
+          $(this)
+            .parents("tr")
+            .find(".datos")
+            .each(function() {
+              valores += $(this).html() + "?";
+            });
+      
+          datos = valores.split("?");
+          idgastos = datos[0];
+          $("#concepto").val(datos[1]);
+          $("#pago").val(datos[2]);
+          $("#descripcion").val(datos[3]);
+          $("#monto").val(datos[4]);
+          $("#estado").val(datos[5]);
+          $("#fecha").val(datos[6]);
+          editar = true;
 
-    datos = valores.split("?");
-    idgastos = datos[0];
-    $("#concepto").val(datos[1]);
-    $("#pago").val(datos[2]);
-    $("#descripcion").val(datos[3]);
-    $("#monto").val(datos[4]);
-    $("#estado").val(datos[5]);
-    $("#fecha").val(datos[6]);
-    editar = true;
-  });
+        $("#modalForm").modal("show");
+        } else {
+          // not a double click so set as a new first click
+          touchtime = new Date().getTime();
+        }
+      }
+  }); 
 });
