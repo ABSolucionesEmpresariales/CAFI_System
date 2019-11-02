@@ -32,6 +32,10 @@ $sel = "venta";
 include("../Controllers/NavbarCafi.php");
 ?>
 <body onload="inicio();">
+<?php
+    $sel = "gastos";
+    include("../Controllers/NavbarCafi.php")
+    ?>
 
   <div class="contenedor container-fluid">
     <div class="row align-items-start">
@@ -119,7 +123,7 @@ include("../Controllers/NavbarCafi.php");
                 <h5 class="general">Monto:</h5>
                 <input id="monto" class="form form-control" onkeypress="return check(event)" type="text" name="Tmonto" placeholder="Monto" autocomplete="new-password" required>
               </div>
-              <div class="col-lg-4">
+              <div class="col-lg-4 estado">
                 <h5 class="general">Estado:</h5>
                 <select id="estado" class="form form-control" name="Sestado">
                   <option value="A">Activo</option>

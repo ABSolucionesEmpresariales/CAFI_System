@@ -26,7 +26,7 @@ privilegios("Todos");
 
 <body>
   <?php
-  $sel = "venta";
+  $sel = "ventas";
   include("../Controllers/NavbarCafi.php");
   ?>
   <!-- Modal -->

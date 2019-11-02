@@ -25,7 +25,7 @@ privilegios("Todos");
 
 <body onload="inicio();">
     <?php
-    $sel = "venta";
+    $sel = "retiros";
     include("../Controllers/NavbarCafi.php");
     ?>
     <!-- Modal -->
@@ -159,7 +159,6 @@ privilegios("Todos");
                                     <th onclick="sortTable(6)">Hora</th>
                                     <th onclick="sortTable(7)">Estado</th>
                                     <th onclick="sortTable(8)">Retiró</th>
-                                    <th onclick="sortTable(9)">Tarea</th>
                                 </tr>
                             <tbody id="cuerpo">
                             

@@ -65,7 +65,6 @@ privilegios("Superiores");
                                     <th class="text-nowrap text-center" onclick="sortTable(14)">Plazo a credito</th>
                                     <th class="text-nowrap text-center" onclick="sortTable(14)">Limite a credito</th>
                                     <th class="text-nowrap text-center" onclick="sortTable(14)">Usuario</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(14)">Accion</th>
                                 </tr>
                             </thead>
                     <tbody  id="cuerpo">

@@ -35,6 +35,7 @@ privilegios("Superiores");
     include("../Controllers/NavbarCafi.php");
     ?>
 
+
         <div class="contenedor container-fluid">
           <div class="row align-items-start">
             <div class="col-lg-12">
