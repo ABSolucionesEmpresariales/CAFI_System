@@ -58,19 +58,6 @@ $(document).ready(function () {
     })
   }
 
-
-  $('#formulario').submit(function (e) {
-    const postData = {
-      id: idsuscripcion,
-      fecha1: $('#fecha1').val(),
-      fecha2: $('#fecha2').val(),
-      estado: $('#estado').val(),
-      paquete: $('#spaquete').val(),
-      usextra: $('#usextra').val(),
-      monto: $('#monto').val(),
-      negocio: $('#innegocio').val()
-    };
-
     let url = editar === false ? 'post-guardar.php' : 'post-edit.php';
     $.post(url, postData, function (response) {
       console.log(response);
@@ -105,12 +92,13 @@ $(document).ready(function () {
     });
     datos = valores.split("?");
     idsuscripcion = datos[0];
-    $('#fecha1').val(datos[1]);
-    $('#fecha2').val(datos[2]);
+    $('#fecha_activacion').val(datos[1]);
+    $('#fecha_vencimiento').val(datos[2]);
     $('#estado').val(datos[3]);
-    $('#spaquete').val(datos[5]);
-    $('#usextra').val(datos[6]);
-    $('#monto').val(datos[7]);
+    $('#monto').val(datos[4]);
+    $('#paquete').val(datos[5]);
+    $('#usuario_extra').val(datos[6]);
+    $('#negocio').val(datos[7]);
     editar = true;
 
   })

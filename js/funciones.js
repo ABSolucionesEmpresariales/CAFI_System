@@ -5,6 +5,54 @@ var url = 'prueva.php';
 var tabla = 'cuerpo';
 var editar = 'editar';
 
+function obtenerDatosCombo(){
+    $.ajax({
+      url:'../Controllers/usuariosab.php?combo=combo',
+      type: 'GET',
+
+      success: function(response){
+        let datos = JSON.parse(response);
+        let template = `
+        <select>
+        `;
+        $.each(datos, function(i, item) {
+          alert(datos[i].PageName);
+          template += `
+          <option value=${datos[i].PageName}>${datos[i].PageName}</option>
+          `;
+        });
+        template += `</select>`;
+        $('#combo').html(template);
+      }
+    });
+  }
+  
+  function obtenerDatosTablaUsuarios(url,varpost,action,cuerpo) {
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: {varpost:varpost},
+      success: function (response) {
+       let datos = JSON.parse(response);
+        let template = "";
+        if(action == 1){
+            $.each(datos, function (i, item) {
+                template += `<tr>
+      `;
+                for(var y = 0; y <= 15; y++){
+                  template += `<td class="text-nowrap text-center ">${item[y]}</td>
+                  `;
+                }
+              });
+        }else if(action == 2){
+            
+        }
+
+        $("#cuerpo").html(template); 
+      }
+    });
+  }
+
 pintarTabla(url,tabla,editar);
 
     function enviarFormulario(nombreIdFormulario,url){
@@ -21,35 +69,4 @@ pintarTabla(url,tabla,editar);
         });
     }
 
-    function pintarTabla(url,nombreIdTablaBody,campoEdicion){
-        $.ajax({
-            url:url,
-            type:'GET',
-            success: function (response){
-                console.log("Esto es: "+response);
-                let datos = JSON.parse(response);
-                let template = '';
-                for(i=0, i < datos.length; i++;){
-                    console.log('Entro');
-                    template += `
-                    <tr>
-                    <td  class="text-nowrap text-center">${datos[i]}</td>`;
-                    
-                    if(campoEdicion == "editar"){
-                        template = `
-                    <th  class="text-nowrap text-center" style="width:100px;">
-                        <div class="row">
-                            <a data-toggle="modal" data-target="#modalForm" style="margin: 0 auto;" class="beditar btn btn-secondary" href="#">
-                                <img src="img/edit.png">
-                            </a>
-                        </div>
-                    </th>
-                        `;
-                    }
-                    template += `</tr>`;
-                }
-                $('#'+nombreIdTablaBody).html(template);
-            }
-        });
-    }
 });

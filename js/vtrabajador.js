@@ -44,7 +44,7 @@ $(document).ready(function(){
             }
         });
     }
-    
+
     $('#login').keyup(function(){
         var username = $('#login').val();
         if(username.length >= 3){
@@ -141,21 +141,19 @@ $(document).ready(function(){
             valores += $(this).html() + "?";
         });
         datos = valores.split("?");
-        idtrabajador = datos[0];
-        $('#nombre').val(datos[1]);
-        $('#apt').val(datos[2]);
-        $('#apm').val(datos[3]);
-        $('#documento').val(datos[4]);
-        $('#numdoc').val(datos[5]);
-        $('#dir').val(datos[6]);
-        $('#tel').val(datos[7]);
-        $('#email').val(datos[8]);
-        $('#acceso').val(datos[9])
-        $('#login').val(datos[10]);
-        $('#contrasena').val(datos[11]);
-        $('#sueldo').val(datos[12]);
-        $('#estado').val(datos[13]);
-        $('#agregarloa').val($('#comboSucursal').val());
+        $('#email').val(datos[0]);
+        $('#rfc').val(datos[1]);
+        $('#nombre').val(datos[2]);
+        $('#cp').val(datos[3]);
+        $('#calle_numero').val(datos[4]);
+        $('#colonia').val(datos[5]);
+        $('#localidad').val(datos[6]);
+        $('#municipio').val(datos[7]);
+        $('#estado').val(datos[8]);
+        $('#pais').val(datos[9])
+        $('#telefono').val(datos[10]);
+        $('#fecha_nacimiento').val(datos[11]);
+        $('#sexo').val(datos[12]);
         editar = true;
     });
 });
