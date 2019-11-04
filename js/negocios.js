@@ -68,12 +68,12 @@ $(document).ready(function () {
        let datos = JSON.parse(response);
         let template = "";
         $.each(datos, function (i, item) {
-          for(var y = 0; y < 12; y++){
+/*           for(var y = 0; y < 12; y++){
             template += `
             <tr>
-                  <td class="text-nowrap text-center d-none">${item[y]}</td>`;
-          }
-          /* template += `
+                  <td class="text-nowrap text-center ">${item[y]}</td>`;
+          } */
+           template += `
           <tr>
                 <td class="text-nowrap text-center d-none">${item[0]}</td>
                 <td class="text-nowrap text-center">${item[1]}</td>
@@ -89,51 +89,52 @@ $(document).ready(function () {
                 <td class="text-nowrap text-center">${item[11]}</td>`;
                 if(item[12] == null){
                   template += `<td class="text-nowrap text-center"></td>
-                  '<th class="text-nowrap text-center" style="width:100px;">
-                  <div class="row">
-                      <a data-toggle="modal" data-target="#modalForm" style="margin: 0 auto;" class="Beditar btn btn-danger" href="#">
-                        Editar
-                      </a>
-                  </div>
-                  </th>`;
+                  `;
                 }else{
                   template += `<td class="text-nowrap text-center">${item[12]}</td>
-                  '<th class="text-nowrap text-center" style="width:100px;">
-                  <div class="row">
-                      <a data-toggle="modal" data-target="#modalForm" style="margin: 0 auto;" class="Beditar btn btn-danger" href="#">
-                        Editar
-                      </a>
-                  </div>
-                  </th>`; 
-                }*/
-
+                  `; 
+                }
         });
         $("#cuerpo").html(template);
       }
     });
   }
 
-  $(document).on("click", ".Beditar", function () {
-    var valores = "";
-    // Obtenemos todos los valores contenidos en los <td> de la fila
-    // seleccionada
-    $(this).parents("tr").find("td").each(function () {
-      valores += $(this).html() + "?";
-    });
-    datos = valores.split("?");
-    console.log(datos);
-    idnegocio = datos[0];
-    $("#nombre").val(datos[1]);
-    $("#giro").val(datos[2]);
-    $("#calle_numero").val(datos[3]);
-    $("#colonia").val(datos[4]);
-    $("#localidad").val(datos[5]);
-    $("#municipio").val(datos[6]);
-    $("#estado").val(datos[7]);
-    $("#pais").val(datos[8]);
-    $("#telefono").val(datos[9]);
-    $("#impresora").val(datos[10]);
-    $("#dueno").val(datos[11]);
-    editar = true;
-  });
+  var touchtime = 0;
+  $(document).on("click", "td", function () {
+      if (touchtime == 0) {
+        touchtime = new Date().getTime();
+      } else {
+        // compare first click to this click and see if they occurred within double click threshold
+        if (new Date().getTime() - touchtime < 800) {
+          // double click occurred
+          var valores = "";
+          // Obtenemos todos los valores contenidos en los <td> de la fila
+          // seleccionada
+          $(this).parents("tr").find("td").each(function () {
+            valores += $(this).html() + "?";
+          });
+          datos = valores.split("?");
+          console.log(datos);
+          idnegocio = datos[0];
+          $("#nombre").val(datos[1]);
+          $("#giro").val(datos[2]);
+          $("#calle_numero").val(datos[3]);
+          $("#colonia").val(datos[4]);
+          $("#localidad").val(datos[5]);
+          $("#municipio").val(datos[6]);
+          $("#estado").val(datos[7]);
+          $("#pais").val(datos[8]);
+          $("#telefono").val(datos[9]);
+          $("#impresora").val(datos[10]);
+          $("#dueno").val(datos[11]);
+          editar = true;
+        $("#modalForm").modal("show");
+        } else {
+          // not a double click so set as a new first click
+          touchtime = new Date().getTime();
+        }
+      }
+  }); 
+
 });

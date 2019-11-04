@@ -26,13 +26,6 @@ $(document).ready(function () {
                     <td>${item[7]}</td>
                     <td class="datos">${item[8]}</td>
                     <td>${item[9]}</td>
-                    <td style="width:100px;">
-                    <div class="row">
-                        <a data-toggle="modal" data-target="#modalForm" style="margin: 0 auto;" class="beditar btn btn-danger" href="#">
-                            Editar
-                        </a>
-                    </div>
-                </td>
                    </tr> `;
         });
         $("#renglones").html(template);
@@ -63,7 +56,7 @@ $(document).ready(function () {
                 <tr>
                 <td>${item[0]}</td>
                 <td>${item[1]}</td>
-                <td>${item[2]}</td>
+                <td><img src="${item[2]}" height="100" width="100"></td>
                 <td>${item[3]}</td>
                 <td>${item[4]}</td>
                 <td>${item[5]}</td>
@@ -75,23 +68,37 @@ $(document).ready(function () {
   });
   });
 
-  $(document).on("click", ".beditar", function () {
-    $("#mensaje").css("display", "none");
-    let valores = '';
-    $(this)
-    .parents("tr")
-    .find(".datos")
-    .each(function() {
-      valores += $(this).html() + "?";
-    });
-    datos = valores.split("?");
-  
-     venta = datos[0];
-     estadoglobal = datos[1];
-     console.log(venta);
-     $('#estado').val(estadoglobal);
-    
-    });
+  var touchtime = 0;
+  $(document).on("click", "td", function () {
+      if (touchtime == 0) {
+        touchtime = new Date().getTime();
+      } else {
+        // compare first click to this click and see if they occurred within double click threshold
+        if (new Date().getTime() - touchtime < 800) {
+          // double click occurred
+          $("#mensaje").css("display", "none");
+          let valores = '';
+          $(this)
+          .parents("tr")
+          .find(".datos")
+          .each(function() {
+            valores += $(this).html() + "?";
+          });
+          datos = valores.split("?");
+        
+           venta = datos[0];
+           estadoglobal = datos[1];
+           console.log(venta);
+           $('#estado').val(estadoglobal);
+        $("#modalForm").modal("show");
+        } else {
+          // not a double click so set as a new first click
+          touchtime = new Date().getTime();
+        }
+      }
+  }); 
+
+
     $("#formConsulta").submit(function (e) {
 
     const postData = {

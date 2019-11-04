@@ -61,7 +61,6 @@ privilegios("Todos");
                         <th class="text-nowrap text-center" onclick="sortTable(5)">Usuario Extra</th>
                         <th class="text-nowrap text-center" onclick="sortTable(6)">Negocio</th>
                         <th class="text-nowrap text-center" onclick="sortTable(7)">UsuarioAB</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(8)">Accion</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>

@@ -40,13 +40,6 @@ $(document).ready(function () {
                 <td class="text-nowrap text-center">${item[7]}</td>
                 <td class="text-nowrap text-center">${item[8]}</td>
                 <td class="text-nowrap text-center">${item[9]}</td>
-                <th class="text-nowrap text-center" style="width:100px;">
-                <div class="row">
-                    <a data-toggle="modal" data-target="#modalForm" style="margin: 0 auto;" class="Beditar btn btn-danger" href="#">
-                      Editar
-                    </a>
-                </div>
-                </th>
           `;
         });
         $("#cuerpo").html(template);
@@ -54,16 +47,31 @@ $(document).ready(function () {
     });
   }
 
-  $(document).on("click", ".Beditar", function () {
-    var valores = "";
-    // Obtenemos todos los valores contenidos en los <td> de la fila
-    // seleccionada
-    $(this).parents("tr").find("td").each(function () {
-      valores += $(this).html() + "?";
-    });
-    datos = valores.split("?");
-    console.log(datos[0]);
-    idabono = datos[0];
-    $("#estado").val(datos[1]);
-  });
+  var touchtime = 0;
+  $(document).on("click", "td", function () {
+      if (touchtime == 0) {
+        touchtime = new Date().getTime();
+      } else {
+        // compare first click to this click and see if they occurred within double click threshold
+        if (new Date().getTime() - touchtime < 800) {
+          // double click occurred
+          var valores = "";
+          // Obtenemos todos los valores contenidos en los <td> de la fila
+          // seleccionada
+          $(this).parents("tr").find("td").each(function () {
+            valores += $(this).html() + "?";
+          });
+          datos = valores.split("?");
+          console.log(datos[0]);
+          idabono = datos[0];
+          $("#estado").val(datos[1]);
+          $("#modalForm").modal("show");
+
+        } else {
+          // not a double click so set as a new first click
+          touchtime = new Date().getTime();
+        }
+      }
+  }); 
+
 });

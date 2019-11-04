@@ -56,13 +56,6 @@ $(document).ready(function() {
                     <td>${item[6]}</td>
                     <td class="datos">${item[7]}</td>
                     <td>${item[8]}</td>
-                    <td style="width:100px;">
-                    <div class="row">
-                        <a data-toggle="modal" data-target="#modalForm2" style="margin: 0 auto;" class="beditar btn btn-danger" href="#">
-                            Editar
-                        </a>
-                    </div>
-                </td>
                    </tr> `;
         });
         $("#cuerpo").html(template);
@@ -170,19 +163,34 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  $(document).on("click", ".beditar", function() {
-     $(".mensaje").css("display", "none");
-    let valores = "";
-    $(this)
-      .parents("tr")
-      .find(".datos")
-      .each(function() {
-        valores += $(this).html() + "?";
-      });
+  var touchtime = 0;
+  $(document).on("click", "td", function () {
+      if (touchtime == 0) {
+        touchtime = new Date().getTime();
+      } else {
+        // compare first click to this click and see if they occurred within double click threshold
+        if (new Date().getTime() - touchtime < 800) {
+          // double click occurred
 
-    datos = valores.split("?");
-    console.log(datos);
-    idretiro = datos[0];
-    $("#estado").val(datos[1]);
-  });
+          $(".mensaje").css("display", "none");
+          let valores = "";
+          $(this)
+            .parents("tr")
+            .find(".datos")
+            .each(function() {
+              valores += $(this).html() + "?";
+            });
+      
+          datos = valores.split("?");
+          console.log(datos);
+          idretiro = datos[0];
+          $("#estado").val(datos[1]);
+        $("#modalForm2").modal("show");
+        } else {
+          // not a double click so set as a new first click
+          touchtime = new Date().getTime();
+        }
+      }
+  }); 
+
 });

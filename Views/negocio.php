@@ -175,7 +175,6 @@ privilegios("Todos");
                                         <th class="text-nowrap text-center" onclick="sortTable(9)">Impresora</th>
                                         <th class="text-nowrap text-center" onclick="sortTable(10)">Dieño</th>
                                         <th class="text-nowrap text-center" onclick="sortTable(11)">UsuarioAB</th>
-                                        <th class="text-nowrap text-center" onclick="sortTable(12)">Accion</th>
                                     </tr>
                                 </thead>
                                 <tbody id="cuerpo"></tbody>

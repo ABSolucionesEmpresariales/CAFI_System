@@ -1,6 +1,4 @@
 <?php 
-
-    
     function subir_archivo($nombre, $accion){
 
                     if($accion == 1){
@@ -14,8 +12,9 @@
                                                 $temp = explode(".", $_FILES[$nombre]["name"]);
                                                 $newfilename = round(microtime(true)) . '.' . end($temp);
                                                 $imagen2 = $_SERVER['DOCUMENT_ROOT']."/CAFI_System"."/"."img/"."productos/".$newfilename."";
+                                                $imagen3 = "http://localhost/CAFI_System"."/"."img/"."productos/".$newfilename."";
                                                 if(move_uploaded_file($_FILES[$nombre]["tmp_name"],$imagen2)){
-                                                    return $imagen2;
+                                                    return $imagen3;
                                                 }else{
                                                     return "Error";
                                                 }
