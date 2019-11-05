@@ -51,7 +51,7 @@ if(isset($_POST['Tabono']) && isset($_POST['Tcantidad']) && isset($_POST['idadeu
     $tipo_datos = "isddsdsssiii";
     $tipo_datos_adeudo = "di";
     $tipo = "sd";
-    $datos = array("I",0.00);
+    $datos = array("P",0.00);
     $datos_adeudo = array($_POST['totaldeuda'],$_POST['idadeudo']);
     $result =  $conexion->consultaPreparada($datos_abono, $consulta_abonos,1, $tipo_datos, false);
     if($result == 1){
