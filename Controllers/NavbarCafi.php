@@ -3,7 +3,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
     <div class="container-fluid px-0 d-none d-lg-block fixed-top">
         <nav style="background-color: black;" class="navbar navbar-expand-lg navbar-dark justify-content-around p-0">
             <div class="col-1 d-flex justify-content-between align-items-center">
-                <img class="img-fluid" src="img/logo/nav1-dark.png">
+                <img class="img-fluid" src="../img/logo/nav1-dark.png">
             </div>
             <div class="collapse navbar-collapse col-10 d-flex justify-content-center align-items-center" id="navbarNav">
                 <ul class="navbar-nav">
@@ -203,9 +203,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                             </div>
                             <div class="col-4">
                                 <li class="nav-item mx-2 text-center">
-                                    <a style="color: #fe6f00;" class="<?php if ($sel === 'productos') {
-                                                                                    echo seleccionado;
-                                                                                } ?> nav-link font-weight-bold" onclick="window.location.href='productos.php'" title="Productos"><img src="../img/products.png">Productos</a>
+                                    
                                 </li>
                             </div>
                         </div>
@@ -234,7 +232,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
     <div class="container-fluid px-0 d-none d-lg-block fixed-top">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-around p-0">
             <div class="col-1 d-flex justify-content-between align-items-center">
-                <img class="img-fluid" src="img/logo/nav1-dark.png" />
+                <img class="img-fluid" src="../img/logo/nav1-dark.png" />
             </div>
             <div class="collapse navbar-collapse col-9 d-flex justify-content-center align-items-center" id="navbarNav">
                 <ul class="navbar-nav">
@@ -259,37 +257,47 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                             echo seleccionado;
                                         } ?> nav-link text-white" onclick="window.location.href='ventas.php'" title="Venta"><img src="../img/sell.png">Vender</a>
                     </li>
+                    <div class="dropdown nav-item mx-2 text-center">
+                        <button class="dropbtn bg-dark"><img src="../img/expenses.png">Caja</button>
+                        <div class="dropdown-content bg-dark">
+                            <a class="<?php if ($sel === 'abonos') {
+                                        echo seleccionado;
+                                    } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='abonos.php'" title="Abonos"><img src="../img/abonos-dark.png">Abonos</a>
+                            <a class="<?php if ($sel === 'adeudos') {
+                                        echo seleccionado;
+                                    } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='consultasadeudos.php'" title="Adeudos"><img src="../img/adeudos-dark.png">Adeudos</a>
+                            <a class="<?php if ($sel === 'gastos') {
+                                        echo seleccionado;
+                                    } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='../Views/gastos.php'" title="Gastos"><img src="../img/expenses.png">Gastos</a>
+                            <a class="<?php if ($sel === 'retiros') {
+                                        echo seleccionado;
+                                    } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='retiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
+                            <a class="<?php if ($sel === 'ingresos') {
+                                        echo seleccionado;
+                                    } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='otros_ingresos.php'" title="Otros Ingresos"><img src="../img/profit.png">Ingresos</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button class="dropbtn bg-dark"><img src="../img/sales.png">Catalogo</button>
+                        <div class="dropdown-content bg-dark">
+                            <a class="<?php if ($sel === 'clientes') {
+                                    echo seleccionado;
+                                } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='clientes.php'" title="Clientes"><img src="../img/client.png">Clientes</a>
+                            <a style="color: #fe6f00;" class="<?php if ($sel === 'productos') {
+                                    echo seleccionado;
+                                } ?> nav-link font-weight-bold" onclick="window.location.href='productos.php'" title="Productos"><img src="../img/products.png">Productos</a>
+                            <a class="<?php if ($sel === 'proveedores') {
+                                    echo seleccionado;
+                                } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='proveedores.php'" title="Proveedores"><img src="../img/truck.png">Proveedores</a>
+                            <a class="<?php if ($sel === 'ccm') {
+                                    echo seleccionado;
+                                } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='ccm.php'" title="Categorias/Marcas/Colores"><img src="../img/user.png">Cat/Marcas/Colores</a>
+                        </div>
+                    </div>
                     <li class="nav-item mx-2 text-center">
-                        <a class="<?php if ($sel === 'abonos') {
+                        <a class="<?php if ($sel === 'compras') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='abonos.php'" title="Abonos"><img src="../img/abonos-dark.png">Abonos</a>
-                    </li>
-                    <li class="nav-item mx-2 text-center">
-                        <a class="<?php if ($sel === 'adeudos') {
-                                            echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='consultasadeudos.php'" title="Adeudos"><img src="../img/adeudos-dark.png">Adeudos</a>
-                    </li>
-                    <li class="nav-item mx-2 text-center">
-                        <a class="<?php if ($sel === 'gastos') {
-                                            echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='../Views/gastos.php'" title="Gastos"><img src="../img/expenses.png">Gastos</a>
-                    </li>
-                    <li class="nav-item mx-2 text-center">
-                        <a class="<?php if ($sel === 'retiros') {
-                                            echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='retiros.php'" title="Retiro"><img src="../img/atm.png">Retiros</a>
-                    </li>
-
-
-                    <li class="nav-item mx-2 text-center">
-                        <a class="<?php if ($sel === 'ingresos') {
-                                            echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='otros_ingresos.php'" title="Otros Ingresos"><img src="../img/profit.png">Ingresos</a>
-                    </li>
-                    <li class="nav-item mx-2 text-center">
-                        <a class="<?php if ($sel === 'clientes') {
-                                            echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='clientes.php'" title="Clientes"><img src="../img/client.png">Clientes</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='compras.php'" title="Crompas"><img src="../img/buy.png">Compras</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'inventario') {
@@ -297,15 +305,14 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                         } ?> nav-link text-white" onclick="window.location.href='inventario.php'" title="Inventario"><img src="../img/Inventory-dark.png">Inventario</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
-                        <a class="<?php if ($sel === 'productos') {
-                                            echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='productos.php'" title="Productos"><img src="../img/products.png">Productos</a>
-                    </li>
-
-                    <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'ventas') {
                                             echo seleccionado;
                                         } ?> nav-link text-white" onclick="window.location.href='consultasventas.php'" title="Venta"><img src="../img/sales.png">Ventas</a>
+                    </li>
+                    <li class="nav-item mx-2 text-center">
+                        <a class="<?php if ($sel === 'reportes') {
+                                            echo seleccionado;
+                                        } ?> nav-link text-white" onclick="window.location.href='reportes.php'" title="Reportes"><img src="../img/analysis.png">Reportes</a>
                     </li>
                 </ul>
             </div>

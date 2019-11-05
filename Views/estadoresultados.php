@@ -26,7 +26,7 @@ privilegios("Master");
 
 <body>
     <?php
-    $sel = "venta";
+    $sel = "edr";
     include("../Controllers/NavbarCafi.php");
     ?>
 

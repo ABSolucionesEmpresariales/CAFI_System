@@ -56,7 +56,7 @@ privilegios("Superiores");
 
 <body onload="inicio();">
   <?php
-  $sel = "usuarios";
+  $sel = "productos";
   include("../Controllers/NavbarCafi.php")
   ?>
 
