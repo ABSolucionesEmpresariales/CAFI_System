@@ -272,6 +272,7 @@ privilegios("Superiores");
             <div class="col-lg-6">
                 <h5 class="general">Color:</h5>
                 <select class="form form-control" id="color" name="Scolor">
+                  <option value="null">Elejir</option>
                   <option value="rojo">rojo</option>
                 </select>
               </div>
@@ -359,7 +360,7 @@ privilegios("Superiores");
                 <input id="stock_minimo" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock_minimo" placeholder="Stock minimo" autocomplete="new-password">
               </div>
             </div>
-              <input type="hidden" name="accion" id="accion" value="false">
+              <input type="hidden" name="accion" id="accion">
               <input id="bclose" type="submit" class="mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">
           </form>
           <div id="tableHolder" class="row justify-content-center"></div>

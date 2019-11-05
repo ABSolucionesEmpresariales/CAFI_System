@@ -13,20 +13,6 @@ $(document).ready(function () {
     editar = false;
   });
 
-  $("#login").keyup(function () {
-    var username = $("#login").val();
-    if (username.length >= 3) {
-      $(".contro").show();
-      $.post("username_check.php", {
-        username2: username
-      }, function (data, status) {
-        $("#status").html(data);
-      });
-    } else {
-      $(".contro").hide();
-    }
-  });
-
   $("#formulario").submit(function (e) {
     $.post("../Controllers/usuariosab.php",$("#formulario").serialize() + '&accion=' + editar, function (response) {
       console.log(response);
