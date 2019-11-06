@@ -175,7 +175,6 @@ $(document).ready(function () {
           $("#stock_minimo").val(datos[18]);
           $("#modalForm").modal("show");
           $("#accion").val("true");
-
           touchtime = 0;
         } else {
           // not a double click so set as a new first click
