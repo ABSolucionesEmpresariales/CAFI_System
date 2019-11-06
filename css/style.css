@@ -91,11 +91,11 @@ input{
     display: block;
   }
 
-.dropdown-content a:hover {background-color: ;}
+/**.dropdown-content a:hover {background-color: ;}**/
 
 .dropdown:hover .dropdown-content {display: flex;}
 
-.dropdown:hover .dropbtn {background-color: ;}
+/**.dropdown:hover .dropbtn {background-color: ;}**/
 
 .navbar-brand{
     cursor: pointer;

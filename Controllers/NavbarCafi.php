@@ -427,14 +427,45 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     </div>
 
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-4">
                             <li class="nav-item mx-2 text-center">
-                                <a class="<?php if ($sel === 'ventas') {
-                                                    echo seleccionado;
-                                                } ?> nav-link text-white" onclick="window.location.href='consultasventas.php'" title="Venta"><img src="../img/sales.png">Ventas</a>
+                                <a class="<?php if ($sel === 'proveedores') {
+                                        echo seleccionado;
+                                    } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='proveedores.php'" title="Proveedores"><img src="../img/truck.png">Proveedores</a>
                             </li>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
+                            <li class="nav-item mx-2 text-center">
+                                <a class="<?php if ($sel === 'compras') {
+                                        echo seleccionado;
+                                    } ?> nav-link text-white" onclick="window.location.href='compras.php'" title="Crompas"><img src="../img/buy.png">Compras</a>
+                            </li>
+                        </div>
+                        <div class="col-4">
+                            <li class="nav-item mx-2 text-center">
+                                <a class="<?php if ($sel === 'ccm') {
+                                        echo seleccionado;
+                                    } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='ccm.php'" title="Categorias/Marcas/Colores"><img src="../img/user.png">CMC</a>
+                            </li>
+                        </div>
+                    </div>
+                            
+                    <div class="row">
+                        <div class="col-4">
+                            <li class="nav-item mx-2 text-center">
+                                <a class="<?php if ($sel === 'ventas') {
+                                            echo seleccionado;
+                                        } ?> nav-link text-white" onclick="window.location.href='consultasventas.php'" title="Venta"><img src="../img/sales.png">Ventas</a>
+                            </li>
+                        </div>
+                        <div class="col-4">
+                            <li class="nav-item mx-2 text-center">
+                                <a class="<?php if ($sel === 'reportes') {
+                                            echo seleccionado;
+                                        } ?> nav-link text-white" onclick="window.location.href='reportes.php'" title="Reportes"><img src="../img/analysis.png">Reportes</a>
+                            </li>
+                        </div>
+                        <div class="col-4">
                             <li class="nav-item mx-2 text-center">
                                 <a class="nav-link text-danger font-weight-bold" href="../Controllers/login.php?cerrar_sesion" title="Salir"><img src="../img/logout.png">Salir</a>
                             </li>

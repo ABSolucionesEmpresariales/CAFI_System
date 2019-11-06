@@ -175,7 +175,7 @@ $(document).ready(function () {
           $("#stock_minimo").val(datos[18]);
           $("#modalForm").modal("show");
           $("#accion").val("true");
-          console.log(editar);
+
           touchtime = 0;
         } else {
           // not a double click so set as a new first click
@@ -353,7 +353,6 @@ $(document).ready(function () {
   $(document).on('click','.agregar',function(){
     $("#accion").val("false");
     $("#formulario").trigger("reset");
-    console.log(editar);
   });
 
   function obtenerDatosTablaProductos(negocio) {
