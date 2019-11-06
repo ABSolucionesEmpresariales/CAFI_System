@@ -24,7 +24,7 @@ privilegios("Master");
 
 <body>
     <?php
-    $sel = "venta";
+    $sel = "edr";
     include("../Controllers/NavbarCafi.php");
     ?>
 
@@ -78,12 +78,12 @@ privilegios("Master");
                                 <div class="tab-pane fade" id="Inventario" role="tabpanel" aria-labelledby="Inventario-tab">
                                     <div class="col-12">
                                         <br>
-                                        <form action="#" method="post">
+                                        <form id="form2">
                                             <h5><label for="negocio" style="margin: 0 auto;" class="badge badge-info">Negocio:</label></h5>
-                                            <select class="form form-control combosucursal" name="SSucursal">
+                                            <select class="form form-control combosucursal" name="Ssucursal">
                                             </select> <br>
                                             <h5><label for="inmes" style="margin: 0 auto;" class="badge badge-primary">Mes:</label></h5>
-                                            <input id="inmes" class="form-control" type="month" name="DMes"><br>
+                                            <input id="inmes" class="form-control" type="month" name="Dmes"><br>
                                             <input type="submit" class="btn btn-secondary btn-lg btn-block btn-dark" name="" value="Consultar">
                                         </form>
                                     </div>
@@ -109,9 +109,7 @@ privilegios("Master");
 
                 <thead>
                     <tr id="rowencabezado">
-                        <th>Ventas</th>
-                        <th>Costo de Venta</th>
-                        <th>Utilidad Bruta</th>
+                      
                     </tr>
                 </thead>
                 <tbody id="cuerpo">

@@ -23,7 +23,7 @@ privilegios("Superiores");
 
 <body>
     <?php
-    $sel = "clientes";
+    $sel = "ccm";
     include("../Controllers/NavbarCafi.php");
     ?>
 

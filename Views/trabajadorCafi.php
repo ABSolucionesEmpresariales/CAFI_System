@@ -200,7 +200,7 @@ privilegios("Todos");
                             <h5 class="general">Acceso:</h5>
                             <select class="form form-control" id="acceso" name="Sacceso" required>
                               <option value="Manager">Manager</option>
-                              <option value="Employes">Empleado</option>
+                              <option value="Employe">Empleado</option>
                             </select>
                           </div>
                     </div>

@@ -11,27 +11,93 @@ if (isset($_POST['combo']) && $_POST['combo'] === "negocio") {
 
     $conexion = new Models\Conexion();
     if ($_POST['negocio'] != "Todos") {
-        $datos = array("A", 1, $_POST['negocio']);
-        $consulta = "SELECT SUM(total) AS ventas FROM venta WHERE estado_venta = ? AND eliminado != ? AND negocio= ?";
+        $datos = array("A", 1, $_POST['negocio'], "Crédito");
+        $consulta = "SELECT SUM(total) AS totalventas FROM venta 
+        WHERE estado_venta = ? AND eliminado != ? AND negocio = ? AND NOT forma_pago = ?";
         $result = $conexion->consultaPreparada($datos, $consulta, 2, "sis", false);
         if (isset($result) && !is_null($result[0][0])) {
             $ventas = $result[0][0];
         } else {
             $ventas = 0;
         }
-
-        $consulta = "SELECT SUM(precio_compra * stock) AS costo_venta 
-        FROM producto INNER JOIN detalle_venta ON codigo_barras = detalle_venta.producto
-        INNER JOIN venta ON idventa = idventas INNER JOIN stock ON codigo_barras = stock.producto
-        WHERE estado_venta = ? AND venta.eliminado !=  ? AND venta.negocio = ?";
+        $datos = array("I", 1, $_POST['negocio']);
+        $consulta = "SELECT SUM(anticipo) AS anticipos FROM adeudos
+        INNER JOIN venta ON adeudos.venta = venta.idventas
+        WHERE  estado != ?  AND adeudos.eliminado != ? AND negocio = ?";
         $result = $conexion->consultaPreparada($datos, $consulta, 2, "sis", false);
         if (isset($result) && !is_null($result[0][0])) {
-            $costo_venta = $result[0][0];
+            $anticipos = $result[0][0];
         } else {
-            $costo_venta = 0;
+            $anticipos = 0;
         }
-        $datos = array("ventas" => $ventas, "costo_venta" => $costo_venta, "utilidad_bruta" =>  $ventas - $costo_venta);
-        echo json_encode($datos);
+        $datos = array("A", 1, $_POST['negocio']);
+        $consulta = "SELECT SUM(cantidad) AS totalabonos FROM abono WHERE estado = ? AND eliminado != ? AND negocio = ?";
+        $result = $conexion->consultaPreparada($datos, $consulta, 2, "sis", false);
+        if (isset($result) && !is_null($result[0][0])) {
+            $total_abonos = $result[0][0];
+        } else {
+            $total_abonos = 0;
+        }
+
+        $consulta = "SELECT SUM(monto) AS totalgastos  FROM gastos WHERE estado= ? AND eliminado != ? AND negocio = ?";
+        $result = $conexion->consultaPreparada($datos, $consulta, 2, "sis", false);
+        if (isset($result) && !is_null($result[0][0])) {
+            $gastos = $result[0][0];
+        } else {
+            $gastos = 0;
+        }
+        $consulta = "SELECT SUM(cantidad) AS oingresos  FROM otros_ingresos WHERE estado = ? AND eliminado =  ? AND negocio = ?";
+        $result = $conexion->consultaPreparada($datos, $consulta, 2, "sis", false);
+        if (isset($result) && !is_null($result[0][0])) {
+            $otros_ingresos = $result[0][0];
+        } else {
+            $otros_ingresos = 0;
+        }
+
+        $consulta = "SELECT SUM(cantidad) AS retiro FROM retiros WHERE 
+        estado = ? AND eliminado = ?  AND  negocio = ?";
+        $result = $conexion->consultaPreparada($datos, $consulta, 2, "sis", false);
+        if (isset($result) && !is_null($result[0][0])) {
+            $retiros = $result[0][0];
+        } else {
+            $retiros = 0;
+        }
+
+        $consulta = "SELECT forma_pago, SUM(total) AS totalventas FROM
+        venta WHERE  estado_venta = ? AND  eliminado != ? AND negocio = ? GROUP BY forma_pago ORDER BY forma_pago ASC";
+        $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false);
+
+        $ventas_efectivo = 0;
+        $ventas_tarjeta = 0;
+
+        if (isset($result)) {
+            for ($i = 0; $i < sizeof($result); $i++) {
+                if ($result[$i][0] === "Efectivo") {
+                    $abonos_efectivo = $result[$i][1];
+                } else if ($result[$i][0] === "Tarjeta") {
+                    $abonos_tarjeta = $result[$i][1];
+                }
+            }
+        }
+
+        $consulta = "SELECT forma_pago, SUM(cantidad) AS totalabonos FROM abono WHERE
+        estado = ?  AND eliminado != ?  AND negocio = ? GROUP BY forma_pago ORDER BY forma_pago ASC";
+
+        $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false);
+
+     
+        $abonos_efectivo = 0;
+        $abonos_tarjeta = 0;
+
+        if (isset($result)) {
+            for ($i = 0; $i < sizeof($result); $i++) {
+                if ($result[$i][0] === "Efectivo") {
+                    $ventas_efectivo = $result[$i][1];
+                } else if ($result[$i][0] === "Tarjeta") {
+                    $ventas_banco = $result[$i][1];
+                }
+            }
+        }
     } else {
         $datos = array("A", 1, $_SESSION['email']);
         $consulta = "SELECT SUM(total) AS ventas FROM venta INNER JOIN negocios ON idnegocios = negocio
