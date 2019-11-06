@@ -352,7 +352,8 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                         } ?> nav-link text-white" onclick="window.location.href='reportes.php'" title="Reportes"><img src="../img/analysis.png">Reportes</a>
                     </li>
                     <li class="nav-item mx-2 text-center border text-white">
-                        Combobox Sucursal
+                        <select class="form form-control" id="Navbarsucursales">
+                        </select>
                     </li>
                 </ul>
             </div>
