@@ -9,7 +9,7 @@ class Conexion
         "host" => "localhost",
         "user" => "root",
         "pass" => "",
-        "db" => "cafi"
+        "db" => "cafi_db"
 
     );
 

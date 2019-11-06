@@ -1,5 +1,6 @@
 //Busqueda general en tablas//
 $(document).ready(function () {
+  cargarNegocios();
 $('#busqueda').on('keyup', function () {
 var value = $(this).val();
 var patt = new RegExp(value, "i");
@@ -13,6 +14,46 @@ $(this).not('.encabezados').hide();
   }
 });
 });
+
+$('#Navbarsucursales').on('change',function(){
+    
+  if ($(this).val() != '') {
+    $.ajax({
+      url: "../Controllers/login.php",
+      type: "POST",
+      data: "negocio=" + $(this).val(),
+
+      success: function (response) {
+      console.log(response);
+      location.reload();
+      }
+    });
+  }
+});
+
+
+
+function cargarNegocios(){
+  $.ajax({
+    url: "../Controllers/login.php",
+    type: "POST",
+    data: "combo=combo",
+
+    success: function (response) {
+      console.log(response);
+      let datos =JSON.parse(response);
+      var template='<option value="">Elegir Sucursal</option>';
+      $.each(datos, function(i, item) {
+        template += `
+        <option value="${item[0]}">${item[1]}</option>
+        `;
+      });
+      $('#Navbarsucursales').html(template);
+    }
+    });
+}
+
+
 });
 
 //Autofocus en el primer input de los modales y las ventanas
