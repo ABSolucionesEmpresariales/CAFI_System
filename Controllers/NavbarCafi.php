@@ -267,7 +267,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
 <?php } else { ?>
 
     <div class="container-fluid px-0 d-none d-lg-block fixed-top">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-around p-0">
+        <nav style="background-color: #414141;" class="navbar navbar-expand-lg navbar-dark justify-content-around p-0">
             <div class="col-1 d-flex justify-content-between align-items-center">
                 <img class="img-fluid" src="../img/logo/nav1-dark.png" />
             </div>
@@ -295,7 +295,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                         } ?> nav-link text-white" onclick="window.location.href='ventas.php'" title="Venta"><img src="../img/sell.png">Vender</a>
                     </li>
                     <div class="dropdown nav-item mx-2 text-center">
-                        <button class="dropbtn bg-dark"><img src="../img/expenses.png">Caja</button>
+                        <button style="background-color: #414141;" class="dropbtn bg-dark"><img src="../img/expenses.png">Caja</button>
                         <div class="dropdown-content bg-dark">
                             <a class="<?php if ($sel === 'abonos') {
                                         echo seleccionado;
@@ -315,7 +315,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                         </div>
                     </div>
                     <div class="dropdown">
-                        <button class="dropbtn bg-dark"><img src="../img/sales.png">Catalogo</button>
+                        <button style="background-color: #414141;" class="dropbtn bg-dark"><img src="../img/sales.png">Catalogo</button>
                         <div class="dropdown-content bg-dark">
                             <a class="<?php if ($sel === 'clientes') {
                                     echo seleccionado;
