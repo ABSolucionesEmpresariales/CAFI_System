@@ -106,8 +106,7 @@ $(document).ready(function () {
 
     $(document).on('click','.Bagregar',function(){
         $('.ocultar').css('display','block');
-        $('.ampliar').removeClass( "col-lg-6" );
-        $('.ampliar').addClass( "col-lg-4" );
+
     });
 
     var touchtime = 0;

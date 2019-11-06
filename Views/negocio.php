@@ -40,11 +40,11 @@ privilegios("Todos");
                             <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                         <div class="row">
                             <div class="col-lg-4">
-                                    <h5 class="general">Nombre:</h5>
+                                    <h5 class="importante">Nombre:</h5>
                                     <input id="nombre" class="form form-control" onkeypress="return check(event)" type="text" name="Tnombre" placeholder="Nombre" autocomplete="new-password" >
                             </div>
                             <div class="col-lg-4">
-                                    <h5 class="general">Giro:</h5>
+                                    <h5 class="importante">Giro:</h5>
                                     <select class="form form-control" id="giro" name="Sgiro">
                                         <option value="Tienda">Tienda de ropa</option>
                                         <option value="Zapateria">Zapateria</option>
@@ -52,25 +52,25 @@ privilegios("Todos");
                                     </select>
                                 </div>
                             <div class="col-lg-4">
-                                <h5 class="general">Domicilio:</h5>
+                                <h5 class="importante">Domicilio:</h5>
                                 <input id="calle_numero" class="form form-control" onkeypress="return check(event)" type="text" name="Tcalle_numero" placeholder="Domicilio" autocomplete="new-password" >
                             </div>
                         </div>
                         <div class="row">
                                 <div class="col-lg-4">
-                                        <h5 class="general">Colonia:</h5>
+                                        <h5 class="importante">Colonia:</h5>
                                         <input id="colonia" class="form form-control" onkeypress="return check(event)" type="text" name="Tcolonia" placeholder="Colonia" autocomplete="new-password" >
                                     </div>
                             <div class="col-lg-4">
-                                <h5 class="general">Localidad:</h5>
+                                <h5 class="importante">Localidad:</h5>
                                 <input id="localidad" class="form form-control" type="text" onkeypress="return check(event)" name="Tlocalidad" placeholder="Localidad" autocomplete="new-password" >
                             </div>
                             <div class="col-lg-4">
-                                <h5 class="general">Municipio:</h5>
+                                <h5 class="importante">Municipio:</h5>
                                 <input id="municipio" class="form form-control" type="text" onkeypress="return check(event)" name="Tmunicipio" placeholder="Municipio" autocomplete="new-password" >
                             </div>
                             <div class="col-lg-4">
-                                    <h5 class="general">Estado:</h5>
+                                    <h5 class="importante">Estado:</h5>
                                     <select class="form form-control" id="estado" name="Sestado">
                                       <option value="Aguascalientes">Aguascalientes</option>
                                       <option value="Baja California">Baja California	</option>
@@ -106,7 +106,7 @@ privilegios("Todos");
                                     </select>
                                   </div>
                              <div class="col-lg-4">
-                                <h5 class="general">Pais:</h5>
+                                <h5 class="importante">Pais:</h5>
                                 <select class="form form-control" id="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" name="Spais">
                                         <option value="México">México</option>
                                     </select>
@@ -116,14 +116,14 @@ privilegios("Todos");
                                     <input id="telefono" class="form form-control" type="text" onkeypress="return check(event)" name="Ttelefono" placeholder="Telefono" autocomplete="new-password" >
                                 </div>
                             <div class="col-lg-4">
-                                <h5 class="general">Impresora:</h5>
+                                <h5 class="importante">Impresora:</h5>
                                 <select class="form form-control" id="impresora" name="Simpresora">
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option>
                                 </select>
                             </div>
                             <div>
-                                <h5 class="general">Dueño:</h5>
+                                <h5 class="importante">Dueño:</h5>
                                 <input id="dueno" class="form form-control" list="clientes" name="Sdueno"  autocomplete="new-password">
                                 <datalist id="clientes">
                                 </datalist>

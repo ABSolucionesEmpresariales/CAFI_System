@@ -94,7 +94,7 @@ privilegios("Todos");
 
                     <div class="d-block d-lg-flex row">
                     <div class="col-lg-6">
-                        <h5 class="general">Email:</h5>
+                        <h5 class="importante">Email:</h5>
                         <input id="email" class="form form-control" onkeypress="return check(event)" type="email" name="Temail" placeholder="Email" autocomplete="new-password" required>
                       </div>
                       <div class="col-lg-6">
@@ -106,7 +106,7 @@ privilegios("Todos");
                     <div class="d-block d-lg-flex row">
 
                       <div class="col-lg-6">
-                        <h5 class="general">Nombre:</h5>
+                        <h5 class="importante">Nombre:</h5>
                         <input id="nombre" class="form form-control" onkeypress="return check(event)" type="text" name="Tnombre" placeholder="Nombre" autocomplete="new-password" required>
                       </div>
                       <div class="col-lg-6">
@@ -127,7 +127,7 @@ privilegios("Todos");
                     </div>
                     <div class="d-block d-lg-flex row">
                     <div class="col-lg-6">
-                        <h5 class="general">Localidad:</h5>
+                        <h5 class="importante">Localidad:</h5>
                         <input id="localidad" class="form form-control" type="text" onkeypress="return check(event)" name="Tlocalidad" placeholder="Localidad" autocomplete="new-password" required><br>
                       </div>
                       <div class="col-lg-6">
@@ -182,7 +182,7 @@ privilegios("Todos");
                     </div>
                     <div class="d-block d-lg-flex row">
                       <div class="col-lg-6">
-                        <h5 class="general">Teléfono:</h5>
+                        <h5 class="importante">Teléfono:</h5>
                         <input id="telefono" class="form form-control" type="text" onkeypress="return check(event)" name="Ttelefono" placeholder="Teléfono" autocomplete="new-password" required><br>
                       </div>
                       <div class="col-lg-6">
@@ -200,7 +200,7 @@ privilegios("Todos");
                       </div>
 
                           <div class="col-lg-6">
-                            <h5 class="general">Entrada al sistema:</h5>
+                            <h5 class="importante">Entrada al sistema:</h5>
                             <select class="form form-control" id="entrada_sistema" name="Sentrada_sistema" required>
                               <option value="A">Activa</option>
                               <option value="I">Inactiva</option>

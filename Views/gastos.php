@@ -88,7 +88,7 @@ include("../Controllers/NavbarCafi.php");
             <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
             <div class="d-block d-lg-flex row">
               <div class="col-lg-4 ocultar">
-                <h5 class="general">Concepto:</h5>
+                <h5 class="importante">Concepto:</h5>
                 <select name="Sconcepto" id="concepto" class="form form-control" required>
                   <option></option>
                   <option>Renta</option>
@@ -104,7 +104,7 @@ include("../Controllers/NavbarCafi.php");
                 </select> <br>
               </div>
               <div class="col-lg-4 ocultar">
-                <h5 class="general">Tipo:</h5>
+                <h5 class="importante">Tipo:</h5>
                 <select name="Spago" id="pago" class="form form-control" required>
                   <option></option>
                   <option>Efectivo</option>
@@ -113,22 +113,22 @@ include("../Controllers/NavbarCafi.php");
                 </select>
               </div>
               <div class="col-lg-4 ocultar">
-                <h5 class="general">Descripción:</h5>
+                <h5 class="importante">Descripción:</h5>
                 <input id="descripcion" class="form form-control" onkeypress="return check(event)" type="text" name="Tdescripcion" placeholder="Descripción" autocomplete="new-password" required>
               </div>
               <div class="col-lg-4 ocultar">
-                <h5 class="general">Monto:</h5>
+                <h5 class="importante">Monto:</h5>
                 <input id="monto" class="form form-control" onkeypress="return check(event)" type="text" name="Tmonto" placeholder="Monto" autocomplete="new-password" required>
               </div>
               <div class="col-lg-4 estado">
-                <h5 class="general">Estado:</h5>
+                <h5 class="importante">Estado:</h5>
                 <select id="estado" class="form form-control" name="Sestado">
                   <option value="A">Activo</option>
                   <option value="I">Inactivo</option>
                 </select>
               </div>
               <div class="col-lg-4 ocultar">
-                <h5 class="general">Fecha:</h5>
+                <h5 class="importante">Fecha:</h5>
                 <input id="fecha" class="form form-control" onkeypress="return check(event)" type="date" name="Dfecha" placeholder="Fecha" autocomplete="new-password" required>
               </div>
 

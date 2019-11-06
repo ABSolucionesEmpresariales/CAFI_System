@@ -94,7 +94,7 @@ privilegios("Todos");
                         <input id="fecha_vencimiento" class="form form-control" onkeypress="return check(event)" type="date" name="Dfecha_vencimiento" placeholder="Fecha Vencimiento" autocomplete="new-password">
                       </div>
                       <div class="col-lg-4">
-                        <h5 class="general">Estado del sistema:</h5>
+                        <h5 class="importante">Estado del sistema:</h5>
                         <select class="form form-control" id="estado" name="Sestado">
                           <option value="A">Activo</option>
                           <option value="I">Inactivo</option>
@@ -103,7 +103,7 @@ privilegios("Todos");
                     </div>
                     <div class="d-block d-lg-flex row">
                       <div class="col-lg-4">
-                        <h5 class="general">Paquete:</h5>
+                        <h5 class="importante">Paquete:</h5>
                         <select class="form form-control" name="Spaquete" id="paquete">
                           <option value="0">Elegir</option>
                           <option value="1">Basic</option>
