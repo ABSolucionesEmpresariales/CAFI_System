@@ -42,7 +42,7 @@ privilegios("Superiores");
                                     <option value="Elejir">Elejir</option>
                                     <option value="Color">Color</option>
                                     <option value="Marca">Marca</option>
-                                    <option value="Categorias">Categoria</option>
+                                    <option value="Categoria">Categoria</option>
                                 </select>
                             <h5 class="general">Nombre:</h5>
                             <input class="form form-control" type="text" name="CCMInput" id="CCMInput">
@@ -53,6 +53,7 @@ privilegios("Superiores");
               <div id="tableContainer" class="d-block col-lg-12">
                     <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                         <h2 style="">Colores</h2>
+                        <input type="checkbox" value="si" id="checkColores">
                         <table style="border-radius: 10px;" class="table table-hover table-striped table-light">
                             <thead class="thead-dark">
                                 <tr class="encabezados">
@@ -71,6 +72,7 @@ privilegios("Superiores");
               <div id="tableContainer" class="d-block col-lg-12">
                     <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                     <h2 style="">Categorias</h2>
+                    <input type="checkbox" value="si" id="checkCategoria">
                         <table style="border-radius: 10px;" class="table table-hover table-striped table-light">
                             <thead class="thead-dark">
                                 <tr class="encabezados">
@@ -89,6 +91,7 @@ privilegios("Superiores");
               <div id="tableContainer" class="d-block col-lg-12">
                     <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                     <h2 style="">Marcas</h2>
+                    <input type="checkbox" value="si" id="checkMarca">
                         <table style="border-radius: 10px;" class="table table-hover table-striped table-light">
                             <thead class="thead-dark">
                                 <tr class="encabezados">
