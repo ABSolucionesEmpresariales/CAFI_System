@@ -44,11 +44,11 @@ privilegios("Todos");
                     <div class="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <h5 class="general">Cantidad:</h5>
+                                <h5 class="importante">Cantidad:</h5>
                                 <input style="" name="Tcantidad" id="cant" onkeypress="return check(event)" class="form form-control bg-light" type="text" autocomplete="off" placeholder="Ingrese la cantidad">
                             </div>
                             <div class="col-lg-6">
-                                <h5 class="general">Desde:</h5>
+                                <h5 class="importante">Desde:</h5>
                                 <select id="de" class="form form-control" name="Stipo">
                                     <option></option>
                                     <option value="Caja">Caja</option>
@@ -58,7 +58,7 @@ privilegios("Todos");
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <h5 class="general">Concepto:</h5>
+                                <h5 class="importante">Concepto:</h5>
                                 <select id="concepto" class="form form-control" name="Sconcepto">
                                     <option></option>
                                     <option value="Retiro">Retiro</option>
