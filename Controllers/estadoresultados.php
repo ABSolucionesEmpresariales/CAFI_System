@@ -5,8 +5,8 @@ if (isset($_POST['combo']) && $_POST['combo'] === "negocio") {
 
     $conexion = new Models\Conexion();
     $datos = array($_SESSION['email']);
-    $consulta = "SELECT idnegocios,nombre FROM negocios WHERE dueno= ?";
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "i", false));
+    $consulta = "SELECT idnegocios,nombre FROM negocios WHERE dueno = ?";
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "s", false));
 } else if (isset($_POST['negocio'])) {
 
     $conexion = new Models\Conexion();
@@ -49,7 +49,6 @@ if (isset($_POST['combo']) && $_POST['combo'] === "negocio") {
         INNER JOIN venta ON idventa = idventas 
         INNER JOIN stock ON codigo_barras = stock.producto
         INNER JOIN negocios ON idnegocios = venta.negocio
-        INNER JOIN usuarioscafi ON email = negocios.dueno
         WHERE estado_venta = ? AND venta.eliminado != ? AND negocios.dueno = ?";
         $result = $conexion->consultaPreparada($datos, $consulta, 2, "sis", false);
         if (isset($result) && !is_null($result[0][0])) {
@@ -122,7 +121,6 @@ if (isset($_POST['combo']) && $_POST['combo'] === "negocio") {
             $datos = array($mes, $año, "A", "1", $_SESSION['email'], "Articulos de Venta");
             $consulta = "SELECT SUM(monto) AS total  FROM gastos
             INNER JOIN negocios ON idnegocios = gastos.negocio 
-            INNER JOIN usuarioscafi ON email = negocios.dueno
             WHERE MONTH(fecha) = ? AND YEAR(fecha) = ? AND gastos.estado = ? AND gastos.eliminado != ? AND dueno = ? GROUP BY concepto = ? ";
             $result = $conexion->consultaPreparada($datos, $consulta, 2, "ssssss", false);
             if (isset($result) && !is_null($result[0][0])) {
@@ -134,7 +132,6 @@ if (isset($_POST['combo']) && $_POST['combo'] === "negocio") {
         }
         $consulta = "SELECT SUM(total) AS ventas FROM venta 
         INNER JOIN negocios ON idnegocios = negocio
-        INNER JOIN usuarioscafi ON email = dueno
         WHERE fecha BETWEEN ? AND ?  AND estado_venta = ? AND venta.eliminado != ? 
         AND dueno = ? OR MONTH(fecha) = ? AND YEAR(fecha) = ? AND estado_venta = ? AND venta.eliminado != ? AND dueno = ?";
         $result = $conexion->consultaPreparada($datos, $consulta, 2, "ssssssssss", false);
@@ -149,7 +146,6 @@ if (isset($_POST['combo']) && $_POST['combo'] === "negocio") {
         INNER JOIN detalle_venta ON codigo_barras = detalle_venta.producto
         INNER JOIN venta ON idventa = idventas INNER JOIN stock ON codigo_barras = stock.producto
         INNER JOIN negocios ON idnegocios = venta.negocio
-        INNER JOIN usuarioscafi ON email = negocios.dueno
         WHERE fecha BETWEEN ? AND ?  AND estado_venta = ? AND venta.eliminado != ? AND negocios.dueno = ? 
         OR MONTH(fecha) = ? AND YEAR(fecha) = ? AND estado_venta = ? AND venta.eliminado != ? AND negocios.dueno = ? ";
         $result = $conexion->consultaPreparada($datos, $consulta, 2,  "ssssssssss", false);
