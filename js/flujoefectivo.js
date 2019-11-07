@@ -2,7 +2,7 @@ $(document).ready(function() {
     pintarComboNegocios();
     function pintarComboNegocios() {
       $.ajax({
-        url: "../Controllers/estadoresultados.php",
+        url: "../Controllers/flujoefectivo.php",
         type: "POST",
         data: "combo=negocio",
         success: function(response) {
@@ -22,24 +22,31 @@ $(document).ready(function() {
   
     $("#form1").submit(function(e) {
       $.post(
-        "../Controllers/estadoresultados.php",
+        "../Controllers/flujoefectivo.php",
         $("#form1").serialize(),
         function(response) {
+          console.log(response);
           datos = JSON.parse(response);
           let template = ` 
-        <th>Ventas</th>
-        <th>Costo de Venta</th>
-        <th>Utilidad Bruta</th>`;
-  
-          $("#rowencabezado").html(template);
+          <tr>
+          <td>${datos.ventas}</td>
+          <td>${datos.otros_ingresos}</td>
+          <td>${datos.gastos}</td>
+          <td>${datos.retiros}</td>
+          <td>${datos.efectivo}</td>
+          </tr>
+          `;
+          $("#cuerpo1").html(template);
           template = `
-        <tr>
-        <td>${datos.ventas}</td>
-        <td>${datos.costo_venta}</td>
-        <td>${datos.utilidad_bruta}</td>
-        </tr>
-      `;
-          $("#cuerpo").html(template);
+          <tr>
+          <td>${datos.ingresos_efectivo}</td>
+          <td>${datos.ingresos_banco}</td>
+          <td>${datos.ingresos_credito}</td>
+          <td>${datos.otros_ingresos_efectivo}</td>
+          <td>${datos.otros_ingresos_banco}</td>
+          </tr>
+          `;
+          $("#cuerpo2").html(template);
           $("#modalForm").modal("hide");
         }
       );
@@ -48,26 +55,31 @@ $(document).ready(function() {
   
     $("#form2").submit(function(e) {
       $.post(
-        "../Controllers/estadoresultados.php",
+        "../Controllers/flujoefectivo.php",
         $("#form2").serialize(),
         function(response) {
-          let template = ` 
-          <th>Ventas</th>
-          <th>Costo de Venta</th>
-          <th>Utilidad Bruta</th>
-          <th>Utilidad Neta</th>`;
-  
-          $("#rowencabezado").html(template);
+          console.log(response);
           datos = JSON.parse(response);
-          template = `
+          let template = ` 
           <tr>
           <td>${datos.ventas}</td>
-          <td>${datos.costo_venta}</td>
-          <td>${datos.utilidad_bruta}</td>
-          <td>${datos.utilidad_neta}</td>
-         </tr>
+          <td>${datos.otros_ingresos}</td>
+          <td>${datos.gastos}</td>
+          <td>${datos.retiros}</td>
+          <td>${datos.efectivo}</td>
+          </tr>
           `;
-          $("#cuerpo").html(template);
+          $("#cuerpo1").html(template);
+          template = `
+          <tr>
+          <td>${datos.ingresos_efectivo}</td>
+          <td>${datos.ingresos_banco}</td>
+          <td>${datos.ingresos_credito}</td>
+          <td>${datos.otros_ingresos_efectivo}</td>
+          <td>${datos.otros_ingresos_banco}</td>
+          </tr>
+          `;
+          $("#cuerpo2").html(template);
           $("#modalForm").modal("hide");
         }
       );
@@ -78,21 +90,28 @@ $(document).ready(function() {
       const postData = {
         negocio: $("#sucursal").val()
       };
-      $.post("../Controllers/estadoresultados.php", postData, function(response) {
-        datos = JSON.parse(response);
-        let template = ` 
-        <th>Ventas</th>
-        <th>Costo de Venta</th>
-        <th>Utilidad Bruta</th>`;
-        $("#rowencabezado").html(template);
-        template = `
+      $.post("../Controllers/flujoefectivo.php", postData, function(response) {
+        let datos = JSON.parse(response);
+         let template = ` 
         <tr>
         <td>${datos.ventas}</td>
-        <td>${datos.costo_venta}</td>
-        <td>${datos.utilidad_bruta}</td>
+        <td>${datos.otros_ingresos}</td>
+        <td>${datos.gastos}</td>
+        <td>${datos.retiros}</td>
+        <td>${datos.efectivo}</td>
         </tr>
         `;
-        $("#cuerpo").html(template);
+        $("#cuerpo1").html(template);
+        template = `
+        <tr>
+        <td>${datos.ingresos_efectivo}</td>
+        <td>${datos.ingresos_banco}</td>
+        <td>${datos.ingresos_credito}</td>
+        <td>${datos.otros_ingresos_efectivo}</td>
+        <td>${datos.otros_ingresos_banco}</td>
+        </tr>
+        `;
+        $("#cuerpo2").html(template);
       });
     });
   });
