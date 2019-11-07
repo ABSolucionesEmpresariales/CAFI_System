@@ -29,35 +29,35 @@ privilegios("Superiores");
 
     <div class="contenedor container-fluid">
         <div class="row align-items-start">
-        <div class="input-group mb-2 border">
-                        <button class="d-lg-none btn btn-primary col-12 mb-3 p-3 eliminar">Eliminar</button>
-                        <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="fa fa-search"></i></div>
-                        </div>
-                        <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name" value="">
-                        <button class="d-none d-lg-flex btn btn-primary ml-3 eliminar">Eliminar</button>
-                        <form id="formulario" class="form form-inline">
-                            <h5 class="general">Elejir:</h5>
-                                <select class="form form-control" name="CCM" id="CCM">
-                                    <option value="Elejir">Elejir</option>
-                                    <option value="Color">Color</option>
-                                    <option value="Marca">Marca</option>
-                                    <option value="Categoria">Categoria</option>
-                                </select>
-                            <h5 class="general">Nombre:</h5>
-                            <input class="form form-control" type="text" name="CCMInput" id="CCMInput">
-                            <input id="bclose" type="submit" class="btn-dark text-primary" name="" value="Guardar">
-                        </form>
-                    </div>
+
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fa fa-search"></i></div>
+                </div>
+                <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name" value="">
+                <p class="text-white font-weight-bold ml-lg-4">Agregar elemento:</p>
+                <form id="formulario" class="form form-inline ml-lg-2">
+                    <select class="form form-control" name="CCM" id="CCM">
+                        <option value="Elejir">Elegir Tipo</option>
+                        <option value="Color">Color</option>
+                        <option value="Marca">Marca</option>
+                        <option value="Categoria">Categoria</option>
+                    </select>
+                    <input placeholder="Nombre" class="form form-control ml-lg-2" type="text" name="CCMInput" id="CCMInput">
+                    <input id="bclose" type="submit" class="btn-primary text-white ml-lg-2" name="" value="Guardar">
+                </form>
+                <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
+                <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button>
+            </div>
+
             <div class="col-md-4">
-              <div id="tableContainer" class="d-block col-lg-12">
+                <div id="tableContainer" class="d-block col-lg-12">
                     <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
-                        <h2 style="">Colores</h2>
-                        <input type="checkbox" value="si" id="checkColores">
-                        <table style="border-radius: 10px;" class="table table-hover table-striped table-light">
+                        <h2 class="bg-light text-center">Colores</h2>
+                        <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
                             <thead class="thead-dark">
                                 <tr class="encabezados">
-                                    <th class="text-nowrap text-center" onclick="sortTable(0)">Eliminar</th>
+                                    <th class="text-nowrap text-left" onclick="sortTable(0)"><input type="checkbox" value="si" id="checkColores"></th>
                                     <th class="text-nowrap text-center" onclick="sortTable(1)">Nombre</th>
                                 </tr>
                             </thead>
@@ -69,14 +69,13 @@ privilegios("Superiores");
             </div>
 
             <div class="col-md-4">
-              <div id="tableContainer" class="d-block col-lg-12">
+                <div id="tableContainer" class="d-block col-lg-12">
                     <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
-                    <h2 style="">Categorias</h2>
-                    <input type="checkbox" value="si" id="checkCategoria">
-                        <table style="border-radius: 10px;" class="table table-hover table-striped table-light">
+                        <h2 class="bg-light text-center">Categorias</h2>
+                        <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
                             <thead class="thead-dark">
                                 <tr class="encabezados">
-                                    <th class="text-nowrap text-center" onclick="sortTable(0)">Eliminar</th>
+                                    <th class="text-nowrap text-left" onclick="sortTable(0)"><input type="checkbox" value="si" id="checkCategoria"></th>
                                     <th class="text-nowrap text-center" onclick="sortTable(1)">Nombre</th>
                                 </tr>
                             </thead>
@@ -88,14 +87,13 @@ privilegios("Superiores");
             </div>
 
             <div class="col-md-4">
-              <div id="tableContainer" class="d-block col-lg-12">
+                <div id="tableContainer" class="d-block col-lg-12">
                     <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
-                    <h2 style="">Marcas</h2>
-                    <input type="checkbox" value="si" id="checkMarca">
-                        <table style="border-radius: 10px;" class="table table-hover table-striped table-light">
+                        <h2 class="bg-light text-center">Marcas</h2>
+                        <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
                             <thead class="thead-dark">
                                 <tr class="encabezados">
-                                    <th class="text-nowrap text-center" onclick="sortTable(0)">Eliminar</th>
+                                    <th class="text-nowrap text-left" onclick="sortTable(0)"><input type="checkbox" value="si" id="checkMarca"></th>
                                     <th class="text-nowrap text-center" onclick="sortTable(1)">Nombre</th>
                                 </tr>
                             </thead>
@@ -106,39 +104,8 @@ privilegios("Superiores");
                 </div>
             </div>
 
-
-
-
         </div>
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="modalForm" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header administrador">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">×</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                </div>
-
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    <h5 class="statusMsg"></h5>
-                    <div class="row">
-
-                    </div>
-                    <div class="row">
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal -->
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

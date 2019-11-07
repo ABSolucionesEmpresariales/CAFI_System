@@ -1,6 +1,7 @@
 body {
     /* background-color: #222227; */
-    background-color: #ffffff;
+    background-color: #394048;
+    font-family: 'Roboto', sans-serif;
 }
 
 thead{
@@ -108,12 +109,13 @@ input{
 }
 .nav-link{
     cursor: pointer;
+    border-radius: 10px;
 }
 .nav-link:hover{
-    background-color: black;
+    background-color: #0b091c;
 }
 .seleccionado{
-    background-color: black;
+    background-color: #0b091c;
     font-weight: bold;
 }
 

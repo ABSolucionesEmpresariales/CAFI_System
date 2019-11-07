@@ -114,6 +114,29 @@ obtenerDatosMarcas();
           });
     }
 
+    function obtenerDatosMarcas(){
+        $.ajax({
+            url: "../Controllers/CCM.php",
+            type: "POST",
+            data: "tablaMarcas=tablaMarcas",
+    
+            success: function (response) {
+              console.log(response);
+              let datos = JSON.parse(response);
+              let template = "";
+              $.each(datos, function (i, item) {
+                template += `
+                <tr>
+                      <td><input class="check" type="checkbox" name="Ntasa_iva" value="si" ></td>
+                      <td class="text-nowrap text-center d-none">${item[0]}</td>
+                      <td class="text-nowrap text-center">${item[2]}</td>
+                `;
+              });
+              $("#cuerpoMarcas").html(template);
+            }
+          });
+    }
+
     $(document).on('click','#checkColores , #checkCategoria, #checkMarca',function(){
         var boton = $(this).attr('id');
         if(boton == 'checkColores'){
@@ -173,29 +196,5 @@ obtenerDatosMarcas();
         });
         e.preventDefault();
     });
-
-    function obtenerDatosMarcas(){
-        $.ajax({
-            url: "../Controllers/CCM.php",
-            type: "POST",
-            data: "tablaMarcas=tablaMarcas",
-    
-            success: function (response) {
-              console.log(response);
-              let datos = JSON.parse(response);
-              let template = "";
-              $.each(datos, function (i, item) {
-                template += `
-                <tr>
-                      <td><input class="check" type="checkbox" name="Ntasa_iva" value="si" ></td>
-                      <td class="text-nowrap text-center d-none">${item[0]}</td>
-                      <td class="text-nowrap text-center">${item[2]}</td>
-                `;
-              });
-              $("#cuerpoMarcas").html(template);
-            }
-          });
-    }
-
 
 });

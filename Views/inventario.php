@@ -25,7 +25,7 @@ privilegios("Todos");
     </script>
 </head>
 <?php
-$sel = "venta";
+$sel = "inventario";
 include("../Controllers/NavbarCafi.php");
 ?>
 

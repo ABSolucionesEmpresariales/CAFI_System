@@ -16,6 +16,8 @@ privilegios("Todos");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" href="img/logo/nav1.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
     <title>Ventas</title>
 </head>
 
@@ -51,9 +53,9 @@ privilegios("Todos");
                 <h2 class="totalcarrito"></h2>
                 </div>
                 <div class="d-block d-lg-flex mt-4 justify-content-center">
-                    <button value="Efectivo" class="col-12 col-lg-4 m-1 bpago1 btn btn-dark text-white" type="button">Pago en efectivo</button>
-                    <button value="Crédito" class="col-12 col-lg-4 m-1 bpago2 btn btn-dark text-white" type="button">Pago a crédito</button>
-                    <button value="Tarjeta" class="col-12 col-lg-4 m-1 bpago3 btn btn-dark text-white" type="button">Pago con tarjeta</button>
+                    <button value="Efectivo" class="col-12 col-lg-4 m-1 bpago1 btn btn-primary text-white" type="button">Pago en efectivo</button>
+                    <button value="Crédito" class="col-12 col-lg-4 m-1 bpago2 btn btn-primary text-white" type="button">Pago a crédito</button>
+                    <button value="Tarjeta" class="col-12 col-lg-4 m-1 bpago3 btn btn-primary text-white" type="button">Pago con tarjeta</button>
                 </div>
             </div>
             <div class="col-12 col-lg-7 p-3 order-1 order-lg-2">
