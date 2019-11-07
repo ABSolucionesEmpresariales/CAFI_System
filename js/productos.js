@@ -7,6 +7,9 @@ $(document).ready(function () {
   obtenerProductosInventario();
   obtenerNegocios();
   obtenerProductosCodigoBarras();
+  obtenerColores();
+  obtenerMarcas();
+  obtenerCategorias();
   $('.esconderCantidad').hide();
   $('.esconderProducto').hide();
   $("#accion").val("true");
@@ -23,6 +26,60 @@ $(document).ready(function () {
       $('.esconderProducto').show();
     }
   });
+
+  function obtenerColores(){
+    $.ajax({
+      url: "../Controllers/productos.php",
+      type: "POST",
+      data:"colores=colores",
+
+      success: function (response) {
+        let datos = JSON.parse(response);
+        console.log(datos);
+        let template = "<option value = 'null'>Elejir</option>";
+        $.each(datos, function (i, item) {
+          template+=`<option value="${item[0]}">${item[0]}</option>`;
+        });
+        $('#color').html(template);
+      }
+    });
+  }
+
+  function obtenerMarcas(){
+    $.ajax({
+      url: "../Controllers/productos.php",
+      type: "POST",
+      data:"marcas=marcas",
+
+      success: function (response) {
+        let datos = JSON.parse(response);
+        console.log(datos);
+        let template = "<option value = 'null'>Elejir</option>";
+        $.each(datos, function (i, item) {
+          template+=`<option value="${item[0]}">${item[0]}</option>`;
+        });
+        $('#marca').html(template);
+      }
+    });
+  }
+
+  function obtenerCategorias(){
+    $.ajax({
+      url: "../Controllers/productos.php",
+      type: "POST",
+      data:"categorias=categorias",
+
+      success: function (response) {
+        let datos = JSON.parse(response);
+        console.log(datos);
+        let template = "<option value = 'null'>Elejir</option>";
+        $.each(datos, function (i, item) {
+          template+=`<option value="${item[0]}">${item[0]}</option>`;
+        });
+        $('#categoria').html(template);
+      }
+    });
+  }
 
   $(document).on('click','.close',function(){
     $('.esconderCantidad').hide();

@@ -256,8 +256,7 @@ privilegios("Superiores");
               <div class="col-lg-6">
                 <h5 class="general">Marca:</h5>
                 <select class="form form-control" id="marca" name="Smarca">
-                  <option value="null">Elejir</option>
-                  <option value="Nike">Nike</option>
+
                 </select>
               </div>
               <div class="col-lg-6">
@@ -272,8 +271,7 @@ privilegios("Superiores");
             <div class="col-lg-6">
                 <h5 class="general">Color:</h5>
                 <select class="form form-control" id="color" name="Scolor">
-                  <option value="null">Elejir</option>
-                  <option value="rojo">rojo</option>
+
                 </select>
               </div>
               <div class="col-lg-6">
@@ -310,10 +308,7 @@ privilegios("Superiores");
               <div class="col-lg-6">
                   <h5 class="general">Categoria:</h5>
                   <select class="form form-control" id="categoria" name="Scategoria">
-                  <option value="null">Elejir</option>
-                  <option value="Ropa">Ropa</option>
-                  <option value="Calzado">Calzado</option>
-                  <option value="Otros">Otros</option>
+
                   </select>
                 </div>
               <div class="col-lg-6">

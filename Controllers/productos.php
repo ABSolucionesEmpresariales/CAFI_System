@@ -254,3 +254,28 @@ if(isset($_POST['productosBarras'])){
 if(isset($_POST['negocioActual'])){
     echo $_SESSION['negocio'];
 }
+
+if(isset($_POST['colores'])){
+    $conexion = new Models\Conexion();
+    $datos = array($_SESSION['negocio']);
+    $tipo = "i";
+    $sql = "SELECT nombre,tipo FROM ccm WHERE tipo = 'Color' AND negocio = ?";
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false));
+    echo $jsonstring;
+}
+if(isset($_POST['marcas'])){
+    $conexion = new Models\Conexion();
+    $datos = array($_SESSION['negocio']);
+    $tipo = "i";
+    $sql = "SELECT nombre,tipo FROM ccm WHERE tipo = 'Marca' AND negocio = ?";
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false));
+    echo $jsonstring;
+}
+if(isset($_POST['categorias'])){
+    $conexion = new Models\Conexion();
+    $datos = array($_SESSION['negocio']);
+    $tipo = "i";
+    $sql = "SELECT nombre,tipo FROM ccm WHERE tipo = 'Categoria' AND negocio = ?";
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false));
+    echo $jsonstring;
+}
