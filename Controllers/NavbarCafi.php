@@ -522,7 +522,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <div class="row">
                         <div class="col-12">
                             <li class="nav-item mx-2 text-center text-white">
-                                <select class="form form-control mt-3" id="Navbarsucursales">
+                                <select class="form form-control mt-3" id="Navbarsucursales2">
                                 </select>
                             </li>
                         </div>
