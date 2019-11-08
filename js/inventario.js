@@ -82,7 +82,7 @@ $(document).ready(function() {
       let template = null;
       $.each(datos, function(i, item) {
         for (i = 0; i < item.length; i++) {
-          if (item[i] === null) {
+          if (item[i] == null) {
             item[i] = "";
           }
         }
