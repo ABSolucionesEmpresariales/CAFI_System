@@ -281,17 +281,17 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'edr') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='estadoresultados.php'" title="Estado de Resultados"><img src="../img/line-chart.png">E.R</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='estadoresultados.php'" title="Estado de Resultados"><img src="../img/line-chart.png">E.R.</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'fde') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='flujoefectivo.php'" title="Flujo de Efectivo"><img src="../img/cake-graphic.png">F.E</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='flujoefectivo.php'" title="Flujo de Efectivo"><img src="../img/cake-graphic.png">F.E.</a>
                     </li>
                     <li class="nav-item mx-2 text-center">
                         <a class="<?php if ($sel === 'mv') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='masVendidos.php'" title="Flujo de Efectivo"><img src="../img/most.png">M.V</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='masVendidos.php'" title="Flujo de Efectivo"><img src="../img/most.png">M.V.</a>
                     </li>
 
                     <li class="nav-item mx-2 text-center">

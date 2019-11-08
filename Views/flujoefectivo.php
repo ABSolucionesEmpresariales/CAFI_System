@@ -56,18 +56,18 @@ privilegios("Master");
                                 <div class="tab-pane fade show active" id="Producto" role="tabpanel" aria-labelledby="Producto-tab">
                                     <div class="col-12"><br>
                                     <form id="form1">
-                                            <h5><label for="negocio" style="margin: 0 auto;" class="badge badge-info">Negocio:</label></h5>
+                                            <h5><label for="negocio" style="margin: 0 auto;" class="general">Negocio:</label></h5>
                                             <select class="form form-control combosucursal" name="Ssucursal">
                                                 
                                             </select> <br>
                                             <fieldset class="border p-2">
                                                 <legend class="w-auto">
-                                                    <h6>FECHA 1 - FECHA 2</h6>
+                                                    <h6 class="font-weight-bold">Rango de Fechas</h6>
                                                 </legend>
-                                                <h5><label for="fecha1" style="margin: 0 auto;" class="badge badge-primary">De:</label></h5>
+                                                <h5><label for="fecha1" style="margin: 0 auto;" class="general">De:</label></h5>
                                                 <input id="fecha1" class="form-control" type="date" name="Dfecha1">
                                                 <br>
-                                                <h5><label for="fecha2" style="margin: 0 auto;" class="badge badge-success">A:</label></h5>
+                                                <h5><label for="fecha2" style="margin: 0 auto;" class="general">A:</label></h5>
                                                 <input id="fecha2" class="form-control" type="date" name="Dfecha2">
                                             </fieldset><br>
                                             <input id="bform1" type="submit" class="btn btn-secondary btn-lg btn-block btn-dark" name="" value="Consultar">
@@ -78,10 +78,10 @@ privilegios("Master");
                                     <div class="col-12">
                                         <br>
                                         <form id="form2">
-                                            <h5><label for="negocio" style="margin: 0 auto;" class="badge badge-info">Negocio:</label></h5>
+                                            <h5><label for="negocio" style="margin: 0 auto;" class="general">Negocio:</label></h5>
                                             <select class="form form-control combosucursal" name="Ssucursal">
                                             </select> <br>
-                                            <h5><label for="inmes" style="margin: 0 auto;" class="badge badge-primary">Mes:</label></h5>
+                                            <h5><label for="inmes" style="margin: 0 auto;" class="general">Mes:</label></h5>
                                             <input id="inmes" class="form-control" type="month" name="Dmes"><br>
                                             <input type="submit" class="btn btn-secondary btn-lg btn-block btn-dark" name="" value="Consultar">
                                         </form>
@@ -98,11 +98,12 @@ privilegios("Master");
         </div>
     </div>
     <!-- Modal -->
+
     <div class="contenedor container-fluid">
         <div id="tableContainer" class="d-block col-lg-12">
             <div class="input-group mb-2">
                 <div class="font-weight-bold px-3 d-flex align-items-center">
-                    <p>Sucursal:</p>
+                    <p class="text-white">Sucursal:</p>
                 </div>
 
                 <div class="col-3">

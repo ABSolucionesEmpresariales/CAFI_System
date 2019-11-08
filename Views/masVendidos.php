@@ -29,7 +29,7 @@ privilegios("Master");
         <div id="tableContainer" class="d-block col-lg-12">
             <div class="input-group mb-2">
                 <div class="font-weight-bold px-3 d-flex align-items-center">
-                    <p>Sucursal:</p>
+                    <p class="text-white">Sucursal:</p>
                 </div>
                 
                 <div class="col-3">

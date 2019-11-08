@@ -222,7 +222,7 @@ privilegios("Superiores");
 
                             </div>
 
-                        <input id="bclose" type="submit" class="mt-3 btn btn-lg btn-block btn-dark text-primary" name="" value="Guardar">
+                        <input id="bclose" type="submit" class="mt-3 btn btn-lg btn-block btn-dark text-white" value="Guardar">
                     </form>
                 </div>
             </div>
