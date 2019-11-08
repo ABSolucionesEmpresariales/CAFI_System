@@ -36,7 +36,7 @@ $(document).ready(function () {
       success: function (response) {
         let datos = JSON.parse(response);
         console.log(datos);
-        let template = "<option value = 'null'>Elejir</option>";
+        let template = "<option value = ''>Elejir</option>";
         $.each(datos, function (i, item) {
           template+=`<option value="${item[0]}">${item[0]}</option>`;
         });
@@ -54,7 +54,7 @@ $(document).ready(function () {
       success: function (response) {
         let datos = JSON.parse(response);
         console.log(datos);
-        let template = "<option value = 'null'>Elejir</option>";
+        let template = "<option value = ''>Elejir</option>";
         $.each(datos, function (i, item) {
           template+=`<option value="${item[0]}">${item[0]}</option>`;
         });
@@ -72,7 +72,7 @@ $(document).ready(function () {
       success: function (response) {
         let datos = JSON.parse(response);
         console.log(datos);
-        let template = "<option value = 'null'>Elejir</option>";
+        let template = "<option value = ''>Elejir</option>";
         $.each(datos, function (i, item) {
           template+=`<option value="${item[0]}">${item[0]}</option>`;
         });
