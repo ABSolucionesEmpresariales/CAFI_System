@@ -327,13 +327,10 @@ function convertirJsonCarritoenArray(){
                            </td>
                            <td><img src="${item[1]}" height="50" width="50" /></td>
                            <td><input id='incantidad' type="number" value="1" name="quantity" min="1" max="" style="width: 60px; height: 38px;"></td>
-                           <td>${item[7]}</td>
                            <td class="datos">${item[2]} ${item[3]} ${item[6]} </td>
-                           <td class="datos">${item[8]}</td>
                            <td class="datos font-weight-bold">${item[0]}</td>
-                           <td>${item[5]}</td>
-                           <td>${item[4]}</td>
                            <td>${item[9]}</td>
+                           <td class="datos">${item[8]}</td>
                         </tr>`;
         });
         datos = "";
@@ -366,12 +363,7 @@ function convertirJsonCarritoenArray(){
                         <td> <button class="text-nowrap text-center bagregarc btn bg-secondary text-white">ok</button></td>
                         <td class="text-nowrap text-center datoscliente">${item[0]}</td>
                         <td class="text-center datoscliente">${item[1]}</td>
-                        <td class="text-nowrap text-center">${item[2]}</td>
-                        <td class="text-nowrap text-center">${item[3]}</td>
-                        <td class="text-nowrap text-center">${item[4]}</td>
-                        <td class="text-nowrap text-center">${item[5]}</td>
                         <td class="text-nowrap text-center">${item[6]}</td>
-                        <td class="text-nowrap text-center">${item[7]}</td>
                         <td class="text-nowrap text-center datoscliente">${item[8]}</td>
                         <td class="text-nowrap text-center">${item[9]}</td>
                       
@@ -437,43 +429,44 @@ $(document).on('click','.beliminar',function(){
     valores += cantidadinput;
     result = valores.split("?");
 
-    $('#tbcarrito').find("#" + result[2]).find("td").each(function () {
+    $('#tbcarrito').find("#" + result[1]).find("td").each(function () {
       encontrado = true;
       val += $(this).html() + "?";
     });
     row = val.split("?");
      
     
-    let costo = parseFloat(result[1]);
+    let costo = parseFloat(result[2]);
     let cantidad = parseInt(result[3]);
     let subtotal = cantidad * costo;
 
   if(encontrado === false){
 
-    template = `<tr id="${result[2]}">
-    <td> <input type="button" class="beliminar" value="Eliminar"></td>
-    <td class="datos d-none">${result[2]}</td>
+    template = `<tr id="${result[1]}">
+    <td><button class="beliminar btn btn-danger">Eliminar</button></td>
+    <td class="datos d-none">${result[1]}</td>
     <td class="datos">${result[0]}</td>
-    <td class="datos">${result[1]}</td>
+    <td class="datos">${result[2]}</td>
     <td class="datos">${cantidad}</td>
     <td class="datos">${subtotal}</td>
  </tr>`;
 
   }else{
-    $('#tbcarrito').find("#" + result[2]).remove();
+    $('#tbcarrito').find("#" + result[1]).remove();
     cantidad += parseInt(row[4]);
     subtotal = cantidad * costo;
-    template = `<tr id="${result[2]}">
-    <td> <input type="button" class="beliminar" value="Eliminar"></td>
-    <td class="datos d-none">${result[2]}</td>
+    template = `<tr id="${result[1]}">
+    <td><button class="beliminar btn btn-danger">Eliminar</button></td>
+    <td class="datos d-none">${result[1]}</td>
     <td class="datos">${result[0]}</td>
-    <td class="datos">${result[1]}</td>
+    <td class="datos">${result[2]}</td>
     <td class="datos">${cantidad}</td>
     <td class="datos">${subtotal}</td>
  </tr>`;
   }
+
   $('#tbcarrito').append(template);
-  obtenerDatosCarrito();
+    obtenerDatosCarrito();
   });
 
   function obtenerDatosCarrito(){
@@ -510,7 +503,7 @@ $(document).on('click','.beliminar',function(){
     $.each(carrito, function (i, item) {
       totalglobal +=  parseInt(item[4]);
       template += `<tr id="${item[0]}">
-      <td> <input type="button" class="beliminar" value="Eliminar"></td>
+      <td><button class="beliminar btn btn-danger">Eliminar</button></td>
       <td class="datos d-none">${item[0]}</td>
       <td class="datos">${item[1]}</td>
       <td class="datos">${item[2]}</td>
@@ -519,6 +512,6 @@ $(document).on('click','.beliminar',function(){
    </tr>`;
     });
     $('#tbcarrito').html(template);
-    $('.totalcarrito').html(totalglobal);
+    $('.totalcarrito').html("Total: $"+totalglobal);
   }
 });

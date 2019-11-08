@@ -54,7 +54,7 @@ privilegios("Todos");
                   <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
                     <thead class="thead-dark">
                       <tr class="encabezados">
-                        <th class="text-nowrap text-center" onclick="sortTable(0)"></th>
+                        <th class="text-nowrap text-center" onclick="sortTable(0)"><input id="eliminar" class="check" type="checkbox" value="si" ></th>
                         <th class="text-nowrap text-center" onclick="sortTable(1)">RFC</th>
                         <th class="text-nowrap text-center" onclick="sortTable(2)">Dias Credito</th>
                         <th class="text-nowrap text-center" onclick="sortTable(3)">Nombre</th>
@@ -68,7 +68,7 @@ privilegios("Todos");
                         <th class="text-nowrap text-center" onclick="sortTable(11)">UsuarioCafi</th>
                       </tr>
                     </thead>
-                    <input id="eliminar" class="check" type="checkbox" value="si" >
+                    
                     <tbody id="cuerpo"></tbody>
                   </table>
                 </div>
@@ -179,7 +179,7 @@ privilegios("Todos");
                       </div>
                     </div>
 
-                        <input id="bclose" type="submit" class="mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">
+                        <input id="bclose" type="submit" class="mt-3 btn bg-dark text-white btn-lg btn-block" value="Guardar">
                       </form>
                       <div id="tableHolder" class="row justify-content-center"></div>
                     </div>

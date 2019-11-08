@@ -71,7 +71,9 @@ privilegios("Superiores");
 
             <input class="form-control col-lg-4" type="text" id="busqueda" onkeyup="busqueda()" onkeypress="return check(event)" placeholder="Buscar..." title="Type in a name" value="">
 
-            <h5 class="general">Negocio:</h5>
+            <div class="font-weight-bold px-3 d-flex align-items-center">
+                  <p class="text-white">Sucursal:</p>
+            </div>
             <select class="form form-control col-lg-4" id="negocio" name="Snegocio">
             </select>
 
@@ -151,8 +153,9 @@ privilegios("Superiores");
                     </select>
                 </div>
             </div>
-                <input class="mt-3 btn bg-dark text-primary btn-lg btn-block esconder" type="submit" value="Imprimir">
+            
           </div>
+          <input class="mt-3 btn bg-dark text-white btn-lg btn-block esconder" type="submit" value="Imprimir">
           </form>
         </div>
       </div>
@@ -202,9 +205,9 @@ privilegios("Superiores");
 
 
 
-    <div class="row justify-content-center">
-        <button type="submit" class="col-12 btn btn-lg btn-primary bclose">Guardar</button>
-    </div>
+    
+        <button type="submit" class="col-12 btn btn-lg btn-dark bclose text-white">Guardar</button>
+    
 </form>
         </div>
       </div>
@@ -356,7 +359,7 @@ privilegios("Superiores");
               </div>
             </div>
               <input type="hidden" name="accion" id="accion">
-              <input id="bclose" type="submit" class="mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">
+              <input id="bclose" type="submit" class="mt-3 btn bg-dark text-white btn-lg btn-block" value="Guardar">
           </form>
           <div id="tableHolder" class="row justify-content-center"></div>
         </div>
