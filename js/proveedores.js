@@ -29,7 +29,7 @@ $(document).ready(function () {
             $("#estado").val(datos[8]);
             $("#pais").val(datos[9]);
             $("#telefono").val(datos[10]);
-            $("#email").val(datos[10]);
+            $("#email").val(datos[11]);
             editar = true;
           $("#modalForm").modal("show");
           } else {
@@ -151,7 +151,7 @@ $(document).ready(function () {
               let template = "";
               $.each(datos, function (i, item) {
                 for(var j = 0; j <= item.length; j++){
-                    if(item[j] == 'null'){
+                    if(item[j] == null){
                       item[j] = "";
                     }
                   }
