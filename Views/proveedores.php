@@ -55,20 +55,20 @@ privilegios("Todos");
                     <thead class="thead-dark">
                       <tr class="encabezados">
                         <th class="text-nowrap text-center" onclick="sortTable(0)"></th>
-                        <th class="text-nowrap text-center" onclick="sortTable(1)">IdProovedor</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(2)">RFC</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(3)">Dias Credito</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(4)">Nombre</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(5)">Domicilio</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(6)">Colonia</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(7)">Ciudad</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(8)">Estado</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(9)">Pais</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(10)">Telefono</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(11)">Email</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(12)">UsuarioCafi</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(1)">RFC</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(2)">Dias Credito</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(3)">Nombre</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(4)">Domicilio</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(5)">Colonia</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(6)">Ciudad</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(7)">Estado</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(8)">Pais</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(9)">Telefono</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(10)">Email</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(11)">UsuarioCafi</th>
                       </tr>
                     </thead>
+                    <input id="eliminar" class="check" type="checkbox" value="si" >
                     <tbody id="cuerpo"></tbody>
                   </table>
                 </div>
@@ -107,7 +107,7 @@ privilegios("Todos");
 
                     <div class="d-block d-lg-flex row">
                       <div class="col-lg-6">
-                        <h5 class="importante">Dias credito:</h5>
+                        <h5 class="general">Dias credito:</h5>
                         <input id="dias_credito" class="form form-control" onkeypress="return check(event)" type="number" name="Sdias_credito" placeholder="Dias credito" autocomplete="new-password">
                       </div>
                       <div class="col-lg-6">
@@ -171,10 +171,10 @@ privilegios("Todos");
                     <div class="d-block d-lg-flex row">
                       <div class="col-lg-6">
                         <h5 class="importante">Teléfono:</h5>
-                        <input id="telefono" class="form form-control" type="text" onkeypress="return check(event)" name="Ttelefono" placeholder="Teléfono" autocomplete="new-password" required><br>
+                        <input id="telefono" class="form form-control" type="text" onkeypress="return check(event)" name="Ttelefono" placeholder="Teléfono" autocomplete="new-password"><br>
                       </div>
                       <div class="col-lg-6">
-                        <h5 class="general">Email:</h5>
+                        <h5 class="importante">Email:</h5>
                         <input id="email" class="form form-control" type="email" onkeypress="return check(event)" name="Temail" placeholder="Email" autocomplete="new-password"><br>
                       </div>
                     </div>

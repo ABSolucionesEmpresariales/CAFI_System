@@ -1,6 +1,6 @@
 $(document).ready(function () {
     let idproveedor = "";
-    let editar = "";
+    let editar = false;
     obteneDatosProveedor();
 
     var touchtime = 0;
@@ -60,7 +60,23 @@ $(document).ready(function () {
                  "warning");
               }
               $('#eliminar').prop("checked", false);
+              obteneDatosProveedor();
           });
+    });
+
+    
+    $(document).on('click','#eliminar',function(){
+
+        if($(this).prop('checked')){
+            $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                     $(this).prop("checked", true);
+            });    
+        }else{
+            $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                     $(this).prop("checked", false);
+                
+            });    
+        }
     });
 
     function enviarDatos(){
@@ -88,7 +104,20 @@ $(document).ready(function () {
 
 
     $("#formulario").submit(function (e) {
-        $.post("../Controllers/negocio.php",$("#formulario").serialize() + '&idproveedor=' + idproveedor + '&accion=' + editar, function (response) {
+        if($('#nombre').val() == ''){
+            $('#nombre').focus();
+            return false;
+        }
+        if($('#telefono').val() == ''){
+            $('#telefono').focus();
+            return false;
+        }
+        if($('#email').val() == ''){
+            $('#email').focus();
+            return false;
+        }
+
+        $.post("../Controllers/proveedores.php",$("#formulario").serialize() + '&idproveedor=' + idproveedor + '&accion=' + editar, function (response) {
           console.log(response);
           $("#mensaje").css("display", "block");
           if (response == "1") {
@@ -105,7 +134,7 @@ $(document).ready(function () {
             $("#mensaje").css("color", "red");
             $("#email").focus();
           }
-          obtenerDatosTablaUsuarios();
+          obteneDatosProveedor();
         });
         e.preventDefault();
       });
@@ -121,9 +150,14 @@ $(document).ready(function () {
               let datos = JSON.parse(response);
               let template = "";
               $.each(datos, function (i, item) {
+                for(var j = 0; j <= item.length; j++){
+                    if(item[j] == 'null'){
+                      item[j] = "";
+                    }
+                  }
                 template+=`
                 <tr>
-                    <td><input id="eliminar" class="check" type="checkbox" value="si" ></td>
+                    <td><input class="check" type="checkbox" value="si" ></td>
                     <td class="text-nowrap text-center d-none">${item[0]}</td>
                     <td class="text-nowrap text-center">${item[1]}</td>
                     <td class="text-nowrap text-center">${item[2]}</td>
