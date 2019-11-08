@@ -70,7 +70,7 @@ privilegios("Todos");
                                 <textarea id="desc" name="TAdescripcion" onkeypress="return check2(event)" rows="2" class="form-control bg-light" placeholder="Agregue su descripcion"></textarea>
                             </div>
                         </div>
-                        <button type="submit" style="" class="mt-3 btn btn-lg btn-block btn-dark text-primary">
+                        <button type="submit" style="" class="mt-3 btn btn-lg btn-block btn-dark text-white">
                             <h6>Retirar</h6>
                         </button>
                     </form>

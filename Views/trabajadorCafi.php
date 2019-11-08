@@ -218,7 +218,7 @@ privilegios("Todos");
                         </div>
                         </div>
 
-                        <input id="bclose" type="submit" class="mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">
+                        <input id="bclose" type="submit" class="mt-3 btn bg-dark text-white btn-lg btn-block" value="Guardar">
                       </form>
                       <div id="tableHolder" class="row justify-content-center"></div>
                     </div>

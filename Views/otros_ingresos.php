@@ -125,7 +125,7 @@ privilegios("Superiores");
                                 </select>  
                             </div>
                         </div>
-                        <input type="submit" class="mt-3 btn btn-lg btn-block btn-dark text-primary" name="" value="Guardar">
+                        <input type="submit" class="mt-3 btn btn-lg btn-block btn-dark text-white" name="" value="Guardar">
                       </form>
                       <div id="tableHolder" class="row justify-content-center"></div>
                     </div>

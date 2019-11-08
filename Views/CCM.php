@@ -44,7 +44,7 @@ privilegios("Superiores");
                         <option value="Categoria">Categoria</option>
                     </select>
                     <input placeholder="Nombre" class="form form-control ml-lg-2" type="text" name="CCMInput" id="CCMInput">
-                    <input id="bclose" type="submit" class="btn-primary text-white ml-lg-2" name="" value="Guardar">
+                    <input id="bclose" type="submit" class="btn btn-primary text-white ml-lg-2" name="" value="Agregar">
                 </form>
                 <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
                 <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button>
