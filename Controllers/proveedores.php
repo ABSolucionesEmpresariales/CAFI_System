@@ -36,7 +36,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     if ($_POST['accion'] === 'false') {
 
         $consulta = "INSERT INTO proveedor (idproveedor,rfc,dias_credito,nombre,domicilio,colonia,ciudad,estado,pais,telefono,email,usuariocafi,negocio,eliminado)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         echo $conexion->consultaPreparada($datos, $consulta, 1, "ssisssssssssii", false);
     } else {
 

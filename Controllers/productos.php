@@ -18,7 +18,7 @@ if (
     isset($_POST['Tcodigo_barras']) && isset($_POST['Tmodelo']) && isset($_POST['Tnombre']) && isset($_POST['Tdescripcion']) &&
     isset($_POST['Scategoria']) && isset($_POST['Smarca']) && isset($_POST['Tproveedor']) && isset($_POST['Scolor']) &&
     isset($_POST['Nprecio_compra']) && isset($_POST['Nprecio_venta']) && isset($_POST['Ndescuento']) && 
-    isset($_POST['Sunidad_medida']) && isset($_POST['Ntasa_ipes']) && isset($_POST['Stalla_numero'])
+    isset($_POST['Sunidad_medida']) && isset($_POST['Ntasa_ipes']) 
 ) {
 /*  var_dump($_POST['Tcodigo_barras'],$_POST['Tmodelo'],$_POST['Tnombre'],$_POST['Tdescripcion'],
 $_POST['Scategoria'],$_POST['Smarca'],$_POST['Tproveedor'],$_POST['Scolor'],
@@ -121,15 +121,16 @@ $_POST['accion'])
         $datos = array($codigo);
         $tipo = "s";
         $resul = $conexion->consultaPreparada($datos, $consulta,2, $tipo, false);
-        return $resul[0][0];
+        if($resul[0][0] != ''){
+            return $resul[0][0];
+        }else{
+            return "";
+        }
+        
     }
 
-
-
-
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Guardar datos <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-
+    //echo $_POST['accion'];
     if ($_POST['accion'] == 'false') {
         if (strlen($_FILES['Fimagen']['tmp_name']) != 0) {
             $archivo = subir_archivo('Fimagen',1);
@@ -155,10 +156,11 @@ $_POST['accion'])
                 echo $respuesta;
             }
         }
+
     } else {
 
         if (strlen($_FILES['Fimagen']['tmp_name']) != 0) {
-            $ruta = ruta($_POST['Tcodigo_barras']);
+
             $archivo = subir_archivo('Fimagen',1);
             if ($archivo == "Error") {
                 echo $archivo;
@@ -184,9 +186,6 @@ $_POST['accion'])
             }
         }
     }
-
-
-
 }
 
 if(isset($_POST['tabla'])){
@@ -254,4 +253,29 @@ if(isset($_POST['productosBarras'])){
 
 if(isset($_POST['negocioActual'])){
     echo $_SESSION['negocio'];
+}
+
+if(isset($_POST['colores'])){
+    $conexion = new Models\Conexion();
+    $datos = array($_SESSION['negocio']);
+    $tipo = "i";
+    $sql = "SELECT nombre,tipo FROM ccm WHERE tipo = 'Color' AND negocio = ?";
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false));
+    echo $jsonstring;
+}
+if(isset($_POST['marcas'])){
+    $conexion = new Models\Conexion();
+    $datos = array($_SESSION['negocio']);
+    $tipo = "i";
+    $sql = "SELECT nombre,tipo FROM ccm WHERE tipo = 'Marca' AND negocio = ?";
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false));
+    echo $jsonstring;
+}
+if(isset($_POST['categorias'])){
+    $conexion = new Models\Conexion();
+    $datos = array($_SESSION['negocio']);
+    $tipo = "i";
+    $sql = "SELECT nombre,tipo FROM ccm WHERE tipo = 'Categoria' AND negocio = ?";
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false));
+    echo $jsonstring;
 }

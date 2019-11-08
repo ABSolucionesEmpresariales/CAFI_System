@@ -6,19 +6,12 @@ privilegios("Todos");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="../css/bootstrap.css">
-        <link rel="stylesheet" href="../css/sweetalert.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="icon" href="img/logo/nav1.png">
-
-        <script src="../js/sweetalert.js"></script>
-        <script src="../js/sweetalert.min.js"></script>
-        <script src="../js/jquery.js"></script>
-        <script src="../js/index.js"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="img/logo/nav1.png">
     <title>Negocios</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
@@ -47,11 +40,11 @@ privilegios("Todos");
                             <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                         <div class="row">
                             <div class="col-lg-4">
-                                    <h5 class="general">Nombre:</h5>
+                                    <h5 class="importante">Nombre:</h5>
                                     <input id="nombre" class="form form-control" onkeypress="return check(event)" type="text" name="Tnombre" placeholder="Nombre" autocomplete="new-password" >
                             </div>
                             <div class="col-lg-4">
-                                    <h5 class="general">Giro:</h5>
+                                    <h5 class="importante">Giro:</h5>
                                     <select class="form form-control" id="giro" name="Sgiro">
                                         <option value="Tienda">Tienda de ropa</option>
                                         <option value="Zapateria">Zapateria</option>
@@ -59,25 +52,25 @@ privilegios("Todos");
                                     </select>
                                 </div>
                             <div class="col-lg-4">
-                                <h5 class="general">Domicilio:</h5>
+                                <h5 class="importante">Domicilio:</h5>
                                 <input id="calle_numero" class="form form-control" onkeypress="return check(event)" type="text" name="Tcalle_numero" placeholder="Domicilio" autocomplete="new-password" >
                             </div>
                         </div>
                         <div class="row">
                                 <div class="col-lg-4">
-                                        <h5 class="general">Colonia:</h5>
+                                        <h5 class="importante">Colonia:</h5>
                                         <input id="colonia" class="form form-control" onkeypress="return check(event)" type="text" name="Tcolonia" placeholder="Colonia" autocomplete="new-password" >
                                     </div>
                             <div class="col-lg-4">
-                                <h5 class="general">Localidad:</h5>
+                                <h5 class="importante">Localidad:</h5>
                                 <input id="localidad" class="form form-control" type="text" onkeypress="return check(event)" name="Tlocalidad" placeholder="Localidad" autocomplete="new-password" >
                             </div>
                             <div class="col-lg-4">
-                                <h5 class="general">Municipio:</h5>
+                                <h5 class="importante">Municipio:</h5>
                                 <input id="municipio" class="form form-control" type="text" onkeypress="return check(event)" name="Tmunicipio" placeholder="Municipio" autocomplete="new-password" >
                             </div>
                             <div class="col-lg-4">
-                                    <h5 class="general">Estado:</h5>
+                                    <h5 class="importante">Estado:</h5>
                                     <select class="form form-control" id="estado" name="Sestado">
                                       <option value="Aguascalientes">Aguascalientes</option>
                                       <option value="Baja California">Baja California	</option>
@@ -113,7 +106,7 @@ privilegios("Todos");
                                     </select>
                                   </div>
                              <div class="col-lg-4">
-                                <h5 class="general">Pais:</h5>
+                                <h5 class="importante">Pais:</h5>
                                 <select class="form form-control" id="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" name="Spais">
                                         <option value="México">México</option>
                                     </select>
@@ -123,14 +116,14 @@ privilegios("Todos");
                                     <input id="telefono" class="form form-control" type="text" onkeypress="return check(event)" name="Ttelefono" placeholder="Telefono" autocomplete="new-password" >
                                 </div>
                             <div class="col-lg-4">
-                                <h5 class="general">Impresora:</h5>
+                                <h5 class="importante">Impresora:</h5>
                                 <select class="form form-control" id="impresora" name="Simpresora">
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option>
                                 </select>
                             </div>
                             <div>
-                                <h5 class="general">Dueño:</h5>
+                                <h5 class="importante">Dueño:</h5>
                                 <input id="dueno" class="form form-control" list="clientes" name="Sdueno"  autocomplete="new-password">
                                 <datalist id="clientes">
                                 </datalist>
@@ -185,10 +178,11 @@ privilegios("Todos");
             </div>
         </div>
     </div>
-
-                <script src="../js/user_jquery.js"></script>
-                <script src="../js/negocios.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            <script src="../js/index.js"></script>
+            <script src="../js/user_jquery.js"></script>
+            <script src="../js/negocios.js"></script>
             </body>
 </html>

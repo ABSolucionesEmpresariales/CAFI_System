@@ -10,7 +10,6 @@ class Conexion
         "user" => "root",
         "pass" => "",
         "db" => "cafi_db"
-
     );
 
     public $con;

@@ -7,18 +7,15 @@ privilegios("Todos");
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
+<link rel="stylesheet" href="../css/sweetalert.css">
+    <script src="../js/sweetalert.js"></script>
+    <script src="../js/sweetalert.min.js"></script>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/sweetalert.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" href="img/logo/nav1.png">
-
-    <script src="../js/sweetalert.js"></script>
-    <script src="../js/sweetalert.min.js"></script>
-    <script src="../js/jquery.js"></script>
-    <script src="../js/index.js"></script>
     <title>Retiros</title>
 
 </head>
@@ -47,11 +44,11 @@ privilegios("Todos");
                     <div class="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <h5 class="general">Cantidad:</h5>
+                                <h5 class="importante">Cantidad:</h5>
                                 <input style="" name="Tcantidad" id="cant" onkeypress="return check(event)" class="form form-control bg-light" type="text" autocomplete="off" placeholder="Ingrese la cantidad">
                             </div>
                             <div class="col-lg-6">
-                                <h5 class="general">Desde:</h5>
+                                <h5 class="importante">Desde:</h5>
                                 <select id="de" class="form form-control" name="Stipo">
                                     <option></option>
                                     <option value="Caja">Caja</option>
@@ -61,7 +58,7 @@ privilegios("Todos");
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <h5 class="general">Concepto:</h5>
+                                <h5 class="importante">Concepto:</h5>
                                 <select id="concepto" class="form form-control" name="Sconcepto">
                                     <option></option>
                                     <option value="Retiro">Retiro</option>
@@ -170,10 +167,12 @@ privilegios("Todos");
         </div>
 
     </div>
-    <script src="../js/user_jquery.js"></script>
-    <script src="../js/retiros.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/user_jquery.js"></script>
+    <script src="../js/retiros.js"></script>
 </body>
 
 </html>

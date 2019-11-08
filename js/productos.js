@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  editar = false;
   preciocompra = 0.0;
   precioventa = 0.0;
   iva = 0.0;
@@ -8,8 +7,12 @@ $(document).ready(function () {
   obtenerProductosInventario();
   obtenerNegocios();
   obtenerProductosCodigoBarras();
+  obtenerColores();
+  obtenerMarcas();
+  obtenerCategorias();
   $('.esconderCantidad').hide();
   $('.esconderProducto').hide();
+  $("#accion").val("true");
   $('.esconder').css('display','none');
 
   $(document).on('change','#Elejir',function(){
@@ -23,6 +26,60 @@ $(document).ready(function () {
       $('.esconderProducto').show();
     }
   });
+
+  function obtenerColores(){
+    $.ajax({
+      url: "../Controllers/productos.php",
+      type: "POST",
+      data:"colores=colores",
+
+      success: function (response) {
+        let datos = JSON.parse(response);
+        console.log(datos);
+        let template = "<option value = 'null'>Elejir</option>";
+        $.each(datos, function (i, item) {
+          template+=`<option value="${item[0]}">${item[0]}</option>`;
+        });
+        $('#color').html(template);
+      }
+    });
+  }
+
+  function obtenerMarcas(){
+    $.ajax({
+      url: "../Controllers/productos.php",
+      type: "POST",
+      data:"marcas=marcas",
+
+      success: function (response) {
+        let datos = JSON.parse(response);
+        console.log(datos);
+        let template = "<option value = 'null'>Elejir</option>";
+        $.each(datos, function (i, item) {
+          template+=`<option value="${item[0]}">${item[0]}</option>`;
+        });
+        $('#marca').html(template);
+      }
+    });
+  }
+
+  function obtenerCategorias(){
+    $.ajax({
+      url: "../Controllers/productos.php",
+      type: "POST",
+      data:"categorias=categorias",
+
+      success: function (response) {
+        let datos = JSON.parse(response);
+        console.log(datos);
+        let template = "<option value = 'null'>Elejir</option>";
+        $.each(datos, function (i, item) {
+          template+=`<option value="${item[0]}">${item[0]}</option>`;
+        });
+        $('#categoria').html(template);
+      }
+    });
+  }
 
   $(document).on('click','.close',function(){
     $('.esconderCantidad').hide();
@@ -134,36 +191,46 @@ $(document).ready(function () {
           });
   
           datos = valores.split("?");
-          console.log(datos);
   
           $("#codigo_barras").val(datos[0]);
           $("#modelo").val(datos[1]);
           $("#nombre").val(datos[2]);
           $("#descripcion").val(datos[3]);
-          $("#categoria").val(datos[4]);
+          
+          if(datos[4] == ''){
+            $("#categoria").val('null');
+          }else{
+            $("#categoria").val(datos[4]);
+          }
           pintarCombo();
-          $("#marca").val(datos[5]);
+          if(datos[5] == ''){
+            $("#marca").val('null');
+          }else{
+            $("#marca").val(datos[5]);
+          }
           $("#proveedor").val(datos[6]);
-          $("#color").val(datos[7]);
+         
+          if(datos[7] == ''){
+            $("#color").val('null');
+          }else{
+            $("#color").val(datos[7]);
+          }
           $("#preview").html(datos[8]);
           $("#precio_compra").val(datos[9]);
           $("#precio_venta").val(datos[10]);
           $("#descuento").val(datos[11]);
-          $("#unidad_medida").val(datos[12]);
+          $("#unidad_medida").val(datos[12]);  
           if (datos[13] == "Si") {
             $("#tasa_iva").prop("checked", true);
           } else {
             $("#tasa_iva").prop("checked", false);
           }
-  
           $("#tasa_ipes").val(datos[14]);
           $("#talla_numero").val(datos[15]);
           $("#localizacion").val(datos[16]);
           $("#stock").val(datos[17]);
           $("#stock_minimo").val(datos[18]);
-  
           $("#modalForm").modal("show");
-  
           $("#accion").val("true");
           touchtime = 0;
         } else {
@@ -249,13 +316,10 @@ $(document).ready(function () {
   });
 
   $(document).on("click", "#bclose", function () {
-    var boton = $(this).attr("id");
 
-    if (boton == "bclose") {
       var codigo = $("#codigo_barras").val();
       var nombre = $("#nombre").val();
       var venta = $("#precio_venta").val();
-      var medida = $("#unidad_medida").val();
 
       if (codigo.trim() == "") {
         $("#codigo_barras").focus();
@@ -264,18 +328,13 @@ $(document).ready(function () {
       if (nombre.trim() == "") {
         $("#nombre").focus();
         return false;
-      } else if (venta.trim() == "" || venta.trim() < 1) {
+      } else if (venta.trim() == "") {
         $("#precio_venta").focus();
         return false;
-      } else if (medida.trim() == "" || medida.trim() < 1) {
-        $("#unidad_medida").focus();
-        return false;
       }
-    }
   });
 
   $("#formularioInventario").submit(function (e) {
-
 
     if($('#Stock2').val() == ''){
       $('#Stock2').focus();
@@ -324,13 +383,13 @@ $(document).ready(function () {
       contentType: false,
       processData: false,
 
-      
       success: function (response) {
         console.log(response);
         if (response == "1") {
-          if (editar == true) {
+          if ($("#accion").val() == 'true') {
             $(".modal").modal("hide");
             $("#mensaje").css("display", "none");
+            $("#accion").val("false");
           }
           $("#mensaje").text("Registro Exitoso");
           $("#mensaje").css("color", "green");
@@ -341,11 +400,15 @@ $(document).ready(function () {
           $("#mensaje").css("color", "red");
           $("#codigo_barras").focus();
         }
-        console.log($('#negocio').val());
         obtenerDatosTablaProductos($('#negocio').val());
       }
     });
     e.preventDefault();
+  });
+
+  $(document).on('click','.agregar',function(){
+    $("#accion").val("false");
+    $("#formulario").trigger("reset");
   });
 
   function obtenerDatosTablaProductos(negocio) {
@@ -360,7 +423,7 @@ $(document).ready(function () {
         let template = "";
         $.each(datos, function (i, item) {
           for(var j = 0; j <= item.length; j++){
-                if(item[j] === null){
+                if(item[j] == 'null'){
                   item[j] = "";
                 }
           }

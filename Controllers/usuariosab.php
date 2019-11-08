@@ -83,6 +83,9 @@ if (
   $conexion = new Models\Conexion();
   $email = $conexion->eliminar_simbolos($_POST['email']);
   $consulta = "UPDATE persona SET eliminado = ? WHERE email= ?";
+  $consulta2 = "UPDATE usuariosab SET entrada_sistema = ? WHERE email= ?";
   $datos = array(1, $email);
+  $datos2 = array("I", $email);
+  $conexion->consultaPreparada($datos2, $consulta2, 1, "ss", false);
   echo $conexion->consultaPreparada($datos, $consulta, 1, "is", false);
 }

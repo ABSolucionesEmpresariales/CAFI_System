@@ -7,18 +7,17 @@ privilegios("Todos");
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="../css/sweetalert.css">
+    <script src="../js/sweetalert.js"></script>
+    <script src="../js/sweetalert.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/sweetalert.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" href="img/logo/nav1.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
-    <script src="../js/sweetalert.js"></script>
-    <script src="../js/sweetalert.min.js"></script>
-    <script src="../js/jquery.js"></script>
-    <script src="../js/index.js"></script>
     <title>Ventas</title>
 </head>
 
@@ -54,9 +53,9 @@ privilegios("Todos");
                 <h2 class="totalcarrito"></h2>
                 </div>
                 <div class="d-block d-lg-flex mt-4 justify-content-center">
-                    <button value="Efectivo" class="col-12 col-lg-4 m-1 bpago1 btn btn-dark text-white" type="button">Pago en efectivo</button>
-                    <button value="Crédito" class="col-12 col-lg-4 m-1 bpago2 btn btn-dark text-white" type="button">Pago a crédito</button>
-                    <button value="Tarjeta" class="col-12 col-lg-4 m-1 bpago3 btn btn-dark text-white" type="button">Pago con tarjeta</button>
+                    <button value="Efectivo" class="col-12 col-lg-4 m-1 bpago1 btn btn-primary text-white" type="button">Pago en efectivo</button>
+                    <button value="Crédito" class="col-12 col-lg-4 m-1 bpago2 btn btn-primary text-white" type="button">Pago a crédito</button>
+                    <button value="Tarjeta" class="col-12 col-lg-4 m-1 bpago3 btn btn-primary text-white" type="button">Pago con tarjeta</button>
                 </div>
             </div>
             <div class="col-12 col-lg-7 p-3 order-1 order-lg-2">
@@ -172,11 +171,12 @@ privilegios("Todos");
         </div>
     </div>
     <!-- Modal -->
-   
-    <script src="../js/user_jquery.js"></script>
-    <script src="../js/ventas.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/user_jquery.js"></script>
+    <script src="../js/ventas.js"></script>
 </body>
 
 </html>

@@ -32,9 +32,9 @@ $(document).ready(function () {
           <tr>
                 <td class="text-nowrap text-center">${item[0]}</td>
                 <td class="text-nowrap text-center">${item[1]}</td>
-                <td class="text-nowrap text-center">${item[2]}</td>
+                <td class="text-nowrap text-center text-success font-weight-bold">${item[2]}</td>
                 <td class="text-nowrap text-center">${item[3]}</td>
-                <td class="text-nowrap text-center">${item[4]}</td>
+                <td class="text-nowrap text-center text-warning font-weight-bold">${item[4]}</td>
                 <td class="text-nowrap text-center">${item[5]}</td>
                 <td class="text-nowrap text-center">${item[6]}</td>
                 <td class="text-nowrap text-center">${item[7]}</td>
