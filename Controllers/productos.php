@@ -279,3 +279,17 @@ if(isset($_POST['categorias'])){
     $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false));
     echo $jsonstring;
 }
+if (isset($_POST['array'])) {
+    $conexion = new Models\Conexion();
+    $data = json_decode($_POST['array']);
+    $tipo_datos = "is";
+    $consulta = "UPDATE stock SET eliminado = ? WHERE producto = ? ";
+    for ($i = 0; $i < count($data); $i++) {
+        if ($data[$i] != '0') {
+            $datos = array(1, $data[$i]);
+            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+        }
+    }
+    echo $result;
+}
+

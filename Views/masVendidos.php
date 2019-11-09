@@ -20,7 +20,7 @@ privilegios("Master");
     <title>Mas Vendidos</title>
 </head>
 
-<body onload="inicio(); ">
+<body>
     <?php
         $sel = "mv";
         include("../Controllers/NavbarCafi.php");

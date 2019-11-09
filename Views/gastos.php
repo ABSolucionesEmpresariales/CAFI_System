@@ -28,7 +28,7 @@ privilegios("Todos");
 $sel = "venta";
 include("../Controllers/NavbarCafi.php");
 ?>
-<body onload="inicio();">
+<body>
 <?php
     $sel = "gastos";
     include("../Controllers/NavbarCafi.php")

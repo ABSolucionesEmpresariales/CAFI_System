@@ -88,4 +88,16 @@ if (
   $datos2 = array("I", $email);
   $conexion->consultaPreparada($datos2, $consulta2, 1, "ss", false);
   echo $conexion->consultaPreparada($datos, $consulta, 1, "is", false);
+}else if (isset($_POST['array'])) {
+  $conexion = new Models\Conexion();
+  $data = json_decode($_POST['array']);
+  $tipo_datos = "is";
+  $consulta = "UPDATE usuariosab INNER JOIN persona ON usuariosab.email = persona.email  SET eliminado = ? WHERE usuariosab.email = ?";
+  for ($i = 0; $i < count($data); $i++) {
+      if ($data[$i] != '0') {
+          $datos = array(1, $data[$i]);
+          $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+      }
+  }
+  echo $result;
 }

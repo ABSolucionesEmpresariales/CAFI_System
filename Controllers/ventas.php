@@ -167,4 +167,17 @@ function actualizarStock($dato, $conexion, $operecion)
             $conexion->consultaPreparada($result[$i], $consulta, 1, "sss", false);
         }
     }
+    if (isset($_POST['array'])) {
+        $conexion = new Models\Conexion();
+        $data = json_decode($_POST['array']);
+        $tipo_datos = "ii";
+        $consulta = "UPDATE venta SET eliminado = ? WHERE idventas = ?";
+        for ($i = 0; $i < count($data); $i++) {
+            if ($data[$i] != '0') {
+                $datos = array(1, $data[$i]);
+                $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+            }
+        }
+        echo $result;
+    }
 }

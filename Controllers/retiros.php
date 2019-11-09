@@ -161,4 +161,18 @@ if (isset($_POST['tablacantidades'])) {
     $consulta = "UPDATE retiros SET estado = ? WHERE idretiro = ?";
 
     echo $conexion->consultaPreparada($datos, $consulta, 1, "si", false);
+
+}else if (isset($_POST['array'])) {
+    $conexion = new Models\Conexion();
+    $data = json_decode($_POST['array']);
+    $tipo_datos = "ii";
+    $consulta = "UPDATE retiros SET eliminado = ? WHERE idretiro = ?";
+    for ($i = 0; $i < count($data); $i++) {
+        if ($data[$i] != '0') {
+            $datos = array(1, $data[$i]);
+            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+        }
+    }
+    echo $result;
 }
+

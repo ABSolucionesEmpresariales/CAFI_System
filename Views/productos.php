@@ -52,7 +52,7 @@ privilegios("Superiores");
   </script>
 </head>
 
-<body onload="inicio();">
+<body>
   <?php
   $sel = "productos";
   include("../Controllers/NavbarCafi.php")

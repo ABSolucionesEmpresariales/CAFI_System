@@ -26,7 +26,7 @@ privilegios("Todos");
     </script>
   </head>
 
-  <body onload="inicio();">
+  <body>
   <?php
     $sel = "abonos";
     include("../Controllers/NavbarCafi.php")

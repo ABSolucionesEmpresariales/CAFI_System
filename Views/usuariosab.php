@@ -25,7 +25,7 @@ privilegios("Superiores");
     </script>
   </head>
 
-  <body onload="inicio();">
+  <body>
   <?php
     $sel = "usuarios";
     include("../Controllers/NavbarAB.php");

@@ -20,7 +20,7 @@ privilegios("Todos");
 
 </head>
 
-<body onload="inicio();">
+<body>
     <?php
     $sel = "retiros";
     include("../Controllers/NavbarCafi.php");

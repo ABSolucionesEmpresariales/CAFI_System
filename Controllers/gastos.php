@@ -44,4 +44,17 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
 
    $consulta = "UPDATE gastos SET estado = ? , usuariocafi = ? WHERE idgastos = ?";
    echo $conexion->consultaPreparada($datos, $consulta, 1, "ssi", false);
+   
+}else if (isset($_POST['array'])) {
+    $conexion = new Models\Conexion();
+    $data = json_decode($_POST['array']);
+    $tipo_datos = "ii";
+    $consulta = "UPDATE gastos SET eliminado = ? WHERE idgastos = ?";
+    for ($i = 0; $i < count($data); $i++) {
+        if ($data[$i] != '0') {
+            $datos = array(1, $data[$i]);
+            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+        }
+    }
+    echo $result;
 }
