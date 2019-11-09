@@ -6,10 +6,14 @@ $(document).ready(function() {
   $(".agregar").click(function() {
     $(".ocultar").show();
     $("#mensaje").css("display", "none");
+    editar = false;
+    console.log(editar);
   });
   $(".close").click(function() {
     $("#formulario").trigger("reset");
   });
+
+
 
   function obtenerDatosTablaGastos() {
     $.ajax({

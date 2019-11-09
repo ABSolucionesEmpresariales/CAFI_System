@@ -12,6 +12,7 @@ $(document).ready(function () {
 
     $('.agregar').click(function(){
       editar = false;
+      console.log(editar);
     });
 
     $("#login").keyup(function () {

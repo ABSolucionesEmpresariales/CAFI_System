@@ -104,9 +104,9 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    $(document).on('click','.Bagregar',function(){
+    $(document).on('click','.agregar',function(){
         $('.ocultar').css('display','block');
-
+        editar = false;
     });
 
     var touchtime = 0;

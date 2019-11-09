@@ -4,12 +4,22 @@ $(document).ready(function (){
     let idotrosIngresos = "";
     obtenerDatosTablaOtrosIngresos();
 
-    $('.close').click(function(){
-        $('#formotrosingresos').trigger('reset');
+    $('.agregar').click(function(){
+        $('#formulario').trigger('reset');
         $("#mensaje").css("display", "none");
-
+        $('#hideedit').show();
+        editar = false;
+        idotrosIngresos = "";
+        console.log(editar);
     });
 
+    $(".close").click(function() {
+        $("#formulario").trigger("reset");
+        $("#mensaje").css("display", "none");
+        $('#hideedit').show();
+        editar = false;
+        idotrosIngresos = "";
+    });
     
     var touchtime = 0;
     $(document).on("click", "td", function () {
@@ -21,6 +31,7 @@ $(document).ready(function (){
             // double click occurred
             var valores = "";
             $('#hideedit').hide();
+            $("#mensaje").css("display", "none");
     
             $(this).parents("tr").find("td").each(function(){
                 valores+= $(this).html() + "?";
@@ -47,6 +58,7 @@ $(document).ready(function (){
             type: 'POST',
             data: $('#formulario').serialize() + "&id="+ idotrosIngresos + "&accion=" + editar,
             success: function(response) {
+                $("#mensaje").css("display", "block");
                 console.log(response);
                 if (response == "1") {
                     if(editar == true){
@@ -58,6 +70,7 @@ $(document).ready(function (){
                     $("#email").focus();
                     $("#formulario").trigger("reset");
                   } else {
+                      console.log('si llego');  
                     $("#mensaje").text("Registro fallido");
                     $("#mensaje").css("color", "red");
                     $("#email").focus();
