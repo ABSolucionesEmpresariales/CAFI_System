@@ -24,10 +24,6 @@ privilegios("Todos");
     }
   </script>
 </head>
-<?php
-$sel = "venta";
-include("../Controllers/NavbarCafi.php");
-?>
 <body>
 <?php
     $sel = "gastos";
