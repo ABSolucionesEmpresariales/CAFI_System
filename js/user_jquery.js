@@ -116,17 +116,6 @@ parar();
 });
 });
 
-var datos = false;
-var parametro;
-
-function inicio() {
-parametro = setTimeout("window.location.href = 'Inactividad.php';", 1500000); // 25 mi
-}
-
-function parar() {
-clearTimeout(parametro);
-parametro = setTimeout("window.location.href = 'Inactividad.php';", 1500000); // 25 min
-}
 
 /*Enviar Formulario con select*/
 $(document).ready(function () {

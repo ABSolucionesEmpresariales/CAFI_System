@@ -25,7 +25,7 @@ privilegios("Todos");
     </script>
   </head>
 
-  <body onload="inicio();">
+  <body>
   <?php
     $sel = "suscripciones";
     include("../Controllers/NavbarAB.php")

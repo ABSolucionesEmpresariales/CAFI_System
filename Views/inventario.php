@@ -29,7 +29,7 @@ $sel = "inventario";
 include("../Controllers/NavbarCafi.php");
 ?>
 
-<body onload="inicio();">
+<body>
 
     <div class="contenedor container-fluid">
         <div class="row align-items-start">

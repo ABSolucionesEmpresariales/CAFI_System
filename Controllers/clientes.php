@@ -79,6 +79,19 @@ if (
         echo datos_persona($accion,$tipo_datos_persona,$tipo_datos_cliente);
     }
 
+    if (isset($_POST['array'])) {
+      $conexion = new Models\Conexion();
+      $data = json_decode($_POST['array']);
+      $tipo_datos = "is";
+      $consulta = "UPDATE cliente INNER JOIN persona ON cliente.email = persona.email  SET eliminado = ? WHERE cliente.email = ?";
+      for ($i = 0; $i < count($data); $i++) {
+          if ($data[$i] != '0') {
+              $datos = array(1, $data[$i]);
+              $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+          }
+      }
+      echo $result;
+  }
 
 
   }
