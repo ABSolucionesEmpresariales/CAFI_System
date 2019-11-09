@@ -15,7 +15,7 @@ privilegios("Superiores");
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="img/logo/nav1.png">
+    <link rel="icon" href="../img/logo/nav1.png">
 
     <title>Otros ingresos</title>
     <script>
@@ -53,7 +53,7 @@ privilegios("Superiores");
                     <thead class="thead-dark">
                       <tr class="encabezados">
                         <th class="text-nowrap text-center" onclick="sortTable(0)">ID</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(1)">Cantidad/th>
+                        <th class="text-nowrap text-center" onclick="sortTable(1)">Cantidad</th>
                         <th class="text-nowrap text-center" onclick="sortTable(2)">Tipo</th>
                         <th class="text-nowrap text-center" onclick="sortTable(3)">Forma de ingreso</th>
                         <th class="text-nowrap text-center" onclick="sortTable(4)">Fecha</th>

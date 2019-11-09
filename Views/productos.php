@@ -16,7 +16,7 @@ privilegios("Superiores");
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="img/logo/nav1.png">
+    <link rel="icon" href="../img/logo/nav1.png">
 
 
   <title>Productos</title>
@@ -72,7 +72,7 @@ privilegios("Superiores");
             <input class="form-control col-lg-4" type="text" id="busqueda" onkeyup="busqueda()" onkeypress="return check(event)" placeholder="Buscar..." title="Type in a name" value="">
 
             <div class="font-weight-bold px-3 d-flex align-items-center">
-                  <p class="text-white">Sucursal:</p>
+                  <p class="text-white">Mostrar productos de:</p>
             </div>
             <select class="form form-control col-lg-4" id="negocio" name="Snegocio">
             </select>

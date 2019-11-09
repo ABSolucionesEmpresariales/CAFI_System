@@ -29,7 +29,7 @@ $(document).ready(function () {
             $("#estado").val(datos[8]);
             $("#pais").val(datos[9]);
             $("#telefono").val(datos[10]);
-            $("#email").val(datos[10]);
+            $("#email").val(datos[11]);
             editar = true;
           $("#modalForm").modal("show");
           } else {

@@ -16,7 +16,7 @@ privilegios("Todos");
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="img/logo/nav1.png">
+    <link rel="icon" href="../img/logo/nav1.png">
 
   <title>Ventas</title>
 </head>
@@ -122,7 +122,7 @@ privilegios("Todos");
         <input class="form-control col-12 col-lg-4" type="text" onkeypress="return check(event)" id="busqueda" onkeyup="busqueda();" placeholder="Buscar..." title="Type in a name" value="">
       </div>
       <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
-        <table style="border-radius: 10px;" class="table table-hover table-striped table-light">
+        <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
           <thead class="thead-dark">
             <tr class="encabezados">
               <th class="text-nowrap text-center d-none" onclick="sortTable(0)">Venta</th>
@@ -136,7 +136,6 @@ privilegios("Todos");
               <th class="text-nowrap text-center" onclick="sortTable(8)">Hora</th>
               <th class="text-nowrap text-center" onclick="sortTable(9)">Estado</th>
               <th class="text-nowrap text-center" onclick="sortTable(10)">Trabajador</th>
-              <th class="text-nowrap text-center" onclick="sortTable(11)"></th>
             </tr>
           </thead>
           <tbody id="renglones">
