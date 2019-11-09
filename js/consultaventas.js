@@ -16,7 +16,7 @@ $(document).ready(function () {
           template += `
                     <tr>
                     <td class="datos d-none">${item[0]}</td>
-                    <td><button class="bconcepto">Mostrar</button></td>
+                    <td><button class="bconcepto btn btn-info">Mostrar</button></td>
                     <td>${item[1]}</td>
                     <td>${item[2]}</td>
                     <td>${item[3]}</td>

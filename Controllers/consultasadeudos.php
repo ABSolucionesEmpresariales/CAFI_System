@@ -102,7 +102,20 @@ if(isset($_POST['Sestado']) && isset($_POST['idabono'])){
     echo $result;
 }
 
-
-
-
-?>
+    if (isset($_POST['array']) && isset($_POST['tabla_afectada'])) {
+    $conexion = new Models\Conexion();
+    $data = json_decode($_POST['array']);
+    $tipo_datos = "ii";
+    if($_POST['tabla_afectada'] === "abonos"){
+        $consulta = "UPDATE abono SET eliminado = ? WHERE idabono = ?";
+    }else if($_POST['tabla_afectada'] === "adeudos"){
+        $consulta = "UPDATE adeudos SET eliminado = ? WHERE idadeudos = ?";
+    }
+    for ($i = 0; $i < count($data); $i++) {
+        if ($data[$i] != '0') {
+            $datos = array(1, $data[$i]);
+            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+        }
+    }
+    echo $result;
+}

@@ -16,7 +16,7 @@ privilegios("Todos");
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="img/logo/nav1.png">
+    <link rel="icon" href="../img/logo/nav1.png">
 
     <title>Abono</title>
     <script>
@@ -26,7 +26,7 @@ privilegios("Todos");
     </script>
   </head>
 
-  <body onload="inicio();">
+  <body>
   <?php
     $sel = "abonos";
     include("../Controllers/NavbarCafi.php")

@@ -79,4 +79,16 @@ if (
   $datos = array("CEO");
   $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "s", false));
   echo $jsonstring;
+}else if (isset($_POST['array'])) {
+  $conexion = new Models\Conexion();
+  $data = json_decode($_POST['array']);
+  $tipo_datos = "is";
+  $consulta = "UPDATE usuarioscafi INNER JOIN persona ON usuarioscafi.email = persona.email  SET eliminado = ? WHERE usuarioscafi.email = ?";
+  for ($i = 0; $i < count($data); $i++) {
+      if ($data[$i] != '0') {
+          $datos = array(1, $data[$i]);
+          $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+      }
+  }
+  echo $result;
 }

@@ -7,7 +7,7 @@ privilegios("Superiores");
 <html lang="en" dir="ltr">
 
 <head>
-<link rel="stylesheet" href="../css/sweetalert.css">
+    <link rel="stylesheet" href="../css/sweetalert.css">
     <script src="../js/sweetalert.js"></script>
     <script src="../js/sweetalert.min.js"></script>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@ privilegios("Superiores");
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="img/logo/nav1.png">
+    <link rel="icon" href="../img/logo/nav1.png">
 
     <title>Clientes</title>
 </head>
