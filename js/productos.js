@@ -230,8 +230,10 @@ $(document).ready(function () {
             $("#color").val(datos[8]);
           }
           $("#preview").html(datos[9]);
-          $("#precio_compra").val(datos[10]);
-          $("#precio_venta").val(datos[11]);
+          precioCompra = datos[10].split("$");
+          $("#precio_compra").val(precioCompra[1]);
+          precioVenta = datos[11].split("$");
+          $("#precio_venta").val(precioVenta[1]);
           $("#descuento").val(datos[12]);
           $("#unidad_medida").val(datos[13]);  
           if (datos[14] == "Si") {
@@ -518,8 +520,8 @@ function enviarDatos(){
                 <td class="text-nowrap text-center">${item[6]}</td>
                 <td class="text-nowrap text-center">${item[7]}</td>
                 <td><img src="${item[8]}" height="100" width="100"></td>
-                <td class="text-nowrap text-center">${item[9]}</td>
-                <td class="text-nowrap text-center">${item[10]}</td>
+                <td class="text-nowrap text-center">$${item[9]}</td>
+                <td class="text-nowrap text-center">$${item[10]}</td>
                 <td class="text-nowrap text-center">${item[11]}</td>
                 <td class="text-nowrap text-center">${item[12]}</td>
                 <td class="text-nowrap text-center">${item[13]}</td>
