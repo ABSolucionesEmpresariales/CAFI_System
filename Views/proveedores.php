@@ -18,11 +18,6 @@ privilegios("Todos");
     <link rel="icon" href="../img/logo/nav1.png">
 
     <title>Prooveores</title>
-    <script>
-      function cerrar() {
-        window.close();
-      }
-    </script>
   </head>
 
   <body>
