@@ -279,6 +279,7 @@ if(isset($_POST['categorias'])){
     $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false));
     echo $jsonstring;
 }
+
 if (isset($_POST['array'])) {
     $conexion = new Models\Conexion();
     $data = json_decode($_POST['array']);

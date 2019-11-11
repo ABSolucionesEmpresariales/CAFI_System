@@ -43,22 +43,34 @@ privilegios("Todos");
                     </div>
                   </div>
                   <div id="combo"></div>
+                  <?php if($_SESSION['acceso'] == 'CEO'){?>
+                    <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button>
+                          <?php } ?>
+                  
                   <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name" value="">
+                  <?php if($_SESSION['acceso'] == 'CEO'){?>
+                    <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
+                          <?php } ?>
+                  
+                  
                 </div>
                 <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                   <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
                     <thead class="thead-dark">
                       <tr class="encabezados">
-                        <th class="text-nowrap text-center" onclick="sortTable(0)">ID</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(1)">Estado</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(2)">Cantidad</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(3)">Pago</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(4)">Forma Pago</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(5)">Cambio</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(6)">Fecha</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(7)">Hora</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(8)">Trabajador</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(9)">Adeudos</th>
+                      <?php if($_SESSION['acceso'] == 'CEO'){?>
+                          <th class="text-nowrap text-center" onclick="sortTable(0)"><input class="check" type="checkbox" value="si"></th>
+                          <?php } ?>
+                        <th class="text-nowrap text-center d-none" onclick="sortTable(1)">Id Abono</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(2)">Estado</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(3)">Cantidad</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(4)">Pago</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(5)">Forma Pago</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(6)">Cambio</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(7)">Fecha</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(8)">Hora</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(9)">Trabajador</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(10)">Adeudos</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>

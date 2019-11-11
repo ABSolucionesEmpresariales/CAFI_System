@@ -78,6 +78,10 @@ privilegios("Superiores");
             </select>
 
             <input type="submit" style="display: none;">
+            <?php if($_SESSION['acceso'] == 'CEO'){?>
+                <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
+                <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button>
+              <?php } ?>
             <button class="d-none d-sm-flex btn btn-primary ml-5 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
             <button class="d-none d-sm-flex btn btn-success ml-5 agregar" data-toggle="modal" id="Binventariar" data-target="#modalForm2">Inventariar</button>
             <button class="d-none d-sm-flex btn btn-danger ml-5 agregar" id="Bcodigobarra" data-toggle="modal" data-target="#modalForm3">Generar codigo de barras</button>
@@ -87,25 +91,28 @@ privilegios("Superiores");
           <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
             <thead class="thead-dark">
               <tr class="encabezados">
-                <th class="text-nowrap text-center" onclick="sortTable(0)">Codigo de barras</th>
-                <th class="text-nowrap text-center" onclick="sortTable(1)">Modelo</th>
-                <th class="text-nowrap text-center" onclick="sortTable(2)">Nombre</th>
-                <th class="text-nowrap text-center" onclick="sortTable(3)">Descripción</th>
-                <th class="text-nowrap text-center" onclick="sortTable(4)">Categoria</th>
-                <th class="text-nowrap text-center" onclick="sortTable(5)">Marca</th>
-                <th class="text-nowrap text-center" onclick="sortTable(6)">Proveedor</th>
-                <th class="text-nowrap text-center" onclick="sortTable(7)">Color</th>
-                <th class="text-nowrap text-center" onclick="sortTable(8)">Imagen</th>
-                <th class="text-nowrap text-center" onclick="sortTable(9)">Precio compra</th>
-                <th class="text-nowrap text-center" onclick="sortTable(10)">Precio venta</th>
-                <th class="text-nowrap text-center" onclick="sortTable(11)">Descuento</th>
-                <th class="text-nowrap text-center" onclick="sortTable(12)">Unidad de medida</th>
-                <th class="text-nowrap text-center" onclick="sortTable(13)">Tasa de iva</th>
-                <th class="text-nowrap text-center" onclick="sortTable(14)">Tasa de ipes</th>
-                <th class="text-nowrap text-center" onclick="sortTable(15)">Talla numero</th>
-                <th class="text-nowrap text-center" onclick="sortTable(15)">Localización</th>
-                <th class="text-nowrap text-center" onclick="sortTable(15)">Stock</th>
-                <th class="text-nowrap text-center" onclick="sortTable(15)">Stock Minimo</th>
+              <?php if($_SESSION['acceso'] == 'CEO'){?>
+                <th class="text-nowrap text-center" onclick="sortTable(0)"><input class="check" type="checkbox" value="si"></th>
+              <?php } ?>
+                <th class="text-nowrap text-center" onclick="sortTable(1)">Codigo de barras</th>
+                <th class="text-nowrap text-center" onclick="sortTable(2)">Modelo</th>
+                <th class="text-nowrap text-center" onclick="sortTable(3)">Nombre</th>
+                <th class="text-nowrap text-center" onclick="sortTable(4)">Descripción</th>
+                <th class="text-nowrap text-center" onclick="sortTable(5)">Categoria</th>
+                <th class="text-nowrap text-center" onclick="sortTable(6)">Marca</th>
+                <th class="text-nowrap text-center" onclick="sortTable(7)">Proveedor</th>
+                <th class="text-nowrap text-center" onclick="sortTable(8)">Color</th>
+                <th class="text-nowrap text-center" onclick="sortTable(9)">Imagen</th>
+                <th class="text-nowrap text-center" onclick="sortTable(10)">Precio compra</th>
+                <th class="text-nowrap text-center" onclick="sortTable(11)">Precio venta</th>
+                <th class="text-nowrap text-center" onclick="sortTable(12)">Descuento</th>
+                <th class="text-nowrap text-center" onclick="sortTable(13)">Unidad de medida</th>
+                <th class="text-nowrap text-center" onclick="sortTable(14)">Tasa de iva</th>
+                <th class="text-nowrap text-center" onclick="sortTable(15)">Tasa de ipes</th>
+                <th class="text-nowrap text-center" onclick="sortTable(16)">Talla numero</th>
+                <th class="text-nowrap text-center" onclick="sortTable(17)">Localización</th>
+                <th class="text-nowrap text-center" onclick="sortTable(18)">Stock</th>
+                <th class="text-nowrap text-center" onclick="sortTable(19)">Stock Minimo</th>
               </tr>
             </thead>
             <tbody id="cuerpo"></tbody>

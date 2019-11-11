@@ -137,25 +137,37 @@ privilegios("Todos");
                 <div id="tableContainer" class="d-block col-lg-12">
                     <div class="input-group mb-2">
                         <button class="d-lg-none btn  btn-danger col-12 mb-3 p-3 retirar" data-toggle="modal" data-target="#modalForm">Retirar</button>
+                        
+                        <?php if($_SESSION['acceso'] == 'CEO'){?>
+                            <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button>
+                                <?php } ?>
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-search"></i></div>
                         </div>
                         <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name">
                         <button class="d-none d-lg-flex btn btn-danger ml-3 retirar" data-toggle="modal" data-target="#modalForm">Retirar</button>
+                        
+                        <?php if($_SESSION['acceso'] == 'CEO'){?>
+                            <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
+                                <?php } ?>
+
                     </div>
                     <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                         <table style="border-radius: 10px;" class="table table-hover table-striped table-light">
                             <thead class="thead-dark">
                                 <tr class="encabezados">
-                                    <th onclick="sortTable(0)">Id</th>
-                                    <th onclick="sortTable(1)">Concepto</th>
-                                    <th onclick="sortTable(2)">De</th>
-                                    <th onclick="sortTable(3)">Cantidad</th>
-                                    <th onclick="sortTable(4)">Descripcion</th>
-                                    <th onclick="sortTable(5)">Fecha</th>
-                                    <th onclick="sortTable(6)">Hora</th>
-                                    <th onclick="sortTable(7)">Estado</th>
-                                    <th onclick="sortTable(8)">Retiró</th>
+                                <?php if($_SESSION['acceso'] == 'CEO'){?>
+                                    <th class="text-nowrap text-center" onclick="sortTable(0)"><input class="check" type="checkbox" value="si"></th>
+                                <?php } ?>
+                                    <th onclick="sortTable(1)" class="d-none">Id</th>
+                                    <th onclick="sortTable(2)">Concepto</th>
+                                    <th onclick="sortTable(3)">De</th>
+                                    <th onclick="sortTable(4)">Cantidad</th>
+                                    <th onclick="sortTable(5)">Descripcion</th>
+                                    <th onclick="sortTable(6)">Fecha</th>
+                                    <th onclick="sortTable(7)">Hora</th>
+                                    <th onclick="sortTable(8)">Estado</th>
+                                    <th onclick="sortTable(9)">Retiró</th>
                                 </tr>
                             <tbody id="cuerpo">
                             

@@ -54,3 +54,7 @@ if (isset($_GET['cerrar_sesion'])) {
     header('Location: ./../Views/login.php');
     //se destruye la sesion al dar click en los botones de salir
 }
+
+if(isset($_POST['accesoPersona'])){
+    echo $_SESSION['acceso'];
+}

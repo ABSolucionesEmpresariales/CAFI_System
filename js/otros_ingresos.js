@@ -2,7 +2,114 @@ $(document).ready(function (){
     //Otros ingresos
     let editar = false;
     let idotrosIngresos = "";
+    let acceso = '';
+    obtenerAcceso();
     obtenerDatosTablaOtrosIngresos();
+
+    function obtenerAcceso(){
+        $.ajax({
+          url: "../Controllers/login.php",
+          type: "POST",
+          data:"accesoPersona=accesoPersona",
+    
+          success: function (response) {
+            acceso = response
+          }
+        });
+      }
+
+      
+    function obtenerDatosTablaOtrosIngresos(){
+        $.ajax({
+            url: '../Controllers/otros_ingresos.php',
+            type: 'POST',
+            data:'tabla=tabla',
+
+            success: function(response){
+                let datos = JSON.parse(response);
+                let template = '';
+            $.each(datos, function (i, item) {
+                    template+=`<tr>`;
+                    if(acceso == 'CEO'){
+                        template+=`<td><input type="checkbox" value="si"></td>`;   
+                    }
+                    template+=`
+                    <td class="text-nowrap text-center d-none">${item[0]}</td>
+                    <td class="text-nowrap text-center">$${item[1]}</td>
+                    <td class="text-nowrap text-center">${item[2]}</td>
+                    <td class="text-nowrap text-center">${item[3]}</td>
+                    <td class="text-nowrap text-center">${item[4]}</td>
+                    <td class="text-nowrap text-center">${item[5]}</td>
+                    <td class="text-nowrap text-center">${item[6]}</td>`;
+                });
+                $('#cuerpo').html(template);
+            }
+        });
+    }
+
+    $(document).on('click','.check',function(){
+
+        if($(this).prop('checked')){
+            $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                     $(this).prop("checked", true);
+            });    
+        }else{
+            $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                     $(this).prop("checked", false);
+                
+            });    
+        }
+    });
+
+    
+    $(document).on('click','.eliminar',function(){
+        swal({
+            title: "Esta seguro que desea eliminar ?",
+            text: "Esta accion eliminara los datos!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Si, eliminarlo!",
+            closeOnConfirm: false
+          },
+          function(){
+              if(enviarDatos2() != '0'){
+                swal("Exito!", 
+                "Sus datos han sido eliminados.",
+                 "success");
+              }else{
+                swal("Error!", 
+                "Ups, algo salio mal.",
+                 "warning");
+              }
+              $('.check').prop("checked", false);
+              obteneDatosProveedor();
+          });
+    });
+
+    function enviarDatos2(){
+        var valores = "";
+    
+        $('#cuerpo').children("tr").find("td").find("input").each(function () {
+            if($(this).prop('checked')){
+                valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+            }
+        }); 
+        valores += "0";
+        result = valores.split("?");
+        console.log(result);
+         $.ajax({
+          url: "../Controllers/otros_ingresos.php",
+          type: "POST",
+          data: {'array': JSON.stringify(result)},
+  
+          success: function (response) {
+            console.log(response);
+                return response;
+          }
+        });  
+    }
+
 
     $('.agregar').click(function(){
         $('#formulario').trigger('reset');
@@ -37,12 +144,12 @@ $(document).ready(function (){
                 valores+= $(this).html() + "?";
             });
             datos = valores.split("?");
-            idotrosIngresos = datos[0];
-            $('#cantidad').val(datos[1]);
-            $('#tipo').val(datos[2]);
-            $('#forma_ingreso').val(datos[3]);
-            $('#fecha').val(datos[4]);
-            $('#estado').val(datos[5]);
+            idotrosIngresos = datos[1];
+            $('#cantidad').val(datos[2]);
+            $('#tipo').val(datos[3]);
+            $('#forma_ingreso').val(datos[4]);
+            $('#fecha').val(datos[5]);
+            $('#estado').val(datos[6]);
             editar = true;
           $("#modalForm").modal("show");
           } else {
@@ -80,30 +187,6 @@ $(document).ready(function (){
         });
     }
 
-    function obtenerDatosTablaOtrosIngresos(){
-        $.ajax({
-            url: '../Controllers/otros_ingresos.php',
-            type: 'POST',
-            data:'tabla=tabla',
-
-            success: function(response){
-                let datos = JSON.parse(response);
-                let template = '';
-            $.each(datos, function (i, item) {
-                    template+=`
-                    <tr>
-                    <td class="text-nowrap text-center">${item[0]}</td>
-                    <td class="text-nowrap text-center">${item[1]}</td>
-                    <td class="text-nowrap text-center">${item[2]}</td>
-                    <td class="text-nowrap text-center">${item[3]}</td>
-                    <td class="text-nowrap text-center">${item[4]}</td>
-                    <td class="text-nowrap text-center">${item[5]}</td>
-                    <td class="text-nowrap text-center">${item[6]}</td>`;
-                });
-                $('#cuerpo').html(template);
-            }
-        });
-    }
 
     $('#formulario').submit(function(e){
         if(editar == false){

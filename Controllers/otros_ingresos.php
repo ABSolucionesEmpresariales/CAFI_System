@@ -2,6 +2,20 @@
 session_start();
 include_once '../Models/Conexion.php';
 
+if (isset($_POST['array'])) {
+    $conexion = new Models\Conexion();
+    $data = json_decode($_POST['array']);
+    $tipo_datos = "ii";
+    $consulta = "UPDATE otros_ingresos SET eliminado = ? WHERE id_otros_ingresos = ?";
+    for ($i = 0; $i < count($data); $i++) {
+        if ($data[$i] != '0') {
+            $datos = array(1, $data[$i]);
+            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+        }
+    }
+    echo $result;
+}
+
 if(isset($_POST['Tcantidad']) && isset($_POST['Stipo']) && isset($_POST['Sforma_ingreso']) && isset($_POST['Dfecha']) 
 && isset($_POST['Sestado'])){
     $conexion = new Models\Conexion();
@@ -32,19 +46,9 @@ if(isset($_POST['Tcantidad']) && isset($_POST['Stipo']) && isset($_POST['Sforma_
         echo $conexion->consultaPreparada($datos_ingresos, $consulta_editar_ingresos,1, $tipo_datos, false);
     }
 
-}else if (isset($_POST['array'])) {
-    $conexion = new Models\Conexion();
-    $data = json_decode($_POST['array']);
-    $tipo_datos = "ii";
-    $consulta = "UPDATE otros_ingresos SET eliminado = ? WHERE id_otros_ingresos = ?";
-    for ($i = 0; $i < count($data); $i++) {
-        if ($data[$i] != '0') {
-            $datos = array(1, $data[$i]);
-            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
-        }
-    }
-    echo $result;
 }
+
+
 
 if(isset($_POST['tabla'])){
     $conexion = new Models\Conexion();

@@ -38,6 +38,9 @@ privilegios("Todos");
               <div id="tableContainer" class="d-block col-lg-12">
                 <div class="input-group mb-2">
                   <button class="agregar d-lg-none btn btn-primary col-12 mb-3 p-3" data-toggle="modal" data-target="#modalForm">Agregar</button>
+                  <?php if($_SESSION['acceso'] == 'CEOAB'){?>>
+                      <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button>
+                  <?php } ?>
                   <div class="input-group-prepend">
                     <div class="input-group-text">
                       <i class="fa fa-search"></i>
@@ -46,25 +49,33 @@ privilegios("Todos");
                   <div id="combo"></div>
                   <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name" value="">
                   <button class="agregar d-none d-lg-flex btn btn-primary ml-3" data-toggle="modal" data-target="#modalForm">Agregar</button>
+                  
+                  <?php if($_SESSION['acceso'] == 'CEOAB'){?>
+                    <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
+                  <?php } ?>
                 </div>
                 <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                   <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
                     <thead class="thead-dark">
                       <tr class="encabezados">
-                        <th class="text-nowrap text-center" onclick="sortTable(0)">EMAIL</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(1)">RFC</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(2)">Nombre</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(3)">Codigo Postal</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(4)">Calle</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(5)">Colonia</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(6)">Localidad</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(7)">Municipio</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(8)">Estado</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(9)">Pais</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(10)">Telefono</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(11)">Fecha nacimiento</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(12)">Sexo</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(13)">Entrada</th>
+                        
+                      <?php if($_SESSION['acceso'] == 'CEOAB'){?>
+                          <th class="text-nowrap text-center" onclick="sortTable(0)"><input class="check" type="checkbox" value="si"></th>
+                          <?php } ?>
+                        <th class="text-nowrap text-center" onclick="sortTable(1)">EMAIL</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(2)">RFC</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(3)">Nombre</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(4)">Codigo Postal</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(5)">Calle</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(6)">Colonia</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(7)">Localidad</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(8)">Municipio</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(9)">Estado</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(10)">Pais</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(11)">Telefono</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(12)">Fecha nacimiento</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(13)">Sexo</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(14)">Entrada</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>

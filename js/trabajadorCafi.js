@@ -3,11 +3,25 @@ $(document).ready(function(){
     let editar = false;
     let idtrabajador = "";
     let idnego = "";
+    let acceso = "";
+    obtenerAcceso();
     obtenerDatosTablaUsuarios();
+    function obtenerAcceso(){
+      $.ajax({
+        url: "../Controllers/login.php",
+        type: "POST",
+        data:"accesoPersona=accesoPersona",
+  
+        success: function (response) {
+          acceso = response
+        }
+      });
+    }
+
     //var id = $('.sucursal').val();
     //idSesion(id);
 
-    $(document).on("click",".Beliminar",function(){
+/*     $(document).on("click",".Beliminar",function(){
         var valor = $(this).parents("tr").find("td").eq(0).text();
         swal({
           title: "Alerta!",
@@ -47,6 +61,11 @@ $(document).ready(function(){
           });
         });
         
+      }); */
+
+      $(document).on('click','.agregar',function(){
+        $("#mensaje").css("display", "none");
+        editar = false;
       });
 
     $("#formulario").submit(function (e) {
@@ -87,22 +106,22 @@ $(document).ready(function(){
               });
               datos = valores.split("?");
               console.log(datos);
-              $("#email").val(datos[0]);
-              $("#rfc").val(datos[1]);
-              $("#nombre").val(datos[2]);
-              $("#cp").val(datos[3]);
-              $("#calle_numero").val(datos[4]);
-              $("#colonia").val(datos[5]);
-              $("#localidad").val(datos[6]);
-              $("#municipio").val(datos[7]);
-              $("#estado").val(datos[8]);
-              $("#pais").val(datos[9]);
-              $("#telefono").val(datos[10]);
-              $("#fecha_nacimiento").val(datos[11]);
-              $("#sexo").val(datos[12]);
-              $("#acceso").val(datos[13]);
-              $("#entrada_sistema").val(datos[14]);
-              $("#contrasena").val(datos[15]);
+              $("#email").val(datos[1]);
+              $("#rfc").val(datos[2]);
+              $("#nombre").val(datos[3]);
+              $("#cp").val(datos[4]);
+              $("#calle_numero").val(datos[5]);
+              $("#colonia").val(datos[6]);
+              $("#localidad").val(datos[7]);
+              $("#municipio").val(datos[8]);
+              $("#estado").val(datos[9]);
+              $("#pais").val(datos[10]);
+              $("#telefono").val(datos[11]);
+              $("#fecha_nacimiento").val(datos[12]);
+              $("#sexo").val(datos[13]);
+              $("#acceso").val(datos[14]);
+              $("#entrada_sistema").val(datos[15]);
+              $("#contrasena").val(datos[16]);
               editar = true;
             $("#modalForm").modal("show");
             } else {
@@ -144,8 +163,14 @@ $(document).ready(function(){
             console.log(response);
            let datos = JSON.parse(response);
             let template = "";
+            console.log(acceso);
             $.each(datos, function (i, item) {
-              template += `<tr>
+              template +=`<tr>`;
+              if(acceso == 'CEO'){
+                template +=`
+                <td><input type="checkbox" value="si"></td>`;
+              }
+              template += `
                   <td class="text-nowrap text-center email">${item[0]}</td>
                   <td class="text-nowrap text-center">${item[1]}</td>
                   <td class="text-nowrap text-center">${item[2]}</td>
@@ -162,19 +187,73 @@ $(document).ready(function(){
                   <td class="text-nowrap text-center">${item[13]}</td>
                   <td class="text-nowrap text-center">${item[14]}</td>
                   <td class="text-nowrap text-center">${item[15]}</td>
-                  <th class="text-nowrap text-center" style="width:100px;">
-                      <div class="row">
-                      <a  style="margin: 0 auto;" class="Beliminar btn btn-danger" href="#">
-                        Eliminado
-                      </a>
-                  </div>
-                  </th>
               `;
             });
             $("#cuerpo").html(template); 
           }
         });
       }
+
+      function enviarDatos(){
+        var valores = "";
+        $('#cuerpo').children("tr").find("td").find("input").each(function () {
+            if($(this).prop('checked')){
+                valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+            }
+        }); 
+        valores += "0";
+        result = valores.split("?");
+        console.log(result);
+         $.ajax({
+          url: "../Controllers/trabajadorCafi.php",
+          type: "POST",
+          data: {'array': JSON.stringify(result)},
+  
+          success: function (response) {
+            console.log(response);
+                return response;
+          }
+        }); 
+      }
+
+      $(document).on('click','.eliminar',function(){
+        swal({
+            title: "Esta seguro que desea eliminar ?",
+            text: "Esta accion eliminara los datos!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Si, eliminarlo!",
+            closeOnConfirm: false
+          },
+          function(){
+              if(enviarDatos() != '0'){
+                swal("Exito!", 
+                "Sus datos han sido eliminados.",
+                 "success");
+              }else{
+                swal("Error!", 
+                "Ups, algo salio mal.",
+                 "warning");
+              }
+              $('.check').prop("checked", false);
+              obtenerDatosTablaUsuarios();
+          });
+    });
+
+      $(document).on('click','.check',function(){
+
+        if($(this).prop('checked')){
+            $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                     $(this).prop("checked", true);
+            });    
+        }else{
+            $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                     $(this).prop("checked", false);
+                
+            });    
+        }
+    });
 
 
     $('.close').click(function(){

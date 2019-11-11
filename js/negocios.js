@@ -12,6 +12,8 @@ $(document).ready(function () {
 
 
   $('.agregar').click(function(){
+    $("#formulario").trigger("reset");
+    $("#mensaje").css("display", "none");
     editar = false;
   });
 
