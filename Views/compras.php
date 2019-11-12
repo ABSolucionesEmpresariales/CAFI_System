@@ -88,7 +88,7 @@ privilegios("Superiores");
                     <button id="compra_finalizada" class="btn btn-primary mr-2">Guardar Compra</button>
                     <button id="cancelar_compra" class="btn btn-danger">Cancelar Compra</button>
                 </div>
-                <form class="form-group border p-3 bg-light" id="formgastos">
+                <form class="form-group border p-3 bg-dark" id="formgastos">
                     <div class="row">
                         <div class="d-block col-lg-4">
                             <p class="general">Folio de factura:</p>
@@ -148,7 +148,7 @@ privilegios("Superiores");
                         </div>
                     </div>
                 </form>
-                <div class="border p-2 shadow bg-light">
+                <div class="border p-2 shadow bg-dark">
                         <div class="row">
                             <div class="d-block col-lg-4">
                                 <p class="importante">Codigo:</p>
