@@ -42,8 +42,13 @@ if (
     $consulta_usuariocafi = "INSERT INTO usuarioscafi (email,acceso,entrada_sistema,contrasena,negocio) VALUES (?,?,?,?,?)";
     $tipo_datos_usuariocafi = "sssss";
     $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false);
+    if($result == 1){
+      echo $conexion->consultaPreparada($datos_usuariocafi, $consulta_usuariocafi, 1, $tipo_datos_usuariocafi, false);
+    }else{
+      echo 0;
+    }
     //respuesta al front
-    echo $conexion->consultaPreparada($datos_usuariocafi, $consulta_usuariocafi, 1, $tipo_datos_usuariocafi, false);
+    
   } else {
     //editar  
     $datos_usuariocafi = array(
@@ -75,15 +80,17 @@ if (
   //obtencion del json para pintar la tabla
   $conexion = new Models\Conexion();
   $consulta = "SELECT persona.email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento,
-    sexo,entrada_sistema,contrasena FROM persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email WHERE acceso = ?";
-  $datos = array("CEO");
-  $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "s", false));
+    sexo,entrada_sistema,contrasena FROM persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email WHERE acceso = ? AND persona.eliminado = ?";
+  $datos = array("CEO",0);
+  $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "si", false));
   echo $jsonstring;
-}else if (isset($_POST['array'])) {
+}
+
+if (isset($_POST['array'])) {
   $conexion = new Models\Conexion();
   $data = json_decode($_POST['array']);
   $tipo_datos = "is";
-  $consulta = "UPDATE usuarioscafi INNER JOIN persona ON usuarioscafi.email = persona.email  SET eliminado = ? WHERE usuarioscafi.email = ?";
+  $consulta = "UPDATE persona INNER JOIN usuarioscafi ON usuarioscafi.email = persona.email  SET persona.eliminado = ? WHERE persona.email = ?";
   for ($i = 0; $i < count($data); $i++) {
       if ($data[$i] != '0') {
           $datos = array(1, $data[$i]);

@@ -110,11 +110,6 @@ $('#formButton_nuevo').toggleClass("d-none");
 
 //Inactividad
 
-$(document).ready(function () {
-$('body').on('click keyup', function () {
-parar();
-});
-});
 
 
 /*Enviar Formulario con select*/

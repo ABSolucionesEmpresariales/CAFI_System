@@ -3,6 +3,8 @@ $(document).ready(function () {
   precioventa = 0.0;
   iva = 0.0;
   let id_negocio_actual = '';
+  let acceso = "";
+  obtenerAcceso();
   obtenerNegocioActual();
   obtenerProductosInventario();
   obtenerNegocios();
@@ -10,10 +12,23 @@ $(document).ready(function () {
   obtenerColores();
   obtenerMarcas();
   obtenerCategorias();
+  obtenerProveedores();
   $('.esconderCantidad').hide();
   $('.esconderProducto').hide();
   $("#accion").val("true");
   $('.esconder').css('display','none');
+  
+  function obtenerAcceso(){
+    $.ajax({
+      url: "../Controllers/login.php",
+      type: "POST",
+      data:"accesoPersona=accesoPersona",
+
+      success: function (response) {
+        acceso = response
+      }
+    });
+  }
 
   $(document).on('change','#Elejir',function(){
     if($(this).val() == 'Todos'){
@@ -27,6 +42,24 @@ $(document).ready(function () {
     }
   });
 
+  function obtenerProveedores(){
+    $.ajax({
+      url: "../Controllers/productos.php",
+      type: "POST",
+      data:"proveedores=proveedores",
+
+      success: function (response) {
+        let datos = JSON.parse(response);
+        console.log(datos);
+        let template = "<option value = '0'>Elejir</option>";
+        $.each(datos, function (i, item) {
+          template+=`<option value="${item[0]}">${item[1]}</option>`;
+        });
+        $('#proveedor').html(template);
+      }
+    });
+  }
+
   function obtenerColores(){
     $.ajax({
       url: "../Controllers/productos.php",
@@ -36,7 +69,7 @@ $(document).ready(function () {
       success: function (response) {
         let datos = JSON.parse(response);
         console.log(datos);
-        let template = "<option value = 'null'>Elejir</option>";
+        let template = "<option value = ''>Elejir</option>";
         $.each(datos, function (i, item) {
           template+=`<option value="${item[0]}">${item[0]}</option>`;
         });
@@ -54,7 +87,7 @@ $(document).ready(function () {
       success: function (response) {
         let datos = JSON.parse(response);
         console.log(datos);
-        let template = "<option value = 'null'>Elejir</option>";
+        let template = "<option value = ''>Elejir</option>";
         $.each(datos, function (i, item) {
           template+=`<option value="${item[0]}">${item[0]}</option>`;
         });
@@ -72,11 +105,11 @@ $(document).ready(function () {
       success: function (response) {
         let datos = JSON.parse(response);
         console.log(datos);
-        let template = "<option value = 'null'>Elejir</option>";
+        let template = "<option value = ''>Elejir</option>";
         $.each(datos, function (i, item) {
           template+=`<option value="${item[0]}">${item[0]}</option>`;
         });
-        $('#categoria').html(template);
+        $('#categoria2').html(template);
       }
     });
   }
@@ -143,6 +176,7 @@ $(document).ready(function () {
 
       success: function (response) {
         let datos = JSON.parse(response);
+        console.log(response);
         var dat = "";
         let template = "<option value = ''>Elejir</option>";
         $.each(datos, function (i, item) {
@@ -192,44 +226,47 @@ $(document).ready(function () {
   
           datos = valores.split("?");
   
-          $("#codigo_barras").val(datos[0]);
-          $("#modelo").val(datos[1]);
-          $("#nombre").val(datos[2]);
-          $("#descripcion").val(datos[3]);
+          $("#codigo_barras").val(datos[1]);
+          $("#modelo").val(datos[2]);
+          $("#nombre").val(datos[3]);
+          $("#descripcion").val(datos[4]);
           
-          if(datos[4] == ''){
-            $("#categoria").val('null');
+          if(datos[5] == ''){
+            $("#categoria2").val('');
           }else{
-            $("#categoria").val(datos[4]);
+            $("#categoria2").val(datos[5]);
           }
           pintarCombo();
-          if(datos[5] == ''){
-            $("#marca").val('null');
+          if(datos[6] == ''){
+            $("#marca").val('');
           }else{
-            $("#marca").val(datos[5]);
+            $("#marca").val(datos[6]);
           }
-          $("#proveedor").val(datos[6]);
+          $("#proveedor").val(datos[7]);
          
-          if(datos[7] == ''){
-            $("#color").val('null');
+          if(datos[8] == ''){
+            $("#color").val('');
           }else{
-            $("#color").val(datos[7]);
+            $("#color").val(datos[8]);
           }
-          $("#preview").html(datos[8]);
-          $("#precio_compra").val(datos[9]);
-          $("#precio_venta").val(datos[10]);
-          $("#descuento").val(datos[11]);
-          $("#unidad_medida").val(datos[12]);  
-          if (datos[13] == "Si") {
+          $("#preview").html(datos[9]);
+          precioCompra = datos[10].split("$");
+          $("#precio_compra").val(precioCompra[1]);
+          precioVenta = datos[11].split("$");
+          $("#precio_venta").val(precioVenta[1]);
+          $("#descuento").val(datos[12]);
+          $("#categoria").val(datos[13]);
+          $("#unidad_medida").val(datos[14]);  
+          if (datos[15] == "Si") {
             $("#tasa_iva").prop("checked", true);
           } else {
             $("#tasa_iva").prop("checked", false);
           }
-          $("#tasa_ipes").val(datos[14]);
-          $("#talla_numero").val(datos[15]);
-          $("#localizacion").val(datos[16]);
-          $("#stock").val(datos[17]);
-          $("#stock_minimo").val(datos[18]);
+          $("#tasa_ipes").val(datos[16]);
+          $("#talla_numero").val(datos[17]);
+          $("#localizacion").val(datos[18]);
+          $("#stock").val(datos[19]);
+          $("#stock_minimo").val(datos[20]);
           $("#modalForm").modal("show");
           $("#accion").val("true");
           touchtime = 0;
@@ -373,6 +410,68 @@ $(document).ready(function () {
     e.preventDefault();
   });
 
+  $(document).on('click','.check',function(){
+
+    if($(this).prop('checked')){
+        $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                 $(this).prop("checked", true);
+        });    
+    }else{
+        $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                 $(this).prop("checked", false);
+            
+        });    
+    }
+});
+
+$(document).on('click','.eliminar',function(){
+  swal({
+      title: "Esta seguro que desea eliminar ?",
+      text: "Esta accion eliminara los datos!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Si, eliminarlo!",
+      closeOnConfirm: false
+    },
+    function(){
+        if(enviarDatos() != '0'){
+          swal("Exito!", 
+          "Sus datos han sido eliminados.",
+           "success");
+        }else{
+          swal("Error!", 
+          "Ups, algo salio mal.",
+           "warning");
+        }
+        $('.check').prop("checked", false);
+        obtenerDatosTablaProductos($('#negocio').val());
+    });
+});
+
+function enviarDatos(){
+  var valores = "";
+
+  $('#cuerpo').children("tr").find("td").find("input").each(function () {
+      if($(this).prop('checked')){
+          valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+      }
+  }); 
+  valores += "0";
+  result = valores.split("?");
+  console.log(result);
+   $.ajax({
+    url: "../Controllers/productos.php",
+    type: "POST",
+    data: {'array': JSON.stringify(result)},
+
+    success: function (response) {
+      console.log(response);
+          return response;
+    }
+  }); 
+}
+
   $("#formulario").submit(function (e) {
 
     var formData = new FormData(this);
@@ -408,7 +507,13 @@ $(document).ready(function () {
 
   $(document).on('click','.agregar',function(){
     $("#accion").val("false");
-    $("#formulario").trigger("reset");
+    $('.esconderCantidad').hide();
+    $('.esconderProducto').hide();
+    $('.esconder').css('display','none');
+    $("#formularioInventario").trigger("reset");
+    $("#formularioBarras").trigger("reset");
+    $("#formularioInventario").trigger("reset");
+    $("#mensaje").css("display", "none");
   });
 
   function obtenerDatosTablaProductos(negocio) {
@@ -427,8 +532,12 @@ $(document).ready(function () {
                   item[j] = "";
                 }
           }
+
+          template += `<tr>`;
+         if(acceso == 'CEO'){
+          template += `<td class="text-nowrap text-center"><input type="checkbox" value="si"></td>`;
+         }
           template += `
-         <tr>
                 <td class="text-nowrap text-center">${item[0]}</td>
                 <td class="text-nowrap text-center">${item[1]}</td>
                 <td class="text-nowrap text-center">${item[2]}</td>
@@ -438,8 +547,8 @@ $(document).ready(function () {
                 <td class="text-nowrap text-center">${item[6]}</td>
                 <td class="text-nowrap text-center">${item[7]}</td>
                 <td><img src="${item[8]}" height="100" width="100"></td>
-                <td class="text-nowrap text-center">${item[9]}</td>
-                <td class="text-nowrap text-center">${item[10]}</td>
+                <td class="text-nowrap text-center">$${item[9]}</td>
+                <td class="text-nowrap text-center">$${item[10]}</td>
                 <td class="text-nowrap text-center">${item[11]}</td>
                 <td class="text-nowrap text-center">${item[12]}</td>
                 <td class="text-nowrap text-center">${item[13]}</td>
@@ -448,6 +557,7 @@ $(document).ready(function () {
                 <td class="text-nowrap text-center">${item[16]}</td>
                 <td class="text-nowrap text-center">${item[17]}</td>
                 <td class="text-nowrap text-center">${item[18]}</td>
+                <td class="text-nowrap text-center">${item[19]}</td>
           `;
         });
         $("#cuerpo").html(template);

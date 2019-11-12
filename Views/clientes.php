@@ -7,7 +7,7 @@ privilegios("Superiores");
 <html lang="en" dir="ltr">
 
 <head>
-<link rel="stylesheet" href="../css/sweetalert.css">
+    <link rel="stylesheet" href="../css/sweetalert.css">
     <script src="../js/sweetalert.js"></script>
     <script src="../js/sweetalert.min.js"></script>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@ privilegios("Superiores");
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="img/logo/nav1.png">
+    <link rel="icon" href="../img/logo/nav1.png">
 
     <title>Clientes</title>
 </head>
@@ -32,35 +32,44 @@ privilegios("Superiores");
             <div class="col-md-12">
               <div id="tableContainer" class="d-block col-lg-12">
                     <div class="input-group mb-2">
-                        <button class="d-lg-none btn btn-primary col-12 mb-3 p-3 Bagregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
+                        <button class="d-lg-none btn btn-primary col-12 mb-3 p-3 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
+                        <?php if($_SESSION['acceso'] == 'CEO'){?>
+                          <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button>
+                        <?php } ?>
                         <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fa fa-search"></i></div>
                         </div>
                         <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name" value="">
-                        <button class="d-none d-lg-flex btn btn-primary ml-3 Bagregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
+                        <button class="d-none d-lg-flex btn btn-primary ml-3 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
+                        <?php if($_SESSION['acceso'] == 'CEO'){?>
+                          <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
+                        <?php } ?>
                     </div>
 
                     <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                         <table style="border-radius: 10px;" class="table table-hover table-striped table-light">
                             <thead class="thead-dark">
                                 <tr class="encabezados">
-                                    <th class="text-nowrap text-center" onclick="sortTable(0)">EMAIL</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(1)">RFC</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(2)">Nombre</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(3)">Codigo Postal</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(4)">Calle</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(5)">Colonia</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(6)">Localidad</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(7)">Municipio</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(8)">Estado</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(9)">Pais</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(10)">Telefono</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(11)">Fecha nacimiento</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(12)">Sexo</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(13)">Credito</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(14)">Plazo a credito</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(14)">Limite a credito</th>
-                                    <th class="text-nowrap text-center" onclick="sortTable(14)">Usuario</th>
+                                <?php if($_SESSION['acceso'] == 'CEO'){?>
+                                  <th class="text-nowrap text-center" onclick="sortTable(0)"><input class="check" type="checkbox" value="si"></th>
+                                <?php } ?>
+                                    <th class="text-nowrap text-center" onclick="sortTable(1)">EMAIL</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(2)">RFC</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(3)">Nombre</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(4)">Codigo Postal</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(5)">Calle</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(6)">Colonia</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(7)">Localidad</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(8)">Municipio</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(9)">Estado</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(10)">Pais</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(11)">Telefono</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(12)">Fecha nacimiento</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(13)">Sexo</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(14)">Credito</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(15)">Plazo a credito</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(16)">Limite a credito</th>
+                                    <th class="text-nowrap text-center" onclick="sortTable(17)">Usuario</th>
                                 </tr>
                             </thead>
                     <tbody  id="cuerpo">

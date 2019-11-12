@@ -30,27 +30,27 @@ include_once '../Models/Conexion.php';
 
     if(isset($_POST['tablaColores'])){
         $conexion = new Models\Conexion();
-        $datos = array(0,'Color');
-        $tipo = "is";
-        $consulta = "SELECT * FROM ccm WHERE eliminado = ? AND tipo = ?";
+        $datos = array(0,'Color',$_SESSION['negocio']);
+        $tipo = "isi";
+        $consulta = "SELECT * FROM ccm WHERE eliminado = ? AND tipo = ? AND negocio = ?";
         $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false));
         echo $jsonstring;
     }
 
     if(isset($_POST['tablaMarcas'])){
         $conexion = new Models\Conexion();
-        $datos = array(0,'Marca');
-        $tipo = "is";
-        $consulta = "SELECT * FROM ccm WHERE eliminado = ? AND tipo = ?";
+        $datos = array(0,'Marca',$_SESSION['negocio']);
+        $tipo = "isi";
+        $consulta = "SELECT * FROM ccm WHERE eliminado = ? AND tipo = ? AND negocio = ?";
         $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false));
         echo $jsonstring;
     }
 
     if(isset($_POST['tablaCategoria'])){
         $conexion = new Models\Conexion();
-        $datos = array(0,'Categoria');
-        $tipo = "is";
-        $consulta = "SELECT * FROM ccm WHERE eliminado = ? AND tipo = ?";
+        $datos = array(0,'Categoria',$_SESSION['negocio']);
+        $tipo = "isi";
+        $consulta = "SELECT * FROM ccm WHERE eliminado = ? AND tipo = ? AND negocio = ?";
         $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false));
         echo $jsonstring;
     }

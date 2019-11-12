@@ -16,7 +16,7 @@ privilegios("Superiores");
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="img/logo/nav1.png">
+    <link rel="icon" href="../img/logo/nav1.png">
 
 
   <title>Productos</title>
@@ -72,12 +72,16 @@ privilegios("Superiores");
             <input class="form-control col-lg-4" type="text" id="busqueda" onkeyup="busqueda()" onkeypress="return check(event)" placeholder="Buscar..." title="Type in a name" value="">
 
             <div class="font-weight-bold px-3 d-flex align-items-center">
-                  <p class="text-white">Sucursal:</p>
+                  <p class="text-white">Mostrar productos de:</p>
             </div>
             <select class="form form-control col-lg-4" id="negocio" name="Snegocio">
             </select>
 
             <input type="submit" style="display: none;">
+            <?php if($_SESSION['acceso'] == 'CEO'){?>
+                <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
+                <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button>
+              <?php } ?>
             <button class="d-none d-sm-flex btn btn-primary ml-5 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
             <button class="d-none d-sm-flex btn btn-success ml-5 agregar" data-toggle="modal" id="Binventariar" data-target="#modalForm2">Inventariar</button>
             <button class="d-none d-sm-flex btn btn-danger ml-5 agregar" id="Bcodigobarra" data-toggle="modal" data-target="#modalForm3">Generar codigo de barras</button>
@@ -87,25 +91,29 @@ privilegios("Superiores");
           <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
             <thead class="thead-dark">
               <tr class="encabezados">
-                <th class="text-nowrap text-center" onclick="sortTable(0)">Codigo de barras</th>
-                <th class="text-nowrap text-center" onclick="sortTable(1)">Modelo</th>
-                <th class="text-nowrap text-center" onclick="sortTable(2)">Nombre</th>
-                <th class="text-nowrap text-center" onclick="sortTable(3)">Descripción</th>
-                <th class="text-nowrap text-center" onclick="sortTable(4)">Categoria</th>
-                <th class="text-nowrap text-center" onclick="sortTable(5)">Marca</th>
-                <th class="text-nowrap text-center" onclick="sortTable(6)">Proveedor</th>
-                <th class="text-nowrap text-center" onclick="sortTable(7)">Color</th>
-                <th class="text-nowrap text-center" onclick="sortTable(8)">Imagen</th>
-                <th class="text-nowrap text-center" onclick="sortTable(9)">Precio compra</th>
-                <th class="text-nowrap text-center" onclick="sortTable(10)">Precio venta</th>
-                <th class="text-nowrap text-center" onclick="sortTable(11)">Descuento</th>
-                <th class="text-nowrap text-center" onclick="sortTable(12)">Unidad de medida</th>
-                <th class="text-nowrap text-center" onclick="sortTable(13)">Tasa de iva</th>
-                <th class="text-nowrap text-center" onclick="sortTable(14)">Tasa de ipes</th>
-                <th class="text-nowrap text-center" onclick="sortTable(15)">Talla numero</th>
-                <th class="text-nowrap text-center" onclick="sortTable(15)">Localización</th>
-                <th class="text-nowrap text-center" onclick="sortTable(15)">Stock</th>
-                <th class="text-nowrap text-center" onclick="sortTable(15)">Stock Minimo</th>
+              <?php if($_SESSION['acceso'] == 'CEO'){?>
+                <th class="text-nowrap text-center" onclick="sortTable(0)"><input class="check" type="checkbox" value="si"></th>
+              <?php } ?>
+                <th class="text-nowrap text-center" onclick="sortTable(1)">Codigo de barras</th>
+                <th class="text-nowrap text-center" onclick="sortTable(2)">Modelo</th>
+                <th class="text-nowrap text-center" onclick="sortTable(3)">Nombre</th>
+                <th class="text-nowrap text-center" onclick="sortTable(4)">Descripción</th>
+                <th class="text-nowrap text-center" onclick="sortTable(5)">Categoria</th>
+                <th class="text-nowrap text-center" onclick="sortTable(6)">Marca</th>
+                <th class="text-nowrap text-center" onclick="sortTable(7)">Proveedor</th>
+                <th class="text-nowrap text-center" onclick="sortTable(8)">Color</th>
+                <th class="text-nowrap text-center" onclick="sortTable(9)">Imagen</th>
+                <th class="text-nowrap text-center" onclick="sortTable(10)">Precio compra</th>
+                <th class="text-nowrap text-center" onclick="sortTable(11)">Precio venta</th>
+                <th class="text-nowrap text-center" onclick="sortTable(12)">Descuento</th>
+                <th class="text-nowrap text-center" onclick="sortTable(13)">Tipo Producto</th>
+                <th class="text-nowrap text-center" onclick="sortTable(14)">Unidad de medida</th>
+                <th class="text-nowrap text-center" onclick="sortTable(15)">Tasa de iva</th>
+                <th class="text-nowrap text-center" onclick="sortTable(16)">Tasa de ipes</th>
+                <th class="text-nowrap text-center" onclick="sortTable(17)">Talla numero</th>
+                <th class="text-nowrap text-center" onclick="sortTable(18)">Localización</th>
+                <th class="text-nowrap text-center" onclick="sortTable(19)">Stock</th>
+                <th class="text-nowrap text-center" onclick="sortTable(20)">Stock Minimo</th>
               </tr>
             </thead>
             <tbody id="cuerpo"></tbody>
@@ -265,8 +273,6 @@ privilegios("Superiores");
               <div class="col-lg-6">
                 <h5 class="general">Proveedor:</h5>
                 <select class="form form-control" id="proveedor" name="Tproveedor">
-                  <option value="0">Ninguno</option>
-                  <option value="1">1</option>
                 </select>
               </div>
             </div>
@@ -307,10 +313,22 @@ privilegios("Superiores");
                 <input id="precio_venta" class="form form-control" type="text" onkeypress="return check(event)" name="Nprecio_venta" placeholder="Precio venta" autocomplete="new-password" required><br>
               </div>
             </div>
+
+            <div class="d-block d-lg-flex row">
+            <div class="col-lg-12">
+                  <h5 class="general">Tipo de producto:</h5>
+                  <select class="form form-control" id="categoria" name="Stipo_producto">
+                    <option value="">Elejir</option>
+                    <option value="Calzado">Calzado</option>
+                    <option value="Ropa">Ropa</option>
+                    <option value="Otros">Otros</option>
+                  </select>
+                </div>
+            </div>
             <div class="d-block d-lg-flex row">
               <div class="col-lg-6">
                   <h5 class="general">Categoria:</h5>
-                  <select class="form form-control" id="categoria" name="Scategoria">
+                  <select class="form form-control" id="categoria2" name="Scategoria">
 
                   </select>
                 </div>
@@ -358,7 +376,7 @@ privilegios("Superiores");
                 <input id="stock_minimo" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock_minimo" placeholder="Stock minimo" autocomplete="new-password">
               </div>
             </div>
-              <input type="hidden" name="accion" id="accion">
+              <input type="hidden" name="accion" id="accion" >
               <input id="bclose" type="submit" class="mt-3 btn bg-dark text-white btn-lg btn-block" value="Guardar">
           </form>
           <div id="tableHolder" class="row justify-content-center"></div>

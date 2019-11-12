@@ -15,7 +15,7 @@ privilegios("Todos");
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="img/logo/nav1.png">
+    <link rel="icon" href="../img/logo/nav1.png">
 
     <title>Inventario</title>
     <script>
@@ -36,12 +36,12 @@ include("../Controllers/NavbarCafi.php");
             <div class="col-lg-12">
                 <div id="tableContainer" class="d-block col-lg-12">
                     <div class="input-group mb-2">
-                         <div id="combo">
-                        <select name="Scategoria" id="categoria" class="form form-control">
-                                    <option>Elija una categoria</option>
-                                    <option>Ropa</option>
-                                    <option>Zapatos</option>
-                                </select>
+                        <div id="combo" class="mr-3">
+                            <select name="Scategoria" id="categoria" class="form form-control">
+                                <option>Elija una categoria</option>
+                                <option>Ropa</option>
+                                <option>Zapatos</option>
+                            </select>
                         </div>
                         <div class="input-group-prepend">
                             <div class="input-group-text">

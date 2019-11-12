@@ -1,29 +1,21 @@
 <?php
-require_once "Config/Autoload.php";
-Config\Autoload::run();
 session_start();
-include "check_token.php";
-
-if (!isset($_SESSION['acceso'])) {
-    header('location: index.php');
-} else if ($_SESSION['estado'] == "I") {
-    header('location: index.php');
-} else if (
-    $_SESSION['acceso'] != "Manager" && $_SESSION['acceso'] != "Employes"
-) {
-    header('location: index.php');
-}
+require_once('../Controllers/seguridadCafi.php');
+privilegios("Superiores");
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <head>
-    <meta charset="utf-8">
+    <link rel="stylesheet" href="../css/sweetalert.css">
+    <script src="../js/sweetalert.js"></script>
+    <script src="../js/sweetalert.min.js"></script>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="img/logo/nav1.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../img/logo/nav1.png">
     
     <title>Compras</title>
 </head>
@@ -31,7 +23,7 @@ if (!isset($_SESSION['acceso'])) {
 <body>
     <?php
     $sel = "compras";
-    include("Navbar.php")
+    include("../Controllers/NavbarCafi.php");
     ?>
     <!-- Modal -->
     <div class="modal fade" id="modalForm" role="dialog">
@@ -59,6 +51,9 @@ if (!isset($_SESSION['acceso'])) {
             <div id="tableContainer" class="d-block col-lg-12">
                 <div class="input-group mb-2">
                     <button class="d-lg-none btn btn-primary col-12 mb-3 p-3" data-toggle="modal" data-target="#modalForm">Agregar Compra</button>
+                    <?php if($_SESSION['acceso'] == 'CEO'){?>
+                        <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button> 
+                    <?php } ?>
                     <div class="input-group-prepend">
                         <div class="input-group-text">
                             <i class="fa fa-search"></i>
@@ -66,20 +61,26 @@ if (!isset($_SESSION['acceso'])) {
                     </div>
                     <input class="form-control form-control-sm col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name" value="">
                     <button id="btncompra" class="d-none d-lg-flex btn btn-primary ml-3">Agregar Compra</button>
+                    <?php if($_SESSION['acceso'] == 'CEO'){?>
+                        <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
+                    <?php } ?>
                 </div>
                 <div id="tabla_compras" style="border-radius: 10px;" class="contenedorTabla table-responsive">
                     <table style="border-radius: 10px;" class="scroll table table-hover table-striped table-light">
                         <thead class="thead-dark">
                             <tr class="encabezados">
-                                <th class="text-nowrap text-center" onclick="sortTable(0)">Id</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(1)">Concepto</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(2)">Pago</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(3)">Descripcion</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(4)">Monto</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(5)">Estado</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(6)">Fecha</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(7)">Registró</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(8)"></th>
+                            <?php if($_SESSION['acceso'] == 'CEO'){?>
+                                <th class="text-nowrap text-center" onclick="sortTable(0)"><input class="check" type="checkbox" value="si"></th>
+                            <?php } ?>
+                                <th class="text-nowrap text-center d-none" onclick="sortTable(1)">Id</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(2)">Concepto</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(3)">Pago</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(4)">Descripcion</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(5)">Monto</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(6)">Estado</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(7)">Fecha</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(8)">Registró</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(9)"></th>
                             </tr>
                         </thead>
                         <tbody id="cuerpo">
@@ -96,18 +97,18 @@ if (!isset($_SESSION['acceso'])) {
                     <button id="compra_finalizada" class="btn btn-primary mr-2">Guardar Compra</button>
                     <button id="cancelar_compra" class="btn btn-danger">Cancelar Compra</button>
                 </div>
-                <form class="form-group border p-3" id="formgastos">
+                <form class="form-group border p-3 bg-light" id="formgastos">
                     <div class="row">
                         <div class="d-block col-lg-4">
                             <p class="general">Folio de factura:</p>
-                            <input id="folio_factura" class="form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off" >
+                            <input id="folio_factura" class="form-control form-control-sm" onkeypress="return check(event)" type="text" placeholder="" autocomplete="off" >
                         </div>
                         <div class="d-block col-lg-4">
-                            <p class="importante">Fecha de facturación:</p>
+                            <p class="general">Fecha de facturación:</p>
                             <input class="form-control form-control-sm" id="fecha_facturacion" type="date" name="DFecha" >
                         </div>
                         <div class="d-block col-lg-4">
-                            <p class="importante">Fecha de vencimiento:</p>
+                            <p class="general">Fecha de vencimiento:</p>
                             <input class="form-control form-control-sm" id="fecha_vencimiento" type="date" name="DFecha" >
                         </div>
                     </div>
@@ -147,7 +148,7 @@ if (!isset($_SESSION['acceso'])) {
                             <input class="form-control form-control-sm" id="inicio_de_credito" type="date" name="DFecha" >
                         </div>
                         <div class="fechascredito d-none col-lg-4">
-                            <p class="importante">Fecha del credito:</p>
+                            <p class="importante">Fecha vencimiento del credito:</p>
                             <input class="form-control form-control-sm" id="fecha_del_credito" type="date" name="DFecha" >
                         </div>
                         <div class="fechascredito d-none col-lg-4">
@@ -156,7 +157,7 @@ if (!isset($_SESSION['acceso'])) {
                         </div>
                     </div>
                 </form>
-                <div class="border p-2 shadow">
+                <div class="border p-2 shadow bg-light">
                         <div class="row">
                             <div class="d-block col-lg-4">
                                 <p class="importante">Codigo:</p>
@@ -169,8 +170,6 @@ if (!isset($_SESSION['acceso'])) {
                             <div class="d-block col-lg-4">
                                 <p class="importante">Costo:</p>
                                 <input type="number" min="1" id="costo_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off" >
-                                <input type="checkbox" id="iva">
-                                <label class="general" for="iva">IVA</label>
                             </div>
                         </div>
                         <div class="row">
@@ -214,7 +213,7 @@ if (!isset($_SESSION['acceso'])) {
                 <div class="col-6 p-2 text-nowrap text-right font-weight-bold bg-dark text-white">
                     <p class="mb-0">Subtotal: <span id="info_subtotal" class="text-nowrap text-center font-weight-bold">$0</span></p>
                     <!-- <p class="mb-0">Descuento: <span id="info_descuento" class="text-nowrap text-center font-weight-bold">$0</span></p> -->
-                    <p class="mb-0">IVA: <span id="info_iva" class="text-nowrap text-center font-weight-bold">$0</span></p>
+                    
                     <p class="mb-0">IEPS: <span id="info_ieps" class="text-nowrap text-center font-weight-bold">$0</span></p>
                     <!-- <p class="mb-0">Anticipo: <span id="info_anticipo" class="text-nowrap text-center font-weight-bold">$0</span></p> -->
                     <p class="mb-0">Total: <span id="info_total" class="text-nowrap text-center font-weight-bold">$0</span></p>
@@ -223,12 +222,11 @@ if (!isset($_SESSION['acceso'])) {
         </div><!--row compra-->
     </div><!--container-->
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="js/index.js"></script>
-    <script src="js/user_jquery.js"></script>
-    <script src="js/vcompras.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/user_jquery.js"></script>
+    <script src="../js/compras.js"></script>
 </body>
 </html>
