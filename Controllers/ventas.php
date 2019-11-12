@@ -84,6 +84,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
         $consulta = "INSERT INTO venta (idventas,descuento,total,pago,cambio,forma_pago,fecha,hora,estado_venta,usuariocafi,negocio,eliminado) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         $conexion->consultaPreparada($datos, $consulta, 1, "sssssssssssi", false);
         $venta = $conexion->optenerId();
+        $_SESSION['idventa'] = $venta; // para poder imprimir el ticket
     } else if ($_POST['forma_pago'] === "Crédito") {
         $datos = array(
             $_POST['idventa'],
@@ -115,6 +116,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
 
         $consulta = "INSERT INTO adeudos (idadeudos,totaldeuda,anticipo,estado,venta,cliente,eliminado) VALUES(?,?,?,?,?,?,?)";
         $conexion->consultaPreparada($datos2, $consulta, 1, "ssssssi", false);
+        $_SESSION['idventa'] = $venta; // para poder imprimir el ticket
     }
 
 
