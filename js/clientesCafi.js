@@ -43,7 +43,7 @@ $(document).ready(function () {
             closeOnConfirm: false
           },
           function(){
-              if(enviarDatos2() != '0'){
+              if(typeof (enviarDatos2()) != 'undefined'){
                 swal("Exito!", 
                 "Sus datos han sido eliminados.",
                  "success");

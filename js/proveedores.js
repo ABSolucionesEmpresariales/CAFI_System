@@ -1,7 +1,33 @@
 $(document).ready(function () {
     let idproveedor = "";
     let editar = false;
+    let acceso = "";
+    obtenerAcceso();
     obteneDatosProveedor();
+
+    $(document).on('click','.agregar',function(){
+       editar = false;
+       $("#formulario").trigger("reset");
+       $("#mensaje").css("display", "none");
+    });
+
+    $(document).on('click','.close',function(){
+      editar = false;
+      $("#formulario").trigger("reset");
+      $("#mensaje").css("display", "none");
+   });
+
+    function obtenerAcceso(){
+      $.ajax({
+        url: "../Controllers/login.php",
+        type: "POST",
+        data:"accesoPersona=accesoPersona",
+  
+        success: function (response) {
+          acceso = response
+        }
+      });
+    }
 
     var touchtime = 0;
     $(document).on("click", "td", function () {
@@ -65,19 +91,21 @@ $(document).ready(function () {
     });
 
     
-    $(document).on('click','#eliminar',function(){
 
-        if($(this).prop('checked')){
-            $('#cuerpo').children("tr").find("td").find("input").each(function () {
-                     $(this).prop("checked", true);
-            });    
-        }else{
-            $('#cuerpo').children("tr").find("td").find("input").each(function () {
-                     $(this).prop("checked", false);
-                
-            });    
-        }
-    });
+    $(document).on('click','.check',function(){
+
+      if($(this).prop('checked')){
+          $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                   $(this).prop("checked", true);
+          });    
+      }else{
+          $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                   $(this).prop("checked", false);
+              
+          });    
+      }
+  });
+
 
     function enviarDatos(){
         var valores = "";
@@ -150,14 +178,11 @@ $(document).ready(function () {
               let datos = JSON.parse(response);
               let template = "";
               $.each(datos, function (i, item) {
-                for(var j = 0; j <= item.length; j++){
-                    if(item[j] == null){
-                      item[j] = "";
-                    }
-                  }
+                template+=`<tr>`;
+                if(acceso == 'CEO'){
+                  template+=` <td><input type="checkbox" value="si" ></td>`;
+                }
                 template+=`
-                <tr>
-                    <td><input class="check" type="checkbox" value="si" ></td>
                     <td class="text-nowrap text-center d-none">${item[0]}</td>
                     <td class="text-nowrap text-center">${item[1]}</td>
                     <td class="text-nowrap text-center">${item[2]}</td>

@@ -51,6 +51,9 @@ privilegios("Superiores");
             <div id="tableContainer" class="d-block col-lg-12">
                 <div class="input-group mb-2">
                     <button class="d-lg-none btn btn-primary col-12 mb-3 p-3" data-toggle="modal" data-target="#modalForm">Agregar Compra</button>
+                    <?php if($_SESSION['acceso'] == 'CEO'){?>
+                        <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button> 
+                    <?php } ?>
                     <div class="input-group-prepend">
                         <div class="input-group-text">
                             <i class="fa fa-search"></i>
@@ -58,20 +61,26 @@ privilegios("Superiores");
                     </div>
                     <input class="form-control form-control-sm col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name" value="">
                     <button id="btncompra" class="d-none d-lg-flex btn btn-primary ml-3">Agregar Compra</button>
+                    <?php if($_SESSION['acceso'] == 'CEO'){?>
+                        <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
+                    <?php } ?>
                 </div>
                 <div id="tabla_compras" style="border-radius: 10px;" class="contenedorTabla table-responsive">
                     <table style="border-radius: 10px;" class="scroll table table-hover table-striped table-light">
                         <thead class="thead-dark">
                             <tr class="encabezados">
-                                <th class="text-nowrap text-center" onclick="sortTable(0)">Id</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(1)">Concepto</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(2)">Pago</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(3)">Descripcion</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(4)">Monto</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(5)">Estado</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(6)">Fecha</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(7)">Registró</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(8)"></th>
+                            <?php if($_SESSION['acceso'] == 'CEO'){?>
+                                <th class="text-nowrap text-center" onclick="sortTable(0)"><input class="check" type="checkbox" value="si"></th>
+                            <?php } ?>
+                                <th class="text-nowrap text-center d-none" onclick="sortTable(1)">Id</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(2)">Concepto</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(3)">Pago</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(4)">Descripcion</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(5)">Monto</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(6)">Estado</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(7)">Fecha</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(8)">Registró</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(9)"></th>
                             </tr>
                         </thead>
                         <tbody id="cuerpo">
@@ -92,14 +101,14 @@ privilegios("Superiores");
                     <div class="row">
                         <div class="d-block col-lg-4">
                             <p class="general">Folio de factura:</p>
-                            <input id="folio_factura" class="form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off" >
+                            <input id="folio_factura" class="form-control form-control-sm" onkeypress="return check(event)" type="text" placeholder="" autocomplete="off" >
                         </div>
                         <div class="d-block col-lg-4">
-                            <p class="importante">Fecha de facturación:</p>
+                            <p class="general">Fecha de facturación:</p>
                             <input class="form-control form-control-sm" id="fecha_facturacion" type="date" name="DFecha" >
                         </div>
                         <div class="d-block col-lg-4">
-                            <p class="importante">Fecha de vencimiento:</p>
+                            <p class="general">Fecha de vencimiento:</p>
                             <input class="form-control form-control-sm" id="fecha_vencimiento" type="date" name="DFecha" >
                         </div>
                     </div>
@@ -139,7 +148,7 @@ privilegios("Superiores");
                             <input class="form-control form-control-sm" id="inicio_de_credito" type="date" name="DFecha" >
                         </div>
                         <div class="fechascredito d-none col-lg-4">
-                            <p class="importante">Fecha del credito:</p>
+                            <p class="importante">Fecha vencimiento del credito:</p>
                             <input class="form-control form-control-sm" id="fecha_del_credito" type="date" name="DFecha" >
                         </div>
                         <div class="fechascredito d-none col-lg-4">
@@ -161,8 +170,6 @@ privilegios("Superiores");
                             <div class="d-block col-lg-4">
                                 <p class="importante">Costo:</p>
                                 <input type="number" min="1" id="costo_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off" >
-                                <input type="checkbox" id="iva">
-                                <label class="general" for="iva">IVA</label>
                             </div>
                         </div>
                         <div class="row">
@@ -206,7 +213,7 @@ privilegios("Superiores");
                 <div class="col-6 p-2 text-nowrap text-right font-weight-bold bg-dark text-white">
                     <p class="mb-0">Subtotal: <span id="info_subtotal" class="text-nowrap text-center font-weight-bold">$0</span></p>
                     <!-- <p class="mb-0">Descuento: <span id="info_descuento" class="text-nowrap text-center font-weight-bold">$0</span></p> -->
-                    <p class="mb-0">IVA: <span id="info_iva" class="text-nowrap text-center font-weight-bold">$0</span></p>
+                    
                     <p class="mb-0">IEPS: <span id="info_ieps" class="text-nowrap text-center font-weight-bold">$0</span></p>
                     <!-- <p class="mb-0">Anticipo: <span id="info_anticipo" class="text-nowrap text-center font-weight-bold">$0</span></p> -->
                     <p class="mb-0">Total: <span id="info_total" class="text-nowrap text-center font-weight-bold">$0</span></p>

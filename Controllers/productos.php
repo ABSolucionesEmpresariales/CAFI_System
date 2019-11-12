@@ -15,12 +15,10 @@ $_POST['Stalla_numero'],
 $_POST['accion'])
 ; */
 if (
-    isset($_POST['Tcodigo_barras']) && isset($_POST['Tmodelo']) && isset($_POST['Tnombre']) && isset($_POST['Tdescripcion']) &&
-    isset($_POST['Scategoria']) && isset($_POST['Smarca']) && isset($_POST['Tproveedor']) && isset($_POST['Scolor']) &&
-    isset($_POST['Nprecio_compra']) && isset($_POST['Nprecio_venta']) && isset($_POST['Ndescuento']) && 
-    isset($_POST['Sunidad_medida']) && isset($_POST['Ntasa_ipes']) 
+    isset($_POST['Tcodigo_barras']) && isset($_POST['Tnombre']) && isset($_POST['Nprecio_venta']) 
+    &&  isset($_POST['Sunidad_medida']) && isset($_POST['Nstock']) 
 ) {
-/*  var_dump($_POST['Tcodigo_barras'],$_POST['Tmodelo'],$_POST['Tnombre'],$_POST['Tdescripcion'],
+/*   var_dump($_POST['Tcodigo_barras'],$_POST['Tmodelo'],$_POST['Tnombre'],$_POST['Tdescripcion'],
 $_POST['Scategoria'],$_POST['Smarca'],$_POST['Tproveedor'],$_POST['Scolor'],
 $_POST['Nprecio_compra'],
 $_POST['Nprecio_venta'],
@@ -54,6 +52,7 @@ $_POST['accion'])
             $_POST['Nprecio_compra'],
             $_POST['Nprecio_venta'],
             $_POST['Ndescuento'],
+            $_POST['Stipo_producto'],
             $_POST['Sunidad_medida'],
             $iva,
             $_POST['Ntasa_ipes'],
@@ -64,16 +63,16 @@ $_POST['accion'])
 
         if($accion == 1){
             $consulta_guardar_producto = "INSERT INTO producto (codigo_barras,modelo,nombre,descripcion,categoria,
-            marca,proveedor,color,imagen,precio_compra,precio_venta,descuento,unidad_medida,tasa_iva,
-            tasa_ipes,talla_numero,dueno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            $tipos_de_datos = "ssssssissdddssdss";
+            marca,proveedor,color,imagen,precio_compra,precio_venta,descuento,tipo_producto,unidad_medida,tasa_iva,
+            tasa_ipes,talla_numero,dueno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $tipos_de_datos = "ssssssissdddsssdss";
             $respuesta = $conexion->consultaPreparada($datos_productos, $consulta_guardar_producto,1, $tipos_de_datos, false);
             return $respuesta;
         }else{
             $consulta_editar_producto = "UPDATE producto SET modelo = ?,nombre = ?,descripcion = ?,categoria = ?,marca = ?,proveedor = ?,
-            color = ?,imagen = ? ,precio_compra = ?,precio_venta = ?,descuento = ?,unidad_medida = ?,tasa_iva = ?,tasa_ipes = ?,
+            color = ?,imagen = ? ,precio_compra = ?,precio_venta = ?,descuento = ?,tipo_producto = ?,unidad_medida = ?,tasa_iva = ?,tasa_ipes = ?,
             talla_numero = ?,dueno = ? WHERE codigo_barras = ?";
-            $tipos_de_datos = "sssssissdddssdsss";
+            $tipos_de_datos = "sssssissdddsssdsss";
             $respuesta = $conexion->consultaPreparada($datos_productos, $consulta_editar_producto,1, $tipos_de_datos, true);
             return $respuesta;
 
@@ -158,7 +157,7 @@ $_POST['accion'])
         }
 
     } else {
-
+        
         if (strlen($_FILES['Fimagen']['tmp_name']) != 0) {
 
             $archivo = subir_archivo('Fimagen',1);
@@ -193,9 +192,17 @@ if(isset($_POST['tabla'])){
     $datos = array($_POST['tabla']);
     $tipo = "i";
     $consulta = "SELECT codigo_barras,modelo,nombre,descripcion,categoria,marca,proveedor,color,imagen,precio_compra,
-    precio_venta,descuento,unidad_medida,tasa_iva,tasa_ipes,talla_numero,s.localizacion,s.stock,s.stock_minimo FROM producto p INNER JOIN stock s
+    precio_venta,descuento,tipo_producto,unidad_medida,tasa_iva,tasa_ipes,talla_numero,s.localizacion,s.stock,s.stock_minimo FROM producto p INNER JOIN stock s
      WHERE p.codigo_barras = s.producto AND s.negocio = ? AND s.eliminado = 0";
     $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false));
+    echo $jsonstring;
+}
+
+if(isset($_POST['proveedores'])){
+    $conexion = new Models\Conexion();
+    $datos = array($_SESSION['email'],$_SESSION['negocio'],0);
+    $consulta = "SELECT idproveedor,nombre FROM proveedor WHERE usuariocafi = ? AND negocio = ? AND eliminado = ?";
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2,'sii', false));
     echo $jsonstring;
 }
 

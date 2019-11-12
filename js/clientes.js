@@ -45,7 +45,7 @@ $(document).ready(function () {
           closeOnConfirm: false
         },
         function(){
-            if(enviarDatos() != '0'){
+            if(typeof (enviarDatos()) != 'undefined'){
               swal("Exito!", 
               "Sus datos han sido eliminados.",
                "success");

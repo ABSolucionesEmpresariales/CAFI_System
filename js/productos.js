@@ -12,6 +12,7 @@ $(document).ready(function () {
   obtenerColores();
   obtenerMarcas();
   obtenerCategorias();
+  obtenerProveedores();
   $('.esconderCantidad').hide();
   $('.esconderProducto').hide();
   $("#accion").val("true");
@@ -40,6 +41,24 @@ $(document).ready(function () {
       $('.esconderProducto').show();
     }
   });
+
+  function obtenerProveedores(){
+    $.ajax({
+      url: "../Controllers/productos.php",
+      type: "POST",
+      data:"proveedores=proveedores",
+
+      success: function (response) {
+        let datos = JSON.parse(response);
+        console.log(datos);
+        let template = "<option value = '0'>Elejir</option>";
+        $.each(datos, function (i, item) {
+          template+=`<option value="${item[0]}">${item[1]}</option>`;
+        });
+        $('#proveedor').html(template);
+      }
+    });
+  }
 
   function obtenerColores(){
     $.ajax({
@@ -90,7 +109,7 @@ $(document).ready(function () {
         $.each(datos, function (i, item) {
           template+=`<option value="${item[0]}">${item[0]}</option>`;
         });
-        $('#categoria').html(template);
+        $('#categoria2').html(template);
       }
     });
   }
@@ -157,6 +176,7 @@ $(document).ready(function () {
 
       success: function (response) {
         let datos = JSON.parse(response);
+        console.log(response);
         var dat = "";
         let template = "<option value = ''>Elejir</option>";
         $.each(datos, function (i, item) {
@@ -212,9 +232,9 @@ $(document).ready(function () {
           $("#descripcion").val(datos[4]);
           
           if(datos[5] == ''){
-            $("#categoria").val('');
+            $("#categoria2").val('');
           }else{
-            $("#categoria").val(datos[5]);
+            $("#categoria2").val(datos[5]);
           }
           pintarCombo();
           if(datos[6] == ''){
@@ -235,17 +255,18 @@ $(document).ready(function () {
           precioVenta = datos[11].split("$");
           $("#precio_venta").val(precioVenta[1]);
           $("#descuento").val(datos[12]);
-          $("#unidad_medida").val(datos[13]);  
-          if (datos[14] == "Si") {
+          $("#categoria").val(datos[13]);
+          $("#unidad_medida").val(datos[14]);  
+          if (datos[15] == "Si") {
             $("#tasa_iva").prop("checked", true);
           } else {
             $("#tasa_iva").prop("checked", false);
           }
-          $("#tasa_ipes").val(datos[15]);
-          $("#talla_numero").val(datos[16]);
-          $("#localizacion").val(datos[17]);
-          $("#stock").val(datos[18]);
-          $("#stock_minimo").val(datos[19]);
+          $("#tasa_ipes").val(datos[16]);
+          $("#talla_numero").val(datos[17]);
+          $("#localizacion").val(datos[18]);
+          $("#stock").val(datos[19]);
+          $("#stock_minimo").val(datos[20]);
           $("#modalForm").modal("show");
           $("#accion").val("true");
           touchtime = 0;
@@ -486,7 +507,13 @@ function enviarDatos(){
 
   $(document).on('click','.agregar',function(){
     $("#accion").val("false");
-    $("#formulario").trigger("reset");
+    $('.esconderCantidad').hide();
+    $('.esconderProducto').hide();
+    $('.esconder').css('display','none');
+    $("#formularioInventario").trigger("reset");
+    $("#formularioBarras").trigger("reset");
+    $("#formularioInventario").trigger("reset");
+    $("#mensaje").css("display", "none");
   });
 
   function obtenerDatosTablaProductos(negocio) {
@@ -530,6 +557,7 @@ function enviarDatos(){
                 <td class="text-nowrap text-center">${item[16]}</td>
                 <td class="text-nowrap text-center">${item[17]}</td>
                 <td class="text-nowrap text-center">${item[18]}</td>
+                <td class="text-nowrap text-center">${item[19]}</td>
           `;
         });
         $("#cuerpo").html(template);

@@ -33,7 +33,10 @@ privilegios("Todos");
               <div id="tableContainer" class="d-block col-lg-12">
                 <div class="input-group mb-2">
                   <button class="agregar d-lg-none btn btn-primary col-12 mb-3 p-3" data-toggle="modal" data-target="#modalForm">Agregar</button>
-                  <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button>
+                  <?php if($_SESSION['acceso'] == 'CEO'){?>
+                    <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button>
+                  <?php } ?>
+
                   <div class="input-group-prepend">
                     <div class="input-group-text">
                       <i class="fa fa-search"></i>
@@ -42,14 +45,19 @@ privilegios("Todos");
                   <div id="combo"></div>
                   <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name" value="">
                   <button class="agregar d-none d-lg-flex btn btn-primary ml-3 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
-                  <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
+                  <?php if($_SESSION['acceso'] == 'CEO'){?>
+                    <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
+                  <?php } ?>
+   
                   
                 </div>
                 <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                   <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
                     <thead class="thead-dark">
                       <tr class="encabezados">
-                        <th class="text-nowrap text-center" onclick="sortTable(0)"><input id="eliminar" class="check" type="checkbox" value="si" ></th>
+                      <?php if($_SESSION['acceso'] == 'CEO'){?>
+                          <th class="text-nowrap text-center" onclick="sortTable(0)"><input class="check" type="checkbox" value="si"></th>
+                          <?php } ?>
                         <th class="text-nowrap text-center" onclick="sortTable(1)">RFC</th>
                         <th class="text-nowrap text-center" onclick="sortTable(2)">Dias Credito</th>
                         <th class="text-nowrap text-center" onclick="sortTable(3)">Nombre</th>

@@ -18,50 +18,6 @@ $(document).ready(function(){
       });
     }
 
-    //var id = $('.sucursal').val();
-    //idSesion(id);
-
-/*     $(document).on("click",".Beliminar",function(){
-        var valor = $(this).parents("tr").find("td").eq(0).text();
-        swal({
-          title: "Alerta!",
-          text: "¿Esta seguro que desea eliminar?",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonClass: "btn-danger",
-          confirmButtonText: "Eliminar!",
-          closeOnConfirm: false
-        },
-        function(){
-          const postData = {
-            email: valor,
-            eliminado: "true"
-          };
-    
-          $.ajax({
-            url: "../Controllers/trabajadorCafi.php",
-            type: "POST",
-            data: postData,
-    
-            success: function (response) {
-              console.log(response);
-              if(response == "1"){
-                swal(
-                "Eliminado!", 
-                "Registro Eliminado.", 
-                "success");
-              }else{
-                swal(
-                "Algo salio mal!", 
-                "Registro fallido.", 
-                "warning");
-              }
-              obtenerDatosTablaUsuarios();
-            }
-          });
-        });
-        
-      }); */
 
       $(document).on('click','.agregar',function(){
         $("#mensaje").css("display", "none");
@@ -227,7 +183,7 @@ $(document).ready(function(){
             closeOnConfirm: false
           },
           function(){
-              if(enviarDatos() != '0'){
+              if(typeof (enviarDatos()) != 'undefined'){
                 swal("Exito!", 
                 "Sus datos han sido eliminados.",
                  "success");

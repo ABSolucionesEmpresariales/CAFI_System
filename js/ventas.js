@@ -403,9 +403,6 @@ function convertirJsonCarritoenArray(){
         $('#divanticipo').show();
         $('#divpago').show();
       }
- 
-
-
   });
 
 

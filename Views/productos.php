@@ -106,13 +106,14 @@ privilegios("Superiores");
                 <th class="text-nowrap text-center" onclick="sortTable(10)">Precio compra</th>
                 <th class="text-nowrap text-center" onclick="sortTable(11)">Precio venta</th>
                 <th class="text-nowrap text-center" onclick="sortTable(12)">Descuento</th>
-                <th class="text-nowrap text-center" onclick="sortTable(13)">Unidad de medida</th>
-                <th class="text-nowrap text-center" onclick="sortTable(14)">Tasa de iva</th>
-                <th class="text-nowrap text-center" onclick="sortTable(15)">Tasa de ipes</th>
-                <th class="text-nowrap text-center" onclick="sortTable(16)">Talla numero</th>
-                <th class="text-nowrap text-center" onclick="sortTable(17)">Localización</th>
-                <th class="text-nowrap text-center" onclick="sortTable(18)">Stock</th>
-                <th class="text-nowrap text-center" onclick="sortTable(19)">Stock Minimo</th>
+                <th class="text-nowrap text-center" onclick="sortTable(13)">Tipo Producto</th>
+                <th class="text-nowrap text-center" onclick="sortTable(14)">Unidad de medida</th>
+                <th class="text-nowrap text-center" onclick="sortTable(15)">Tasa de iva</th>
+                <th class="text-nowrap text-center" onclick="sortTable(16)">Tasa de ipes</th>
+                <th class="text-nowrap text-center" onclick="sortTable(17)">Talla numero</th>
+                <th class="text-nowrap text-center" onclick="sortTable(18)">Localización</th>
+                <th class="text-nowrap text-center" onclick="sortTable(19)">Stock</th>
+                <th class="text-nowrap text-center" onclick="sortTable(20)">Stock Minimo</th>
               </tr>
             </thead>
             <tbody id="cuerpo"></tbody>
@@ -272,8 +273,6 @@ privilegios("Superiores");
               <div class="col-lg-6">
                 <h5 class="general">Proveedor:</h5>
                 <select class="form form-control" id="proveedor" name="Tproveedor">
-                  <option value="0">Ninguno</option>
-                  <option value="1">1</option>
                 </select>
               </div>
             </div>
@@ -314,10 +313,22 @@ privilegios("Superiores");
                 <input id="precio_venta" class="form form-control" type="text" onkeypress="return check(event)" name="Nprecio_venta" placeholder="Precio venta" autocomplete="new-password" required><br>
               </div>
             </div>
+
+            <div class="d-block d-lg-flex row">
+            <div class="col-lg-12">
+                  <h5 class="general">Tipo de producto:</h5>
+                  <select class="form form-control" id="categoria" name="Stipo_producto">
+                    <option value="">Elejir</option>
+                    <option value="Calzado">Calzado</option>
+                    <option value="Ropa">Ropa</option>
+                    <option value="Otros">Otros</option>
+                  </select>
+                </div>
+            </div>
             <div class="d-block d-lg-flex row">
               <div class="col-lg-6">
                   <h5 class="general">Categoria:</h5>
-                  <select class="form form-control" id="categoria" name="Scategoria">
+                  <select class="form form-control" id="categoria2" name="Scategoria">
 
                   </select>
                 </div>
@@ -365,7 +376,7 @@ privilegios("Superiores");
                 <input id="stock_minimo" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock_minimo" placeholder="Stock minimo" autocomplete="new-password">
               </div>
             </div>
-              <input type="hidden" name="accion" id="accion">
+              <input type="hidden" name="accion" id="accion" >
               <input id="bclose" type="submit" class="mt-3 btn bg-dark text-white btn-lg btn-block" value="Guardar">
           </form>
           <div id="tableHolder" class="row justify-content-center"></div>
