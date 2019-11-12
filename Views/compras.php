@@ -94,7 +94,7 @@ privilegios("Superiores");
             <div class="col-6">
                 <p class="statusMsg"></p>
                 <div class="row mb-2">
-                    <button id="compra_finalizada" class="btn btn-primary mr-2">Guardar Compra</button>
+                    <button id="compra_finalizada" class="btn btn-primary mr-2 ">Guardar Compra</button>
                     <button id="cancelar_compra" class="btn btn-danger">Cancelar Compra</button>
                 </div>
                 <form class="form-group border p-3 bg-light" id="formgastos">
@@ -115,11 +115,11 @@ privilegios("Superiores");
                     <div class="row">
                         <div class="d-block col-lg-4">
                             <p class="general">Codigo de proveedor:</p>
-                            <input id="codigo_proveedor" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off" >
+                            <select class="form form-control form-control-sm" id="codigo_proveedor"></select>
                         </div>
                         <div class="d-block col-lg-4">
-                            <p class="general">Nombre proveedor:</p>
-                            <input id="nombre_proveedor" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off" >
+                            <p class="general">Nuevo proveedor:</p>
+                            <input id="nuevo_proveedor" class="form form-control form-control-sm" type="button" value="Nuevo proveedor">
                         </div>
                         <div class="d-block col-lg-4">
                             <p class="general">Metodo de pago:</p>
@@ -137,6 +137,7 @@ privilegios("Superiores");
                         <div class="d-block col-lg-6">
                             <p class="importante">Forma de pago:</p>
                             <select id="forma_de_pago" class="form form-control form-control-sm" >
+                                <option value="">Elejir</option>
                                 <option value="De Contado">De Contado</option>
                                 <option value="Credito">Credito</option>
                             </select>
@@ -213,7 +214,7 @@ privilegios("Superiores");
                 <div class="col-6 p-2 text-nowrap text-right font-weight-bold bg-dark text-white">
                     <p class="mb-0">Subtotal: <span id="info_subtotal" class="text-nowrap text-center font-weight-bold">$0</span></p>
                     <!-- <p class="mb-0">Descuento: <span id="info_descuento" class="text-nowrap text-center font-weight-bold">$0</span></p> -->
-                    
+                    <p class="mb-0">IVA: <span id="info_iva" class="text-nowrap text-center font-weight-bold">$0</span></p>           
                     <p class="mb-0">IEPS: <span id="info_ieps" class="text-nowrap text-center font-weight-bold">$0</span></p>
                     <!-- <p class="mb-0">Anticipo: <span id="info_anticipo" class="text-nowrap text-center font-weight-bold">$0</span></p> -->
                     <p class="mb-0">Total: <span id="info_total" class="text-nowrap text-center font-weight-bold">$0</span></p>

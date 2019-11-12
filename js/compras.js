@@ -1,10 +1,17 @@
 $(document).ready(function () {
     var datos = [];
     let acceso = "";
+    obtenerProveedores();
     obtenerAcceso();
     verificarJSON();
     datosFactura();
     pintarTablaCarrito();
+
+    $(document).on('click','#nuevo_proveedor',function(){
+        obtenerDatosFactura();
+        location.href ="proveedores.php";
+    });
+    
     //Datos compra
     var descuento = $('#descuento').val();
     var anticipo = $('#anticipo').val();
@@ -95,8 +102,20 @@ $(document).ready(function () {
         var boton = $(this).attr('id');
 
         if(boton == "cancelar_compra"){//Boton cancelar compra
+            sessionStorage.setItem('info-compras', JSON.stringify(""));
+            sessionStorage.setItem('info-facturas', JSON.stringify(""));
             $('#compras').show();
             $('#compra').hide();
+            $('#folio_factura').val(parseInt(factura[0]));
+            $('#fecha_facturacion').val("");
+            $('#fecha_vencimiento').val("");
+            $('#codigo_proveedor').val("");
+            $('#metodo_pago').val("");
+            $('#descuento').val("");
+            $('#forma_de_pago').val("");
+            $('#inicio_de_credito').val("");
+            $('#fecha_del_credito').val("");
+            $('#anticipo').val(""); 
         }else if(boton == "btncompra"){//Boton comprar
             $('#compras').hide();
             $('#compra').show();
@@ -130,7 +149,7 @@ $(document).ready(function () {
 
                 var subtotal_producto = costo*cantidad;
                 
-                if ($('#iva').is(":checked")){//Impuesto IVA
+                if ($('#fecha_facturacion').val() != '' && $('#fecha_vencimiento').val() != ''){//Impuesto IVA
                     iva_producto = ((costo/100)*16)*cantidad;
                     subtotal_producto += iva_producto;
                 }
@@ -166,7 +185,7 @@ $(document).ready(function () {
                 $('#info_ieps').html("$"+ieps_total);
                 $('#info_anticipo').html("$"+anticipo);
                 $('#info_total').html("$"+total);
-                
+        
                 $('#codigo_producto').val('');
                 $('#nombre_producto').val('');
                 $('#costo_producto').val('');
@@ -177,24 +196,11 @@ $(document).ready(function () {
             }
 
         }else if(boton == "eliminar_producto"){//Boton eliminar producto de tabla
-            var producto_costo = parseInt($(this).parent().parent().find("#producto_costo").text().split('$')[1]);
-            var producto_cantidad = parseInt($(this).parent().parent().find("#producto_cantidad").text());
-            var producto_iva = parseInt($(this).parent().parent().find("#producto_iva").text().split('$')[1]);
-            var producto_ieps = parseInt($(this).parent().parent().find("#producto_ieps").text().split('$')[1]);
-            var producto_subtotal = parseInt($(this).parent().parent().find("#producto_subtotal").text().split('$')[1]);
-
-            subtotal_total -= (producto_costo*producto_cantidad);
-            iva_total -= producto_iva;
-            ieps_total -= producto_ieps;
-            total -= producto_subtotal;
-
             $(this).parent().parent().remove();
-            $('#info_subtotal').html("$"+subtotal_total);
-            $('#info_iva').html("$"+iva_total);
-            $('#info_ieps').html("$"+ieps_total);
-            $('#info_total').html("$"+total);
-
+            obtenerDatosCarrito();
         }else if(boton == "compra_finalizada"){//Boton compra finalizada
+
+            //if()
 
             var carrito = sessionStorage.getItem('info-compras');
 
@@ -211,7 +217,7 @@ $(document).ready(function () {
                 Ttotal: $('#info_total').val(),
                 Ttasa_iva: $('#info_iva').val(),
                 Smetodo_pago: $('#metodo_pago').val(),
-                array: JSON.stringify(carrito),
+                arraycarrito: JSON.stringify(carrito),
               };
 
                $.ajax({
@@ -240,8 +246,8 @@ $(document).ready(function () {
 
     });//Clicks en botones
 
-    $('#forma_de_pago').on('change', function() {
-        if(this.value == "Credito"){
+    $(document).on('change','#forma_de_pago',function(){
+        if($(this).val() == "Credito"){
             $('.fechascredito').removeClass("d-none").addClass("d-block");
         }else{
             $('.fechascredito').removeClass("d-block").addClass("d-none");
@@ -250,14 +256,22 @@ $(document).ready(function () {
 
     function verificarJSON(){
         var carrito = sessionStorage.getItem('info-compras');
+        var datos_facturacion = sessionStorage.getItem('info-facturas');
+        console.log(datos_facturacion);
         var carrito = JSON.parse(carrito);
-        if(carrito == null || carrito == ''){
-            $('#compras').show();
-            $('#compra').hide();
+        if(datos_facturacion == null || datos_facturacion == ''){
+            if(carrito == null || carrito == ''){
+                $('#compras').show();
+                $('#compra').hide();
+            }else{
+                $('#compras').hide();
+                $('#compra').show();
+            }
         }else{
             $('#compras').hide();
             $('#compra').show();
         }
+
     }
 
     function obtenerDatosCarrito(){
@@ -282,13 +296,17 @@ $(document).ready(function () {
            
         });
 
+        obtenerDatosFactura();
+        sessionStorage.setItem('info-compras', JSON.stringify(datostabla));
+        pintarTablaCarrito();
+      }
+
+      function obtenerDatosFactura(){
         var datos_factura = [$('#folio_factura').val(),$('#fecha_facturacion').val(),$('#fecha_vencimiento').val(),
-        $('#codigo_proveedor').val(),$('#nombre_proveedor').val(),$('#metodo_pago').val(),$('#descuento').val(),
+        $('#codigo_proveedor').val(),$('#metodo_pago').val(),$('#descuento').val(),
         $('#forma_de_pago').val(),$('#inicio_de_credito').val(),$('#fecha_del_credito').val(),$('#anticipo').val()];
 
         sessionStorage.setItem('info-facturas', JSON.stringify(datos_factura));
-        sessionStorage.setItem('info-compras', JSON.stringify(datostabla));
-        pintarTablaCarrito();
       }
 
       function pintarTablaCarrito(){
@@ -342,13 +360,12 @@ $(document).ready(function () {
             $('#fecha_facturacion').val(factura[1]);
             $('#fecha_vencimiento').val(factura[2]);
             $('#codigo_proveedor').val(factura[3]);
-            $('#nombre_proveedor').val(factura[4]);
-            $('#metodo_pago').val(factura[5]);
-            $('#descuento').val(factura[6]);
-            $('#forma_de_pago').val(factura[7]);
-            $('#inicio_de_credito').val(factura[8]);
-            $('#fecha_del_credito').val(factura[9]);
-            $('#anticipo').val(factura[10]); 
+            $('#metodo_pago').val(factura[4]);
+            $('#descuento').val(factura[5]);
+            $('#forma_de_pago').val(factura[6]);
+            $('#inicio_de_credito').val(factura[7]);
+            $('#fecha_del_credito').val(factura[8]);
+            $('#anticipo').val(factura[9]); 
         }
 
       }
@@ -384,6 +401,25 @@ $(document).ready(function () {
             }
           });  
       }
+
+      function obtenerProveedores(){
+        $.ajax({
+            url: "../Controllers/productos.php",
+            type: "POST",
+            data:"proveedores=proveedores",
+    
+            success: function (response) {
+                let datos = JSON.parse(response);
+                console.log(datos);
+                let template = "<option value = '0'>Elejir</option>";
+                $.each(datos, function (i, item) {
+                  template+=`<option value="${item[0]}">${item[1]}</option>`;
+                });
+                $('#codigo_proveedor').html(template);
+            }
+        });
+      }
+
 
 
     

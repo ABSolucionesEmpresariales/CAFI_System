@@ -109,7 +109,7 @@ if (isset($_POST['email']) && isset($_POST['eliminado']) && $_POST['eliminado'] 
             $datos = array(1,"I",$data[$i]);
             $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
         }
-    if($result != null){
+    if(empty($result)){
       echo $result;
     }else{
       echo '0';
