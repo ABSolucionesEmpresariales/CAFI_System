@@ -3,7 +3,8 @@ session_start();
 require_once '../Models/Conexion.php';
 if (
     isset($_POST['Tfolio_factura']) && isset($_POST['Sproveedor']) && isset($_POST['Sforma_pago']) && isset($_POST['Dfecha_factura']) && isset($_POST['Dfecha_compra'])
-    && isset($_POST['Dfecha_vencimiento_factura']) && isset($_POST['Dfecha_vencimiento_credito']) && isset($_POST['Tanticipo']) && isset($_POST['Tdescuento']) && isset($_POST['total']) && isset($_POST['tasa_iva']) && isset($_POST['Smetodo_pago'])
+    && isset($_POST['Dfecha_vencimiento_factura']) && isset($_POST['Dfecha_vencimiento_credito']) && isset($_POST['Tanticipo']) && isset($_POST['Tdescuento'])
+    && isset($_POST['total']) && isset($_POST['tasa_iva']) && isset($_POST['Smetodo_pago']) && isset($_POST['arraycarrito'])
 ) {
 
     $datos =  array(
@@ -13,7 +14,7 @@ if (
         $_POST['Sforma_pago'],
         $_POST['Dfecha_factura'],
         $_POST['Dfecha_compra'],
-        $_POST['Dfecha_vencimiento_factura'] .
+        $_POST['Dfecha_vencimiento_factura'],
         $_POST['Dfecha_vencimiento_credito'],
         $_POST['Tanticipo'],
         $_POST['Tdescuento'],
@@ -27,14 +28,27 @@ if (
     );
     $consulta = "INSERT INTO compras (idcompras,folio_factura,proveedor,forma_pago,fecha_fectura,fecha_compra,fecha_vencimiento_factura,fecha_vencimiento_credito,anticipo,descuento,total,tasa_iva,metodo_pago,usuariocafi,negocio,estado,eliminado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     $conexion->consultaPreparada($datos, $consulta, 1, "ssssssssssssssssi", false);
+    $compra = $conexion->optenerId();
+    $carrito = json_decode($_POST['arraycarrito']);
+    $consulta = "INSERT INTO concepto_compra (producto,compra,costo,cantidad) VALUES(?,?,?,?)";
+    for ($i = 0; $i < sizeof($carrito); $i++) {
+        array_unshift($carrito[$i], $venta);
+        $conexion->consultaPreparada($carrito[$i], $consulta, 1, "ssss", false);
+    }
 } else if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
 
     $conexion = new Models\Conexion();
     $datos = array("A", 1, $_SESSION['negocio']);
     $consulta = "SELECT idcompras,folio_factura,nombre AS proveedor,forma_pago,fecha_factura,fecha_compra,fecha_vencimiento_factura,fecha_vencimiento_credito,
-anticipo,descuento,total,tasa_iva,metodo_pago,compras.usuariocafi, compras.estado FROM  compras INNER JOIN proveedor ON proveedor = idproveedor 
-WHERE compras.estado = ? AND compras.eliminado != ? AND compras.negocio = ?";
+    anticipo,descuento,total,tasa_iva,metodo_pago,compras.usuariocafi, compras.estado FROM  compras INNER JOIN proveedor ON proveedor = idproveedor 
+    WHERE compras.estado = ? AND compras.eliminado != ? AND compras.negocio = ?";
     echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "sii", false));
+} else if (isset($_POST['idcompras']) && !isset($_POST['estado'])) {
+    $conexion = new Models\Conexion();
+    $datos = array($_POST['idcompras']);
+    $consulta = "SELECT nombre,imagen,marca,color,unidad_medida,talla_numero,costo,cantidad FROM concepto_compra
+    INNER JOIN producto ON producto = codigo_barras WHERE compra = ?";
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "s", false));
 } else if (isset($_POST['array'])) {
 
     $conexion = new Models\Conexion();
