@@ -205,7 +205,6 @@ $(document).ready(function () {
             var carrito = sessionStorage.getItem('info-compras');
 
             const postData = {
-                idcompras:  "",
                 Tfolio_factura:  $('#folio_factura').val(),
                 Sproveedor:  $('#codigo_proveedor').val(),
                 Sforma_pago:  $('#forma_de_pago').val(),
@@ -214,8 +213,8 @@ $(document).ready(function () {
                 Dfecha_vencimiento_credito: $('#fecha_del_credito').val(),
                 Tanticipo: $('#anticipo').val(),
                 Tdescuento: $('#descuento').val(),
-                Ttotal: $('#info_total').val(),
-                Ttasa_iva: $('#info_iva').val(),
+                total: $('#info_total').val(),
+                tasa_iva: $('#info_iva').val(),
                 Smetodo_pago: $('#metodo_pago').val(),
                 arraycarrito: JSON.stringify(carrito),
               };
@@ -226,6 +225,7 @@ $(document).ready(function () {
                 data:postData,
         
                 success: function (response) {
+                    console.log(response);
                   if(response == 1){
 
         
@@ -236,9 +236,10 @@ $(document).ready(function () {
                   }
                 }
               });  
-              sessionStorage.setItem('info-compras', JSON.stringify(''));
-              verificarJSON()
-              pintarTablaCarrito();
+/*            sessionStorage.setItem('info-compras', JSON.stringify(''));
+              sessionStorage.setItem('info-facturas', JSON.stringify(''));
+              verificarJSON();
+              pintarTablaCarrito(); */
 
 
 
@@ -259,8 +260,8 @@ $(document).ready(function () {
         var datos_facturacion = sessionStorage.getItem('info-facturas');
         console.log(datos_facturacion);
         var carrito = JSON.parse(carrito);
-        if(datos_facturacion == null || datos_facturacion == ''){
-            if(carrito == null || carrito == ''){
+        if(datos_facturacion == null || datos_facturacion == "" || datos_facturacion == 'null'){
+            if(carrito == null || carrito == "" || carrito == 'null'){
                 $('#compras').show();
                 $('#compra').hide();
             }else{

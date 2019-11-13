@@ -1,20 +1,24 @@
 <?php
 session_start();
 require_once '../Models/Conexion.php';
+require_once '../Models/Fecha.php';
 if (
-    isset($_POST['Tfolio_factura']) && isset($_POST['Sproveedor']) && isset($_POST['Sforma_pago']) && isset($_POST['Dfecha_factura']) && isset($_POST['Dfecha_compra'])
+    isset($_POST['Tfolio_factura']) && isset($_POST['Sproveedor']) && isset($_POST['Sforma_pago']) && isset($_POST['Dfecha_factura'])
     && isset($_POST['Dfecha_vencimiento_factura']) && isset($_POST['Dfecha_vencimiento_credito']) && isset($_POST['Tanticipo']) && isset($_POST['Tdescuento'])
     && isset($_POST['total']) && isset($_POST['tasa_iva']) && isset($_POST['Smetodo_pago']) && isset($_POST['arraycarrito'])
 ) {
 
+    $conexion = new Models\Conexion();
+    $fecha = new Models\Fecha();
     $datos =  array(
         NULL,
         $_POST['Tfolio_factura'],
         $_POST['Sproveedor'],
         $_POST['Sforma_pago'],
         $_POST['Dfecha_factura'],
-        $_POST['Dfecha_compra'],
+        $fecha->getFecha(),
         $_POST['Dfecha_vencimiento_factura'],
+        $fecha->getFecha(),
         $_POST['Dfecha_vencimiento_credito'],
         $_POST['Tanticipo'],
         $_POST['Tdescuento'],
@@ -26,14 +30,16 @@ if (
         "A",
         0
     );
-    $consulta = "INSERT INTO compras (idcompras,folio_factura,proveedor,forma_pago,fecha_fectura,fecha_compra,fecha_vencimiento_factura,fecha_vencimiento_credito,anticipo,descuento,total,tasa_iva,metodo_pago,usuariocafi,negocio,estado,eliminado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    $conexion->consultaPreparada($datos, $consulta, 1, "ssssssssssssssssi", false);
+    $consulta = "INSERT INTO compras (idcompras,folio_factura,proveedor,forma_pago,fecha_factura,fecha_compra,fecha_vencimiento_factura,fecha_inicio_credito,fecha_vencimiento_credito,anticipo,descuento,total,tasa_iva,metodo_pago,usuariocafi,negocio,estado,eliminado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    $conexion->consultaPreparada($datos, $consulta, 1, "sssssssssssssssssi", false);
     $compra = $conexion->optenerId();
-    $carrito = json_decode($_POST['arraycarrito']);
-    $consulta = "INSERT INTO concepto_compra (producto,compra,costo,cantidad) VALUES(?,?,?,?)";
+    $jsonstring = $_POST['arraycarrito'];
+    $carrito = json_decode($jsonstring);
+    var_dump($carrito,$compra);
+    $consulta = "INSERT INTO concepto_compra (compra,producto,nombre,iva,ieps,costo,cantidad,subtotal) VALUES(?,?,?,?,?,?,?,?)";
     for ($i = 0; $i < sizeof($carrito); $i++) {
-        array_unshift($carrito[$i], $venta);
-        $conexion->consultaPreparada($carrito[$i], $consulta, 1, "ssss", false);
+        array_unshift($carrito[$i], $compra);
+        $conexion->consultaPreparada($carrito[$i], $consulta, 1, "isssssis", false);
     }
 } else if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
 
