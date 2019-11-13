@@ -2,6 +2,7 @@ $(document).ready(function () {
     var datos = [];
     let acceso = "";
     obtenerProveedores();
+    obtenerProductos();
     obtenerAcceso();
     verificarJSON();
     datosFactura();
@@ -102,8 +103,8 @@ $(document).ready(function () {
         var boton = $(this).attr('id');
 
         if(boton == "cancelar_compra"){//Boton cancelar compra
-            sessionStorage.setItem('info-compras', JSON.stringify(""));
-            sessionStorage.setItem('info-facturas', JSON.stringify(""));
+            sessionStorage.setItem('info-compras', JSON.stringify(null));
+            sessionStorage.setItem('info-facturas', JSON.stringify(null));
             $('#compras').show();
             $('#compra').hide();
             $('#folio_factura').val(parseInt(factura[0]));
@@ -203,7 +204,7 @@ $(document).ready(function () {
             //if()
 
             var carrito = sessionStorage.getItem('info-compras');
-
+            carrito = JSON.parse(carrito);
             const postData = {
                 Tfolio_factura:  $('#folio_factura').val(),
                 Sproveedor:  $('#codigo_proveedor').val(),
@@ -236,10 +237,10 @@ $(document).ready(function () {
                   }
                 }
               });  
-/*            sessionStorage.setItem('info-compras', JSON.stringify(''));
-              sessionStorage.setItem('info-facturas', JSON.stringify(''));
+              sessionStorage.setItem('info-compras', JSON.stringify(null));
+              sessionStorage.setItem('info-facturas', JSON.stringify(null));
               verificarJSON();
-              pintarTablaCarrito(); */
+              pintarTablaCarrito(); 
 
 
 
@@ -256,6 +257,7 @@ $(document).ready(function () {
     });//Combobox on change
 
     function verificarJSON(){
+
         var carrito = sessionStorage.getItem('info-compras');
         var datos_facturacion = sessionStorage.getItem('info-facturas');
         console.log(datos_facturacion);
@@ -403,6 +405,7 @@ $(document).ready(function () {
           });  
       }
 
+
       function obtenerProveedores(){
         $.ajax({
             url: "../Controllers/productos.php",
@@ -419,6 +422,24 @@ $(document).ready(function () {
                 $('#codigo_proveedor').html(template);
             }
         });
+      }
+
+      function obtenerProductos(){
+        $.ajax({
+            url: "../Controllers/compras.php",
+            type: "POST",
+            data:"producto=producto",
+      
+            success: function (response) {
+              let datos = JSON.parse(response);
+              console.log(datos);
+              let template = "";
+              $.each(datos, function (i, item) {
+                template+=`<option value="${item[0]}">${item[1]}</option>`;
+              });
+              $('#productosNegocio').html(template);
+            }
+          });
       }
 
 
