@@ -2,10 +2,12 @@ $(document).ready(function () {
     var datos = [];
     let acceso = "";
     obtenerProveedores();
+    obtenerProductos();
     obtenerAcceso();
     verificarJSON();
     datosFactura();
     pintarTablaCarrito();
+    obtenerDatosTabla();
 
     $(document).on('click','#nuevo_proveedor',function(){
         obtenerDatosFactura();
@@ -102,8 +104,8 @@ $(document).ready(function () {
         var boton = $(this).attr('id');
 
         if(boton == "cancelar_compra"){//Boton cancelar compra
-            sessionStorage.setItem('info-compras', JSON.stringify(""));
-            sessionStorage.setItem('info-facturas', JSON.stringify(""));
+            sessionStorage.setItem('info-compras', JSON.stringify(null));
+            sessionStorage.setItem('info-facturas', JSON.stringify(null));
             $('#compras').show();
             $('#compra').hide();
             $('#folio_factura').val(parseInt(factura[0]));
@@ -203,7 +205,7 @@ $(document).ready(function () {
             //if()
 
             var carrito = sessionStorage.getItem('info-compras');
-
+            carrito = JSON.parse(carrito);
             const postData = {
                 Tfolio_factura:  $('#folio_factura').val(),
                 Sproveedor:  $('#codigo_proveedor').val(),
@@ -236,10 +238,10 @@ $(document).ready(function () {
                   }
                 }
               });  
-/*            sessionStorage.setItem('info-compras', JSON.stringify(''));
-              sessionStorage.setItem('info-facturas', JSON.stringify(''));
+              sessionStorage.setItem('info-compras', JSON.stringify(null));
+              sessionStorage.setItem('info-facturas', JSON.stringify(null));
               verificarJSON();
-              pintarTablaCarrito(); */
+              pintarTablaCarrito(); 
 
 
 
@@ -256,6 +258,7 @@ $(document).ready(function () {
     });//Combobox on change
 
     function verificarJSON(){
+
         var carrito = sessionStorage.getItem('info-compras');
         var datos_facturacion = sessionStorage.getItem('info-facturas');
         console.log(datos_facturacion);
@@ -388,6 +391,7 @@ $(document).ready(function () {
                     }
                     template += ` 
                     <td  class="text-nowrap text-center d-none">${item[0]}</td>
+                    <td><button class="bconcepto btn btn-info">Mostrar</button></td>
                     <td  class="text-nowrap text-center">${item[1]}</td>
                     <td  class="text-nowrap text-center">${item[2]}</td>
                     <td  class="text-nowrap text-center">${item[3]}</td>
@@ -398,10 +402,11 @@ $(document).ready(function () {
                     <td  class="text-nowrap text-center">${item[8]}</td>
                 </tr>`;
                 });
-                $('#cuerpo').html(template);
+                $('#cuerpo2').html(template);
             }
           });  
       }
+
 
       function obtenerProveedores(){
         $.ajax({
@@ -419,6 +424,24 @@ $(document).ready(function () {
                 $('#codigo_proveedor').html(template);
             }
         });
+      }
+
+      function obtenerProductos(){
+        $.ajax({
+            url: "../Controllers/compras.php",
+            type: "POST",
+            data:"producto=producto",
+      
+            success: function (response) {
+              let datos = JSON.parse(response);
+              console.log(datos);
+              let template = "";
+              $.each(datos, function (i, item) {
+                template+=`<option value="${item[0]}">${item[1]}</option>`;
+              });
+              $('#productosNegocio').html(template);
+            }
+          });
       }
 
 
