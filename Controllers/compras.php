@@ -34,8 +34,9 @@ if (
     $conexion->consultaPreparada($datos, $consulta, 1, "sssssssssssssssssi", false);
     $compra = $conexion->optenerId();
     $jsonstring = $_POST['arraycarrito'];
-    $carrito = json_decode($jsonstring);
-    var_dump($carrito,$compra);
+    $carrito = $jsonstring;
+    var_dump($carrito);
+    echo sizeof($carrito);
     $consulta = "INSERT INTO concepto_compra (compra,producto,nombre,iva,ieps,costo,cantidad,subtotal) VALUES(?,?,?,?,?,?,?,?)";
     for ($i = 0; $i < sizeof($carrito); $i++) {
         array_unshift($carrito[$i], $compra);

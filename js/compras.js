@@ -216,7 +216,7 @@ $(document).ready(function () {
                 total: $('#info_total').val(),
                 tasa_iva: $('#info_iva').val(),
                 Smetodo_pago: $('#metodo_pago').val(),
-                arraycarrito: JSON.stringify(carrito),
+                arraycarrito: JSON.stringify(carrito)
               };
 
                $.ajax({
