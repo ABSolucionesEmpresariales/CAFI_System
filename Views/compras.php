@@ -53,17 +53,18 @@ privilegios("Superiores");
                                 <th class="text-nowrap text-center" onclick="sortTable(0)"><input class="check" type="checkbox" value="si"></th>
                             <?php } ?>
                                 <th class="text-nowrap text-center d-none" onclick="sortTable(1)">Id</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(2)">Concepto</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(3)">Pago</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(4)">Descripcion</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(5)">Monto</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(6)">Estado</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(7)">Fecha</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(8)">Registró</th>
-                                <th class="text-nowrap text-center" onclick="sortTable(9)"></th>
+                                <th class="text-nowrap text-center" onclick="sortTable(2)">Accion</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(3)">Concepto</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(4)">Pago</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(5)">Descripcion</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(6)">Monto</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(7)">Estado</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(8)">Fecha</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(9)">Registró</th>
+                                <th class="text-nowrap text-center" onclick="sortTable(10)"></th>
                             </tr>
                         </thead>
-                        <tbody id="cuerpo">
+                        <tbody id="cuerpo2">
                         </tbody>
                     </table>
                 </div><!--Tabla contenedor-->

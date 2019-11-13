@@ -7,6 +7,7 @@ $(document).ready(function () {
     verificarJSON();
     datosFactura();
     pintarTablaCarrito();
+    obtenerDatosTabla();
 
     $(document).on('click','#nuevo_proveedor',function(){
         obtenerDatosFactura();
@@ -390,6 +391,7 @@ $(document).ready(function () {
                     }
                     template += ` 
                     <td  class="text-nowrap text-center d-none">${item[0]}</td>
+                    <td><button class="bconcepto btn btn-info">Mostrar</button></td>
                     <td  class="text-nowrap text-center">${item[1]}</td>
                     <td  class="text-nowrap text-center">${item[2]}</td>
                     <td  class="text-nowrap text-center">${item[3]}</td>
@@ -400,7 +402,7 @@ $(document).ready(function () {
                     <td  class="text-nowrap text-center">${item[8]}</td>
                 </tr>`;
                 });
-                $('#cuerpo').html(template);
+                $('#cuerpo2').html(template);
             }
           });  
       }
