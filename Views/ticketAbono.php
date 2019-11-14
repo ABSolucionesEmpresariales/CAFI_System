@@ -122,8 +122,20 @@ $fechaYHora = $fecha. " " . $hora;
         </div>
 
         <script >
-            window.print();
-            window.close();    
+            function PrintWindow(){                   
+                window.print();           
+                CheckWindowState();
+            }
+        
+            function CheckWindowState(){          
+                if(document.readyState=="complete"){
+                    window.close();
+                }else{          
+                    setTimeout("CheckWindowState()", 2000)
+                }
+            }
+            
+            PrintWindow();   
         </script>
     </body>
 

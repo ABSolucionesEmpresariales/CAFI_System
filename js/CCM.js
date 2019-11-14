@@ -188,7 +188,8 @@ obtenerDatosMarcas();
     
             success: function (response) {
                 console.log(response);
-                $('#formulario').trigger("reset");
+                $('#CCMInput').val('');
+                $('#CCMInput').focus();
                 obtenerDatosMarcas();
                 obtenerDatosColores();
                 obtenerDatosCategoria();

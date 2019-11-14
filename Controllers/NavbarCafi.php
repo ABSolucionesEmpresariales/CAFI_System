@@ -317,6 +317,12 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                             <a class="<?php if ($sel === 'ingresos') {
                                         echo seleccionado;
                                     } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='otros_ingresos.php'" title="Otros Ingresos"><img src="../img/profit.png">Ingresos</a>
+                            <a class="<?php if ($sel === 'cpp') {
+                                        echo seleccionado;
+                                    } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='cpp.php'" title="Otros Ingresos"><img src="../img/profit.png">CPP</a>
+                            <a class="<?php if ($sel === 'pagos') {
+                                        echo seleccionado;
+                                    } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='pagos.php'" title="Otros Ingresos"><img src="../img/profit.png">Pagos</a>
                         </div>
                     </div>
                     <div class="dropdown">
@@ -516,6 +522,22 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                 <a class="<?php if ($sel === 'mv') {
                                     echo seleccionado;
                                 } ?> nav-link text-white" onclick="window.location.href='masVendidos.php'" title="Flujo de Efectivo"><img src="../img/most.png"><br>M.V</a>
+                            </li>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <li class="nav-item mx-2 text-center">
+                                <a class="<?php if ($sel === 'cpp') {
+                                        echo seleccionado;
+                                    } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='cpp.php'" title="Otros Ingresos"><img src="../img/profit.png">CPP</a>
+                            </li>
+                        </div>
+                        <div class="col-4">
+                            <li class="nav-item mx-2 text-center">
+                            <a class="<?php if ($sel === 'pagos') {
+                                        echo seleccionado;
+                                    } ?> nav-link text-white mx-2 text-center" onclick="window.location.href='pagos.php'" title="Otros Ingresos"><img src="../img/profit.png">Pagos</a>
                             </li>
                         </div>
                     </div>

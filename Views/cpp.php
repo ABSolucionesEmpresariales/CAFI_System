@@ -18,7 +18,7 @@ privilegios("Todos");
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" href="../img/logo/nav1.png">
 
-    <title>Adeudos</title>
+    <title>Cuentas Por Pagar</title>
     <script>
       function cerrar() {
         window.close();
@@ -28,7 +28,7 @@ privilegios("Todos");
 
   <body>
   <?php
-    $sel = "adeudos";
+    $sel = "cpp";
     include("../Controllers/NavbarCafi.php")
     ?>
 
@@ -54,8 +54,8 @@ privilegios("Todos");
                         <th class="text-nowrap text-center" onclick="sortTable(1)">Total deuda</th>
                         <th class="text-nowrap text-center" onclick="sortTable(2)">Anticipo</th>
                         <th class="text-nowrap text-center" onclick="sortTable(3)">Estado deuda</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(4)">Venta</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(5)">Cliente</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(4)">Compra</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(5)">Proveedor</th>
                         <th class="text-nowrap text-center" onclick="sortTable(6)">Abonar</th>
                       </tr>
                     </thead>
@@ -66,7 +66,7 @@ privilegios("Todos");
             </div>
           </div>
         </div>
-          <!-- Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="modalForm" role="dialog">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -81,7 +81,7 @@ privilegios("Todos");
                 <!-- Modal Body -->
                 <div class="modal-body">
 
-                  <form id="formulario">
+                <form id="formulario">
                 <p class="statusMsg"></p>
                     <p id="msjtarjeta" class="font-weight-bold"></p>
                    
@@ -106,7 +106,7 @@ privilegios("Todos");
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="../js/index.js"></script>
         <script src="../js/user_jquery.js"></script>
-        <script src="../js/consultasadeudos.js"></script>
+        <script src="../js/cpp.js"></script>
 
       </body>
 

@@ -58,7 +58,7 @@ class Conexion
         call_user_func_array(array($stmt, 'bind_param'), $args);
         //accion 1 para insertar y para actualizar
         if ($accion === 1) {
-             if ($stmt->execute()) {
+            if ($stmt->execute()) {
                 $mensaje = "1";
             } else {
                 $mensaje = "0";

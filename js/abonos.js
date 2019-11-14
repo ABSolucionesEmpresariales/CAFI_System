@@ -6,7 +6,6 @@ $(document).ready(function () {
 
   $("#formulario").submit(function (e) {
     $.post("../Controllers/consultasadeudos.php",$("#formulario").serialize() + "&idabono=" + idabono, function (response) {
-      console.log(response);
       if (response == "1") {
         $('.modal').modal('hide');
       } else {
@@ -62,7 +61,7 @@ $(document).ready(function () {
             valores += $(this).html() + "?";
           });
           datos = valores.split("?");
-          console.log(datos[0]);
+
           idabono = datos[0];
           $("#estado").val(datos[1]);
           $("#modalForm").modal("show");

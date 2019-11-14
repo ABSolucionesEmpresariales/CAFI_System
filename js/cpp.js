@@ -1,13 +1,11 @@
 $(document).ready(function () {
-    let idadeudo = "";
-    let anticipo2 = "";
+    let idcpp = "";
     let totaldeuda = "";
-    let anticipo = "";
     let accion = false;
-    let cambio = 0; 
+    let cambio = 0;
     var total = "";
 
-    obtenerDatosTablaAdeudos();
+    obtenerDatosTablaCPP();
     
     $(document).on('click','.befectivo, .btarjeta', function(){
         var boton = $(this).attr('id');
@@ -28,13 +26,11 @@ $(document).ready(function () {
 
         datos = valores.split("?");
         console.log(datos[1]);
-        idadeudo = datos[0];
+        console.log(datos[0]);
+        idcpp = datos[0];
         total = datos[1].split("$") ;
         totaldeuda = total[1];
         console.log(totaldeuda);
-        anticipo2 = datos[2].split("$");
-        anticipo = anticipo2[1];
-        console.log(anticipo);
     });
 
     $("#formulario").submit(function (e) {
@@ -107,12 +103,8 @@ $(document).ready(function () {
     });
 
     function enviarDatos(){
-        $.post("../Controllers/consultasadeudos.php",$("#formulario").serialize() + 
-        "&accion=" + accion +"&idadeudo=" + idadeudo +"&totaldeuda=" + totaldeuda +"&cambio="+ cambio,function(response){
-            if (response == 1) {
-                window.open('ticketAbono.php');
-            }
-
+        $.post("../Controllers/cpp.php",$("#formulario").serialize() + 
+        "&accion=" + accion +"&idcpp=" + idcpp +"&totaldeuda=" + totaldeuda +"&cambio="+ cambio,function(response){
             if(response == 1){
                 swal({
                     title: 'Exito',
@@ -124,10 +116,11 @@ $(document).ready(function () {
                         editar = false;
                         $('#formulario').trigger('reset');
                         $('.modal').modal('hide');
-                        obtenerDatosTablaAdeudos();
+                        obtenerDatosTablaCPP();
                     }
                 });
             }else{
+                console.log(response);
                 swal({
                     title: 'oh,oh',
                     text: 'Algo salio mal, favor de verificar los campos',
@@ -137,9 +130,9 @@ $(document).ready(function () {
         });
     }
 
-    function obtenerDatosTablaAdeudos(){
+    function obtenerDatosTablaCPP(){
         $.ajax({
-            url: "../Controllers/consultasadeudos.php",   
+            url: "../Controllers/cpp.php",   
             type: "POST",
             data: "tabla=tabla",
        
