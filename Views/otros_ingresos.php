@@ -39,6 +39,10 @@ privilegios("Superiores");
               <div id="tableContainer" class="d-block col-lg-12">
                 <div class="input-group mb-2">
                   <button class="agregar d-lg-none btn btn-primary col-12 mb-3 p-3" data-toggle="modal" data-target="#modalForm">Agregar</button>
+                  
+                  <?php if($_SESSION['acceso'] == 'CEO'){?>
+                    <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button>
+                  <?php } ?>
                   <div class="input-group-prepend">
                     <div class="input-group-text">
                       <i class="fa fa-search"></i>
@@ -46,19 +50,28 @@ privilegios("Superiores");
                   </div>
                   <div id="combo"></div>
                   <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name" value="">
-                  <button class="agregar d-none d-lg-flex btn btn-primary ml-3 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
+                  <button class="agregar d-none d-lg-flex btn btn-primary ml-3" data-toggle="modal" data-target="#modalForm">Agregar</button>
+
+                  <?php if($_SESSION['acceso'] == 'CEO'){?>
+                    <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
+                  <?php } ?>
+                          
+
                 </div>
                 <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                   <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
                     <thead class="thead-dark">
                       <tr class="encabezados">
-                        <th class="text-nowrap text-center" onclick="sortTable(0)">ID</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(1)">Cantidad</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(2)">Tipo</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(3)">Forma de ingreso</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(4)">Fecha</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(5)">Estado</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(6)">Usuario CAFI</th>
+                      <?php if($_SESSION['acceso'] == 'CEO'){?>
+                          <th class="text-nowrap text-center" onclick="sortTable(0)"><input class="check" type="checkbox" value="si"></th>
+                          <?php } ?>
+                        <th class="text-nowrap text-center d-none" onclick="sortTable(1)">ID</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(2)">Cantidad</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(3)">Tipo</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(4)">Forma de ingreso</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(5)">Fecha</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(6)">Estado</th>
+                        <th class="text-nowrap text-center" onclick="sortTable(7)">Usuario CAFI</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>

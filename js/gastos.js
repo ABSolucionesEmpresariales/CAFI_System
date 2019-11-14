@@ -2,14 +2,95 @@ $(document).ready(function() {
   //Vgastos
   let editar = false;
   let idgastos = "";
+  let acceso = '';
+  obtenerAcceso();
   obtenerDatosTablaGastos();
+
+  function obtenerAcceso(){
+    $.ajax({
+      url: "../Controllers/login.php",
+      type: "POST",
+      data:"accesoPersona=accesoPersona",
+
+      success: function (response) {
+        acceso = response
+      }
+    });
+  }
+
+  function enviarDatos(){
+    var valores = "";
+
+    $('#cuerpo').children("tr").find("td").find("input").each(function () {
+        if($(this).prop('checked')){
+            valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+        }
+    }); 
+    valores += "0";
+    result = valores.split("?");
+    console.log(result);
+     $.ajax({
+      url: "../Controllers/gastos.php",
+      type: "POST",
+      data: {'array': JSON.stringify(result)},
+
+      success: function (response) {
+        console.log(response);
+            return response;
+      }
+    }); 
+}
+
+  $(document).on('click','.eliminar',function(){
+    swal({
+        title: "Esta seguro que desea eliminar ?",
+        text: "Esta accion eliminara los datos!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Si, eliminarlo!",
+        closeOnConfirm: false
+      },
+      function(){
+          if(enviarDatos() != '0'){
+            swal("Exito!", 
+            "Sus datos han sido eliminados.",
+             "success");
+          }else{
+            swal("Error!", 
+            "Ups, algo salio mal.",
+             "warning");
+          }
+          $('.check').prop("checked", false);
+          obtenerDatosTablaGastos();
+      });
+});
+
+  $(document).on('click','.check',function(){
+    if($(this).prop('checked')){
+        $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                 $(this).prop("checked", true);
+        });    
+    }else{
+        $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                 $(this).prop("checked", false);
+            
+        });    
+    }
+});
+
   $(".agregar").click(function() {
     $(".ocultar").show();
     $("#mensaje").css("display", "none");
+    editar = false;
+    console.log(editar);
   });
+
   $(".close").click(function() {
     $("#formulario").trigger("reset");
   });
+
+
 
   function obtenerDatosTablaGastos() {
     $.ajax({
@@ -22,13 +103,16 @@ $(document).ready(function() {
 
         let template = null;
         $.each(datos, function(i, item) {
+          template += `<tr>`;
+            if(acceso ==  'CEO'){
+              template += `<td><input class = "check"  type="checkbox" value="si"></td>`;            
+            }
           template += `
-                    <tr>
-                    <td class="datos">${item[0]}</td>
+                    <td class="datos d-none">${item[0]}</td>
                     <td class="datos">${item[1]}</td>
                     <td class="datos">${item[2]}</td>
                     <td class="datos">${item[3]}</td>
-                    <td class="datos">${item[4]}</td>
+                    <td class="datos">$${item[4]}</td>
                     <td class="datos">${item[5]}</td>
                     <td class="datos">${item[6]}</td> `;
         });

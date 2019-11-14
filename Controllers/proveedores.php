@@ -8,7 +8,8 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     $datos = array($_SESSION['negocio'], 1);
     $consulta = "SELECT idproveedor,rfc,dias_credito,nombre,domicilio,colonia,ciudad,estado,pais,telefono,email,usuariocafi
     FROM proveedor WHERE negocio = ? AND eliminado != ? ";
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ii", false));
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, "ii", false));
+    echo $jsonstring;
 } else if (
     isset($_POST['idproveedor']) && isset($_POST['Trfc']) && isset($_POST['Sdias_credito']) && isset($_POST['Tnombre'])
     && isset($_POST['Tdomicilio']) && isset($_POST['Tcolonia']) && isset($_POST['Tciudad']) && isset($_POST['Sestado'])

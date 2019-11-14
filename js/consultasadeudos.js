@@ -137,6 +137,7 @@ $(document).ready(function () {
         });
     }
 
+
     function obtenerDatosTablaAdeudos(){
         $.ajax({
             url: "../Controllers/consultasadeudos.php",   
@@ -149,7 +150,7 @@ $(document).ready(function () {
               $.each(datos, function (i, item) {
                 template += `
                 <tr>
-                       <td class="text-nowrap text-center datos">${item[0]}</td>
+                       <td class="text-nowrap text-center datos d-none">${item[0]}</td>
                        <td class="text-nowrap text-center datos">$${item[1]}</td>
                        <td class="text-nowrap text-center datos">$${item[2]}</td>
                        <td class="text-nowrap text-center datos">${item[3]}</td>

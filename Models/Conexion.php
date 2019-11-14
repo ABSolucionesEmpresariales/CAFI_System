@@ -9,7 +9,7 @@ class Conexion
         "host" => "localhost",
         "user" => "root",
         "pass" => "",
-        "db" => "cafi"
+        "db" => "cafi_db"
     );
 
     public $con;
@@ -64,6 +64,7 @@ class Conexion
                 $mensaje = "0";
             }
             return $mensaje;
+           // return $stmt->execute();
         } else if ($accion == 2) {
             //accion 2 para retornar datos en una matriz
             $stmt->execute();

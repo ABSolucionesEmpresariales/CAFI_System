@@ -104,7 +104,7 @@ obtenerDatosMarcas();
               $.each(datos, function (i, item) {
                 template += `
                 <tr>
-                      <td><input class="check" type="checkbox" name="Ntasa_iva" value="si" ></td>
+                      <td><input class="check " type="checkbox" name="Ntasa_iva" value="si" ></td>
                       <td class="text-nowrap text-center d-none">${item[0]}</td>
                       <td class="text-nowrap text-center">${item[2]}</td>
                 `;

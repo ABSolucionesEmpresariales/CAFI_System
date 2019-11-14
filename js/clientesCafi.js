@@ -2,7 +2,87 @@ $(document).ready(function () {
     //clientesab
     let editar = false;
     let idclienteab = "";
+    let acceso = '';
+    obtenerAcceso();
     obtenerDatosTablaClientesab();
+
+    function obtenerAcceso(){
+        $.ajax({
+          url: "../Controllers/login.php",
+          type: "POST",
+          data:"accesoPersona=accesoPersona",
+    
+          success: function (response) {
+            acceso = response
+          }
+        });
+      }
+
+      $(document).on('click','.check',function(){
+
+        if($(this).prop('checked')){
+            $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                     $(this).prop("checked", true);
+            });    
+        }else{
+            $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                     $(this).prop("checked", false);
+                
+            });    
+        }
+    });
+
+    $(document).on('click','.eliminar',function(){
+        swal({
+            title: "Esta seguro que desea eliminar ?",
+            text: "Esta accion eliminara los datos!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Si, eliminarlo!",
+            closeOnConfirm: false
+          },
+          function(){
+              if(typeof (enviarDatos2()) != 'undefined'){
+                swal("Exito!", 
+                "Sus datos han sido eliminados.",
+                 "success");
+              }else{
+                swal("Error!", 
+                "Ups, algo salio mal.",
+                 "warning");
+              }
+              $('.check').prop("checked", false);
+              oobtenerDatosTablaClientesab();
+          });
+    });
+
+    
+
+    function enviarDatos2(){
+        var valores = "";
+    
+        $('#cuerpo').children("tr").find("td").find("input").each(function () {
+            if($(this).prop('checked')){
+                valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+            }
+        }); 
+        valores += "0";
+        result = valores.split("?");
+        console.log(result);
+         $.ajax({
+          url: "../Controllers/clientes.php",
+          type: "POST",
+          data: {'array': JSON.stringify(result)},
+  
+          success: function (response) {
+            console.log(response);
+                return response;
+          }
+        }); 
+    }
+
+  
 
 
     
@@ -15,8 +95,12 @@ $(document).ready(function () {
                 let datos = JSON.parse(response);
                 let template = '';
                 $.each(datos, function (i, item) {
-                    template += `
-                    <tr>
+
+                    template += `<tr>`;
+                    if(acceso == 'CEO'){
+                        template += `<td class="text-nowrap text-center"><input type="checkbox" value="si"></td>`;
+                    }
+                    template += ` 
                     <td  class="text-nowrap text-center">${item[0]}</td>
                     <td  class="text-nowrap text-center">${item[1]}</td>
                     <td  class="text-nowrap text-center">${item[2]}</td>
@@ -104,9 +188,9 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    $(document).on('click','.Bagregar',function(){
+    $(document).on('click','.agregar',function(){
         $('.ocultar').css('display','block');
-
+        editar = false;
     });
 
     var touchtime = 0;
@@ -128,22 +212,22 @@ $(document).ready(function () {
             $('.ampliar').removeClass( "col-lg-4" );
             $('.ampliar').addClass( "col-lg-6" );
             console.log(datos);
-            $("#email").val(datos[0]);
-            $("#rfc").val(datos[1]);
-            $("#nombre").val(datos[2]);
-            $("#cp").val(datos[3]);
-            $("#calle_numero").val(datos[4]);
-            $("#colonia").val(datos[5]);
-            $("#localidad").val(datos[6]);
-            $("#municipio").val(datos[7]);
-            $("#estado").val(datos[8]);
-            $("#pais").val(datos[9]);
-            $("#telefono").val(datos[10]);
-            $("#fecha_nacimiento").val(datos[11]);
-            $("#sexo").val(datos[12]);
-            $("#credito").val(datos[13]);
-            $("#plazo_credito").val(datos[14]);
-            $("#limite_credito").val(datos[15]);
+            $("#email").val(datos[1]);
+            $("#rfc").val(datos[2]);
+            $("#nombre").val(datos[3]);
+            $("#cp").val(datos[4]);
+            $("#calle_numero").val(datos[5]);
+            $("#colonia").val(datos[6]);
+            $("#localidad").val(datos[7]);
+            $("#municipio").val(datos[8]);
+            $("#estado").val(datos[9]);
+            $("#pais").val(datos[10]);
+            $("#telefono").val(datos[11]);
+            $("#fecha_nacimiento").val(datos[12]);
+            $("#sexo").val(datos[13]);
+            $("#credito").val(datos[14]);
+            $("#plazo_credito").val(datos[15]);
+            $("#limite_credito").val(datos[16]);
             editar = true;
           $("#modalForm").modal("show");
           } else {
