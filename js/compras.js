@@ -1,6 +1,7 @@
 $(document).ready(function () {
     var datos = [];
     let acceso = "";
+    let compra = "";
     obtenerProveedores();
     obtenerProductos();
     obtenerAcceso();
@@ -8,6 +9,116 @@ $(document).ready(function () {
     datosFactura();
     pintarTablaCarrito();
     obtenerDatosTabla();
+
+
+    var touchtime = 0;
+    $(document).on("click", "td", function () {
+        if (touchtime == 0) {
+          touchtime = new Date().getTime();
+        } else {
+          // compare first click to this click and see if they occurred within double click threshold
+          if (new Date().getTime() - touchtime < 800) {
+            // double click occurred
+            $("#ocultardiv").css("display", "none");
+            $("#divformedit").css("display", "block");
+            $("#mensaje").css("display", "none");
+            let valores = "";
+            $(this)
+              .parents("tr")
+              .find(".datos")
+              .each(function() {
+                valores += $(this).html() + "?";
+              });
+        
+            datos = valores.split("?");
+            compra = datos[0];
+            estado = datos[1];
+            $("#estado").val(estado);
+
+  
+          $("#modalFormMostrar").modal("show");
+          
+          } else {
+            // not a double click so set as a new first click
+            touchtime = new Date().getTime();
+          }
+        }
+    }); 
+
+    $("#fmestado").submit(function(e){
+
+        const postData = {
+            estado: $("#estado").val(),
+            idcompras: compra
+          };
+
+          $.ajax({
+            url: "../Controllers/compras.php",
+            type: "POST",
+            data: postData,
+            success: function(response) {
+                if (response == "1") {
+                  $('#modalFormMostrar').modal('hide');
+                  $("#mensaje").css("display", "none");
+                  obtenerDatosTabla();
+                } else {
+                  $("#mensaje").css("display", "block");
+                  $("#mensaje").text("Registro fallido");
+                  $("#mensaje").css("color", "red");
+                  $("#estado").focus();
+
+            }
+        }
+          });
+        obtenerDatosTabla();
+        e.preventDefault();
+      });
+
+   
+//mostrar el concepto de la compra
+$(document).on('click','.bconcepto',function(){
+    $("#divformedit").css("display", "none");
+    $('#modalFormMostrar').modal('show');
+    $("#ocultardiv").css("display", "block");
+    $("#mensaje").css("display", "none");
+          
+    let valores = '';
+    $(this)
+    .parents("tr")
+    .find(".datos")
+    .each(function() {
+      valores += $(this).html() + "?";
+    });
+    datos = valores.split("?");
+     const postData = {
+      idcompras: datos[0]
+    };
+
+  
+    $.post("../Controllers/compras.php", postData, function(response) {
+        console.log(response);
+      let datos = JSON.parse(response);
+  
+      let template = null;
+      $.each(datos, function(i, item) {
+        template += `
+                  <tr>
+                  <td>${item[0]}</td>
+                  <td>${item[1]}</td>
+                  <td><img src="${item[2]}" height="100" width="100"></td>
+                  <td>${item[3]}</td>
+                  <td>${item[4]}</td>
+                  <td>${item[5]}</td>
+                  <td>${item[6]}</td>
+                  <td>${item[7]}</td>
+                  <td>${item[8]}</td>
+                  <td>${item[9]}</td>
+                  <td>${item[10]}</td>
+                 </tr> `;
+      });
+      $("#cuerpotablaconcepto").html(template);
+    });
+});
 
     $(document).on('click','#nuevo_proveedor',function(){
         obtenerDatosFactura();
@@ -39,11 +150,11 @@ $(document).ready(function () {
       $(document).on('click','.check',function(){
 
         if($(this).prop('checked')){
-            $('#cuerpo').children("tr").find("td").find("input").each(function () {
+            $('#cuerpo2').children("tr").find("td").find("input").each(function () {
                      $(this).prop("checked", true);
             });    
         }else{
-            $('#cuerpo').children("tr").find("td").find("input").each(function () {
+            $('#cuerpo2').children("tr").find("td").find("input").each(function () {
                      $(this).prop("checked", false);
                 
             });    
@@ -79,7 +190,7 @@ $(document).ready(function () {
 
     function enviarDatos2(){
         var valores = "";
-        $('#cuerpo').children("tr").find("td").find("input").each(function () {
+        $('#cuerpo2').children("tr").find("td").find("input").each(function () {
             if($(this).prop('checked')){
                 valores += $(this).parents("tr").find("td").eq(1).text() + "?";
             }
@@ -88,7 +199,7 @@ $(document).ready(function () {
         result = valores.split("?");
         console.log(result);
          $.ajax({
-          url: "../Controllers/.php",
+          url: "../Controllers/compras.php",
           type: "POST",
           data: {'array': JSON.stringify(result)},
   
@@ -387,10 +498,10 @@ $(document).ready(function () {
                 $.each(datos, function (i, item) {
                     template += `<tr>`;
                     if(acceso == 'CEO'){
-                        template += `<td class="text-nowrap text-center"><input type="checkbox" value="si"></td>`;
+                        template += `<td class="text-nowrap text-center"><input type="checkbox" class = "check" value="si"></td>`;
                     }
                     template += ` 
-                    <td  class="text-nowrap text-center d-none">${item[0]}</td>
+                    <td  class="text-nowrap text-center d-none datos">${item[0]}</td>
                     <td><button class="bconcepto btn btn-info">Mostrar</button></td>
                     <td  class="text-nowrap text-center">${item[1]}</td>
                     <td  class="text-nowrap text-center">${item[2]}</td>
@@ -400,6 +511,13 @@ $(document).ready(function () {
                     <td  class="text-nowrap text-center">${item[6]}</td>
                     <td  class="text-nowrap text-center">${item[7]}</td>
                     <td  class="text-nowrap text-center">${item[8]}</td>
+                    <td  class="text-nowrap text-center">${item[9]}</td>
+                    <td  class="text-nowrap text-center">${item[10]}</td>
+                    <td  class="text-nowrap text-center">${item[11]}</td>
+                    <td  class="text-nowrap text-center">${item[12]}</td>
+                    <td  class="text-nowrap text-center">${item[13]}</td>
+                    <td  class="text-nowrap text-center">${item[14]}</td>
+                    <td  class="text-nowrap text-center datos">${item[15]}</td>
                 </tr>`;
                 });
                 $('#cuerpo2').html(template);

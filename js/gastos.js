@@ -105,7 +105,7 @@ $(document).ready(function() {
         $.each(datos, function(i, item) {
           template += `<tr>`;
             if(acceso ==  'CEO'){
-              template += `<td><input type="checkbox" value="si"></td>`;            
+              template += `<td><input class = "check"  type="checkbox" value="si"></td>`;            
             }
           template += `
                     <td class="datos d-none">${item[0]}</td>

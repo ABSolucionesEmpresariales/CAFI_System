@@ -32,8 +32,8 @@ if (
     );
     $consulta = "INSERT INTO compras (idcompras,folio_factura,proveedor,forma_pago,fecha_factura,fecha_compra,fecha_vencimiento_factura,fecha_inicio_credito,fecha_vencimiento_credito,anticipo,descuento,total,tasa_iva,metodo_pago,usuariocafi,negocio,estado,eliminado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     $result = $conexion->consultaPreparada($datos, $consulta, 1, "sssssssssssssssssi", false);
+    $compra = $conexion->optenerId();
     if($result == 1){
-        $compra = $conexion->optenerId();
         $jsonstring = $_POST['arraycarrito'];
         $carrito = json_decode($jsonstring);
         $consulta = "INSERT INTO concepto_compra (compra,producto,nombre,iva,ieps,costo,cantidad,subtotal) VALUES(?,?,?,?,?,?,?,?)";
@@ -45,16 +45,16 @@ if (
     echo $result;
 } else if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     $conexion = new Models\Conexion();
-    $datos = array("A", 1, $_SESSION['negocio']);
-    $consulta = "SELECT idcompras,folio_factura,nombre AS proveedor,forma_pago,fecha_factura,fecha_compra,fecha_vencimiento_factura,fecha_vencimiento_credito,
+    $datos = array(1, $_SESSION['negocio']);
+    $consulta = "SELECT idcompras,folio_factura,nombre AS proveedor,forma_pago,fecha_factura,fecha_compra,fecha_vencimiento_factura,fecha_inicio_credito,fecha_vencimiento_credito,
     anticipo,descuento,total,tasa_iva,metodo_pago,compras.usuariocafi, compras.estado FROM  compras INNER JOIN proveedor ON proveedor = idproveedor 
-    WHERE compras.estado = ? AND compras.eliminado != ? AND compras.negocio = ?";
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "sii", false));
+    WHERE compras.eliminado != ? AND compras.negocio = ?";
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ii", false));
 
 } else if (isset($_POST['idcompras']) && !isset($_POST['estado'])) {
     $conexion = new Models\Conexion();
     $datos = array($_POST['idcompras']);
-    $consulta = "SELECT nombre,imagen,marca,color,unidad_medida,talla_numero,costo,cantidad FROM concepto_compra
+    $consulta = "SELECT cantidad,producto.nombre,imagen,marca,color,unidad_medida,talla_numero,costo,iva,ieps,subtotal FROM concepto_compra
     INNER JOIN producto ON producto = codigo_barras WHERE compra = ?";
     echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "s", false));
 
@@ -76,7 +76,7 @@ if (
     $conexion = new Models\Conexion();
     $consulta = "UPDATE compras SET estado = ? WHERE idcompras = ?";
     $datos = array($_POST['estado'], $_POST['idcompras']);
-    $conexion->consultaPreparada($datos, $consulta, 1, "ss", false);
+    echo $conexion->consultaPreparada($datos, $consulta, 1, "ss", false);
 }
 
 if(isset($_POST['producto'])){
