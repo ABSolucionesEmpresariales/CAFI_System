@@ -84,11 +84,10 @@ if(isset($_POST['tabla'])){
     
     $conexion = new Models\Conexion();
     $consulta = "SELECT persona.email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento, sexo,acceso,entrada_sistema,contrasena,negocio 
-    FROM persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email WHERE eliminado = ? 
-    AND usuarioscafi.acceso = 'Employe' AND usuarioscafi.negocio = ? OR eliminado = ? AND usuarioscafi.acceso = 'Manager' AND usuarioscafi.negocio = ?";
-    $datos = array(0,$_SESSION['negocio'],0,$_SESSION['negocio']);
-  
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "iiii", false));
+    FROM persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email WHERE eliminado != ?
+    AND usuarioscafi.acceso != ? AND usuarioscafi.negocio = ?";
+    $datos = array(1,"CEO",$_SESSION['negocio']);
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "isi", false));
     echo $jsonstring;
 }
 if (isset($_POST['email']) && isset($_POST['eliminado']) && $_POST['eliminado'] == 'true') {
@@ -97,9 +96,9 @@ if (isset($_POST['email']) && isset($_POST['eliminado']) && $_POST['eliminado'] 
     $consulta = "UPDATE persona SET eliminado = ? WHERE email= ?";
     $datos = array(1, $email);
     echo $conexion->consultaPreparada($datos, $consulta, 1, "is", false);
-  }
+}
 
-  if (isset($_POST['array'])) {
+if (isset($_POST['array'])) {
     $conexion = new Models\Conexion();
     $data = json_decode($_POST['array']);
     $tipo_datos = "iss";
@@ -115,5 +114,5 @@ if (isset($_POST['email']) && isset($_POST['eliminado']) && $_POST['eliminado'] 
       echo '0';
     }
     
-  }
+    }
   }
