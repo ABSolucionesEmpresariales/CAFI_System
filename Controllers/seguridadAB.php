@@ -5,7 +5,7 @@ if (isset($_SESSION['email'])) {
     $conexion = new Models\Conexion();
     $consulta = "SELECT token FROM sesiones WHERE usuario = ?";
     $dato = array($_SESSION['email']);
-    $result = $conexion->consultaPreparada($dato, $consulta, 2, "s", false);
+    $result = $conexion->consultaPreparada($dato, $consulta, 2, "s", false,null);
     if (isset($result[0][0])) {
         $token = $result[0][0];
         if ($_SESSION['token'] != $token) {

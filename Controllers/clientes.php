@@ -1,8 +1,7 @@
 <?php
 session_start();
-include_once '../Models/Conexion.php';
-
-
+require_once '../Models/Conexion.php';
+require_once '../Models/Email.php';
 
 if(isset($_POST['tabla'])){
     $conexion = new Models\Conexion();
@@ -45,7 +44,7 @@ if (
             estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?, eliminado = ? WHERE email= ?";
           }
        
-          $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, $accion);
+          $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, $accion,null);
           if($result == 1){
                 $datos_cliente = array(
                     $_POST['Temail'],
@@ -61,7 +60,7 @@ if (
                 }else{
                     $consulta_cliente = "UPDATE cliente SET credito = ?, plazo_credito = ?, limite_credito = ?, negocio = ?, usuariocafi = ? WHERE email = ?";
                 }
-                return $conexion->consultaPreparada($datos_cliente, $consulta_cliente, 1, $tipo_datos_cliente, $accion);
+                return $conexion->consultaPreparada($datos_cliente, $consulta_cliente, 1, $tipo_datos_cliente, $accion,null);
           }else{
               return $result;
           }
@@ -90,7 +89,7 @@ if (
       for ($i = 0; $i < count($data); $i++) {
           if ($data[$i] != '0') {
               $datos = array(1, $data[$i]);
-              $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+              $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
           }
       }
       echo $result;

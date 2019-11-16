@@ -33,9 +33,9 @@ class Conexion
     }
 
 
-    public function consultaPreparada($datos, $consulta, $accion, $datatipe, $reestructurar_arreglo)
+    public function consultaPreparada($datos, $consulta, $accion, $datatipe, $reestructurar_arreglo,$cambiar_filtro)
     {
-
+        // el parametro cambiar filtro es para indicar a que objeto del arreglo se le va a aplicar el filtro de password
         if ($reestructurar_arreglo === true) {
             //se cambia el elemento que esta en la posicion 1 del array a la ultima posicion para hacer update
             for ($i = 0; $i < sizeof($datos) - 1; $i++) {
@@ -51,20 +51,25 @@ class Conexion
 
         $args = array(&$datatipe);
         for ($i = 0; $i < sizeof($datos); $i++) {
-            $datos[$i] = Conexion::eliminar_simbolos($datos[$i]);
-            $args[] = &$datos[$i];
+            if ($cambiar_filtro === $i) {
+                $datos[$i] = Conexion::passClean($datos[$i]);
+                $args[] = &$datos[$i];
+            } else {
+                $datos[$i] = Conexion::eliminar_simbolos($datos[$i]);
+                $args[] = &$datos[$i];
+            }
         }
 
         call_user_func_array(array($stmt, 'bind_param'), $args);
         //accion 1 para insertar y para actualizar
         if ($accion === 1) {
-             if ($stmt->execute()) {
+            if ($stmt->execute()) {
                 $mensaje = "1";
             } else {
                 $mensaje = "0";
             }
             return $mensaje;
-           // return $stmt->execute();
+            // return $stmt->execute();
         } else if ($accion == 2) {
             //accion 2 para retornar datos en una matriz
             $stmt->execute();
@@ -74,6 +79,17 @@ class Conexion
     public function optenerId()
     {
         return $this->con->insert_id;
+    }
+
+    public function passClean($string)
+    {
+        $string = str_replace(
+            array(' ', "'"),
+            array('', ''),
+            $string
+        );
+
+        return $string;
     }
     public function eliminar_simbolos($string)
     {

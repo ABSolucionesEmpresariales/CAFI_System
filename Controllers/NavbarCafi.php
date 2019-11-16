@@ -14,7 +14,7 @@ if ($_SESSION['acceso'] != 'CEO') { ?>
                                                                 } ?> nav-link" onclick="window.location.href='ventas.php'" title="Venta"><img src="../img/sell.png">Venta</a>
                     </li>
 
-                    <?php if ($_SESSION['acceso'] === "Employes") { ?>
+                    <?php if ($_SESSION['acceso'] === "Employe") { ?>
                         <li class="nav-item mx-2 text-center">
                             <a class="<?php if ($sel === 'abonos') {
                                                 echo seleccionado;

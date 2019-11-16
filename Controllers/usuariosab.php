@@ -40,9 +40,9 @@ if (
     $tipo_datos_persona = "sssssssssssssi";
     $consulta_usuarioab = "INSERT INTO usuariosab (email,acceso,entrada_sistema,contrasena) VALUES (?,?,?,?)";
     $tipo_datos_usuarioab = "ssss";
-    $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false);
+    $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false,null);
     //respuesta al front
-    echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false);
+    echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false,null);
   } else {
     //editar  
     $datos_usuarioab = array(
@@ -68,7 +68,7 @@ if (
             estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?, acceso = ?, entrada_sistema = ?, contrasena = ? WHERE persona.email= ?";
     $tipo_datos = "ssssssssssssssss";
     //respuesta al front
-    echo $conexion->consultaPreparada($datos_usuarioab, $editar, 1, $tipo_datos, false);
+    echo $conexion->consultaPreparada($datos_usuarioab, $editar, 1, $tipo_datos, false,null);
   }
 } else if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
   //obtencion del json para pintar la tabla
@@ -77,7 +77,7 @@ if (
     sexo,acceso,entrada_sistema,contrasena FROM persona INNER JOIN usuariosab ON persona.email=usuariosab.email WHERE eliminado != ?";
   $datos = array(1);
 
-  $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "i", false));
+  $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "i", false,null));
   echo $jsonstring;
 } else if (isset($_POST['email']) && isset($_POST['eliminado']) && $_POST['eliminado'] == 'true') {
   $conexion = new Models\Conexion();
@@ -86,8 +86,8 @@ if (
   $consulta2 = "UPDATE usuariosab SET entrada_sistema = ? WHERE email= ?";
   $datos = array(1, $email);
   $datos2 = array("I", $email);
-  $conexion->consultaPreparada($datos2, $consulta2, 1, "ss", false);
-  echo $conexion->consultaPreparada($datos, $consulta, 1, "is", false);
+  $conexion->consultaPreparada($datos2, $consulta2, 1, "ss", false,null);
+  echo $conexion->consultaPreparada($datos, $consulta, 1, "is", false,null);
 }else if (isset($_POST['array'])) {
   $conexion = new Models\Conexion();
   $data = json_decode($_POST['array']);
@@ -96,7 +96,7 @@ if (
   for ($i = 0; $i < count($data); $i++) {
       if ($data[$i] != '0') {
           $datos = array(1, $data[$i]);
-          $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+          $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
       }
   }
   echo $result;

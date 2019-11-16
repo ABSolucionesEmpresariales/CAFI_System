@@ -10,7 +10,7 @@ if (isset($_POST['array'])) {
     for ($i = 0; $i < count($data); $i++) {
         if ($data[$i] != '0') {
             $datos = array(1, $data[$i]);
-            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
         }
     }
     echo $result;
@@ -34,7 +34,7 @@ if(isset($_POST['Tcantidad']) && isset($_POST['Stipo']) && isset($_POST['Sforma_
         $tipoDeDatos = "idsssssii";
         $consulta_registro_otros = "INSERT INTO otros_ingresos (id_otros_ingresos,cantidad,tipo,forma_ingreso,
         fecha,estado,usuariocafi,negocio,eliminado) VALUES (?,?,?,?,?,?,?,?,?)";
-        echo $conexion->consultaPreparada($datos_ingresos, $consulta_registro_otros,1, $tipoDeDatos, false);
+        echo $conexion->consultaPreparada($datos_ingresos, $consulta_registro_otros,1, $tipoDeDatos, false,null);
     }else{
         $datos_ingresos = array(
             $_POST['Sestado'],
@@ -43,7 +43,7 @@ if(isset($_POST['Tcantidad']) && isset($_POST['Stipo']) && isset($_POST['Sforma_
         );
         $tipo_datos = "ssi";
         $consulta_editar_ingresos = "UPDATE otros_ingresos SET estado = ?, usuariocafi = ? WHERE id_otros_ingresos = ?";
-        echo $conexion->consultaPreparada($datos_ingresos, $consulta_editar_ingresos,1, $tipo_datos, false);
+        echo $conexion->consultaPreparada($datos_ingresos, $consulta_editar_ingresos,1, $tipo_datos, false,null);
     }
 
 }
