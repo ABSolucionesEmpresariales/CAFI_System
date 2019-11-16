@@ -9,20 +9,20 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     $datos = array($_SESSION['negocio'], 1);
     $consulta = "SELECT idventas,descuento,total,pago,cambio,forma_pago,fecha,hora,estado_venta,usuariocafi
     FROM venta WHERE negocio = ? AND eliminado != ?";
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ii", false));
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ii", false,null));
 } else if (isset($_POST['idventa']) && !isset($_POST['forma_pago'])) {
 
     $conexion = new Models\Conexion();
     $datos = array($_POST['idventa']);
     $consulta = "SELECT cantidad,nombre,imagen,marca,color,unidad_medida,talla_numero,subtotal FROM producto INNER JOIN
     detalle_venta ON codigo_barras = producto INNER JOIN venta ON idventas = idventa WHERE idventa = ? ";
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "s", false));
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "s", false,null));
 } else if (isset($_POST['venta']) && isset($_POST['estado'])) {
 
     $conexion = new Models\Conexion();
     $datos = array($_POST['estado'], $_POST['venta']);
     $consulta = "UPDATE venta SET estado_venta = ? WHERE idventas = ?";
-    echo $conexion->consultaPreparada($datos, $consulta, 1, "ss", false);
+    echo $conexion->consultaPreparada($datos, $consulta, 1, "ss", false,null);
     $venta = array($_POST['venta']);
     if ($_POST['estado'] === "A") {
         actualizarStock($venta, $conexion, "+");
@@ -40,7 +40,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
         "%" . $_POST['searchproducto'] . "%",
         $_SESSION['negocio']
     );
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ss", false));
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ss", false,null));
 } else if (isset($_POST['searchcliente'])) {
 
     $conexion = new Models\Conexion();
@@ -55,7 +55,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
         $_SESSION['negocio'],
         1
     );
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "sisii", false));
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "sisii", false,null));
 } else if (
     isset($_POST['idventa']) && isset($_POST['descuento'])  && isset($_POST['total']) && isset($_POST['pago']) && isset($_POST['cambio']) && isset($_POST['forma_pago'])
     && isset($_POST['json_string']) && isset($_POST['idadeudo']) && isset($_POST['totaldeuda']) && isset($_POST['anticipo']) && isset($_POST['cliente'])
@@ -82,7 +82,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
         );
 
         $consulta = "INSERT INTO venta (idventas,descuento,total,pago,cambio,forma_pago,fecha,hora,estado_venta,usuariocafi,negocio,eliminado) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-        $conexion->consultaPreparada($datos, $consulta, 1, "sssssssssssi", false);
+        $conexion->consultaPreparada($datos, $consulta, 1, "sssssssssssi", false,null);
         $venta = $conexion->optenerId();
         $_SESSION['idventa'] = $venta; // para poder imprimir el ticket
     } else if ($_POST['forma_pago'] === "Crédito") {
@@ -101,7 +101,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
             0
         );
         $consulta = "INSERT INTO venta (idventas,descuento,total,pago,cambio,forma_pago,fecha,hora,estado_venta,usuariocafi,negocio,eliminado) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-        $conexion->consultaPreparada($datos, $consulta, 1, "sssssssssssi", false);
+        $conexion->consultaPreparada($datos, $consulta, 1, "sssssssssssi", false,null);
         $venta = $conexion->optenerId();
 
         $datos2 = array(
@@ -115,7 +115,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
         );
 
         $consulta = "INSERT INTO adeudos (idadeudos,totaldeuda,anticipo,estado,venta,cliente,eliminado) VALUES(?,?,?,?,?,?,?)";
-        $conexion->consultaPreparada($datos2, $consulta, 1, "ssssssi", false);
+        $conexion->consultaPreparada($datos2, $consulta, 1, "ssssssi", false,null);
         $_SESSION['idventa'] = $venta; // para poder imprimir el ticket
     }
 
@@ -126,14 +126,14 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
 
     for ($i = 0; $i < sizeof($carrito); $i++) {
         array_unshift($carrito[$i], $venta);
-        $conexion->consultaPreparada($carrito[$i], $consulta, 1, "ssss", false);
+        $conexion->consultaPreparada($carrito[$i], $consulta, 1, "ssss", false,null);
     }
 
     $dato = array($venta);
     actualizarStock($dato, $conexion, "-");
     $consulta = "SELECT impresora FROM negocios WHERE idnegocios = ?";
     $negocio = array($_SESSION['negocio']);
-    $result = $conexion->consultaPreparada($negocio, $consulta, 2, "s", false);
+    $result = $conexion->consultaPreparada($negocio, $consulta, 2, "s", false,null);
     if ($result != null) {
         if ($result[0][0] === "A") {
             echo "Exitoprinter";
@@ -179,7 +179,7 @@ if (isset($_POST['array'])) {
     for ($i = 0; $i < count($data); $i++) {
         if ($data[$i] != '0') {
             $datos = array(1, $data[$i]);
-            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
         }
     }
     echo $result;

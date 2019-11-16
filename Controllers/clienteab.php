@@ -41,9 +41,9 @@ if (
     $tipo_datos_persona = "sssssssssssssi";
     $consulta_usuariocafi = "INSERT INTO usuarioscafi (email,acceso,entrada_sistema,contrasena,negocio) VALUES (?,?,?,?,?)";
     $tipo_datos_usuariocafi = "sssss";
-    $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false);
+    $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false,null);
     if($result == 1){
-      echo $conexion->consultaPreparada($datos_usuariocafi, $consulta_usuariocafi, 1, $tipo_datos_usuariocafi, false);
+      echo $conexion->consultaPreparada($datos_usuariocafi, $consulta_usuariocafi, 1, $tipo_datos_usuariocafi, false,null);
     }else{
       echo 0;
     }
@@ -74,7 +74,7 @@ if (
             estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?, entrada_sistema = ?, contrasena = ? WHERE persona.email= ?";
     $tipo_datos = "sssssssssssssss";
     //respuesta al front
-    echo $conexion->consultaPreparada($datos_usuariocafi, $editar, 1, $tipo_datos, false);
+    echo $conexion->consultaPreparada($datos_usuariocafi, $editar, 1, $tipo_datos, false,null);
   }
 } else if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
   //obtencion del json para pintar la tabla
@@ -82,7 +82,7 @@ if (
   $consulta = "SELECT persona.email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento,
     sexo,entrada_sistema,contrasena FROM persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email WHERE acceso = ? AND persona.eliminado = ?";
   $datos = array("CEO",0);
-  $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "si", false));
+  $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "si", false,null));
   echo $jsonstring;
 }
 
@@ -94,7 +94,7 @@ if (isset($_POST['array'])) {
   for ($i = 0; $i < count($data); $i++) {
       if ($data[$i] != '0') {
           $datos = array(1, $data[$i]);
-          $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+          $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
       }
   }
   echo $result;

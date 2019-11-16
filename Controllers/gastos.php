@@ -9,7 +9,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     $consulta = "SELECT idgastos,concepto,pago,descripcion,monto,estado,fecha,usuariocafi 
     FROM gastos WHERE negocio = ? AND eliminado != ?";
 
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ii", false));
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ii", false,null));
 } else if (
     isset($_POST['idgastos']) && isset($_POST['Sconcepto']) && isset($_POST['Spago'])
     && isset($_POST['Tdescripcion']) && isset($_POST['Tmonto'])  && isset($_POST['Sestado'])
@@ -31,7 +31,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
 
     $consulta = "INSERT INTO gastos (idgastos,concepto,pago,descripcion,monto,
         estado,fecha,usuariocafi,negocio) VALUES (?,?,?,?,?,?,?,?,?)";
-    echo $conexion->consultaPreparada($datos, $consulta, 1, "ssssssssi", false);
+    echo $conexion->consultaPreparada($datos, $consulta, 1, "ssssssssi", false,null);
 
 } else if (isset($_POST['idgastos']) && isset($_POST['Sestado'])) {
 
@@ -43,7 +43,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     );
 
    $consulta = "UPDATE gastos SET estado = ? , usuariocafi = ? WHERE idgastos = ?";
-   echo $conexion->consultaPreparada($datos, $consulta, 1, "ssi", false);
+   echo $conexion->consultaPreparada($datos, $consulta, 1, "ssi", false,null);
    
 }else if (isset($_POST['array'])) {
     $conexion = new Models\Conexion();
@@ -53,7 +53,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     for ($i = 0; $i < count($data); $i++) {
         if ($data[$i] != '0') {
             $datos = array(1, $data[$i]);
-            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
         }
     }
     echo $result;

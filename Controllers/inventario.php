@@ -13,5 +13,5 @@ if (isset($_POST['categoria'])) {
         1
     );
 
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "sisi", false));
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "sisi", false,null));
 }

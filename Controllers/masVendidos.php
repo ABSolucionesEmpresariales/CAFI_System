@@ -7,7 +7,7 @@ if(isset($_POST['negocios'])){
     $datos = array($_SESSION['email']);
     $tipo = "s";
     $consulta = "SELECT idnegocios,nombre FROM negocios WHERE dueno = ?";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false));
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false,null));
     echo $jsonstring;
 }
 
@@ -22,6 +22,6 @@ if(isset($_POST['idnegocio'])){
     GROUP BY p.codigo_barras
     ORDER BY `CantidadProducto`
     DESC";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false));
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false,null));
     echo $jsonstring;
 }

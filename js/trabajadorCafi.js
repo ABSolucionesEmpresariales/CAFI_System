@@ -119,7 +119,6 @@ $(document).ready(function(){
             console.log(response);
             let datos = JSON.parse(response);
             let template = "";
-            console.log(acceso);
             $.each(datos, function (i, item) {
               template +=`<tr>`;
               if(acceso == 'CEO'){

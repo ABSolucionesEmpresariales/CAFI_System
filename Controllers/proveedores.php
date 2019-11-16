@@ -8,7 +8,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     $datos = array($_SESSION['negocio'], 1);
     $consulta = "SELECT idproveedor,rfc,dias_credito,nombre,domicilio,colonia,ciudad,estado,pais,telefono,email,usuariocafi
     FROM proveedor WHERE negocio = ? AND eliminado != ? ";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, "ii", false));
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, "ii", false,null));
     echo $jsonstring;
 } else if (
     isset($_POST['idproveedor']) && isset($_POST['Trfc']) && isset($_POST['Sdias_credito']) && isset($_POST['Tnombre'])
@@ -38,12 +38,12 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
 
         $consulta = "INSERT INTO proveedor (idproveedor,rfc,dias_credito,nombre,domicilio,colonia,ciudad,estado,pais,telefono,email,usuariocafi,negocio,eliminado)
         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        echo $conexion->consultaPreparada($datos, $consulta, 1, "ssisssssssssii", false);
+        echo $conexion->consultaPreparada($datos, $consulta, 1, "ssisssssssssii", false,null);
     } else {
 
         $consulta = "UPDATE proveedor SET rfc = ?, dias_credito = ?, nombre = ? ,domicilio = ? , colonia = ?,
           ciudad = ? , estado = ? , pais = ?, telefono = ?, email = ? , usuariocafi = ? , negocio = ? , eliminado = ? WHERE idproveedor = ?";
-        echo $conexion->consultaPreparada($datos, $consulta, 1, "sisssssssssiis", true);
+        echo $conexion->consultaPreparada($datos, $consulta, 1, "sisssssssssiis", true,null);
     }
 } else if (isset($_POST['array'])) {
     $conexion = new Models\Conexion();
@@ -53,7 +53,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     for ($i = 0; $i < count($data); $i++) {
         if ($data[$i] != '0') {
             $datos = array(1, $data[$i]);
-            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
         }
     }
     echo $result;
