@@ -1,4 +1,4 @@
-<?php
+<?php namespace Models;
 class Email
 {
     private $vkey,$email, $subject, $message, $headers;
@@ -15,7 +15,8 @@ class Email
     public function setEmail($email)
     {
         $this->email = $email;
-        $this->vkey = hash('sha-256', time() . $email);
+        $this->vkey = hash('sha256', time() . $email);
+        return $this->vkey;
     }
 
     public function enviarEmailConfirmacion()

@@ -77,7 +77,6 @@ privilegios("Todos");
                         <th class="text-nowrap text-center" onclick="sortTable(14)">Sexo</th>
                         <th class="text-nowrap text-center" onclick="sortTable(15)">Acceso</th>
                         <th class="text-nowrap text-center" onclick="sortTable(16)">Estado</th>
-                        <th class="text-nowrap text-center" onclick="sortTable(17)">Contraseña</th>
                       </tr>
                     </thead>
                     <tbody id="cuerpo"></tbody>
@@ -218,12 +217,12 @@ privilegios("Todos");
                         <div class="d-block d-lg-flex row">
                           <div class="col-lg-6">
                             <h5 class="importante">Entrada al sistema:</h5>
-                            <select class="form form-control" id="entrada_sistema" name="Sentrada_sistema" required>
+                            <select class="form form-control" id="entrada_sistema" name="Sentrada_sistema">
                               <option value="A">Activa</option>
                               <option value="I">Inactiva</option>
                             </select>
                           </div>
-                          <div class="col-lg-6">
+                          <div id="divpass" class="col-lg-6">
                           <h5 class="importante">Contraseña:</h5>
                           <input id="contrasena" class="form form-control" type="password" onkeypress="return check(event)" name="Pcontrasena" placeholder="Contraseña" autocomplete="new-password" required><br>
                         </div>

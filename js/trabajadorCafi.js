@@ -21,6 +21,8 @@ $(document).ready(function(){
 
       $(document).on('click','.agregar',function(){
         $("#mensaje").css("display", "none");
+        $("#divpass").css('display','block');
+        $("#contrasena").attr('required');
         editar = false;
       });
 
@@ -48,6 +50,8 @@ $(document).ready(function(){
 
       var touchtime = 0;
       $(document).on("click", "td", function () {
+        $("#divpass").css('display','none');
+        $("#contrasena").removeAttr('required');
           if (touchtime == 0) {
             touchtime = new Date().getTime();
           } else {
@@ -77,7 +81,7 @@ $(document).ready(function(){
               $("#sexo").val(datos[13]);
               $("#acceso").val(datos[14]);
               $("#entrada_sistema").val(datos[15]);
-              $("#contrasena").val(datos[16]);
+              $("#contrasena").val("");
               editar = true;
             $("#modalForm").modal("show");
             } else {
@@ -141,7 +145,6 @@ $(document).ready(function(){
                   <td class="text-nowrap text-center">${item[12]}</td>
                   <td class="text-nowrap text-center">${item[13]}</td>
                   <td class="text-nowrap text-center">${item[14]}</td>
-                  <td class="text-nowrap text-center">${item[15]}</td>
               `;
             });
             $("#cuerpo").html(template); 
