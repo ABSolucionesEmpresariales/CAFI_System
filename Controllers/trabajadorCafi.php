@@ -1,6 +1,7 @@
 <?php
 session_start();
-include_once '../Models/Conexion.php';
+require_once '../Models/Conexion.php';
+require_once '../Models/Email.php';
 
 if (
   isset($_POST['Temail']) && isset($_POST['Trfc'])  && isset($_POST['Tnombre'])  && isset($_POST['Tcp'])  && isset($_POST['Tcalle_numero'])
@@ -9,11 +10,14 @@ if (
 ) {
 
   $conexion = new Models\Conexion();
+  $email = new Models\Email();
 
   if ($_POST['accion'] == 'false') {
     //guardar
     $datos_persona = array(
      $_POST['Temail'],
+     $email->setEmail($_POST['email']),
+     0,
      $_POST['Trfc'],
      $_POST['Tnombre'],
      $_POST['Tcp'],
@@ -33,17 +37,18 @@ if (
      $_POST['Temail'],
      $_POST['Sacceso'],
      $_POST['Sentrada_sistema'],
-     $_POST['Pcontrasena'],
+     password_hash($_POST['Pcontrasena'], PASSWORD_DEFAULT),
      $_SESSION['negocio']
     );
 
 
-    $consulta_persona = "INSERT INTO persona (email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento,sexo,eliminado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    $tipo_datos_persona = "sssssssssssssi";
+    $consulta_persona = "INSERT INTO persona (email,vkey,verificado,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento,sexo,eliminado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    $tipo_datos_persona = "ssssssssssssssss";
     $consulta_usuarioab = "INSERT INTO usuarioscafi (email,acceso,entrada_sistema,contrasena,negocio) VALUES (?,?,?,?,?)";
-    $tipo_datos_usuarioab = "ssssi";
+    $tipo_datos_usuarioab = "sssss";
     $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false,null);
     if($result == 1){
+       // $email->enviarEmailConfirmacion();
       echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false,null);
     }else{
       echo 0;
@@ -67,22 +72,21 @@ if (
       $_POST['Ssexo'],
       $_POST['Sacceso'],
       $_POST['Sentrada_sistema'],
-      $_POST['Pcontrasena'],
       $_SESSION['negocio'],
       $_POST['Temail']
     );
 
     $editar = "UPDATE persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email SET rfc= ?, nombre = ?, cp = ?, calle_numero = ?, colonia = ?, localidad = ?, municipio = ?, 
-            estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?, acceso = ?, entrada_sistema = ?, contrasena = ?,negocio = ? WHERE persona.email= ?";
-    $tipo_datos = "sssssssssssssssis";
+            estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?, acceso = ?, entrada_sistema = ?,negocio = ? WHERE persona.email= ?";
+    $tipo_datos = "ssssssssssssssss";
     //respuesta al front
-    echo $conexion->consultaPreparada($datos_usuarioab, $editar,1, $tipo_datos, false,null);
+    echo $conexion->consultaPreparada($datos_usuarioab, $editar,1, $tipo_datos, false, null);
   }
 } 
 
 if(isset($_POST['tabla'])){
     $conexion = new Models\Conexion();
-    $consulta = "SELECT persona.email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento, sexo,acceso,entrada_sistema,contrasena,negocio 
+    $consulta = "SELECT persona.email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento, sexo,acceso,entrada_sistema,negocio 
     FROM persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email WHERE eliminado != ? 
     AND usuarioscafi.acceso != ? AND usuarioscafi.negocio = ?";
     $datos = array(1,"CEO",$_SESSION['negocio']);
