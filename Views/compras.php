@@ -19,7 +19,6 @@ privilegios("Superiores");
 
   <title>Compras</title>
 </head>
-
 <body>
   <?php
   $sel = "compras";
