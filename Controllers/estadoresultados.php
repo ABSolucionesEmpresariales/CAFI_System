@@ -20,9 +20,9 @@ if (isset($_POST['combo']) && $_POST['combo'] === "negocio") {
             $ventas = 0;
         }
 
-        $consulta = "SELECT SUM(precio_compra * stock) AS costo_venta 
+        $consulta = "SELECT SUM(precio_compra * cantidad) AS costo_venta 
         FROM producto INNER JOIN detalle_venta ON codigo_barras = detalle_venta.producto
-        INNER JOIN venta ON idventa = idventas INNER JOIN stock ON codigo_barras = stock.producto
+        INNER JOIN venta ON idventa = idventas
         WHERE estado_venta = ? AND venta.eliminado !=  ? AND venta.negocio = ?";
         $result = $conexion->consultaPreparada($datos, $consulta, 2, "sis", false,null);
         if (isset($result) && !is_null($result[0][0])) {
@@ -72,8 +72,8 @@ if (isset($_POST['combo']) && $_POST['combo'] === "negocio") {
             $datos = array($mes, $año, "A", "1", $_POST['Ssucursal'], "Articulos de Venta");
             $consulta = "SELECT SUM(monto) AS total  FROM gastos WHERE MONTH(fecha) = ? AND YEAR(fecha) = ?
             AND estado = ? AND eliminado != ? AND negocio = ? GROUP BY concepto = ? ";
-            $result = $conexion->consultaPreparada($datos, $consulta, 2, "ssssss", false,null);
-            if (isset($result) && !is_null($result[0][0])) {
+            $result = $conexion->consultaPreparada($datos, $consulta, 2, "ssssss", false, null);
+            if (!empty($result)) {
                 $gastos = $result[0][0];
             } else {
                 $gatos = 0;

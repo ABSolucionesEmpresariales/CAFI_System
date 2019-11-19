@@ -25,6 +25,7 @@ $(document).ready(function() {
       "../Controllers/estadoresultados.php",
       $("#form1").serialize(),
       function(response) {
+        console.log(response);
         datos = JSON.parse(response);
         let template = ` 
       <th>Ventas</th>
@@ -58,6 +59,7 @@ $(document).ready(function() {
         <th>Utilidad Neta</th>`;
 
         $("#rowencabezado").html(template);
+        console.log(response);
         datos = JSON.parse(response);
         template = `
         <tr>
