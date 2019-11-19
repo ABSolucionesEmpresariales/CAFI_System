@@ -33,7 +33,6 @@ if (
     $consulta = "INSERT INTO compras (idcompras,folio_factura,proveedor,forma_pago,fecha_factura,fecha_compra,fecha_vencimiento_factura,fecha_inicio_credito,fecha_vencimiento_credito,anticipo,descuento,total,tasa_iva,metodo_pago,usuariocafi,negocio,estado,eliminado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     $result = $conexion->consultaPreparada($datos, $consulta, 1, "sssssssssssssssssi", false,null);
     $compra = $conexion->optenerId();
-    if($result == 1){
         $jsonstring = $_POST['arraycarrito'];
         $carrito = json_decode($jsonstring);
         $consulta = "INSERT INTO concepto_compra (compra,producto,nombre,iva,ieps,costo,cantidad,subtotal) VALUES(?,?,?,?,?,?,?,?)";
@@ -41,13 +40,18 @@ if (
             array_unshift($carrito[$i], $compra);
             $result = $conexion->consultaPreparada($carrito[$i], $consulta, 1, "isssssis", false,null);
         }
+    if($_POST['Sforma_pago'] == 'Credito'){
+        $datos = array(null,$_POST['total'],$_POST['Tanticipo'],'A',$compra,$_POST['Sproveedor'],0);
+        $consulta = 'INSERT INTO cpp (idcpp,totaldeuda,anticipo,estado,compra,proovedor,eliminado) VALUES(?,?,?,?,?,?,?)';
+        $result = $conexion->consultaPreparada($datos, $consulta, 1, "iddsiii", false, null);
+
     }
     echo $result;
 } else if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     $conexion = new Models\Conexion();
     $datos = array(1, $_SESSION['negocio']);
-    $consulta = "SELECT idcompras,folio_factura,nombre AS proveedor,forma_pago,fecha_factura,fecha_compra,fecha_vencimiento_factura,fecha_inicio_credito,fecha_vencimiento_credito,
-    anticipo,descuento,total,tasa_iva,metodo_pago,compras.usuariocafi, compras.estado FROM  compras INNER JOIN proveedor ON proveedor = idproveedor 
+    $consulta = "SELECT idcompras,folio_factura,proveedor,forma_pago,fecha_factura,fecha_compra,fecha_vencimiento_factura,fecha_inicio_credito,fecha_vencimiento_credito,
+    anticipo,descuento,total,tasa_iva,metodo_pago,compras.usuariocafi, compras.estado FROM  compras
     WHERE compras.eliminado != ? AND compras.negocio = ?";
     echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ii", false,null));
 
