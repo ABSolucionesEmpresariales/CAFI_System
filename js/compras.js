@@ -2,6 +2,12 @@ $(document).ready(function () {
     var datos = [];
     let acceso = "";
     let compra = "";
+    $('#accion').val('false');
+    console.log($('#accion').val());
+    obtenerColores();
+    obtenerMarcas();
+    obtenerCategorias();
+    obtenerProveedores2();
     obtenerProveedores();
     obtenerProductos();
     obtenerAcceso();
@@ -148,7 +154,6 @@ $(document).on('click','.bconcepto',function(){
       }
 
       $(document).on('click','.check',function(){
-
         if($(this).prop('checked')){
             $('#cuerpo2').children("tr").find("td").find("input").each(function () {
                      $(this).prop("checked", true);
@@ -156,12 +161,9 @@ $(document).on('click','.bconcepto',function(){
         }else{
             $('#cuerpo2').children("tr").find("td").find("input").each(function () {
                      $(this).prop("checked", false);
-                
             });    
         }
     });
-
-
 
     $(document).on('click','.eliminar',function(){
         swal({
@@ -174,21 +176,100 @@ $(document).on('click','.bconcepto',function(){
             closeOnConfirm: false
           },
           function(){  
-              if(typeof (enviarDatos2()) != 'undefined'){
-                swal("Exito!", 
-                "Sus datos han sido eliminados.",
-                 "success");
-              }else{
-                swal("Error!", 
-                "Ups, algo salio mal.",
-                 "warning");
-              }
+              enviarDatos3();
+              swal("Exito!", 
+              "Sus datos han sido eliminados.",
+               "success");
               $('.check').prop("checked", false);
           });
     });
 
+    $(document).on("click", "#generador", function () {
+      $.ajax({
+        url: "../Controllers/generador.php",
+        type: "GET",
+  
+        success: function (response) {
+          $("#codigo_barras").val(response);
+        }
+      });
+    });
 
-    function enviarDatos2(){
+    function obtenerColores(){
+      $.ajax({
+        url: "../Controllers/productos.php",
+        type: "POST",
+        data:"colores=colores",
+  
+        success: function (response) {
+          let datos = JSON.parse(response);
+          console.log(datos);
+          let template = "<option value = ''>Elejir</option>";
+          $.each(datos, function (i, item) {
+            template+=`<option value="${item[0]}">${item[0]}</option>`;
+          });
+          $('#color').html(template);
+        }
+      });
+    }
+  
+    function obtenerMarcas(){
+      $.ajax({
+        url: "../Controllers/productos.php",
+        type: "POST",
+        data:"marcas=marcas",
+  
+        success: function (response) {
+          let datos = JSON.parse(response);
+          console.log(datos);
+          let template = "<option value = ''>Elejir</option>";
+          $.each(datos, function (i, item) {
+            template+=`<option value="${item[0]}">${item[0]}</option>`;
+          });
+          $('#marca').html(template);
+        }
+      });
+    }
+  
+    function obtenerCategorias(){
+      $.ajax({
+        url: "../Controllers/productos.php",
+        type: "POST",
+        data:"categorias=categorias",
+  
+        success: function (response) {
+          let datos = JSON.parse(response);
+          console.log(datos);
+          let template = "<option value = ''>Elejir</option>";
+          $.each(datos, function (i, item) {
+            template+=`<option value="${item[0]}">${item[0]}</option>`;
+          });
+          $('#categoria2').html(template);
+        }
+      });
+    }
+
+    
+  function obtenerProveedores2(){
+    $.ajax({
+      url: "../Controllers/productos.php",
+      type: "POST",
+      data:"proveedores=proveedores",
+
+      success: function (response) {
+        let datos = JSON.parse(response);
+        console.log(datos);
+        let template = "<option value = '0'>Elejir</option>";
+        $.each(datos, function (i, item) {
+          template+=`<option value="${item[0]}">${item[1]}</option>`;
+        });
+        $('#proveedor').html(template);
+      }
+    });
+  }
+
+
+    function enviarDatos3(){
         var valores = "";
         $('#cuerpo2').children("tr").find("td").find("input").each(function () {
             if($(this).prop('checked')){
@@ -197,7 +278,7 @@ $(document).on('click','.bconcepto',function(){
         }); 
         valores += "0";
         result = valores.split("?");
-        console.log(result);
+
          $.ajax({
           url: "../Controllers/compras.php",
           type: "POST",
@@ -206,10 +287,45 @@ $(document).on('click','.bconcepto',function(){
           success: function (response) {
             console.log(response);
             obtenerDatosTabla();
-                return response;
+            if(response == 1){
+              return 1;
+            }
+            return response;
           }
         }); 
     }
+
+    $("#formulario").submit(function (e) {
+
+      var formData = new FormData(this);
+      $.ajax({
+        url: "../Controllers/productos.php",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+  
+        success: function (response) {
+          console.log(response);
+          if (response == "1") {
+            if ($("#accion").val() == 'true') {
+              $(".modal").modal("hide");
+              $("#mensaje").css("display", "none");
+              $("#accion").val("false");
+            }
+            $("#mensaje").text("Registro Exitoso");
+            $("#mensaje").css("color", "green");
+            $("#codigo_barras").focus();
+            $("#formulario").trigger("reset");
+          } else {
+            $("#mensaje").text("Registro fallido");
+            $("#mensaje").css("color", "red");
+            $("#codigo_barras").focus();
+          }
+        }
+      });
+      e.preventDefault();
+    });
 
     $(document).on('click','#btncompra, #compra_finalizada, #cancelar_compra, #agregar_producto, #eliminar_producto', function(){
         var boton = $(this).attr('id');
@@ -298,6 +414,9 @@ $(document).on('click','.bconcepto',function(){
                 $('#info_ieps').html("$"+ieps_total);
                 $('#info_anticipo').html("$"+anticipo);
                 $('#info_total').html("$"+total);
+
+                $('#info_total2').val(total);
+                $('#info_iva2').val(iva_total);
         
                 $('#codigo_producto').val('');
                 $('#nombre_producto').val('');
@@ -313,6 +432,8 @@ $(document).on('click','.bconcepto',function(){
             obtenerDatosCarrito();
         }else if(boton == "compra_finalizada"){//Boton compra finalizada
 
+          console.log($('#info_total').val());
+
             //if()
 
             var carrito = sessionStorage.getItem('info-compras');
@@ -326,8 +447,8 @@ $(document).on('click','.bconcepto',function(){
                 Dfecha_vencimiento_credito: $('#fecha_del_credito').val(),
                 Tanticipo: $('#anticipo').val(),
                 Tdescuento: $('#descuento').val(),
-                total: $('#info_total').val(),
-                tasa_iva: $('#info_iva').val(),
+                total: $('#info_total2').val(),
+                tasa_iva: $('#info_iva2').val(),
                 Smetodo_pago: $('#metodo_pago').val(),
                 arraycarrito: JSON.stringify(carrito)
               };
@@ -335,13 +456,11 @@ $(document).on('click','.bconcepto',function(){
                $.ajax({
                 url: "../Controllers/compras.php",
                 type: "POST",
-                data:postData,
+                data: postData,
         
                 success: function (response) {
                     console.log(response);
                   if(response == 1){
-
-        
                     $('#compras').show();
                     $('#compra').hide();
                   }else{
@@ -461,9 +580,12 @@ $(document).on('click','.bconcepto',function(){
         $('#info_subtotal').html("$"+subtotal_total);
         $('#info_descuento').html("$" + $('#descuento').val());
         $('#info_iva').html("$"+iva_total);
+        
         $('#info_ieps').html("$"+ieps_total);
         $('#info_anticipo').html("$" + $('#anticipo').val());
         $('#info_total').html("$"+total2);
+        $('#info_total2').val(total2);
+        $('#info_iva2').val(iva_total);
       }
 
       function datosFactura(){
@@ -498,7 +620,7 @@ $(document).on('click','.bconcepto',function(){
                 $.each(datos, function (i, item) {
                     template += `<tr>`;
                     if(acceso == 'CEO'){
-                        template += `<td class="text-nowrap text-center"><input type="checkbox" class = "check" value="si"></td>`;
+                        template += `<td class="text-nowrap text-center"><input type="checkbox" value="si"></td>`;
                     }
                     template += ` 
                     <td  class="text-nowrap text-center d-none datos">${item[0]}</td>
@@ -557,7 +679,7 @@ $(document).on('click','.bconcepto',function(){
               $.each(datos, function (i, item) {
                 template+=`<option value="${item[0]}">${item[1]}</option>`;
               });
-              $('#productosNegocio').html(template);
+              $('#mostrarProductos').html(template);
             }
           });
       }

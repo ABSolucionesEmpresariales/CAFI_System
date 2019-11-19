@@ -100,7 +100,7 @@ if (isset($_POST['email']) && isset($_POST['eliminado']) && $_POST['eliminado'] 
     echo $conexion->consultaPreparada($datos, $consulta, 1, "is", false,null);
   }
 
-  if (isset($_POST['array'])) {
+if (isset($_POST['array'])) {
     $conexion = new Models\Conexion();
     $data = json_decode($_POST['array']);
     $tipo_datos = "iss";
@@ -116,5 +116,5 @@ if (isset($_POST['email']) && isset($_POST['eliminado']) && $_POST['eliminado'] 
       echo '0';
     }
     
-  }
+    }
   }

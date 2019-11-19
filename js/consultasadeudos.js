@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     let idadeudo = "";
     let anticipo2 = "";
@@ -110,6 +109,10 @@ $(document).ready(function () {
     function enviarDatos(){
         $.post("../Controllers/consultasadeudos.php",$("#formulario").serialize() + 
         "&accion=" + accion +"&idadeudo=" + idadeudo +"&totaldeuda=" + totaldeuda +"&cambio="+ cambio,function(response){
+            if (response == 1) {
+                window.open('ticketAbono.php');
+            }
+
             if(response == 1){
                 swal({
                     title: 'Exito',

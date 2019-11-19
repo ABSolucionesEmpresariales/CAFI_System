@@ -154,8 +154,7 @@ privilegios("Superiores");
             <div class="d-block col-lg-4">
               <p class="importante">Codigo:</p>
               <input id="codigo_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" placeholder="" autocomplete="off">
-              <datalist id="productosNegocio">
-              </datalist>
+              <datalist id="mostrarProductos"></datalist>
             </div>
             <div class="d-block col-lg-4">
               <p class="importante">Nombre:</p>
@@ -211,9 +210,11 @@ privilegios("Superiores");
           <p class="mb-0">Subtotal: <span id="info_subtotal" class="text-nowrap text-center font-weight-bold">$0</span></p>
           <!-- <p class="mb-0">Descuento: <span id="info_descuento" class="text-nowrap text-center font-weight-bold">$0</span></p> -->
           <p class="mb-0">IVA: <span id="info_iva" class="text-nowrap text-center font-weight-bold">$0</span></p>
+          <input type="hidden" id="info_iva2">
           <p class="mb-0">IEPS: <span id="info_ieps" class="text-nowrap text-center font-weight-bold">$0</span></p>
           <!-- <p class="mb-0">Anticipo: <span id="info_anticipo" class="text-nowrap text-center font-weight-bold">$0</span></p> -->
           <p class="mb-0">Total: <span id="info_total" class="text-nowrap text-center font-weight-bold">$0</span></p>
+          <input type="hidden" id="info_total2">
         </div>
       </div>
       <!--col-6-->
@@ -454,7 +455,6 @@ privilegios("Superiores");
   <script src="../js/index.js"></script>
   <script src="../js/user_jquery.js"></script>
   <script src="../js/compras.js"></script>
-  <script src="../js/productos.js"></script>
 </body>
 
 </html>

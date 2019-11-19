@@ -108,8 +108,6 @@ $('#formButton_nuevo').toggleClass("d-none");
 });
 });
 
-//Inactividad
-
 
 
 /*Enviar Formulario con select*/

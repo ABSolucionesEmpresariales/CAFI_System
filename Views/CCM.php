@@ -30,30 +30,32 @@ privilegios("Superiores");
     <div class="contenedor container-fluid">
         <div class="row align-items-start">
 
-            <div class="input-group mb-2">
+            <div class="input-group mb-2 col-12">
                 <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fa fa-search"></i></div>
                 </div>
                 <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name" value="">
-                <p class="text-white font-weight-bold ml-lg-4">Agregar elemento:</p>
-                <form id="formulario" class="form form-inline ml-lg-2">
-                    <select class="form form-control" name="CCM" id="CCM">
+                <p class="text-white font-weight-bold ml-lg-4 d-none d-lg-flex">Agregar elemento:</p>
+                <p class="text-white font-weight-bold ml-lg-4 col-12 d-lg-none">Agregar elemento:</p>
+                <form id="formulario" class="form form-inline col-12 col-lg-5 ml-lg-2">
+                    <select class="form form-control col-12 col-lg-4" name="CCM" id="CCM">
                         <option value="Elejir">Elegir Tipo</option>
                         <option value="Color">Color</option>
                         <option value="Marca">Marca</option>
                         <option value="Categoria">Categoria</option>
                     </select>
-                    <input placeholder="Nombre" class="form form-control ml-lg-2" type="text" name="CCMInput" id="CCMInput">
-                    <input id="bclose" type="submit" class="btn btn-primary text-white ml-lg-2" name="" value="Agregar">
+                    <input placeholder="Nombre" class="form form-control col-12 col-lg-5 ml-lg-2 mt-2 mt-lg-0" type="text" name="CCMInput" id="CCMInput">
+                    <input id="bclose" type="submit" class="d-none d-lg-flex btn btn-primary text-white ml-lg-2" name="" value="Agregar">
+                    <input id="bclose" type="submit" class="d-lg-none col-12 mt-2 btn btn-primary text-white p-3" name="" value="Agregar">
                 </form>
                 <button class="d-none d-lg-flex btn btn-danger ml-2 eliminar">Eliminar</button>
-                <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar">Eliminar</button>
+                <button class="d-lg-none btn btn-danger col-12 mb-3 p-3 eliminar mt-2">Eliminar</button>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-lg-4 mt-5 mt-lg-0">
                 <div id="tableContainer" class="d-block col-lg-12">
-                    <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
-                        <h2 class="bg-light text-center">Colores</h2>
+                <h2 class="bg-light text-center rounded">Colores</h2>
+                    <div style="border-radius: 10px;" class="table-wrapper-ccm contenedorTabla table-responsive">
                         <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
                             <thead class="thead-dark">
                                 <tr class="encabezados">
@@ -68,10 +70,10 @@ privilegios("Superiores");
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-lg-4 mt-5 mt-lg-0">
                 <div id="tableContainer" class="d-block col-lg-12">
-                    <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
-                        <h2 class="bg-light text-center">Categorias</h2>
+                    <h2 class="bg-light text-center rounded">Categorias</h2>
+                    <div style="border-radius: 10px;" class="table-wrapper-ccm contenedorTabla table-responsive">
                         <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
                             <thead class="thead-dark">
                                 <tr class="encabezados">
@@ -86,10 +88,10 @@ privilegios("Superiores");
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-lg-4 mt-5 mt-lg-0">
                 <div id="tableContainer" class="d-block col-lg-12">
-                    <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
-                        <h2 class="bg-light text-center">Marcas</h2>
+                    <h2 class="bg-light text-center rounded">Marcas</h2>
+                    <div style="border-radius: 10px;" class="table-wrapper-ccm contenedorTabla table-responsive">
                         <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
                             <thead class="thead-dark">
                                 <tr class="encabezados">

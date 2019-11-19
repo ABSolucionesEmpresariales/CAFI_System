@@ -4,6 +4,14 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+input[type='checkbox'] {
+    width:20px;
+    height:20px;
+    background:white;
+    border-radius:10px;
+    border:2px solid #555;
+}
+
 thead{
     border-radius:  7px;
 }
@@ -165,6 +173,12 @@ nav.fixed{
     height: 420px;
     overflow: auto;
 }
+/*CCM*/
+.table-wrapper-ccm{
+    width: 315px;
+    height: 440px;
+    overflow: auto;
+}
 
 /*Tabla compra*/
 .table-wrapper-compra
@@ -202,6 +216,12 @@ nav.fixed{
     .table-wrapper-productos{
         width: 376px;
         height: 420px;
+        overflow: auto;
+    }
+    /*CCM*/
+    .table-wrapper-ccm{
+        width: 705px;
+        height: 440px;
         overflow: auto;
     }
 }
@@ -252,6 +272,12 @@ nav.fixed{
     .table-wrapper-productos{
         width: 765px;
         height: 420px;
+        overflow: auto;
+    }
+    /*CCM*/
+    .table-wrapper-ccm{
+        width: 395px;
+        height: 440px;
         overflow: auto;
     }
     .contenedor{

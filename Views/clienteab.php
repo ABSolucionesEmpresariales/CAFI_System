@@ -28,7 +28,7 @@ privilegios("Todos");
 
   <body>
   <?php
-    $sel = "usuarios";
+    $sel = "clientes";
     include("../Controllers/NavbarAB.php")
     ?>
 

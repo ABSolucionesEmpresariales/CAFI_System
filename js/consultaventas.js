@@ -98,7 +98,7 @@ function enviarDatos(){
             }
           template += `
                     <td class="datos d-none">${item[0]}</td>
-                    <td><button class="bconcepto btn btn-info">Mostrar</button></td>
+                    <td class="text-center"><button class="bconcepto btn btn-info">Mostrar</button></td>
                     <td>${item[1]}</td>
                     <td>${item[2]}</td>
                     <td>${item[3]}</td>
