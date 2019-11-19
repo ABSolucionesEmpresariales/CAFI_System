@@ -225,7 +225,7 @@ privilegios("Todos");
                           </div>
                           <div class="col-lg-6">
                           <h5 class="importante">Contraseña:</h5>
-                          <input id="contrasena" class="form form-control" type="password" onkeypress="return check(event)" name="Pcontrasena" placeholder="Contraseña" autocomplete="new-password" required><br>
+                          <input id="contrasena" class="form form-control" type="password"  name="Pcontrasena" placeholder="Contraseña" autocomplete="new-password" required><br>
                         </div>
                         </div>
 

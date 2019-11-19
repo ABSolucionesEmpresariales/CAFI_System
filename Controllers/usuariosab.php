@@ -41,8 +41,12 @@ if (
     $consulta_usuarioab = "INSERT INTO usuariosab (email,acceso,entrada_sistema,contrasena) VALUES (?,?,?,?)";
     $tipo_datos_usuarioab = "ssss";
     $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false);
+    if($result == 1){
+      echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false);
+    }else{
+      echo 0;
+    }
     //respuesta al front
-    echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false);
   } else {
     //editar  
     $datos_usuarioab = array(

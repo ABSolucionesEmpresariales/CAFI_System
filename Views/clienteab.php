@@ -28,7 +28,7 @@ privilegios("Todos");
 
   <body>
   <?php
-    $sel = "usuarios";
+    $sel = "clientes";
     include("../Controllers/NavbarAB.php")
     ?>
 
@@ -220,8 +220,8 @@ privilegios("Todos");
                     </div>
                     <div class="d-block d-lg-flex row">          
                       <div class="col-lg-12">
-                          <h5 class="general">Contraseña:</h5>
-                          <input id="contrasena" class="form form-control" type="password" onkeypress="return check(event)" name="Pcontrasena" placeholder="Contraseña" autocomplete="new-password" required><br>
+                          <h5 class="importante">Contraseña:</h5>
+                          <input id="contrasena" class="form form-control" type="password" name="Pcontrasena" placeholder="Contraseña" autocomplete="new-password" required><br>
                         </div>
                     </div>
 

@@ -120,7 +120,7 @@ $_POST['accion'])
         $datos = array($codigo);
         $tipo = "s";
         $resul = $conexion->consultaPreparada($datos, $consulta,2, $tipo, false);
-        if($resul[0][0] != ''){
+        if(empty($resul[0][0])){
             return $resul[0][0];
         }else{
             return "";

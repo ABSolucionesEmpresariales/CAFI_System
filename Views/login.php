@@ -39,7 +39,7 @@
           <form class="form-group" id="formulario" action="login.html" method="post">
             <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
             <input id="email" class="index_input form-control" type="email" pattern= "[A-Za-z0-9_-@.]{1,15}" name="Temail" placeholder="Email" autocomplete="off" required ><br>
-            <input id="contrasena" class="index_input form-control" pattern= "[A-Za-z0-9_-@.]{1,15}" type="password" name="Pcontrasena" value="" placeholder="Contraseña" required ><br>
+            <input id="contrasena" class="index_input form-control" type="password" name="Pcontrasena" value="" placeholder="Contraseña" required ><br>
             <input id="index_button" type="submit" class="btn btn-secondary btn-lg btn-block btn-dark" name="Login" value="Continuar">
           </form>
         </div>
