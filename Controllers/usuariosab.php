@@ -32,7 +32,7 @@ if (
      $_POST['Temail'],
      $_POST['Sacceso'],
      $_POST['Sentrada_sistema'],
-     $_POST['Pcontrasena']
+     password_hash($_POST['Pcontrasena'], PASSWORD_DEFAULT)
     );
 
 
@@ -60,13 +60,12 @@ if (
       $_POST['Ssexo'],
       $_POST['Sacceso'],
       $_POST['Sentrada_sistema'],
-      $_POST['Pcontrasena'],
       $_POST['Temail']
     );
 
     $editar = "UPDATE persona INNER JOIN usuariosab ON persona.email=usuariosab.email SET rfc= ?, nombre = ?, cp = ?, calle_numero = ?, colonia = ?, localidad = ?, municipio = ?, 
-            estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?, acceso = ?, entrada_sistema = ?, contrasena = ? WHERE persona.email= ?";
-    $tipo_datos = "ssssssssssssssss";
+            estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?, acceso = ?, entrada_sistema = ? WHERE persona.email= ?";
+    $tipo_datos = "sssssssssssssss";
     //respuesta al front
     echo $conexion->consultaPreparada($datos_usuarioab, $editar, 1, $tipo_datos, false,null);
   }
