@@ -48,7 +48,7 @@ if (
     $tipo_datos_usuarioab = "sssss";
     $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false,null);
     if($result == 1){
-       // $email->enviarEmailConfirmacion();
+      $email->enviarEmailConfirmacion();
       echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false,null);
     }else{
       echo 0;
