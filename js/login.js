@@ -14,6 +14,7 @@ $(document).ready(function () {
         }
       });
     }
+
   });
 
   $("#formulario").submit(function (e) {
@@ -24,9 +25,9 @@ $(document).ready(function () {
           let datos = JSON.parse(response);
           
           $.each(datos, function (i, item) {
-              if (typeof (item[3]) != 'undefined' ) {
+              if (typeof (item[4]) != 'undefined' ) {
                 if (item[2]=='A') {
-                  if (item[1] == 'CEO' && item[3] == null){
+                  if (item[1] == 'CEO' && item[4] == null){
                     $('.ocultar').hide();
                     $('.mostrar').show();
 
@@ -57,7 +58,7 @@ $(document).ready(function () {
 
               }else{
                 if (item[2]=='A') {
-                  window.location.replace('usuariosab.php');
+                  window.location.replace('clienteab.php');
                 }else{
                   $("#mensaje").text("Usuario inactivo");
                   $("#mensaje").css("color", "red");
