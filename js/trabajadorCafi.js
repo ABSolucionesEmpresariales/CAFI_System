@@ -24,11 +24,13 @@ $(document).ready(function(){
         $("#divpass").css('display','block');
         $("#contrasena").attr('required');
         editar = false;
+        $(".ocultar").show();
       });
 
     $("#formulario").submit(function (e) {
         $.post("../Controllers/trabajadorCafi.php",$("#formulario").serialize() + '&accion=' + editar, function (response) {
           $("#mensaje").css("display", "block");
+          console.log(response);
           if (response == "1") {
             if(editar == true){
               $('.modal').modal('hide');
@@ -38,7 +40,11 @@ $(document).ready(function(){
             $("#mensaje").css("color", "green");
             $("#email").focus();
             $("#formulario").trigger("reset");
-          } else {
+          } else if(response == "exceso"){
+            $("#mensaje").text("Limite de usuarios exedido");
+            $("#mensaje").css("color", "red");
+            $("#email").focus();
+          }else{
             $("#mensaje").text("Registro fallido");
             $("#mensaje").css("color", "red");
             $("#email").focus();
@@ -56,7 +62,7 @@ $(document).ready(function(){
             touchtime = new Date().getTime();
           } else {
             // compare first click to this click and see if they occurred within double click threshold
-            if (new Date().getTime() - touchtime < 800) {
+            if (new Date().getTime() - touchtime < 300) {
               // double click occurred
               var valores = "";
               // Obtenemos todos los valores contenidos en los <td> de la fila
@@ -66,6 +72,7 @@ $(document).ready(function(){
               });
               datos = valores.split("?");
               console.log(datos);
+              $(".ocultar").hide();
               $("#email").val(datos[1]);
               $("#rfc").val(datos[2]);
               $("#nombre").val(datos[3]);
@@ -120,7 +127,6 @@ $(document).ready(function(){
           type: "POST",
           data: "tabla=tabla",
           success: function (response) {
-            console.log(response);
             let datos = JSON.parse(response);
             let template = "";
             $.each(datos, function (i, item) {

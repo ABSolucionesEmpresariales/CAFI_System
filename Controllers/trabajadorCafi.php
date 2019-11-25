@@ -10,9 +10,33 @@ if (
 ) {
 
   $conexion = new Models\Conexion();
-  $email = new Models\Email();
-
+  $datos_verificar = array($_POST['Temail']);
+  $consulta_verificar = "SELECT * FROM persona WHERE email = ?";
+  $respuesta = json_encode($conexion->consultaPreparada($datos_verificar, $consulta_verificar,2,'s', false,null));
+  if($respuesta == '[]'){
+    $_POST['accion'] = 'false';
+  }else{
+    $_POST['accion'] = 'true';
+  }
   if ($_POST['accion'] == 'false') {
+    $trabajadores = 0;
+    $trabajadores_extra = 0;
+    $datos_suscripcion = array($_SESSION['negocio']);
+    $datos_contar = array($_SESSION['negocio'],"A");
+    $consulta_usuarios = "SELECT paquete,usuario_extra FROM suscripcion WHERE negocio = ?";
+    $consulta_contar = "SELECT COUNT(negocio) FROM usuarioscafi WHERE negocio = ? AND entrada_sistema = ?";
+    $result_usuarios = $conexion->consultaPreparada($datos_suscripcion, $consulta_usuarios,2,'i', false,null);
+    $trabajadores_extra = (int) $result_usuarios[0][1];
+    $result_contar = $conexion->consultaPreparada($datos_contar, $consulta_contar,2,'is', false,null);
+    if($result_usuarios[0][0] == 1){
+      $trabajadores = 2 + $trabajadores_extra;
+    }else if($result_usuarios[0][0] == 2){
+      $trabajadores = 3 + $trabajadores_extra;
+    }else if($result_usuarios[0][0] == 3){
+      $trabajadores = 4 + $trabajadores_extra;
+    }
+    
+    if($trabajadores != (int) $result_contar[0][0]){
     //guardar
     $datos_persona = array(
      $_POST['Temail'],
@@ -51,10 +75,9 @@ if (
        // $email->enviarEmailConfirmacion();
       echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false,null);
     }else{
-      echo 0;
+      echo "exceso";
     }
     //respuesta al front
-    
   } else {
     //editar  
     $datos_usuarioab = array(
@@ -70,6 +93,7 @@ if (
       $_POST['Ttelefono'],
       $_POST['Dfecha_nacimiento'],
       $_POST['Ssexo'],
+      0,
       $_POST['Sacceso'],
       $_POST['Sentrada_sistema'],
       $_SESSION['negocio'],
@@ -77,12 +101,13 @@ if (
     );
 
     $editar = "UPDATE persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email SET rfc= ?, nombre = ?, cp = ?, calle_numero = ?, colonia = ?, localidad = ?, municipio = ?, 
-            estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?, acceso = ?, entrada_sistema = ?,negocio = ? WHERE persona.email= ?";
-    $tipo_datos = "ssssssssssssssss";
+            estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?,eliminado=?, acceso = ?, entrada_sistema = ?, contrasena = ?,negocio = ? WHERE persona.email= ?";
+    $tipo_datos = "ssssssssssssisssis";
     //respuesta al front
     echo $conexion->consultaPreparada($datos_usuarioab, $editar,1, $tipo_datos, false, null);
   }
-} 
+}
+}
 
 if(isset($_POST['tabla'])){
     $conexion = new Models\Conexion();
@@ -110,11 +135,10 @@ if (isset($_POST['array'])) {
             $datos = array(1,"I",$data[$i]);
             $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
         }
-    if(empty($result)){
-      echo $result;
-    }else{
-      echo '0';
-    }
-    
+      if(empty($result)){
+        echo $result;
+      }else{
+        echo '0';
+      }
     }
   }

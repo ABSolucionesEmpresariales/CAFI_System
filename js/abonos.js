@@ -17,12 +17,9 @@ $(document).ready(function () {
     });
   }
 
-
-
- 
-
-  $("#formulario").submit(function (e) {
-    $.post("../Controllers/consultasadeudos.php",$("#formulario").serialize() + "&idabono=" + idabono, function (response) {
+  $("#formularioAbono").submit(function (e) {
+    $.post("../Controllers/consultasadeudos.php",$("#formularioAbono").serialize() + "&idabono=" + idabono, function (response) {
+      console.log(response);
       if (response == "1") {
         $('.modal').modal('hide');
       } else {
@@ -46,17 +43,40 @@ $(document).ready(function () {
         closeOnConfirm: false
       },
       function(){
-          if(typeof (enviarDatos()) != 'undefined'){
-            swal("Exito!", 
-            "Sus datos han sido eliminados.",
-             "success");
-          }else{
-            swal("Error!", 
-            "Ups, algo salio mal.",
-             "warning");
+        var valores = "";
+        $('#cuerpo').find("tr").find("td").find("input").each(function () {
+            if($(this).prop('checked')){
+                valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+            }
+        });   
+        valores += "0";
+        result = valores.split("?");
+        const postData = {
+          array: JSON.stringify(result),
+          tabla_afectada: 'abonos'
+        };
+        console.log(postData);
+         $.ajax({
+          url: "../Controllers/consultasadeudos.php",
+          type: "POST",
+          data: postData,
+    
+          success: function (response) {
+            if(typeof(response) != 'undefined'){
+              swal("Exito!", 
+              "Sus datos han sido eliminados.",
+               "success");
+            }else{
+              swal("Error!", 
+              "Ups, algo salio mal.",
+               "warning");
+            }
+            $('.check').prop("checked", false);
+            console.log(response);
+             obtenerDatosTablaAbonos();
+                return response;
           }
-          $('.check').prop("checked", false);
-          obteneDatosProveedor();
+        }); 
       });
 });
 
@@ -75,31 +95,7 @@ $(document).ready(function () {
 });
 
   function enviarDatos(){
-    var valores = "";
 
-    $('#cuerpo').find("tr").find("td").find("input").each(function () {
-        if($(this).prop('checked')){
-            valores += $(this).parents("tr").find("td").eq(1).text() + "?";
-        }
-    });   
-    valores += "0";
-    result = valores.split("?");
-    const postData = {
-      array: JSON.stringify(result),
-      tabla_afectada: 'abonos'
-    };
-    console.log(postData);
-     $.ajax({
-      url: "../Controllers/consultasadeudos.php",
-      type: "POST",
-      data: postData,
-
-      success: function (response) {
-        console.log(response);
-         obtenerDatosTablaAbonos();
-            return response;
-      }
-    }); 
 }
 
   function obtenerDatosTablaAbonos() {
@@ -139,7 +135,7 @@ $(document).ready(function () {
         touchtime = new Date().getTime();
       } else {
         // compare first click to this click and see if they occurred within double click threshold
-        if (new Date().getTime() - touchtime < 800) {
+        if (new Date().getTime() - touchtime < 300) {
           // double click occurred
           $("#mensaje").hide();
           var valores = "";
@@ -149,9 +145,10 @@ $(document).ready(function () {
             valores += $(this).html() + "?";
           });
           datos = valores.split("?");
+          console.log(datos);
 
-          idabono = datos[0];
-          $("#estado").val(datos[1]);
+          idabono = datos[1];
+          $("#estado").val(datos[2]);
           $("#modalForm").modal("show");
 
         } else {

@@ -15,7 +15,7 @@ $(this).not('.encabezados').hide();
 });
 });
 
-$('#Navbarsucursales,#Navbarsucursales2').on('change',function(){
+$('#Navbarsucursales,#Navbarsucursales2,#Navbarsucursales3').on('change',function(){
     
   if ($(this).val() != '') {
     $.ajax({
@@ -50,6 +50,7 @@ function cargarNegocios(){
       });
       $('#Navbarsucursales').html(template);
       $('#Navbarsucursales2').html(template);
+      $('#Navbarsucursales3').html(template);
     }
     });
 }

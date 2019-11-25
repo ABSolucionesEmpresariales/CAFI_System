@@ -1,19 +1,36 @@
 $(document).ready(function () {
-    obtenerNegocios();
+    let session = '';
+    obtenerSesion();
+    
+
+    function obtenerSesion(){
+        $.ajax({
+            url: "../Controllers/masVendidos.php",
+            type: "POST",
+            data: "sessionNegocio=sessionNegocio",
+            success: function (response) {
+                console.log(response);
+                session = response;
+                obtenerDatosTabla(session);
+          }
+        });
+    }
 
     $(document).on('change','#sucursal',function(){
         obtenerDatosTabla($(this).val());
     });
 
-    function obtenerDatosTabla(sucursal){
+    function obtenerDatosTabla(session){
+        console.log("session = "+session);
         $.ajax({
             url: "../Controllers/masVendidos.php",
             type: "POST",
-            data: "idnegocio="+sucursal,
+            data: "idnegocio="+session,
       
             success: function (response) {
-                console.log(response);
+                
                 let datos = JSON.parse(response);
+                console.log(datos);
                 let template = "";
                 $.each(datos, function (i, item) {
                     for(var j = 0; j <= item.length; j++){
@@ -30,31 +47,6 @@ $(document).ready(function () {
                 });
 
                 $('#cuerpo').html(template);
-          }
-        });
-    }
-
-    function obtenerNegocios(){
-        $.ajax({
-            url: "../Controllers/masVendidos.php",
-            type: "POST",
-            data: "negocios=negocios",
-      
-            success: function (response) {
-                console.log(response);
-                let datos = JSON.parse(response);
-                let template = "<option value=></option>";
-                $.each(datos, function (i, item) {
-                    for(var j = 0; j <= item.length; j++){
-                        if(item[j] == 'null'){
-                          item[j] = "";
-                        }
-                  }
-                    template+=`
-                    <option value="${item[0]}">${item[1]}</option>
-                    `;
-                });
-                $('#sucursal').html(template);
           }
         });
     }

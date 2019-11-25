@@ -201,7 +201,7 @@ $(document).ready(function () {
             if(item[j] == 'null'){
               item[j] = "";
             }
-      }
+          }
           template+=`<option value="${item[0]}">${item[1]} ${item[2]} ${item[3]} ${item[4]}</option>`;
         });
         $('#lproductos').html(template);
@@ -217,7 +217,7 @@ $(document).ready(function () {
         touchtime = new Date().getTime();
       } else {
         // compare first click to this click and see if they occurred within double click threshold
-        if (new Date().getTime() - touchtime < 800) {
+        if (new Date().getTime() - touchtime < 300) {
           // double click occurred
           var valores = "";
           $(this).parent("tr").find("td").each(function () {
@@ -225,7 +225,7 @@ $(document).ready(function () {
           });
   
           datos = valores.split("?");
-  
+          $('.ocultarCodigo').hide();
           $("#codigo_barras").val(datos[1]);
           $("#modelo").val(datos[2]);
           $("#nombre").val(datos[3]);
@@ -514,6 +514,7 @@ function enviarDatos(){
     $("#formularioBarras").trigger("reset");
     $("#formularioInventario").trigger("reset");
     $("#mensaje").css("display", "none");
+    $('.ocultarCodigo').show();
   });
 
   function obtenerDatosTablaProductos(negocio) {

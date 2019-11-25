@@ -243,7 +243,7 @@ privilegios("Superiores");
           <form class="form-group" enctype="multipart/form-data" id="formulario" method="POST">
             <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
             <div class="d-block d-lg-flex row">
-              <div class="col-lg-6">
+              <div class="col-lg-6 ocultarCodigo">
                 <h5 class="importante">Codigo:</h5>
                 <input id="codigo_barras" class="form form-control" onkeypress="return codigo(event)" type="text" name="Tcodigo_barras" placeholder="0000000000000" maxlength="13">
                 <input type="button" id="generador" value="Generar Código" class="btn btn-primary">

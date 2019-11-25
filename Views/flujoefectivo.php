@@ -56,8 +56,6 @@ privilegios("Master");
                                 <div class="tab-pane fade show active" id="Producto" role="tabpanel" aria-labelledby="Producto-tab">
                                     <div class="col-12"><br>
                                     <form id="form1">
-                                            <h5><label for="negocio" style="margin: 0 auto;" class="general">Negocio:</label></h5>
-                                            <select class="form form-control combosucursal" name="Ssucursal">
                                                 
                                             </select> <br>
                                             <fieldset class="border p-2">
@@ -77,14 +75,11 @@ privilegios("Master");
                                 <div class="tab-pane fade" id="Inventario" role="tabpanel" aria-labelledby="Inventario-tab">
                                     <div class="col-12">
                                         <br>
-                                        <form id="form2">
-                                            <h5><label for="negocio" style="margin: 0 auto;" class="general">Negocio:</label></h5>
-                                            <select class="form form-control combosucursal" name="Ssucursal">
-                                            </select> <br>
+                                        
                                             <h5><label for="inmes" style="margin: 0 auto;" class="general">Mes:</label></h5>
                                             <input id="inmes" class="form-control" type="month" name="Dmes"><br>
-                                            <input type="submit" class="btn btn-secondary btn-lg btn-block btn-dark" name="" value="Consultar">
-                                        </form>
+                                            <input id="prueva" type="button" class="btn btn-secondary btn-lg btn-block btn-dark" name="" value="Consultar">
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -102,37 +97,37 @@ privilegios("Master");
     <div class="contenedor container-fluid">
         <div id="tableContainer" class="d-block col-lg-12">
             <div class="input-group mb-2">
-                <div class="font-weight-bold px-3 d-flex align-items-center">
-                    <p class="text-white">Sucursal:</p>
+                <!-- <button class="btn btn-primary ml-6" data-toggle="modal" data-target="#modalForm">Filtrar</button> -->
+                <div class="col-lg-2">
+                <select class="anosFiltro form form-control"></select>
                 </div>
-
-                <div class="col-3">
-                    <select id="sucursal" class="form form-control combosucursal" name="Snegocio">
-                    </select>
-                </div>
-
-                <button class="btn btn-primary ml-3" data-toggle="modal" data-target="#modalForm">Filtrar</button>
             </div>
-
 
             <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                 <table style="border-radius: 10px;" class="table table-hover table-striped table-light">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Ventas</th>
-                            <th>Otros Ingresos</th>
-                            <th>Egresos</th>
-                            <th>Retiros</th>
-                            <th>Efectivo</th>
+                            <th></th>
+                            <th class="1">Enero</th>
+                            <th class="2">Febrero</th>
+                            <th class="3">Marzo</th>
+                            <th class="4">Abril</th>
+                            <th class="5">Mayo</th>
+                            <th class="6">Junio</th>
+                            <th class="7">Julio</th>
+                            <th class="8">Agosto</th>
+                            <th class="9">Septiembre</th>
+                            <th class="10">Octubre</th>
+                            <th class="11">Novienmbre</th>
+                            <th class="12">Diciembre</th>
                         </tr>
                     </thead>
-                    <tbody id="cuerpo1">
-
+                    <tbody id="cuerpoFlujo">
 
                     </tbody>
                 </table>
             </div>
-            <div style="border-radius: 10px;" class="contenedorTabla table-responsive mt-3">
+<!--             <div style="border-radius: 10px;" class="contenedorTabla table-responsive mt-3">
                 <table style="border-radius: 10px;" class="table table-hover table-striped table-light">
                     <thead class="thead-dark">
                         <tr>
@@ -150,12 +145,13 @@ privilegios("Master");
 
                     </tbody>
                 </table>
-            </div>
+            </div> -->
         </div>
     </div>
-    <script src="../js/flujoefectivo.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../js/user_jquery.js"></script>
+    <script src="../js/flujoefectivo.js"></script>
 </body>
 
 </html>

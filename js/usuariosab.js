@@ -95,6 +95,7 @@ $(document).ready(function () {
     editar = false;
     $("#formulario").trigger("reset");
     $("#mensaje").css("display", "none");
+    $('.ocultar').show();
   });
 
   $("#formulario").submit(function (e) {
@@ -208,7 +209,7 @@ $(document).ready(function () {
         touchtime = new Date().getTime();
       } else {
         // compare first click to this click and see if they occurred within double click threshold
-        if (new Date().getTime() - touchtime < 800) {
+        if (new Date().getTime() - touchtime < 300) {
           // double click occurred
           var valores = "";
           // Obtenemos todos los valores contenidos en los <td> de la fila
@@ -219,6 +220,7 @@ $(document).ready(function () {
 
           datos = valores.split("?");
           console.log(datos);
+          $('.ocultar').hide();
           $("#email").val(datos[1]);
           $("#rfc").val(datos[2]);
           $("#nombre").val(datos[3]);
