@@ -1,32 +1,33 @@
 <?php
 session_start();
 require_once '../Models/Conexion.php';
-if (isset($_POST['combo']) && $_POST['combo'] === "negocio") {
-
-    $conexion = new Models\Conexion();
-    $datos = array($_SESSION['email']);
-    $consulta = "SELECT idnegocios,nombre FROM negocios WHERE dueno= ?";
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "s", false, null));
-} else if (true) {
+if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla" || isset($_POST['año'])) {
 
     $conexion = new Models\Conexion();
 
-    $datos = array("I", 1, 3);
+    if (!isset($_POST['año'])) {
+        $concatenar = " ";
+        $datos = array("I", 1, 3);
+        $tipo_datos = "sii";
+    } else {
+        $concatenar = "AND YEAR(fecha) = ?";
+        $datos = array("I", 1, 3, $_POST['año']);
+        $tipo_datos = "siis";
+    }
 
     $consulta = "SELECT MONTH(fecha) Mes, SUM(total) AS ingreseos_por_venta FROM venta 
- WHERE estado_venta != ? AND eliminado != ? AND negocio = ? GROUP BY Mes";
-    $resultado = $conexion->consultaPreparada($datos, $consulta, 2, "sis", false, null);
+ WHERE estado_venta != ? AND eliminado != ? AND negocio = ?" . $concatenar . "GROUP BY Mes";
+    $resultado = $conexion->consultaPreparada($datos, $consulta, 2, $tipo_datos, false, null);
 
     if (sizeof($resultado) != 0) {
-
         $ingresos_por_venta = asignarValorAcadaMes($resultado);
     } else {
         $ingresos_por_venta =   [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0];
     }
 
     $consulta = "SELECT MONTH(fecha) Mes, SUM(cantidad) AS otros_ingresos FROM otros_ingresos
-WHERE estado != ? AND eliminado != ?  AND negocio = ? GROUP BY Mes";
-    $resultado = $conexion->consultaPreparada($datos, $consulta, 2, "sis", false, null);
+WHERE estado != ? AND eliminado != ?  AND negocio = ?" . $concatenar . "GROUP BY Mes";
+    $resultado = $conexion->consultaPreparada($datos, $consulta, 2, $tipo_datos, false, null);
     if (sizeof($resultado) != 0) {
 
         $otros_ingresos = asignarValorAcadaMes($resultado);
@@ -36,18 +37,35 @@ WHERE estado != ? AND eliminado != ?  AND negocio = ? GROUP BY Mes";
     $total_de_ingreso = sumarArreglos($ingresos_por_venta, $otros_ingresos);
 
     $consulta = "SELECT MONTH(fecha) Mes, SUM(monto) AS egresos FROM gastos 
-WHERE estado != ? AND eliminado != ? AND negocio = ? GROUP BY Mes";
-    $resultado = $conexion->consultaPreparada($datos, $consulta, 2, "sis", false, null);
+WHERE estado != ? AND eliminado != ? AND negocio = ?" . $concatenar . "GROUP BY Mes";
+    $resultado = $conexion->consultaPreparada($datos, $consulta, 2, $tipo_datos, false, null);
     if (sizeof($resultado) != 0) {
         $egresos_por_mes = asignarValorAcadaMes($resultado);
     } else {
         $egresos_por_mes = [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0];
     }
+
+    $flujo_operacional = restarArreglos($total_de_ingreso, $egresos_por_mes);
+    $front = [0 => $ingresos_por_venta, 1 => $otros_ingresos, 2 => $total_de_ingreso, 3 => $egresos_por_mes, 4 => $flujo_operacional];
+    echo json_encode($front);
+} else if (isset($_POST['Dmes'])) {
+    /* $conexion = new Models\Conexion();
+    $fecha = explode("-", $_POST['Dmes']);
+    $año = $fecha[0];
+    $mes = $fecha[1];
+
+    $datos = array($mes, $año, "I", 1, 3);
+    $consulta = "SELECT MONTH(fecha) Mes, SUM(monto) AS egresos FROM gastos 
+     WHERE MONTH(fecha) = ? AND YEAR(fecha) = ? AND estado != ? AND eliminado != ? AND negocio = ?";
+    $resultado =  $conexion->consultaPreparada($datos, $consulta, 2, "sssii", false, null);
+    if (sizeof($resultado) != 0) {
+        $egresos_por_mes = asignarValorAcadaMes($resultado);
+    } else {
+        $egresos_por_mes = [];
+    } */
 }
 
-$flujo_operacional = restarArreglos($total_de_ingreso,$egresos_por_mes);
-$front = [0 => $ingresos_por_venta, 1 => $otros_ingresos, 2 => $total_de_ingreso, 3 => $egresos_por_mes, 4 => $flujo_operacional];
-echo json_encode($front);
+
 
 
 function sumarArreglos($arreglo1, $arreglo2)
@@ -122,7 +140,7 @@ para filtar por año por mes , y por rango de fecha el usuario debe de proporcio
 
 
 
-sumar los resultados de cada mes con  el mes correspondiente de la siguiente consulta para obtenern el total de ingreso por mes 
+sumar los resultados de cada mes con  el mes correspondiente de la siguiente consulta para obtener el total de ingreso por mes 
 
 
 
