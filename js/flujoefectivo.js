@@ -7,7 +7,6 @@ $(document).ready(function() {
     for($i=19; $i <= 30; $i++){
       template2+=`<option value="20${$i}">20${$i}</option>`;
     }
-    console.log(template2);
     $('.anosFiltro').html(template2);
   }
 
@@ -17,9 +16,9 @@ $(document).ready(function() {
       type: "POST",
       data: "tabla=tabla",
       success: function (response) {
+        console.log(response);
         let template = "";
         datos = JSON.parse(response);
-        console.log(datos);
         arrayTitulos = ["ingresos por venta","Otros ingresos","total de ingreso","total de egresos","flujo operacional"];
         $.each(datos, function (i, item) {
           template += ` 
@@ -82,14 +81,18 @@ $(document).ready(function() {
     }); */
 
     $(document).on("change",".anosFiltro",function(){
+      const data = {
+        
+      };
       $.ajax({
         url: "../Controllers/flujoefectivo.php",
         type: "POST",
-        data: "año=año",
+        data: "año:"+$('.anosFiltro').val(),
+        
         success: function(response) {
+          console.log(response);
           let template = "";
           datos = JSON.parse(response);
-          console.log(datos);
           arrayTitulos = ["ingresos por venta","Otros ingresos","total de ingreso","total de egresos","flujo operacional"];
           $.each(datos, function (i, item) {
             template += ` 
