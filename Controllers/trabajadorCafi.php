@@ -25,9 +25,9 @@ if (
     $datos_contar = array($_SESSION['negocio'],"A");
     $consulta_usuarios = "SELECT paquete,usuario_extra FROM suscripcion WHERE negocio = ?";
     $consulta_contar = "SELECT COUNT(negocio) FROM usuarioscafi WHERE negocio = ? AND entrada_sistema = ?";
-    $result_usuarios = $conexion->consultaPreparada($datos_suscripcion, $consulta_usuarios,2,'i', false);
+    $result_usuarios = $conexion->consultaPreparada($datos_suscripcion, $consulta_usuarios,2,'i', false,null);
     $trabajadores_extra = (int) $result_usuarios[0][1];
-    $result_contar = $conexion->consultaPreparada($datos_contar, $consulta_contar,2,'is', false);
+    $result_contar = $conexion->consultaPreparada($datos_contar, $consulta_contar,2,'is', false,null);
     if($result_usuarios[0][0] == 1){
       $trabajadores = 2 + $trabajadores_extra;
     }else if($result_usuarios[0][0] == 2){
@@ -106,7 +106,8 @@ if (
     //respuesta al front
     echo $conexion->consultaPreparada($datos_usuarioab, $editar,1, $tipo_datos, false, null);
   }
-} 
+}
+}
 
 if(isset($_POST['tabla'])){
     $conexion = new Models\Conexion();
@@ -134,11 +135,10 @@ if (isset($_POST['array'])) {
             $datos = array(1,"I",$data[$i]);
             $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
         }
-    if(empty($result)){
-      echo $result;
-    }else{
-      echo '0';
-    }
-    
+      if(empty($result)){
+        echo $result;
+      }else{
+        echo '0';
+      }
     }
   }
