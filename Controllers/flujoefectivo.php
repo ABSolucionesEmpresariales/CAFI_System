@@ -1,16 +1,8 @@
 <?php
 session_start();
 require_once '../Models/Conexion.php';
-if (isset($_POST['combo']) && $_POST['combo'] === "negocio") {
-
+if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     $conexion = new Models\Conexion();
-    $datos = array($_SESSION['email']);
-    $consulta = "SELECT idnegocios,nombre FROM negocios WHERE dueno= ?";
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "s", false, null));
-} else if (true) {
-
-    $conexion = new Models\Conexion();
-
     $datos = array("I", 1, 3);
 
     $consulta = "SELECT MONTH(fecha) Mes, SUM(total) AS ingreseos_por_venta FROM venta 

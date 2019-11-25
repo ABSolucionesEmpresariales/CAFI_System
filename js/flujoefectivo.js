@@ -1,4 +1,44 @@
 $(document).ready(function() {
+  pintarAnos();
+  pintarTabla();
+
+  function pintarAnos(){
+    let template2 = "<option value=''>Elejir</option>";
+    for($i=19; $i <= 30; $i++){
+      template2+=`<option value="20${$i}">20${$i}</option>`;
+    }
+    console.log(template2);
+    $('.anosFiltro').html(template2);
+  }
+
+  function pintarTabla(){
+    $.ajax({
+      url: "../Controllers/flujoefectivo.php",
+      type: "POST",
+      data: "tabla=tabla",
+      success: function (response) {
+        let template = "";
+        datos = JSON.parse(response);
+        console.log(datos);
+        arrayTitulos = ["ingresos por venta","Otros ingresos","total de ingreso","total de egresos","flujo operacional"];
+        $.each(datos, function (i, item) {
+          template += ` 
+          <tr>
+          <td>${arrayTitulos[i]}</td>
+          `;
+          for(i = 0; i < 12; i++){
+            template += ` 
+            <td class="${i+1}">$${item[i]}</td>
+            `;
+          }
+          template += ` 
+          </tr>
+          `;
+        });
+        $("#cuerpoFlujo").html(template);
+      }
+    });
+  }
 
 /*     pintarComboNegocios();
 
@@ -22,31 +62,6 @@ $(document).ready(function() {
       });
     } */
   
-    $("#form1").submit(function(e) {
-      $.post("../Controllers/flujoefectivo.php",$("#form1").serialize(),function(response) {
-          console.log(response);
-          let template = "";
-          datos = JSON.parse(response);
-          arrayTitulos = ["ingresos por venta","total de ingreso","total de egresos","flujo operacional"];
-          $.each(datos, function (i, item) {
-            template = ` 
-            <tr>
-            <td>${arrayTitulos[i]}</td>
-            </tr>
-            `;
-            for(i = 0; i < 12; i++){
-              template = ` 
-              <td id="${i+1}">${item[i]}</td>
-              `;
-            }
-            template = ` 
-            </tr>
-            `;
-          });
-          $("#cuerpo1").html(template);
-        });
-      e.preventDefault();
-    });
 
     $(document).on('click','#prueva',function(){
       console.log($('#inmes').val());
@@ -54,7 +69,9 @@ $(document).ready(function() {
       mes = ano_mes.split('-');
       for(i=1; i <= 12; i++){
         if(i != mes[1]){
-          $("#"+i).addClass('d-none');
+          $("."+i).addClass('d-none');
+        }else{
+          $("."+i).removeClass('d-none');
         }
       }
     });
@@ -63,8 +80,37 @@ $(document).ready(function() {
       
       e.preventDefault();
     }); */
+
+    $(document).on("change",".anosFiltro",function(){
+      $.ajax({
+        url: "../Controllers/flujoefectivo.php",
+        type: "POST",
+        data: "año=año",
+        success: function(response) {
+          let template = "";
+          datos = JSON.parse(response);
+          console.log(datos);
+          arrayTitulos = ["ingresos por venta","Otros ingresos","total de ingreso","total de egresos","flujo operacional"];
+          $.each(datos, function (i, item) {
+            template += ` 
+            <tr>
+            <td>${arrayTitulos[i]}</td>
+            `;
+            for(i = 0; i < 12; i++){
+              template += ` 
+              <td class="${i+1}">$${item[i]}</td>
+              `;
+            }
+            template += ` 
+            </tr>
+            `;
+          });
+          $("#cuerpoFlujo").html(template);
+        }
+      });
+    });
   
-    $(document).on("change", "#sucursal", function() {
+/*     $(document).on("change", "#sucursal", function() {
       const postData = {
         negocio: $("#sucursal").val()
       };
@@ -91,7 +137,7 @@ $(document).ready(function() {
         `;
         $("#cuerpo2").html(template);
       });
-    });
+    }); */
 
   });
   

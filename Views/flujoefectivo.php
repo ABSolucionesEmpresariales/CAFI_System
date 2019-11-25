@@ -75,11 +75,11 @@ privilegios("Master");
                                 <div class="tab-pane fade" id="Inventario" role="tabpanel" aria-labelledby="Inventario-tab">
                                     <div class="col-12">
                                         <br>
-                                        <form id="form2">
+                                        
                                             <h5><label for="inmes" style="margin: 0 auto;" class="general">Mes:</label></h5>
                                             <input id="inmes" class="form-control" type="month" name="Dmes"><br>
-                                            <input id="prueva" class="btn btn-secondary btn-lg btn-block btn-dark" name="" value="Consultar">
-                                        </form>
+                                            <input id="prueva" type="button" class="btn btn-secondary btn-lg btn-block btn-dark" name="" value="Consultar">
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -97,29 +97,32 @@ privilegios("Master");
     <div class="contenedor container-fluid">
         <div id="tableContainer" class="d-block col-lg-12">
             <div class="input-group mb-2">
-                <button class="btn btn-primary ml-6" data-toggle="modal" data-target="#modalForm">Filtrar</button>
+                <!-- <button class="btn btn-primary ml-6" data-toggle="modal" data-target="#modalForm">Filtrar</button> -->
+                <div class="col-lg-2">
+                <select class="anosFiltro form form-control"></select>
+                </div>
             </div>
 
             <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                 <table style="border-radius: 10px;" class="table table-hover table-striped table-light">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Ingresos</th>
-                            <th>Enero</th>
-                            <th>Febrero</th>
-                            <th>Marzo</th>
-                            <th>Abril</th>
-                            <th>Mayo</th>
-                            <th>Junio</th>
-                            <th>Julio</th>
-                            <th>Agosto</th>
-                            <th>Septiembre</th>
-                            <th>Octubre</th>
-                            <th>Novienmbre</th>
-                            <th>Diciembre</th>
+                            <th></th>
+                            <th class="1">Enero</th>
+                            <th class="2">Febrero</th>
+                            <th class="3">Marzo</th>
+                            <th class="4">Abril</th>
+                            <th class="5">Mayo</th>
+                            <th class="6">Junio</th>
+                            <th class="7">Julio</th>
+                            <th class="8">Agosto</th>
+                            <th class="9">Septiembre</th>
+                            <th class="10">Octubre</th>
+                            <th class="11">Novienmbre</th>
+                            <th class="12">Diciembre</th>
                         </tr>
                     </thead>
-                    <tbody id="cuerpo1">
+                    <tbody id="cuerpoFlujo">
 
                     </tbody>
                 </table>
