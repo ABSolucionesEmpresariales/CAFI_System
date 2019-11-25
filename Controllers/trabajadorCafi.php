@@ -1,6 +1,7 @@
 <?php
 session_start();
-include_once '../Models/Conexion.php';
+require_once '../Models/Conexion.php';
+require_once '../Models/Email.php';
 
 if (
   isset($_POST['Temail']) && isset($_POST['Trfc'])  && isset($_POST['Tnombre'])  && isset($_POST['Tcp'])  && isset($_POST['Tcalle_numero'])
@@ -11,7 +12,7 @@ if (
   $conexion = new Models\Conexion();
   $datos_verificar = array($_POST['Temail']);
   $consulta_verificar = "SELECT * FROM persona WHERE email = ?";
-  $respuesta = json_encode($conexion->consultaPreparada($datos_verificar, $consulta_verificar,2,'s', false));
+  $respuesta = json_encode($conexion->consultaPreparada($datos_verificar, $consulta_verificar,2,'s', false,null));
   if($respuesta == '[]'){
     $_POST['accion'] = 'false';
   }else{
@@ -38,41 +39,41 @@ if (
     if($trabajadores != (int) $result_contar[0][0]){
     //guardar
     $datos_persona = array(
-      $_POST['Temail'],
-      $_POST['Trfc'],
-      $_POST['Tnombre'],
-      $_POST['Tcp'],
-      $_POST['Tcalle_numero'],
-      $_POST['Tcolonia'],
-      $_POST['Tlocalidad'],
-      $_POST['Tmunicipio'],
-      $_POST['Sestado'],
-      $_POST['Tpais'],
-      $_POST['Ttelefono'],
-      $_POST['Dfecha_nacimiento'],
-      $_POST['Ssexo'],
-       0 //eliminado false
-     );
- 
-     $datos_usuarioab = array(
-      $_POST['Temail'],
-      $_POST['Sacceso'],
-      $_POST['Sentrada_sistema'],
-      $_POST['Pcontrasena'],
-      $_SESSION['negocio']
-     );
- 
- 
-     $consulta_persona = "INSERT INTO persona (email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento,sexo,eliminado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-     $tipo_datos_persona = "sssssssssssssi";
-     $consulta_usuarioab = "INSERT INTO usuarioscafi (email,acceso,entrada_sistema,contrasena,negocio) VALUES (?,?,?,?,?)";
-     $tipo_datos_usuarioab = "ssssi";
-     $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false);
-     if($result == 1){
-       echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false);
-     }else{
-       echo 0;
-     }
+     $_POST['Temail'],
+     $email->setEmail($_POST['email']),
+     0,
+     $_POST['Trfc'],
+     $_POST['Tnombre'],
+     $_POST['Tcp'],
+     $_POST['Tcalle_numero'],
+     $_POST['Tcolonia'],
+     $_POST['Tlocalidad'],
+     $_POST['Tmunicipio'],
+     $_POST['Sestado'],
+     $_POST['Tpais'],
+     $_POST['Ttelefono'],
+     $_POST['Dfecha_nacimiento'],
+     $_POST['Ssexo'],
+      0 //eliminado false
+    );
+
+    $datos_usuarioab = array(
+     $_POST['Temail'],
+     $_POST['Sacceso'],
+     $_POST['Sentrada_sistema'],
+     password_hash($_POST['Pcontrasena'], PASSWORD_DEFAULT),
+     $_SESSION['negocio']
+    );
+
+
+    $consulta_persona = "INSERT INTO persona (email,vkey,verificado,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento,sexo,eliminado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    $tipo_datos_persona = "ssssssssssssssss";
+    $consulta_usuarioab = "INSERT INTO usuarioscafi (email,acceso,entrada_sistema,contrasena,negocio) VALUES (?,?,?,?,?)";
+    $tipo_datos_usuarioab = "sssss";
+    $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false,null);
+    if($result == 1){
+       // $email->enviarEmailConfirmacion();
+      echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false,null);
     }else{
       echo "exceso";
     }
@@ -95,7 +96,6 @@ if (
       0,
       $_POST['Sacceso'],
       $_POST['Sentrada_sistema'],
-      $_POST['Pcontrasena'],
       $_SESSION['negocio'],
       $_POST['Temail']
     );
@@ -104,26 +104,25 @@ if (
             estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?,eliminado=?, acceso = ?, entrada_sistema = ?, contrasena = ?,negocio = ? WHERE persona.email= ?";
     $tipo_datos = "ssssssssssssisssis";
     //respuesta al front
-    echo $conexion->consultaPreparada($datos_usuarioab, $editar,1, $tipo_datos, false);
+    echo $conexion->consultaPreparada($datos_usuarioab, $editar,1, $tipo_datos, false, null);
   }
 } 
 
 if(isset($_POST['tabla'])){
     $conexion = new Models\Conexion();
-    $consulta = "SELECT persona.email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento, sexo,acceso,entrada_sistema,contrasena,negocio 
-    FROM persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email WHERE eliminado != ?
+    $consulta = "SELECT persona.email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento, sexo,acceso,entrada_sistema,negocio 
+    FROM persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email WHERE eliminado != ? 
     AND usuarioscafi.acceso != ? AND usuarioscafi.negocio = ?";
     $datos = array(1,"CEO",$_SESSION['negocio']);
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "isi", false));
-    echo $jsonstring;
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "isi", false,null));
 }
 if (isset($_POST['email']) && isset($_POST['eliminado']) && $_POST['eliminado'] == 'true') {
     $conexion = new Models\Conexion();
     $email = $conexion->eliminar_simbolos($_POST['email']);
     $consulta = "UPDATE persona SET eliminado = ? WHERE email= ?";
     $datos = array(1, $email);
-    echo $conexion->consultaPreparada($datos, $consulta, 1, "is", false);
-}
+    echo $conexion->consultaPreparada($datos, $consulta, 1, "is", false,null);
+  }
 
 if (isset($_POST['array'])) {
     $conexion = new Models\Conexion();
@@ -133,7 +132,7 @@ if (isset($_POST['array'])) {
     for ($i = 0; $i < count($data); $i++) {
         if ($data[$i] != '0') {
             $datos = array(1,"I",$data[$i]);
-            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
         }
     if(empty($result)){
       echo $result;

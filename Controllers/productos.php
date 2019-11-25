@@ -66,14 +66,14 @@ $_POST['accion'])
             marca,proveedor,color,imagen,precio_compra,precio_venta,descuento,tipo_producto,unidad_medida,tasa_iva,
             tasa_ipes,talla_numero,dueno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $tipos_de_datos = "ssssssissdddsssdss";
-            $respuesta = $conexion->consultaPreparada($datos_productos, $consulta_guardar_producto,1, $tipos_de_datos, false);
+            $respuesta = $conexion->consultaPreparada($datos_productos, $consulta_guardar_producto,1, $tipos_de_datos, false,null);
             return $respuesta;
         }else{
             $consulta_editar_producto = "UPDATE producto SET modelo = ?,nombre = ?,descripcion = ?,categoria = ?,marca = ?,proveedor = ?,
             color = ?,imagen = ? ,precio_compra = ?,precio_venta = ?,descuento = ?,tipo_producto = ?,unidad_medida = ?,tasa_iva = ?,tasa_ipes = ?,
             talla_numero = ?,dueno = ? WHERE codigo_barras = ?";
             $tipos_de_datos = "sssssissdddsssdsss";
-            $respuesta = $conexion->consultaPreparada($datos_productos, $consulta_editar_producto,1, $tipos_de_datos, true);
+            $respuesta = $conexion->consultaPreparada($datos_productos, $consulta_editar_producto,1, $tipos_de_datos, true,null);
             return $respuesta;
 
         }
@@ -102,12 +102,12 @@ $_POST['accion'])
             $consulta_guardar_stock = "INSERT INTO stock (producto,localizacion,stock,stock_minimo,estado,
             usuariocafi,negocio,eliminado) VALUES (?,?,?,?,?,?,?,?)";
             $tipos_de_datos_stock = "ssiissii";
-            return $conexion->consultaPreparada($datos_stock, $consulta_guardar_stock, 1, $tipos_de_datos_stock, false);
+            return $conexion->consultaPreparada($datos_stock, $consulta_guardar_stock, 1, $tipos_de_datos_stock, false,null);
         }else{
             $consulta_editar_stock = "UPDATE stock SET localizacion=?,stock=?,stock_minimo=?,estado=?,usuariocafi=?,
             negocio=?,eliminado=? WHERE producto=?";
             $tipos_de_datos_stock = "siissiis";
-            return $conexion->consultaPreparada($datos_stock, $consulta_editar_stock, 1, $tipos_de_datos_stock, true);
+            return $conexion->consultaPreparada($datos_stock, $consulta_editar_stock, 1, $tipos_de_datos_stock, true,null);
         }
 
     }
@@ -119,8 +119,8 @@ $_POST['accion'])
         $consulta = "SELECT imagen FROM producto WHERE codigo_barras = ?";
         $datos = array($codigo);
         $tipo = "s";
-        $resul = $conexion->consultaPreparada($datos, $consulta,2, $tipo, false);
-        if(empty($resul[0][0])){
+        $resul = $conexion->consultaPreparada($datos, $consulta,2, $tipo, false,null);
+        if($resul[0][0] != ''){
             return $resul[0][0];
         }else{
             return "";
@@ -194,7 +194,7 @@ if(isset($_POST['tabla'])){
     $consulta = "SELECT codigo_barras,modelo,nombre,descripcion,categoria,marca,proveedor,color,imagen,precio_compra,
     precio_venta,descuento,tipo_producto,unidad_medida,tasa_iva,tasa_ipes,talla_numero,s.localizacion,s.stock,s.stock_minimo FROM producto p INNER JOIN stock s
      WHERE p.codigo_barras = s.producto AND s.negocio = ? AND s.eliminado = 0";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false));
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false,null));
     echo $jsonstring;
 }
 
@@ -202,7 +202,7 @@ if(isset($_POST['proveedores'])){
     $conexion = new Models\Conexion();
     $datos = array($_SESSION['email'],$_SESSION['negocio'],0);
     $consulta = "SELECT idproveedor,nombre FROM proveedor WHERE usuariocafi = ? AND negocio = ? AND eliminado = ?";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2,'sii', false));
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2,'sii', false,null));
     echo $jsonstring;
 }
 
@@ -213,7 +213,7 @@ if(isset($_POST['negocios'])){
     $datos = array($_SESSION['email']);
     $tipo = "s";
     $consulta = "SELECT idnegocios,nombre FROM negocios WHERE dueno = ?";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false));
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false,null));
     echo $jsonstring;
 }
 
@@ -225,7 +225,7 @@ if(isset($_POST['producto'])){
     WHERE t1.dueno = ? AND NOT EXISTS (SELECT NULL FROM stock t2 
     WHERE t2.producto = t1.codigo_barras 
     AND t2.negocio = ?)";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta2,2, $tipo, false));
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta2,2, $tipo, false,null));
     echo $jsonstring;
 }
 
@@ -245,7 +245,7 @@ if(isset($_POST['Tstock2']) && isset($_POST['Sproducto'])){
     usuariocafi,negocio,eliminado) VALUES (?,?,?,?,?,?,?,?)";
     $tipos_de_datos_stock = "ssiissii";
 
-    echo $conexion->consultaPreparada($datos_stock, $consulta_guardar_stock, 1, $tipos_de_datos_stock, false);
+    echo $conexion->consultaPreparada($datos_stock, $consulta_guardar_stock, 1, $tipos_de_datos_stock, false,null);
 
 }
 
@@ -254,7 +254,7 @@ if(isset($_POST['productosBarras'])){
     $datos = array($_SESSION['negocio']);
     $tipo = "i";
     $sql = "SELECT p.codigo_barras,p.nombre,p.color,p.marca,p.talla_numero FROM producto p, stock s WHERE p.codigo_barras = s.producto AND S.negocio = ?";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false));
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false,null));
     echo $jsonstring;
 }
 
@@ -267,7 +267,7 @@ if(isset($_POST['colores'])){
     $datos = array($_SESSION['negocio']);
     $tipo = "i";
     $sql = "SELECT nombre,tipo FROM ccm WHERE tipo = 'Color' AND negocio = ?";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false));
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false,null));
     echo $jsonstring;
 }
 if(isset($_POST['marcas'])){
@@ -275,7 +275,7 @@ if(isset($_POST['marcas'])){
     $datos = array($_SESSION['negocio']);
     $tipo = "i";
     $sql = "SELECT nombre,tipo FROM ccm WHERE tipo = 'Marca' AND negocio = ?";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false));
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false,null));
     echo $jsonstring;
 }
 if(isset($_POST['categorias'])){
@@ -283,7 +283,7 @@ if(isset($_POST['categorias'])){
     $datos = array($_SESSION['negocio']);
     $tipo = "i";
     $sql = "SELECT nombre,tipo FROM ccm WHERE tipo = 'Categoria' AND negocio = ?";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false));
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false,null));
     echo $jsonstring;
 }
 
@@ -295,7 +295,7 @@ if (isset($_POST['array'])) {
     for ($i = 0; $i < count($data); $i++) {
         if ($data[$i] != '0') {
             $datos = array(1, $data[$i]);
-            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
         }
     }
     echo $result;

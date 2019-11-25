@@ -7,7 +7,7 @@ include_once '../Models/Conexion.php';
         $consulta_color = "INSERT INTO ccm (id,tipo,nombre,usuariocafi,negocio,eliminado) VALUES (?,?,?,?,?,?)";
         $datos_color = array(null,$_POST['CCM'],$_POST['CCMInput'],$_SESSION['email'],$_SESSION['negocio'],0);
         $tipo_datos_color = "isssii";
-        $respuesta = $conexion->consultaPreparada($datos_color, $consulta_color,1, $tipo_datos_color, false);
+        $respuesta = $conexion->consultaPreparada($datos_color, $consulta_color,1, $tipo_datos_color, false,null);
         echo $respuesta;
     }
 
@@ -19,7 +19,7 @@ include_once '../Models/Conexion.php';
         for($i = 0; $i < count($data); $i++){
             if($data[$i] != '0'){
                 $datos = array(1,$data[$i]);
-                $respuesta = $conexion->consultaPreparada($datos, $consulta,1, $tipo_datos, false);
+                $respuesta = $conexion->consultaPreparada($datos, $consulta,1, $tipo_datos, false,null);
                 if($respuesta != 1){
                     echo "error";
                 }
@@ -33,7 +33,7 @@ include_once '../Models/Conexion.php';
         $datos = array(0,'Color',$_SESSION['negocio']);
         $tipo = "isi";
         $consulta = "SELECT * FROM ccm WHERE eliminado = ? AND tipo = ? AND negocio = ?";
-        $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false));
+        $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false,null));
         echo $jsonstring;
     }
 
@@ -42,7 +42,7 @@ include_once '../Models/Conexion.php';
         $datos = array(0,'Marca',$_SESSION['negocio']);
         $tipo = "isi";
         $consulta = "SELECT * FROM ccm WHERE eliminado = ? AND tipo = ? AND negocio = ?";
-        $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false));
+        $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false,null));
         echo $jsonstring;
     }
 
@@ -51,7 +51,7 @@ include_once '../Models/Conexion.php';
         $datos = array(0,'Categoria',$_SESSION['negocio']);
         $tipo = "isi";
         $consulta = "SELECT * FROM ccm WHERE eliminado = ? AND tipo = ? AND negocio = ?";
-        $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false));
+        $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false,null));
         echo $jsonstring;
     }
 

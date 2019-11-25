@@ -25,13 +25,13 @@ if (
     if ($_POST['accion'] == 'false') {
         $consulta = "INSERT INTO suscripcion (idsuscripcion,fecha_activacion,fecha_vencimiento,estado,monto,paquete,usuario_extra,negocio,usuarioab) VALUES (?,?,?,?,?,?,?,?,?)";
         $tipo_datos = "sssssssss";
-        $respuesta = $conexion->consultaPreparada($datos_suscripcion, $consulta, 1, $tipo_datos, false);
+        $respuesta = $conexion->consultaPreparada($datos_suscripcion, $consulta, 1, $tipo_datos, false,null);
     } else {
         $consulta = "UPDATE suscripcion SET fecha_activacion = ?, fecha_vencimiento = ?, estado = ?, monto = ?, paquete = ?, usuario_extra = ?,negocio = ?,
         usuarioab = ? WHERE idsuscripcion = ?";
         $tipo_datos = "sssssssss";
 
-        $respuesta = $conexion->consultaPreparada($datos_suscripcion, $consulta, 1, $tipo_datos, true);
+        $respuesta = $conexion->consultaPreparada($datos_suscripcion, $consulta, 1, $tipo_datos, true,null);
 
         //se cambia el estado a los usuarios pertenecientes a ese negocio
         $consulta2 = "UPDATE usuarioscafi SET entrada_sistema = ? WHERE negocio = ?";
@@ -40,12 +40,12 @@ if (
             $_POST['Snegocio']
         );
 
-        $respuesta = $conexion->consultaPreparada($datos, $consulta2, 1, "si", false);
+        $respuesta = $conexion->consultaPreparada($datos, $consulta2, 1, "si", false,null);
 
         //se cambia el estado de la cuenta del dueno
         $consulta3 = "UPDATE usuarioscafi INNER JOIN negocios ON dueno = email SET entrada_sistema = ? WHERE idnegocios = ?";
 
-        $respuesta = $conexion->consultaPreparada($datos, $consulta3, 1, "si", false);
+        $respuesta = $conexion->consultaPreparada($datos, $consulta3, 1, "si", false,null);
     }
 
 

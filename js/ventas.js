@@ -121,7 +121,7 @@ function convertirJsonCarritoenArray(){
       valor = $('.tpago').val();
       pago = valor = parseFloat(valor);
       anticipo = parseFloat($('.tanticipo').val());
-      if (pago >= anticipo) {
+      if (pago >= anticipo && anticipo <totalglobal) {
         cambio = pago - anticipo;
         camiostring = cambio.toString();
         swal({
@@ -150,7 +150,7 @@ function convertirJsonCarritoenArray(){
       } else {
         swal({
           title: 'Alerta',
-          text: 'Ingrese pago mayor o igual al anticipo',
+          text: 'Puede que el pago que recibe sea menor que el anticipo , o que el anticipo ingresado sea mayor que el total de la venta',
           type: 'warning'
         });
       }

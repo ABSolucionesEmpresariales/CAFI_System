@@ -11,7 +11,7 @@ if (
 
   $datos_verificar = array($_POST['Temail']);
   $consulta_verificar = "SELECT * FROM persona WHERE email = ?";
-  $respuesta = json_encode($conexion->consultaPreparada($datos_verificar, $consulta_verificar,2,'s', false));
+  $respuesta = json_encode($conexion->consultaPreparada($datos_verificar, $consulta_verificar,2,'s', false,null));
   if($respuesta == '[]'){
     $_POST['accion'] = 'false';
   }else{
@@ -41,7 +41,7 @@ if (
      $_POST['Temail'],
      $_POST['Sacceso'],
      $_POST['Sentrada_sistema'],
-     $_POST['Pcontrasena']
+     password_hash($_POST['Pcontrasena'], PASSWORD_DEFAULT)
     );
 
 
@@ -49,13 +49,9 @@ if (
     $tipo_datos_persona = "sssssssssssssi";
     $consulta_usuarioab = "INSERT INTO usuariosab (email,acceso,entrada_sistema,contrasena) VALUES (?,?,?,?)";
     $tipo_datos_usuarioab = "ssss";
-    $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false);
-    if($result == 1){
-      echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false);
-    }else{
-      echo 0;
-    }
+    $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false,null);
     //respuesta al front
+    echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false,null);
   } else {
     //editar  
     $datos_usuarioab = array(
@@ -74,7 +70,6 @@ if (
       0,
       $_POST['Sacceso'],
       $_POST['Sentrada_sistema'],
-      $_POST['Pcontrasena'],
       $_POST['Temail']
     );
 
@@ -82,7 +77,7 @@ if (
             estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?,eliminado = ?, acceso = ?, entrada_sistema = ?, contrasena = ? WHERE persona.email= ?";
     $tipo_datos = "ssssssssssssissss";
     //respuesta al front
-    echo $conexion->consultaPreparada($datos_usuarioab, $editar, 1, $tipo_datos, false);
+    echo $conexion->consultaPreparada($datos_usuarioab, $editar, 1, $tipo_datos, false,null);
   }
 } else if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
   //obtencion del json para pintar la tabla
@@ -91,7 +86,7 @@ if (
     sexo,acceso,entrada_sistema,contrasena FROM persona INNER JOIN usuariosab ON persona.email=usuariosab.email WHERE eliminado != ?";
   $datos = array(1);
 
-  $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "i", false));
+  $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "i", false,null));
   echo $jsonstring;
 } else if (isset($_POST['email']) && isset($_POST['eliminado']) && $_POST['eliminado'] == 'true') {
   $conexion = new Models\Conexion();
@@ -100,8 +95,8 @@ if (
   $consulta2 = "UPDATE usuariosab SET entrada_sistema = ? WHERE email= ?";
   $datos = array(1, $email);
   $datos2 = array("I", $email);
-  $conexion->consultaPreparada($datos2, $consulta2, 1, "ss", false);
-  echo $conexion->consultaPreparada($datos, $consulta, 1, "is", false);
+  $conexion->consultaPreparada($datos2, $consulta2, 1, "ss", false,null);
+  echo $conexion->consultaPreparada($datos, $consulta, 1, "is", false,null);
 }else if (isset($_POST['array'])) {
   $conexion = new Models\Conexion();
   $data = json_decode($_POST['array']);
@@ -110,7 +105,7 @@ if (
   for ($i = 0; $i < count($data); $i++) {
       if ($data[$i] != '0') {
           $datos = array(1, $data[$i]);
-          $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+          $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
       }
   }
   echo $result;

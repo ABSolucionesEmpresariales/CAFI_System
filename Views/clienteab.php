@@ -104,7 +104,7 @@ privilegios("Todos");
                     <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
 
                     <div class="d-block d-lg-flex row">
-                    <div class="col-lg-6 ocultar">
+                    <div id="divemail" class="col-lg-6">
                         <h5 class="importante">Email:</h5>
                         <input id="email" class="form form-control" onkeypress="return check(event)" type="email" name="Temail" placeholder="Email" autocomplete="new-password" required>
                       </div>
@@ -219,9 +219,9 @@ privilegios("Todos");
                           </div>
                     </div>
                     <div class="d-block d-lg-flex row">          
-                      <div class="col-lg-12">
-                          <h5 class="importante">Contraseña:</h5>
-                          <input id="contrasena" class="form form-control" type="password" name="Pcontrasena" placeholder="Contraseña" autocomplete="new-password" required><br>
+                      <div  id="divpass" class="col-lg-12">
+                          <h5 class="general">Contraseña:</h5>
+                          <input id="contrasena" class="form form-control" type="password" onkeypress="return check(event)" name="Pcontrasena" placeholder="Contraseña" autocomplete="new-password" required><br>
                         </div>
                     </div>
 

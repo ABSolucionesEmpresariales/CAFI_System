@@ -94,7 +94,10 @@ $(document).ready(function () {
       editar = false;
       $("#formulario").trigger("reset");
       $("#mensaje").css("display", "none");
-      $('.ocultar').show();
+      $("#divpass").css('display','block');
+      $("#contrasena").attr('required');
+      $("#divemail").css('display','block');
+      $("#email").attr('required');
     });
 
     $("#login").keyup(function () {
@@ -175,6 +178,10 @@ $(document).ready(function () {
 
     var touchtime = 0;
     $(document).on("click", "td", function () {
+      $("#divpass").css('display','none');
+      $("#contrasena").removeAttr('required');
+      $("#divemail").css('display','none');
+      $("#email").removeAttr('required');
         if (touchtime == 0) {
           touchtime = new Date().getTime();
         } else {

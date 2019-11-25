@@ -7,39 +7,57 @@ if (isset($_POST['Pcontrasena']) && isset($_POST['Temail'])) {
     $conexion = new Models\Conexion();
 
     $login = array(
-        $_POST['Temail'],
-        $_POST['Pcontrasena']
+        $_POST['Temail']
     );
 
-    $consulta = "SELECT email,acceso,entrada_sistema,negocio FROM usuarioscafi WHERE BINARY  email = ?  AND BINARY contrasena = ?";
-    $tipo_datos = "ss";
-    $respuesta = json_encode($conexion->consultaPreparada($login, $consulta, 2, $tipo_datos, false));
+    $consulta = "SELECT email,acceso,entrada_sistema,contrasena,negocio FROM usuarioscafi WHERE BINARY email = ?";
+    $tipo_datos = "s";
+    $respuesta = json_encode($conexion->consultaPreparada($login, $consulta, 2, $tipo_datos, false, null));
+    $result = json_decode($respuesta);
+    if ($respuesta != "[]") {
+        if (password_verify($_POST['Pcontrasena'], $result[0][3])) {
+            echo $respuesta;
+            $negocio = $result[0][4];
+          
+        } else {
+            $respuesta = "[]";
+            echo $respuesta;
+        }
+    }
 
     if ($respuesta === "[]") {
-        $consulta = "SELECT email,acceso,entrada_sistema FROM usuariosab WHERE BINARY  email = ?  AND BINARY contrasena = ?";
-        $tipo_datos = "ss";
+        $consulta = "SELECT email,acceso,entrada_sistema,contrasena FROM usuariosab WHERE BINARY  email = ?";
+        $tipo_datos = "s";
         //para el front
-        $respuesta = json_encode($conexion->consultaPreparada($login, $consulta, 2, $tipo_datos, false));
+        $respuesta = json_encode($conexion->consultaPreparada($login, $consulta, 2, $tipo_datos, false, null));
+        $result = json_decode($respuesta);
+        if ($respuesta != "[]") {
+            if (password_verify($_POST['Pcontrasena'], $result[0][3])) {
+                echo $respuesta;
+            } else {
+                $respuesta = "[]";
+                echo $respuesta;
+            }
+        }
     }
     //para el back
-    $result = json_decode($respuesta);
+
     if ($respuesta != "[]" && $result[0][2] === "A") {
         $_SESSION['email'] = $result[0][0];
         $_SESSION['acceso'] = $result[0][1];
         $_SESSION['entrada_sistema'] = $result[0][2];
-        if (isset($result[0][3])) {
-            $_SESSION['negocio'] = $result[0][3];
+        if (isset($negocio)) {
+            $_SESSION['negocio'] = $negocio;
         }
         token();
     }
-    echo  $respuesta;
 }
 if (isset($_POST['combo']) && $_POST['combo'] === "combo") {
     $conexion = new Models\Conexion();
     $consulta = "SELECT idnegocios,nombre FROM negocios INNER JOIN suscripcion on suscripcion.negocio = negocios.idnegocios WHERE 
     negocios.dueno = ? AND negocios.idnegocios = suscripcion.negocio";
     $dato = array($_SESSION['email']);
-    echo json_encode($conexion->consultaPreparada($dato, $consulta, 2, "s", false));
+    echo json_encode($conexion->consultaPreparada($dato, $consulta, 2, "s", false, null));
 }
 
 
@@ -56,6 +74,6 @@ if (isset($_GET['cerrar_sesion'])) {
     //se destruye la sesion al dar click en los botones de salir
 }
 
-if(isset($_POST['accesoPersona'])){
+if (isset($_POST['accesoPersona'])) {
     echo $_SESSION['acceso'];
 }

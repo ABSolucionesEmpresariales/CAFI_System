@@ -10,7 +10,7 @@ if (isset($_POST['tablacantidades'])) {
     $consulta = "SELECT forma_pago, SUM(total) AS totalventas FROM venta
     WHERE estado_venta = ? AND negocio = ? AND  eliminado != ? GROUP BY forma_pago";
     $datos = array("A", $_SESSION['negocio'], 1);
-    $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false);
+    $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false,null);
 
     $ventas_efectivo = 0;
     $ventas_banco = 0;
@@ -27,7 +27,7 @@ if (isset($_POST['tablacantidades'])) {
 
     $consulta = "SELECT SUM(anticipo) AS anticipo FROM adeudos INNER JOIN venta ON venta = idventas
     WHERE estado = ? AND negocio = ? AND  adeudos.eliminado != ?";
-    $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false);
+    $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false,null);
     $anticipos_efectivo = 0;
     if (isset($result)) {
         $anticipos_efectivo = $result[0][0];
@@ -36,7 +36,7 @@ if (isset($_POST['tablacantidades'])) {
 
     $consulta = "SELECT forma_pago, SUM(cantidad) AS totalabonos FROM abono
     WHERE estado = ? AND negocio = ? AND  eliminado != ? GROUP BY forma_pago";
-    $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false);
+    $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false,null);
     $abonos_efectivo = 0;
     $abonos_banco = 0;
 
@@ -56,7 +56,7 @@ if (isset($_POST['tablacantidades'])) {
 
     $consulta = "SELECT pago, SUM(monto) AS totalgastos FROM gastos 
     WHERE estado = ? AND negocio = ? AND  eliminado != ? GROUP BY pago";
-    $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false);
+    $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false,null);
 
     $gastos_efectivo = 0;
     $gastos_tarjeta = 0;
@@ -77,7 +77,7 @@ if (isset($_POST['tablacantidades'])) {
 
     $consulta = "SELECT forma_ingreso, SUM(cantidad) AS oingresos  FROM otros_ingresos
     WHERE estado = ? AND negocio = ? AND  eliminado!= ? GROUP BY forma_ingreso";
-    $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false);
+    $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false,null);
 
 
     $otros_ingresos_efectivo = 0;
@@ -93,7 +93,7 @@ if (isset($_POST['tablacantidades'])) {
 
     $consulta = "SELECT tipo, SUM(cantidad) AS retiro FROM retiros
     WHERE estado = ? AND negocio = ? AND  eliminado != ?  GROUP BY tipo";
-    $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false);
+    $result = $conexion->consultaPreparada($datos, $consulta, 2, "sii", false,null);
 
     $retiros_efectivo = 0;
     $retiros_banco = 0;
@@ -141,7 +141,7 @@ if (isset($_POST['tablacantidades'])) {
     );
     $consulta = "INSERT INTO retiros (idretiro,concepto,tipo,cantidad,descripcion,
     fecha,hora,estado,usuariocafi,negocio,eliminado) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-    $result = $conexion->consultaPreparada($datos, $consulta, 1, "sssssssssii", false);
+    $result = $conexion->consultaPreparada($datos, $consulta, 1, "sssssssssii", false,null);
     echo $result;
 } else if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
 
@@ -151,7 +151,7 @@ if (isset($_POST['tablacantidades'])) {
     $consulta = "SELECT idretiro,concepto,tipo,cantidad,descripcion,fecha,hora,estado,usuariocafi 
     FROM retiros WHERE negocio = ? AND eliminado != ?";
 
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ii", false));
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ii", false,null));
 
 }else if(isset($_POST['idretiro']) && isset($_POST['Sestado'])){
     
@@ -160,7 +160,7 @@ if (isset($_POST['tablacantidades'])) {
 
     $consulta = "UPDATE retiros SET estado = ? WHERE idretiro = ?";
 
-    echo $conexion->consultaPreparada($datos, $consulta, 1, "si", false);
+    echo $conexion->consultaPreparada($datos, $consulta, 1, "si", false,null);
 
 }else if (isset($_POST['array'])) {
     $conexion = new Models\Conexion();
@@ -170,7 +170,7 @@ if (isset($_POST['tablacantidades'])) {
     for ($i = 0; $i < count($data); $i++) {
         if ($data[$i] != '0') {
             $datos = array(1, $data[$i]);
-            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
         }
     }
     echo $result;

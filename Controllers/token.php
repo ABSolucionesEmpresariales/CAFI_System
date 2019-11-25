@@ -16,15 +16,15 @@ function token()
 
     $consulta = "SELECT id FROM sesiones WHERE usuario= ?";
     $usuario = array($_SESSION['email']);
-    $idsesiones = $conexion->consultaPreparada($usuario, $consulta, 2, "s", false);
+    $idsesiones = $conexion->consultaPreparada($usuario, $consulta, 2, "s", false,null);
     $datos = array($_SESSION['email'], $fecha->getFecha() . " " . $fecha->getHora(), "", $token);
 
     if ($idsesiones != null) {
         $consulta = "UPDATE sesiones SET inicio = ?, fin = ?, token= ?  WHERE usuario = ?";
-        $conexion->consultaPreparada($datos, $consulta, 1, "ssss", true);
+        $conexion->consultaPreparada($datos, $consulta, 1, "ssss", true,null);
     } else {
         $consulta = "INSERT INTO sesiones(usuario,inicio,fin,token) VALUES(?,?,?,?)";
-        $conexion->consultaPreparada($datos, $consulta, 1, "ssss", false);
+        $conexion->consultaPreparada($datos, $consulta, 1, "ssss", false,null);
     }
 }
 function tokenSalida(){
@@ -32,5 +32,5 @@ function tokenSalida(){
     $fecha = new Models\Fecha();
     $consulta = "UPDATE sesiones SET fin = ? WHERE usuario = ?";
     $datos = array($fecha->getFecha() . " " . $fecha->getHora(),$_SESSION['email']);
-    $conexion->consultaPreparada($datos, $consulta, 1, "ss", false);
+    $conexion->consultaPreparada($datos, $consulta, 1, "ss", false,null);
 }
