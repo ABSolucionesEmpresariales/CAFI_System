@@ -137,7 +137,7 @@ $(document).ready(function () {
         $("#mensaje").css("color", "red");
         $("#email").focus();
       }
-
+      obtenerNegocios();
       obtenerDatosTablaUsuarios();
     });
     e.preventDefault();
@@ -178,7 +178,7 @@ $(document).ready(function () {
         touchtime = new Date().getTime();
       } else {
         // compare first click to this click and see if they occurred within double click threshold
-        if (new Date().getTime() - touchtime < 800) {
+        if (new Date().getTime() - touchtime < 300) {
           // double click occurred
           var valores = "";
           // Obtenemos todos los valores contenidos en los <td> de la fila

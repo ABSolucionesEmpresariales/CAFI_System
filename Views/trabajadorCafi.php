@@ -105,7 +105,7 @@ privilegios("Todos");
                   <form class="form-group" id="formulario">
                   <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                   <div class="d-block d-lg-flex row">
-                  <div class="col-lg-6">
+                  <div class="col-lg-6 ocultar">
                         <h5 class="importante">Email:</h5>
                         <input id="email" class="form form-control" onkeypress="return check(event)" type="email" name="Temail" placeholder="email" autocomplete="new-password" required>
                       </div>

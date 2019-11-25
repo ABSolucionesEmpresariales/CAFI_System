@@ -245,7 +245,7 @@ function enviarDatos(){
         touchtime = new Date().getTime();
       } else {
         // compare first click to this click and see if they occurred within double click threshold
-        if (new Date().getTime() - touchtime < 800) {
+        if (new Date().getTime() - touchtime < 300) {
           // double click occurred
 
           $(".mensaje").css("display", "none");

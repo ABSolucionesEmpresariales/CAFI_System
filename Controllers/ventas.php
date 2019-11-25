@@ -178,8 +178,27 @@ if (isset($_POST['array'])) {
     $consulta = "UPDATE venta SET eliminado = ? WHERE idventas = ?";
     for ($i = 0; $i < count($data); $i++) {
         if ($data[$i] != '0') {
-            $datos = array(1, $data[$i]);
-            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+            $datos = array(1,$data[$i]);
+            $result = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false);
+                if($result == 1){
+                    $datos3  = array($data[$i],"Credito");
+                    $consulta2 = "SELECT forma_pago FROM venta WHERE idventas = ? AND forma_pago = ?";
+                    $jsonstring = json_encode($conexion->consultaPreparada($datos3, $consulta2,2,"is", false));
+                        if($jsonstring != "[]"){
+                            $datos2  = array(1,$data[$i]);
+                            $consulta_ade = "UPDATE adeudos SET eliminado = ? WHERE venta = ?";
+                            $result =  $respuesta = $conexion->consultaPreparada($datos2, $consulta_ade, 1,"ii", false);
+                            if($result == 1){
+                                    $datos_obtener_adeudo = array($data[$i]);
+                                    $adeudo = "SELECT idadeudos FROM adeudos WHERE venta = ?";
+                                    $result_adeudo =  json_encode($conexion->consultaPreparada($datos_obtener_adeudo, $adeudo,2,"i",false));
+                                    $result = json_decode($result_adeudo);
+                                    $datos_adeudo = array(1,$result[0][0]);
+                                    $consulta_Adeudos = "UPDATE abono SET eliminado = ? WHERE  adeudos_id = ?";
+                                    $result =  $conexion->consultaPreparada($datos_adeudo, $consulta_Adeudos,1,"ss",false);
+                                }
+                        }
+                }
         }
     }
     echo $result;

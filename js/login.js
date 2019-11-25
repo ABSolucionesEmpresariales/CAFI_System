@@ -26,7 +26,7 @@ $(document).ready(function () {
           $.each(datos, function (i, item) {
               if (typeof (item[3]) != 'undefined' ) {
                 if (item[2]=='A') {
-                  if (item[1] == 'CEO' && item[3] == null){
+                  if (item[1] == 'CEO' && item[3] == null || item[3] == 0){
                     $('.ocultar').hide();
                     $('.mostrar').show();
 

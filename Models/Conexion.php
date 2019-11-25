@@ -33,9 +33,8 @@ class Conexion
     }
 
 
-    public function consultaPreparada($datos, $consulta, $accion, $datatipe, $reestructurar_arreglo)
+    public function consultaPreparada($datos, $consulta, $accion, $datatipe,$reestructurar_arreglo)
     {
-
         if ($reestructurar_arreglo === true) {
             //se cambia el elemento que esta en la posicion 1 del array a la ultima posicion para hacer update
             for ($i = 0; $i < sizeof($datos) - 1; $i++) {

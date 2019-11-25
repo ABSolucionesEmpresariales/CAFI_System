@@ -137,6 +137,7 @@ $(document).ready(function () {
             data: "tabla=tabla",
        
             success: function (response) {
+                console.log(response);
               let datos = JSON.parse(response);
               let template = "";
               $.each(datos, function (i, item) {

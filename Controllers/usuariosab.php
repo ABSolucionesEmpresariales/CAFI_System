@@ -9,6 +9,15 @@ if (
 
   $conexion = new Models\Conexion();
 
+  $datos_verificar = array($_POST['Temail']);
+  $consulta_verificar = "SELECT * FROM persona WHERE email = ?";
+  $respuesta = json_encode($conexion->consultaPreparada($datos_verificar, $consulta_verificar,2,'s', false));
+  if($respuesta == '[]'){
+    $_POST['accion'] = 'false';
+  }else{
+    $_POST['accion'] = 'true';
+  }
+  
   if ($_POST['accion'] == 'false') {
     //guardar
     $datos_persona = array(
@@ -62,6 +71,7 @@ if (
       $_POST['Ttelefono'],
       $_POST['Dfecha_nacimiento'],
       $_POST['Ssexo'],
+      0,
       $_POST['Sacceso'],
       $_POST['Sentrada_sistema'],
       $_POST['Pcontrasena'],
@@ -69,8 +79,8 @@ if (
     );
 
     $editar = "UPDATE persona INNER JOIN usuariosab ON persona.email=usuariosab.email SET rfc= ?, nombre = ?, cp = ?, calle_numero = ?, colonia = ?, localidad = ?, municipio = ?, 
-            estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?, acceso = ?, entrada_sistema = ?, contrasena = ? WHERE persona.email= ?";
-    $tipo_datos = "ssssssssssssssss";
+            estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?,eliminado = ?, acceso = ?, entrada_sistema = ?, contrasena = ? WHERE persona.email= ?";
+    $tipo_datos = "ssssssssssssissss";
     //respuesta al front
     echo $conexion->consultaPreparada($datos_usuarioab, $editar, 1, $tipo_datos, false);
   }

@@ -27,16 +27,6 @@ privilegios("Master");
     ?>
     <div class="contenedor container-fluid">
         <div id="tableContainer" class="d-block col-lg-12">
-            <div class="input-group mb-2">
-                <div class="font-weight-bold px-3 d-flex align-items-center">
-                    <p class="text-white">Sucursal:</p>
-                </div>
-                
-                <div class="col-3">
-                        <select id="sucursal" class="form form-control" name="SNegocio">
-                        </select>
-                </div>
-            </div>
 
             <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                 <table style="border-radius: 10px;" class="table table-hover table-striped table-light">

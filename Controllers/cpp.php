@@ -11,6 +11,7 @@ if(isset($_POST['Tabono']) && isset($_POST['Tcantidad']) && isset($_POST['idcpp'
      }
     $conexion = new Models\Conexion();
     $fecha = new Models\Fecha();
+    //var_dump($_POST['Tabono'], $_POST['Tcantidad'], $_POST['idcpp'], $_POST['totaldeuda']);
     $datos_abono = array(
         NULL,
         "A",
@@ -21,11 +22,20 @@ if(isset($_POST['Tabono']) && isset($_POST['Tcantidad']) && isset($_POST['idcpp'
         $_SESSION['negocio'],
         0
     );
+/*     var_dump(        
+    NULL,
+    "A",
+    $fecha->getFecha(),
+    $_POST['Tabono'],
+    $_POST['idcpp'],
+    $_SESSION['email'],
+    $_SESSION['negocio'],
+    0); */
     $consulta_abonos = "INSERT INTO abono_compras (idpago,estado,fecha_abono,abono,compra,usuariocafi,
     negocio,eliminado) VALUES(?,?,?,?,?,?,?,?)";
     $consulta_adeudo = "UPDATE cpp SET totaldeuda = ? WHERE idcpp = ?";
     $consulta_estado = "UPDATE cpp SET estado = ? WHERE idcpp = ?";
-    $tipo_datos = "sssiissi";
+    $tipo_datos = "issiissi";
     $tipo_datos_adeudo = "di";
     $tipo = "sd";
     $datos = array("P",0.00);
@@ -36,7 +46,7 @@ if(isset($_POST['Tabono']) && isset($_POST['Tcantidad']) && isset($_POST['idcpp'
         $result2 =  $conexion->consultaPreparada($datos_adeudo, $consulta_adeudo,1, $tipo_datos_adeudo, false);
         echo $result2;
     }else{
-        echo "0";
+        echo $result;
     }
     $conexion->consultaPreparada($datos, $consulta_estado,1, $tipo, false);
     
@@ -46,9 +56,14 @@ if(isset($_POST['Tabono']) && isset($_POST['Tcantidad']) && isset($_POST['idcpp'
 
 if(isset($_POST['tabla'])){
     $conexion = new Models\Conexion();
-    $consulta_tabla = "SELECT * FROM cpp WHERE eliminado = 0";
-    $jsonstring = json_encode($conexion->obtenerDatosDeTabla($consulta_tabla));
+    $consulta_tabla = "SELECT cpp.idcpp,cpp.totaldeuda,cpp.anticipo,cpp.estado,cpp.compra,cpp.proovedor,cpp.eliminado 
+    FROM cpp INNER JOIN compras ON compras.idcompras = cpp.compra WHERE cpp.eliminado = ? AND compras.negocio = ?";
+    $datos = array(0,$_SESSION['negocio']);
+    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta_tabla,2,"ii", false));
     echo $jsonstring;
+/*     $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta_tabla,2, "ii", false));
+    var_dump($jsonstring);
+    echo $jsonstring; */
 }
 
 if(isset($_POST['tabla_abonos_compras'])){

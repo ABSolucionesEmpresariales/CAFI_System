@@ -66,6 +66,15 @@ if (
               return $result;
           }
     }
+    $conexion = new Models\Conexion();
+    $datos_verificar = array($_POST['Temail']);
+    $consulta_verificar = "SELECT * FROM persona WHERE email = ?";
+    $respuesta = json_encode($conexion->consultaPreparada($datos_verificar, $consulta_verificar,2,'s', false));
+    if($respuesta == '[]'){
+      $_POST['accion'] = 'false';
+    }else{
+      $_POST['accion'] = 'true';
+    }
 
     if($_POST['accion'] == 'false'){
         $accion = false;
