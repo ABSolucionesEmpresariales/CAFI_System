@@ -75,7 +75,7 @@ if (
     $conexion = new Models\Conexion();
     $datos_verificar = array($_POST['Temail']);
     $consulta_verificar = "SELECT * FROM persona WHERE email = ?";
-    $respuesta = json_encode($conexion->consultaPreparada($datos_verificar, $consulta_verificar,2,'s', false));
+    $respuesta = json_encode($conexion->consultaPreparada($datos_verificar, $consulta_verificar,2,'s', false,null));
     if($respuesta == '[]'){
       $_POST['accion'] = 'false';
     }else{

@@ -47,7 +47,7 @@ if (
     if($_POST['Sforma_pago'] == 'Credito'){
         $datos2 = array(null,$_POST['total'],$_POST['Tanticipo'],'A',$compra,$_POST['Sproveedor'],0);
         $consulta2 = 'INSERT INTO cpp (idcpp,totaldeuda,anticipo,estado,compra,proovedor,eliminado) VALUES(?,?,?,?,?,?,?)';
-        $conexion->consultaPreparada($datos2, $consulta2, 1, "iddsiii", false);
+        $conexion->consultaPreparada($datos2, $consulta2, 1, "iddsiii", false,null);
     }
     echo $result2;
 
@@ -82,7 +82,7 @@ if (
                 if($result == 1){
                     $datos_adeudo = array($data[$i]);
                     $consulta_adeudo_compra = "SELECT idcpp FROM cpp WHERE compra = ?";
-                    $id_adeudo = json_encode($conexion->consultaPreparada($datos_adeudo,$consulta_adeudo_compra,2,'i',false));
+                    $id_adeudo = json_encode($conexion->consultaPreparada($datos_adeudo,$consulta_adeudo_compra,2,'i',false,null));
                     $result3 = json_decode($id_adeudo);
                     $datos3 = array(1,$result3[0][0]);
                     $consulta3 = "UPDATE abono_compras SET eliminado = ? WHERE compra = ?";
