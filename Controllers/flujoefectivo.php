@@ -1,18 +1,15 @@
 <?php
 session_start();
 require_once '../Models/Conexion.php';
-if (isset($_POST['tabla']) || isset($_POST['año'])) {
-   
+if (isset($_POST['tabla']) || isset($_POST['year'])) {
     $conexion = new Models\Conexion();
-    if (!isset($_POST['año'])) {
-      
+    if (!isset($_POST['year'])) {
         $concatenar = " ";
         $datos = array("I", 1, $_SESSION['negocio']);
         $tipo_datos = "sii";
     } else {
-        
-        $concatenar = "AND YEAR(fecha) = ?";
-        $datos = array("I", 1,$_SESSION['negocio'], $_POST['año']);
+        $concatenar = " AND YEAR(fecha) = ? ";
+        $datos = array("I", 1, $_SESSION['negocio'], $_POST['year']);
         $tipo_datos = "siis";
     }
 
@@ -63,8 +60,7 @@ WHERE estado != ? AND eliminado != ? AND negocio = ?" . $concatenar . "GROUP BY 
         $egresos_por_mes = asignarValorAcadaMes($resultado);
     } else {
         $egresos_por_mes = [];
-    } */
-}
+    } */ }
 
 
 
