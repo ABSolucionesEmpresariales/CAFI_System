@@ -85,7 +85,7 @@ privilegios("Todos");
             </div>
           </div>
         </div>
-          <!-- Modal -->
+  <!-- Modal -->
     <div class="modal fade" id="modalForm" role="dialog">
             <div class="modal-dialog">
               <div class="modal-content">

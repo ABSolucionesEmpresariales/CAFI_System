@@ -39,6 +39,7 @@ $(document).ready(function(){
             $("#email").focus();
             $("#formulario").trigger("reset");
           } else {
+            console.log(response);
             $("#mensaje").text("Registro fallido");
             $("#mensaje").css("color", "red");
             $("#email").focus();

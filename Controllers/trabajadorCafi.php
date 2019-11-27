@@ -16,7 +16,7 @@ if (
     //guardar
     $datos_persona = array(
      $_POST['Temail'],
-     $email->setEmail($_POST['email']),
+     $email->setEmail($_POST['Temail']),
      0,
      $_POST['Trfc'],
      $_POST['Tnombre'],
