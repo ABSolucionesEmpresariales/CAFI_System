@@ -23,7 +23,7 @@ $(document).ready(function () {
           touchtime = new Date().getTime();
         } else {
           // compare first click to this click and see if they occurred within double click threshold
-          if (new Date().getTime() - touchtime < 800) {
+          if (new Date().getTime() - touchtime < 300) {
             // double click occurred
             $("#ocultardiv").css("display", "none");
             $("#divformedit").css("display", "block");
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
     $("#fmestado").submit(function(e){
 
-        const postData = {
+        const postData2 = {
             estado: $("#estado").val(),
             idcompras: compra
           };
@@ -61,7 +61,7 @@ $(document).ready(function () {
           $.ajax({
             url: "../Controllers/compras.php",
             type: "POST",
-            data: postData,
+            data: postData2,
             success: function(response) {
                 if (response == "1") {
                   $('#modalFormMostrar').modal('hide');
@@ -327,7 +327,7 @@ $(document).on('click','.bconcepto',function(){
       e.preventDefault();
     });
 
-    $(document).on('click','#btncompra, #compra_finalizada, #cancelar_compra, #agregar_producto, #eliminar_producto', function(){
+    $(document).on('click','#btncompra, #compra_finalizada2, #cancelar_compra, #agregar_producto, #eliminar_producto', function(){
         var boton = $(this).attr('id');
 
         if(boton == "cancelar_compra"){//Boton cancelar compra
@@ -430,7 +430,7 @@ $(document).on('click','.bconcepto',function(){
         }else if(boton == "eliminar_producto"){//Boton eliminar producto de tabla
             $(this).parent().parent().remove();
             obtenerDatosCarrito();
-        }else if(boton == "compra_finalizada"){//Boton compra finalizada
+        }else if(boton == "compra_finalizada2"){//Boton compra finalizada
 
           console.log($('#info_total').val());
 
@@ -463,18 +463,14 @@ $(document).on('click','.bconcepto',function(){
                   if(response == 1){
                     $('#compras').show();
                     $('#compra').hide();
-                  }else{
-
+                    sessionStorage.setItem('info-compras', JSON.stringify(null));
+                    sessionStorage.setItem('info-facturas', JSON.stringify(null));
+                    verificarJSON();
+                    pintarTablaCarrito(); 
+                    obtenerDatosTabla();
                   }
                 }
               });  
-              sessionStorage.setItem('info-compras', JSON.stringify(null));
-              sessionStorage.setItem('info-facturas', JSON.stringify(null));
-              verificarJSON();
-              pintarTablaCarrito(); 
-
-
-
         }
 
     });//Clicks en botones
@@ -677,9 +673,14 @@ $(document).on('click','.bconcepto',function(){
               console.log(datos);
               let template = "";
               $.each(datos, function (i, item) {
+                for(var j = 0; j <= item.length; j++){
+                  if(item[j] == 'null'){
+                    item[j] = "";
+                  }
+                }
                 template+=`<option value="${item[0]}">${item[1]}</option>`;
               });
-              $('#mostrarProductos').html(template);
+              $('#lproductos').html(template);
             }
           });
       }

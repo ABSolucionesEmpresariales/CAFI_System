@@ -54,7 +54,8 @@ if (isset($_POST['Pcontrasena']) && isset($_POST['Temail'])) {
 }
 if (isset($_POST['combo']) && $_POST['combo'] === "combo") {
     $conexion = new Models\Conexion();
-    $consulta = "SELECT idnegocios,nombre FROM negocios WHERE dueno = ?";
+    $consulta = "SELECT idnegocios,nombre FROM negocios INNER JOIN suscripcion on suscripcion.negocio = negocios.idnegocios WHERE 
+    negocios.dueno = ? AND negocios.idnegocios = suscripcion.negocio";
     $dato = array($_SESSION['email']);
     echo json_encode($conexion->consultaPreparada($dato, $consulta, 2, "s", false, null));
 }

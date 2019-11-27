@@ -85,7 +85,7 @@ privilegios("Superiores");
       <div class="col-6">
         <p class="statusMsg"></p>
         <div class="row mb-2">
-          <button id="compra_finalizada" class="btn btn-primary mr-2 ">Guardar Compra</button>
+          <button id="compra_finalizada2" class="btn btn-primary mr-2 ">Guardar Compra</button>
           <button id="cancelar_compra" class="btn btn-danger">Cancelar Compra</button>
         </div>
         <form class="form-group border p-3 bg-light" id="formgastos">
@@ -153,8 +153,9 @@ privilegios("Superiores");
           <div class="row">
             <div class="d-block col-lg-4">
               <p class="importante">Codigo:</p>
-              <input id="codigo_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" placeholder="" autocomplete="off">
-              <datalist id="mostrarProductos"></datalist>
+              <input name="" id="codigo_producto" class="form form-control form-control-sm">
+              <datalist id="lproductos">
+              </datalist>
             </div>
             <div class="d-block col-lg-4">
               <p class="importante">Nombre:</p>

@@ -2,13 +2,8 @@
 session_start();
 include_once '../Models/Conexion.php';
 
-if(isset($_POST['negocios'])){
-    $conexion = new Models\Conexion();
-    $datos = array($_SESSION['email']);
-    $tipo = "s";
-    $consulta = "SELECT idnegocios,nombre FROM negocios WHERE dueno = ?";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta,2, $tipo, false,null));
-    echo $jsonstring;
+if(isset($_POST['sessionNegocio'])){
+    echo $_SESSION['negocio'];
 }
 
 if(isset($_POST['idnegocio'])){

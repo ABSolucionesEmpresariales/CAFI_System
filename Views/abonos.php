@@ -95,7 +95,7 @@ privilegios("Todos");
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <p class="statusMsg"></p>
-                    <form class="form-group" id="formulario">
+                    <form class="form-group" id="formularioAbono">
                     <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                         <div class="row">
                             <div class="col-lg-12">
@@ -107,8 +107,6 @@ privilegios("Todos");
                                     </select>  
                                 </div>
                             </div>
-                            <input type="hidden" id="id" name="id">
-                            <input type="hidden" id="estadoActual">
                         </div>
 
                         <input id="bclose" type="submit" class="mt-3 btn btn-lg btn-block btn-dark text-primary" name="submit" value="Guardar">
