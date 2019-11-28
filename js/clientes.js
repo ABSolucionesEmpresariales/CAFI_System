@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    //VUsuarios_ab
+  //clientes que compran cafi
     let editar = false;
     let idusuario = "";
     let acceso = "";
@@ -18,6 +18,30 @@ $(document).ready(function () {
       });
     }
 
+    $('#cp').keyup(function (e) {
+      let codigopostal = $('#cp').val();
+      if (codigopostal.length === 5) {
+        fetch('https://api-codigos-postales.herokuapp.com/v2/codigo_postal/' + codigopostal)
+          .then(res => res.json())
+          .then(data => {
+            let template = '';
+            for (i = 0; i < data.colonias.length; i++) {
+              template += ` <option value="${data.colonias[i]}">`;
+            }
+            $("#localidad").html(template);
+            $("#municipio").val(data.municipio);
+            $("#estado").val(data.estado);
+  
+          });
+      }else{
+        $("#localidad").empty();
+        $("#Tlocalidad").val('');
+        $("#municipio").val('');
+        $("#estado").val('');
+      }
+  
+    });
+    
     $(document).on('click','.check',function(){
 
       if($(this).prop('checked')){
