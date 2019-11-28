@@ -19,7 +19,7 @@ $(document).ready(function() {
         console.log(response);
         let template = "";
         datos = JSON.parse(response);
-        arrayTitulos = ["ingresos por venta","Otros ingresos","total de ingreso","total de egresos","flujo operacional"];
+        arrayTitulos = ["Ingresos por venta","Otros ingresos","Total de ingreso","Total de egresos","Flujo operacional"];
         $.each(datos, function (i, item) {
           template += ` 
           <tr>
@@ -88,7 +88,7 @@ $(document).ready(function() {
         url: "../Controllers/flujoefectivo.php",
         type: "POST",
         data: "año:"+$('.anosFiltro').val(),
-        
+
         success: function(response) {
           console.log(response);
           let template = "";

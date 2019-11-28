@@ -33,15 +33,57 @@ if (
         0
     );
     $consulta = "INSERT INTO compras (idcompras,folio_factura,proveedor,forma_pago,fecha_factura,fecha_compra,fecha_vencimiento_factura,fecha_inicio_credito,fecha_vencimiento_credito,anticipo,descuento,total,tasa_iva,metodo_pago,usuariocafi,negocio,estado,eliminado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    $result = $conexion->consultaPreparada($datos, $consulta, 1, "sssssssssssssssssi", false,null);
+    $result = $conexion->consultaPreparada($datos, $consulta,1, "sssssssssssssssssi", false,null);
     $compra = $conexion->optenerId();
     $jsonstring = $_POST['arraycarrito'];
     $carrito = json_decode($jsonstring);
     $consulta3 = "INSERT INTO concepto_compra (compra,producto,nombre,iva,ieps,costo,cantidad,subtotal) VALUES(?,?,?,?,?,?,?,?)";
     if($result == 1){
-        for ($i = 0; $i < sizeof($carrito); $i++) {
+        for ($i = 0; $i < sizeof($carrito); $i++) {            $codigo_producto = $carrito[$i][0];
+            $nombre_producto = $carrito[$i][1];
+            $costo_producto = $carrito[$i][2];
+            $iva_producto = $carrito[$i][3];
+            $ipes_producto = $carrito[$i][4];
+            $cantidad_producto = $carrito[$i][5];
+            $subtotal_producto = $carrito[$i][6];
+            $unidad_medida_producto = $carrito[$i][7];
+            $precio_venta_producto = $carrito[$i][8];
+            $datos_producto = array($codigo_producto);
+            $consulta_producto = 'SELECT * FROM producto WHERE codigo_barras = ?';
+            $producto = json_encode($conexion->consultaPreparada($datos_producto, $consulta_producto,2,"s",false,null));
+            if($producto == '[]'){
+                $consulta_registro = 'INSERT INTO producto (codigo_barras,nombre,proveedor,precio_compra,precio_venta,unidad_medida,dueno) VALUES (?,?,?,?,?,?,?)';
+                $datos_producto2 = array($codigo_producto,$nombre_producto,$costo_producto,$_POST['Sproveedor'],$precio_venta_producto,$unidad_medida_producto,$_SESSION['email']);
+                $registro = $conexion->consultaPreparada($datos_producto2, $consulta_registro,1,"sssiiss",false,null);
+                if($registro == 1){
+                    $consulta_registro_stock = "INSERT INTO stock (producto,stock,estado,usuariocafi,negocio,eliminado) VALUES (?,?,?,?,?,?)";
+                    $datos_stock = array($codigo_producto,$cantidad_producto,"A",$_SESSION['email'],$_SESSION['negocio'],0);
+                    $registro_stock = $conexion->consultaPreparada($datos_stock, $consulta_registro_stock,1,"sissii",false,null);
+                    if($registro_stock != 1){
+                        echo 0;
+                    }
+                }else{
+                    echo 0;
+                }
+            }else{
+                $consulta_editar = 'UPDATE producto SET precio_venta = ? WHERE codigo_barras = ?';
+                $datos_editar = array($precio_venta_producto,$codigo_producto);
+                $registro2 = $conexion->consultaPreparada($datos_editar, $consulta_editar,1,"is",false,null);
+                if($registro2 == 1){
+                    $consulta_update_stock = "UPDATE stock SET stock = (stock + ?) WHERE producto = ? ";
+                    $datos_update_stock = array($cantidad_producto,$codigo_producto);
+                    $update_stock = $conexion->consultaPreparada($datos_update_stock, $consulta_update_stock,1,"is",false,null);
+                    if($update_stock != 1){
+                        echo 0;
+                    }
+                }else{
+                    echo 0;
+                }
+            }
+            $datos_carrito = array($compra,$codigo_producto,$nombre_producto,$iva_producto,$ipes_producto,$costo_producto,
+            $cantidad_producto ,$subtotal_producto);
             array_unshift($carrito[$i], $compra);
-            $result = $conexion->consultaPreparada($carrito[$i], $consulta, 1, "isssssis", false,null);
+            $result2 = $conexion->consultaPreparada($datos_carrito, $consulta3, 1, "isssssis", false,null);
         }
     }
     if($_POST['Sforma_pago'] == 'Credito'){

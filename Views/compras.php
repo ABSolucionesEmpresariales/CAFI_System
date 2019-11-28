@@ -92,7 +92,7 @@ privilegios("Superiores");
           <div class="row">
             <div class="d-block col-lg-4">
               <p class="general">Folio de factura:</p>
-              <input id="folio_factura" class="form-control form-control-sm" onkeypress="return check(event)" type="text" placeholder="" autocomplete="off">
+              <input id="folio_factura" class="form-control form-control-sm" onkeypress="return check(event)" type="text" placeholder="Folio de factiracion" autocomplete="off">
             </div>
             <div class="d-block col-lg-4">
               <p class="general">Fecha de facturación:</p>
@@ -123,7 +123,7 @@ privilegios("Superiores");
           <div class="row">
             <div class="d-block col-lg-6">
               <p class="general">Descuento:</p>
-              <input type="number" min="0" value="0" id="descuento" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off">
+              <input type="number" min="0" value="0" id="descuento" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="Descuento" autocomplete="off">
             </div>
             <div class="d-block col-lg-6">
               <p class="importante">Forma de pago:</p>
@@ -145,7 +145,7 @@ privilegios("Superiores");
             </div>
             <div class="fechascredito d-none col-lg-4">
               <p class="general">Anticipo:</p>
-              <input type="number" min="0" value="0" id="anticipo" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off">
+              <input type="number" min="0" value="0" id="anticipo" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="Anticipo" autocomplete="off">
             </div>
           </div>
         </form>
@@ -153,32 +153,45 @@ privilegios("Superiores");
           <div class="row">
             <div class="d-block col-lg-4">
               <p class="importante">Codigo:</p>
-              <input name="" id="codigo_producto" class="form form-control form-control-sm">
+              <input name="" id="codigo_producto" placeholder="Codigo Producto" class="form form-control form-control-sm">
               <datalist id="lproductos">
               </datalist>
             </div>
             <div class="d-block col-lg-4">
               <p class="importante">Nombre:</p>
-              <input id="nombre_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off">
-            </div>
-            <div class="d-block col-lg-4">
-              <p class="importante">Costo:</p>
-              <input type="number" min="1" id="costo_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off">
-            </div>
-          </div>
-          <div class="row">
-            <div class="d-block col-lg-4">
-              <p class="general">IEPS:</p>
-              <input type="number" min="0" value="0" id="ieps" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off">
+              <input id="nombre_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="Nombre Producto" autocomplete="off">
             </div>
             <div class="d-block col-lg-4">
               <p class="importante">Cantidad:</p>
-              <input type="number" min="1" id="cantidad" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="" autocomplete="off">
+              <input type="number" min="1" id="cantidad" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="Cantidad" autocomplete="off">
             </div>
+
+          </div>
+          <div class="row">
+          <div class="col-lg-3">
+                <p class="importante">Unidad de medida:</p>
+                <select class="form form-control" id="unidad_medida" name="Sunidad_medida" required>
+                  <option value="">Elija</option>
+                  <option value="pieza">Pieza</option>
+                  <option value="par">Par</option>
+                  <option value="paquete">Paquete</option>
+                </select>
+              </div>
+            <div class="d-block col-lg-3">
+              <p class="importante">Costo:</p>
+              <input type="number" min="1" value="0" id="costo_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="Costo producto" autocomplete="off">
+            </div>
+            <div class="d-block col-lg-3">
+              <p class="general">Ganancia %</p>
+              <input type="number" min="0" value="0" id="porcentaje" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" placeholder="" autocomplete="off">
+            </div> 
+            <div class="col-lg-3">
+                <p class="importante">Precio venta:</p>
+                <input id="precio_venta" value="0" class="form form-control" type="text" onkeypress="return check(event)" name="Nprecio_venta" placeholder="Precio venta" autocomplete="new-password" required><br>
+              </div>
           </div>
           <div class="row justify-content-center mt-2">
             <button id="agregar_producto" class="col-4 btn btn-danger">Agregar Producto a la compra</button>
-            <button class="d-none d-sm-flex btn btn-primary ml-5 agregar" data-toggle="modal" data-target="#modalForm">Producto nuevo</button>
           </div>
         </div>
       </div>
@@ -198,6 +211,8 @@ privilegios("Superiores");
                   <th class="text-nowrap text-center" onclick="sortTable(5)">IEPS</th>
                   <th class="text-nowrap text-center" onclick="sortTable(6)">Cantidad</th>
                   <th class="text-nowrap text-center" onclick="sortTable(7)">Subtotal</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(8)">Unidad Medida</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(9)">Precio venta</th>
                 </tr>
               </thead>
               <tbody id="tabla_compra">
@@ -288,166 +303,6 @@ privilegios("Superiores");
     </div>
   </div>
   <!-- Modal -->
-  <!-- Modal -->
-  <div class="modal fade" id="modalForm" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">×</span>
-            <span class="sr-only">Close</span>
-          </button>
-        </div>
-
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <p class="statusMsg"></p>
-
-          <form class="form-group" enctype="multipart/form-data" id="formulario">
-            <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
-            <div class="d-block d-lg-flex row">
-              <div class="col-lg-6">
-                <h5 class="importante">Codigo:</h5>
-                <input id="codigo_barras" class="form form-control" onkeypress="return codigo(event)" type="text" name="Tcodigo_barras" placeholder="0000000000000" maxlength="13">
-                <input type="button" id="generador" value="Generar Código" class="btn btn-primary">
-              </div>
-              <div class="col-lg-6">
-                <h5 class="general">Modelo</h5>
-                <input id="modelo" class="form form-control" onkeypress="return check(event)" type="text" name="Tmodelo" placeholder="Modelo" autocomplete="new-password">
-              </div>
-            </div>
-            <div class="d-block d-lg-flex row">
-              <div class="col-lg-6">
-                <h5 class="importante">Nombre:</h5>
-                <input id="nombre" class="form form-control" onkeypress="return check(event)" type="text" name="Tnombre" placeholder="Nombre" autocomplete="new-password" required>
-              </div>
-              <div class="col-lg-6">
-                <h5 class="general">Descripción:</h5>
-                <input id="descripcion" class="form form-control" onkeypress="return check(event)" type="text" name="Tdescripcion" placeholder="Descripción" autocomplete="new-password">
-              </div>
-            </div>
-            <div class="d-block d-lg-flex row">
-              <div class="col-lg-6">
-                <h5 class="general">Marca:</h5>
-                <select class="form form-control" id="marca" name="Smarca">
-
-                </select>
-              </div>
-              <div class="col-lg-6">
-                <h5 class="general">Proveedor:</h5>
-                <select class="form form-control" id="proveedor" name="Tproveedor">
-                </select>
-              </div>
-            </div>
-            <div class="d-block d-lg-flex row">
-              <div class="col-lg-6">
-                <h5 class="general">Color:</h5>
-                <select class="form form-control" id="color" name="Scolor">
-
-                </select>
-              </div>
-              <div class="col-lg-6">
-                <h5 class="general">Descuento:</h5>
-                <input id="descuento" class="form form-control" type="text" onkeypress="return check(event)" name="Ndescuento" placeholder="Descuento" autocomplete="new-password"><br>
-              </div>
-            </div>
-
-
-            <div class="row text-center">
-              <div class="col-lg-12">
-                <h5><label for="imagen" class="general">Imagen:</label></h5>
-                <div id="preview">
-                  <img src="" width="100" height="100" />
-                </div>
-                <div>
-                  <input onclick="ejecutar();" style="margin-left: 10px; margin-top: 10px;" id="imagen" style="margin-left: 4px;" type="file" name="Fimagen" />
-                </div>
-              </div>
-            </div>
-
-            <div class="d-block d-lg-flex row">
-              <div class="col-lg-6">
-                <h5 class="general">Precio compra:</h5>
-                <input id="precio_compra" class="form form-control" type="text" onkeypress="return check(event)" name="Nprecio_compra" placeholder="Precio compra" autocomplete="new-password"><br>
-              </div>
-
-              <div class="col-lg-6">
-                <h5 class="importante">Precio venta:</h5>
-                <input id="precio_venta" class="form form-control" type="text" onkeypress="return check(event)" name="Nprecio_venta" placeholder="Precio venta" autocomplete="new-password" required><br>
-              </div>
-            </div>
-
-            <div class="d-block d-lg-flex row">
-              <div class="col-lg-12">
-                <h5 class="general">Tipo de producto:</h5>
-                <select class="form form-control" id="categoria" name="Stipo_producto">
-                  <option value="">Elejir</option>
-                  <option value="Calzado">Calzado</option>
-                  <option value="Ropa">Ropa</option>
-                  <option value="Otros">Otros</option>
-                </select>
-              </div>
-            </div>
-            <div class="d-block d-lg-flex row">
-              <div class="col-lg-6">
-                <h5 class="general">Categoria:</h5>
-                <select class="form form-control" id="categoria2" name="Scategoria">
-
-                </select>
-              </div>
-              <div class="col-lg-6">
-                <h5 class="importante">Unidad de medida:</h5>
-                <select class="form form-control" id="unidad_medida" name="Sunidad_medida" required>
-                  <option value="pieza">Pieza</option>
-                  <option value="par">Par</option>
-                  <option value="paquete">Paquete</option>
-                </select>
-              </div>
-
-            </div>
-            <div class="d-block d-lg-flex row">
-              <div class="col-lg-6">
-                <h5 class="general">Talla:</h5>
-                <div class="mostrar_producto">
-                  <input type="hidden" value="null" name="Stalla_numero">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <h5 class="general">Tasa IVA:</h5>
-                <label><input id="tasa_iva" type="checkbox" name="Ntasa_iva" value="si">Iva incluido</label>
-              </div>
-
-            </div>
-            <div class="d-block d-lg-flex row">
-              <div class="col-lg-6">
-                <h5 class="general">Tasa IEPS:</h5>
-                <input id="tasa_ipes" class="form form-control" type="text" onkeypress="return check(event)" name="Ntasa_ipes" placeholder="Tasa IPES" autocomplete="new-password"><br>
-              </div>
-              <div class="col-lg-6">
-                <h5 class="general">Localización:</h5>
-                <input id="localizacion" class="form form-control" onkeypress="return check(event)" type="text" name="Tlocalizacion" placeholder="Localización" autocomplete="new-password">
-              </div>
-
-            </div>
-            <div class="d-block d-lg-flex row">
-              <div class="col-lg-6">
-                <h5 class="importante">Stock:</h5>
-                <input id="stock" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock" placeholder="Stock" autocomplete="new-password" required>
-              </div>
-              <div class="col-lg-6">
-                <h5 class="general">Stock minimo:</h5>
-                <input id="stock_minimo" class="form form-control" onkeypress="return check(event)" type="number" name="Nstock_minimo" placeholder="Stock minimo" autocomplete="new-password">
-              </div>
-            </div>
-            <input type="hidden" name="accion" id="accion">
-            <input id="bclose" type="submit" class="mt-3 btn bg-dark text-white btn-lg btn-block" value="Guardar">
-          </form>
-          <div id="tableHolder" class="row justify-content-center"></div>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

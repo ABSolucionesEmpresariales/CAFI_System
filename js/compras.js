@@ -16,6 +16,51 @@ $(document).ready(function () {
     pintarTablaCarrito();
     obtenerDatosTabla();
 
+    $(document).on('keyup','#porcentaje',function(){
+      if($(this).val() != ''){
+        precio = $('#costo_producto').val();
+        dato = 0;
+        if(precio != 0 || precio != ''){
+          dato = precio * parseFloat('.'+$('#porcentaje').val());
+          $('#precio_venta').val(parseFloat(precio) + dato);
+        } 
+      }else{
+        $('#precio_venta').val('0');
+      }
+    });
+
+    $(document).on('keyup','#precio_venta',function(){
+      if($(this).val() != ''){
+        precio = $('#costo_producto').val();
+        dato = 0;
+        if(precio != 0 || precio != ''){
+          dato = 100 * (parseFloat($(this).val()) - parseFloat(precio));
+          if(dato > 0){
+            $('#porcentaje').val(dato / precio);
+          }else{
+            $('#porcentaje').val(0);
+          }
+        }
+      }else{
+        $('#porcentaje').val('0');
+      }
+    });
+
+    $(document).on('keyup','#costo_producto',function(){
+      if($(this).val() != '' || $(this).val() > 0){
+        if($('#porcentaje').val() != '0' && $('#precio_venta').val() != '0'){
+            if($('#porcentaje').val() != '' || $('#porcentaje').val() != '0'){
+              porsentaje = $('#porcentaje').val();
+              precio = $(this).val();
+              $('#precio_venta').val( parseFloat(precio) + (parseFloat(precio) * parseFloat("."+ porsentaje)) );
+            }else if($('#precio_venta').val() != ''){
+              $('#porcentaje').val(parseFloat($(this).val()) / ((parseFloat($('#precio_venta').val()) - parseFloat($(this).val())) * 100) );
+            }
+        }
+    }else{
+
+    }
+    });
 
     var touchtime = 0;
     $(document).on("click", "td", function () {
@@ -353,24 +398,28 @@ $(document).on('click','.bconcepto',function(){
             var codigo = $('#codigo_producto').val();
             var nombre = $('#nombre_producto').val();
             var costo = $('#costo_producto').val();
-            var ieps = $('#ieps').val();
+            var ieps = '0';
             var cantidad = $('#cantidad').val();
-
+            var unidad_medida = $('#unidad_medida').val();
+            var precio_venta = $('#precio_venta').val();
             if(codigo.trim() == '' || codigo.trim() < 0){
                 $('#codigo_producto').focus();
                 return false;
             }else if(nombre.trim() == ''){
                 $('#nombre_producto').focus();
                 return false;
-            }else if(costo.trim() == '' || costo.trim() < 1){
-                $('#costo_producto').focus();
-                return false;
-            }else if(ieps.trim() < 0){
-                $('#ieps').focus();
-                return false;
             }else if(cantidad.trim() == '' || cantidad.trim() < 1){
-                $('#cantidad').focus();
-                return false;
+              $('#cantidad').focus();
+              return false;
+            }else if(unidad_medida.trim() == ''){
+              $('#unidad_medida').focus();
+              return false;
+            }else if(costo.trim() == '' || costo.trim() < 1){
+              $('#costo_producto').focus();
+              return false;
+            }else if(precio_venta.trim() == ''){
+              $('#precio_venta').focus();
+              return false;
             }else{
                 iva_producto = 0;
                 var ieps_producto = 0;
@@ -386,6 +435,8 @@ $(document).on('click','.bconcepto',function(){
                     subtotal_producto += ieps_producto;
                 }
 
+                console.log(unidad_medida);
+                console.log(precio_venta);
 
                 var row=`
                         <tr>
@@ -397,6 +448,8 @@ $(document).on('click','.bconcepto',function(){
                             <td id="producto_ieps" class="text-nowrap text-center datos">$${ieps_producto}</td>
                             <td id="producto_cantidad" class="text-nowrap text-center datos">${cantidad}</td>
                             <td id="producto_subtotal" class="text-nowrap text-center datos">$${subtotal_producto}</td>
+                            <td id="producto_unidad_medida" class="text-nowrap text-center datos">${$('#unidad_medida').val()}</td>
+                            <td id="producto_precio_venta" class="text-nowrap text-center datos">$${$('#precio_venta').val()}</td>
                         </tr>
                         `;
     
@@ -424,6 +477,8 @@ $(document).on('click','.bconcepto',function(){
                 $('#ieps').val('');
                 $('#cantidad').val('');
                 $('#codigo_producto').focus();
+                $('#unidad_medida').val('');
+                $('#precio_venta').val('');
                 obtenerDatosCarrito();
             }
 
@@ -511,7 +566,7 @@ $(document).on('click','.bconcepto',function(){
         var datostabla = [];
       
          $('#tabla_compra').find("tr").find(".datos").each(function() {
-           if(cont == 6){
+           if(cont == 8){
               filas+= $(this).html();
               datos = filas.split("?");
               datostabla[cont2] = datos;
@@ -560,6 +615,8 @@ $(document).on('click','.bconcepto',function(){
           <td id="producto_ieps" class="text-nowrap text-center datos">${item[4]}</td>
           <td id="producto_cantidad" class="text-nowrap text-center datos">${item[5]}</td>
           <td id="producto_subtotal" class="text-nowrap text-center datos">${item[6]}</td>
+          <td id="producto_unidad_medida" class="text-nowrap text-center datos">${item[7]}</td>
+          <td id="producto_precio_venta" class="text-nowrap text-center datos">${item[8]}</td>
         </tr>
        `;
             costo2 = item[2].split('$');
