@@ -14,7 +14,7 @@ $consulta = "SELECT descuento,total,pago, cambio,fecha,hora,persona.nombre,negoc
     INNER JOIN negocios ON venta.negocio = idnegocios
     WHERE idventas = ?";
 
-$result = $conexion->consultaPreparada($datos = array($idventa), $consulta, 2, "s", false);
+$result = $conexion->consultaPreparada($datos = array($idventa), $consulta, 2, "s", false, null);
 if ($result != null) {
     $descuento = $result[0][0];
     $total = $result[0][1];
@@ -33,7 +33,7 @@ INNER JOIN cliente ON cliente = email
 INNER JOIN persona ON persona.email = cliente
 WHERE venta = ? ";
 
-$result = $conexion->consultaPreparada($datos = array($idventa), $consulta, 2, "s", false);
+$result = $conexion->consultaPreparada($datos = array($idventa), $consulta, 2, "s", false, null);
 if ($result != null) {
     $anticipo = $result[0][0];
     $totaldeuda = $result[0][1];
@@ -46,7 +46,7 @@ $fechaYHora = $fecha . " " . $hora;
 $consulta = "SELECT nombre,color,marca,precio_venta, cantidad, unidad_medida,talla_numero,subtotal FROM
 producto INNER JOIN detalle_venta ON producto = codigo_barras WHERE
 detalle_venta.idventa = ?";
-$result = $conexion->consultaPreparada($datos = array($idventa), $consulta, 2, "s", false);
+$result = $conexion->consultaPreparada($datos = array($idventa), $consulta, 2, "s", false, null);
 ?>
 <!DOCTYPE html>
 <html>
