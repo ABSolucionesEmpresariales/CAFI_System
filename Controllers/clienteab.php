@@ -4,18 +4,18 @@ require_once '../Models/Email.php';
 
 if (
   isset($_POST['Temail']) && isset($_POST['Trfc'])  && isset($_POST['Tnombre'])  && isset($_POST['Tcp'])  && isset($_POST['Tcalle_numero'])
-  && isset($_POST['Tcolonia'])  && isset($_POST['Tlocalidad'])  && isset($_POST['Tmunicipio'])  && isset($_POST['Sestado']) && isset($_POST['Tpais'])  && isset($_POST['Ttelefono'])
+  && isset($_POST['Tcolonia'])  && isset($_POST['DLlocalidad'])  && isset($_POST['Tmunicipio'])  && isset($_POST['Sestado'])  && isset($_POST['Ttelefono'])
   && isset($_POST['Dfecha_nacimiento']) && isset($_POST['Ssexo']) && isset($_POST['Sentrada_sistema'])  && isset($_POST['Pcontrasena']) && isset($_POST['accion'])
 ) {
 
   $conexion = new Models\Conexion();
-
+  $email = new Models\Email();
   $datos_verificar = array($_POST['Temail']);
   $consulta_verificar = "SELECT * FROM persona WHERE email = ?";
-  $respuesta = json_encode($conexion->consultaPreparada($datos_verificar, $consulta_verificar,2,'s', false,null));
-  if($respuesta == '[]'){
+  $respuesta = json_encode($conexion->consultaPreparada($datos_verificar, $consulta_verificar, 2, 's', false, null));
+  if ($respuesta == '[]') {
     $_POST['accion'] = 'false';
-  }else{
+  } else {
     $_POST['accion'] = 'true';
   }
 
@@ -30,10 +30,10 @@ if (
       $_POST['Tcp'],
       $_POST['Tcalle_numero'],
       $_POST['Tcolonia'],
-      $_POST['Tlocalidad'],
+      $_POST['DLlocalidad'],
       $_POST['Tmunicipio'],
       $_POST['Sestado'],
-      $_POST['Tpais'],
+      "México",
       $_POST['Ttelefono'],
       $_POST['Dfecha_nacimiento'],
       $_POST['Ssexo'],
@@ -69,10 +69,10 @@ if (
       $_POST['Tcp'],
       $_POST['Tcalle_numero'],
       $_POST['Tcolonia'],
-      $_POST['Tlocalidad'],
+      $_POST['DLlocalidad'],
       $_POST['Tmunicipio'],
       $_POST['Sestado'],
-      $_POST['Tpais'],
+      "México",
       $_POST['Ttelefono'],
       $_POST['Dfecha_nacimiento'],
       $_POST['Ssexo'],
@@ -83,8 +83,8 @@ if (
 
 
     $editar = "UPDATE persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email SET rfc= ?, nombre = ?, cp = ?, calle_numero = ?, colonia = ?, localidad = ?, municipio = ?, 
-            estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?,eliminado = ?, entrada_sistema = ?, contrasena = ? WHERE persona.email= ?";
-    $tipo_datos = "ssssssssssssisss";
+            estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?,eliminado = ?, entrada_sistema = ? WHERE persona.email= ?";
+    $tipo_datos = "ssssssssssssiss";
     //respuesta al front
     echo $conexion->consultaPreparada($datos_usuariocafi, $editar, 1, $tipo_datos, false, null);
   }

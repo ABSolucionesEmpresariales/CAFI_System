@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    //clientesab
+    //clientes de los duenos del negocio
+
     let editar = false;
     let idclienteab = "";
     let acceso = '';
@@ -17,6 +18,30 @@ $(document).ready(function () {
           }
         });
       }
+
+      $('#cp').keyup(function (e) {
+        let codigopostal = $('#cp').val();
+        if (codigopostal.length === 5) {
+          fetch('https://api-codigos-postales.herokuapp.com/v2/codigo_postal/' + codigopostal)
+            .then(res => res.json())
+            .then(data => {
+              let template = '';
+              for (i = 0; i < data.colonias.length; i++) {
+                template += ` <option value="${data.colonias[i]}">`;
+              }
+              $("#localidad").html(template);
+              $("#municipio").val(data.municipio);
+              $("#estado").val(data.estado);
+    
+            });
+        }else{
+          $("#localidad").empty();
+          $("#Tlocalidad").val('');
+          $("#municipio").val('');
+          $("#estado").val('');
+        }
+    
+      });
 
       $(document).on('click','.check',function(){
 
@@ -183,6 +208,7 @@ $(document).ready(function () {
                 enviarDatos();
             
         }else{
+            console.log("sisisis");
             enviarDatos();
         }
         e.preventDefault();
@@ -190,11 +216,13 @@ $(document).ready(function () {
 
     $(document).on('click','.agregar',function(){
         $('.ocultar').css('display','block');
+        $("#email").attr('required');
         editar = false;
     });
 
     var touchtime = 0;
     $(document).on("click", "td", function () {
+       $("#email").removeAttr('required');
         if (touchtime == 0) {
           touchtime = new Date().getTime();
         } else {

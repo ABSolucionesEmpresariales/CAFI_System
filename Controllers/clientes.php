@@ -14,7 +14,7 @@ if (isset($_POST['tabla'])) {
 
 if (
     isset($_POST['Temail']) && isset($_POST['Trfc'])  && isset($_POST['Tnombre'])  && isset($_POST['Tcp'])  && isset($_POST['Tcalle_numero'])
-    && isset($_POST['Tcolonia'])  && isset($_POST['Tlocalidad'])  && isset($_POST['Tmunicipio'])  && isset($_POST['Sestado']) && isset($_POST['Tpais'])  && isset($_POST['Ttelefono'])
+    && isset($_POST['Tcolonia'])  && isset($_POST['DLlocalidad'])  && isset($_POST['Tmunicipio'])  && isset($_POST['Sestado']) && isset($_POST['Ttelefono'])
     && isset($_POST['Dfecha_nacimiento']) && isset($_POST['Ssexo']) && isset($_POST['Scredito'])  && isset($_POST['Tplazo_credito']) && isset($_POST['Tlimite_credito'])
 ) {
 
@@ -31,10 +31,10 @@ if (
             $_POST['Tcp'],
             $_POST['Tcalle_numero'],
             $_POST['Tcolonia'],
-            $_POST['Tlocalidad'],
+            $_POST['DLlocalidad'],
             $_POST['Tmunicipio'],
             $_POST['Sestado'],
-            $_POST['Tpais'],
+            "México",
             $_POST['Ttelefono'],
             $_POST['Dfecha_nacimiento'],
             $_POST['Ssexo'],
