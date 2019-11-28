@@ -29,8 +29,9 @@ function mandarporPost(){
   
   };
   $.post('../Controllers/ventas.php', postData, function (response) {
+    console.log(response);
     if (response === "Exitoprinter") {
-        window.open('ticketVenta.php');
+        window.open('ticketventa.php');
     }
     if (response) {
       var explode = function () {
