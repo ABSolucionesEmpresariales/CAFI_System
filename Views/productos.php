@@ -240,7 +240,7 @@ privilegios("Superiores");
         <div class="modal-body">
           <p class="statusMsg"></p>
 
-          <form class="form-group" enctype="multipart/form-data" id="formulario" method="POST">
+          <form class="form-group" enctype="multipart/form-data" id="formulario">
             <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
             <div class="d-block d-lg-flex row">
               <div class="col-lg-6 ocultarCodigo">

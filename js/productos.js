@@ -529,7 +529,7 @@ function enviarDatos(){
 
       success: function (response) {
         console.log(response);
-        if (response == "1") {
+        if (response == 1) {
           if ($("#accion").val() == 'true') {
             $(".modal").modal("hide");
             $("#mensaje").css("display", "none");
