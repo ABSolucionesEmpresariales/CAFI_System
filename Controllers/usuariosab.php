@@ -26,7 +26,7 @@ if (
       $_POST['Tcp'],
       $_POST['Tcalle_numero'],
       $_POST['Tcolonia'],
-      $_POST['Tlocalidad'],
+      $_POST['DLlocalidad'],
       $_POST['Tmunicipio'],
       $_POST['Sestado'],
       "México",
@@ -59,7 +59,7 @@ if (
       $_POST['Tcp'],
       $_POST['Tcalle_numero'],
       $_POST['Tcolonia'],
-      $_POST['Tlocalidad'],
+      $_POST['DLlocalidad'],
       $_POST['Tmunicipio'],
       $_POST['Sestado'],
       "México",
@@ -73,8 +73,8 @@ if (
     );
 
     $editar = "UPDATE persona INNER JOIN usuariosab ON persona.email=usuariosab.email SET rfc= ?, nombre = ?, cp = ?, calle_numero = ?, colonia = ?, localidad = ?, municipio = ?, 
-            estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?,eliminado = ?, acceso = ?, entrada_sistema = ?, contrasena = ? WHERE persona.email= ?";
-    $tipo_datos = "ssssssssssssissss";
+            estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?,eliminado = ?, acceso = ?, entrada_sistema = ? WHERE persona.email= ?";
+    $tipo_datos = "ssssssssssssisss";
     //respuesta al front
     echo $conexion->consultaPreparada($datos_usuarioab, $editar, 1, $tipo_datos, false, null);
   }
@@ -82,7 +82,7 @@ if (
   //obtencion del json para pintar la tabla
   $conexion = new Models\Conexion();
   $consulta = "SELECT persona.email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento,
-    sexo,acceso,entrada_sistema,contrasena FROM persona INNER JOIN usuariosab ON persona.email=usuariosab.email WHERE eliminado != ?";
+    sexo,acceso,entrada_sistema FROM persona INNER JOIN usuariosab ON persona.email=usuariosab.email WHERE eliminado != ?";
   $datos = array(1);
 
   $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "i", false, null));

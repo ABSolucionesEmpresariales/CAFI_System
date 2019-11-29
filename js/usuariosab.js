@@ -174,7 +174,6 @@ $(document).ready(function () {
               <td class="text-nowrap text-center">${item[12]}</td>
               <td class="text-nowrap text-center">${item[13]}</td>
               <td class="text-nowrap text-center">${item[14]}</td>
-              <td class="text-nowrap text-center">${item[15]}</td>
           `;
         });
         $("#cuerpo").html(template); 

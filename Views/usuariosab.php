@@ -75,7 +75,6 @@ privilegios("Superiores");
                   <th class="text-nowrap text-center" onclick="sortTable(13)">Sexo</th>
                   <th class="text-nowrap text-center" onclick="sortTable(14)">Acceso</th>
                   <th class="text-nowrap text-center" onclick="sortTable(15)">Entrada</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(16)">Contrasena</th>
                 </tr>
               </thead>
               <tbody id="cuerpo"></tbody>
