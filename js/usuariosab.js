@@ -4,7 +4,6 @@ $(document).ready(function () {
   let idusuario = "";
   let acceso = "";
   obtenerAcceso();
-  obtenerDatosTablaUsuarios();
 
   
   function obtenerAcceso(){
@@ -14,7 +13,42 @@ $(document).ready(function () {
       data:"accesoPersona=accesoPersona",
 
       success: function (response) {
-        acceso = response
+        acceso = response;
+        $.ajax({
+          url: "../Controllers/usuariosab.php",
+          type: "POST",
+          data: "tabla=tabla",
+          success: function (response) {
+            
+           let datos = JSON.parse(response);
+           console.log(datos);
+            let template = "";
+            $.each(datos, function (i, item) {
+              template += `<tr>`;
+              if(acceso == 'CEOAB'){
+                template += `<td class="text-nowrap text-center"><input type="checkbox" value="si"></td>`;
+              }
+              template += `<td class="text-nowrap text-center email">${item[0]}</td>
+                  <td class="text-nowrap text-center">${item[1]}</td>
+                  <td class="text-nowrap text-center">${item[2]}</td>
+                  <td class="text-nowrap text-center">${item[3]}</td>
+                  <td class="text-nowrap text-center">${item[4]}</td>
+                  <td class="text-nowrap text-center">${item[5]}</td>
+                  <td class="text-nowrap text-center">${item[6]}</td>
+                  <td class="text-nowrap text-center">${item[7]}</td>
+                  <td class="text-nowrap text-center">${item[8]}</td>
+                  <td class="text-nowrap text-center">${item[9]}</td>
+                  <td class="text-nowrap text-center">${item[10]}</td>
+                  <td class="text-nowrap text-center">${item[11]}</td>
+                  <td class="text-nowrap text-center">${item[12]}</td>
+                  <td class="text-nowrap text-center">${item[13]}</td>
+                  <td class="text-nowrap text-center">${item[14]}</td>
+                  <td class="text-nowrap text-center">${item[15]}</td>
+              `;
+            });
+            $("#cuerpo").html(template); 
+          }
+        });
       }
     });
   }
@@ -79,7 +113,7 @@ $(document).ready(function () {
   
           success: function (response) {
             console.log(response);
-            obtenerDatosTablaUsuarios();
+            obtenerAcceso();
                 return response;
           }
         }); 
@@ -116,48 +150,10 @@ $(document).ready(function () {
         $("#mensaje").css("color", "red");
         $("#email").focus();
       }
-      obtenerDatosTablaUsuarios();
+      obtenerAcceso();
     });
     e.preventDefault();
   });
-
-  function obtenerDatosTablaUsuarios() {
-    $.ajax({
-      url: "../Controllers/usuariosab.php",
-      type: "POST",
-      data: "tabla=tabla",
-      success: function (response) {
-        
-       let datos = JSON.parse(response);
-       console.log(datos);
-        let template = "";
-        $.each(datos, function (i, item) {
-          template += `<tr>`;
-          if(acceso == 'CEOAB'){
-            template += `<td class="text-nowrap text-center"><input type="checkbox" value="si"></td>`;
-          }
-          template += `<td class="text-nowrap text-center email">${item[0]}</td>
-              <td class="text-nowrap text-center">${item[1]}</td>
-              <td class="text-nowrap text-center">${item[2]}</td>
-              <td class="text-nowrap text-center">${item[3]}</td>
-              <td class="text-nowrap text-center">${item[4]}</td>
-              <td class="text-nowrap text-center">${item[5]}</td>
-              <td class="text-nowrap text-center">${item[6]}</td>
-              <td class="text-nowrap text-center">${item[7]}</td>
-              <td class="text-nowrap text-center">${item[8]}</td>
-              <td class="text-nowrap text-center">${item[9]}</td>
-              <td class="text-nowrap text-center">${item[10]}</td>
-              <td class="text-nowrap text-center">${item[11]}</td>
-              <td class="text-nowrap text-center">${item[12]}</td>
-              <td class="text-nowrap text-center">${item[13]}</td>
-              <td class="text-nowrap text-center">${item[14]}</td>
-              <td class="text-nowrap text-center">${item[15]}</td>
-          `;
-        });
-        $("#cuerpo").html(template); 
-      }
-    });
-  }
 
   $(document).on("click",".Beliminar",function(){
     var valor = $(this).parents("tr").find("td").eq(0).text();
@@ -195,7 +191,7 @@ $(document).ready(function () {
             "Registro fallido.", 
             "warning");
           }
-          obtenerDatosTablaUsuarios();
+          obtenerAcceso();
         }
       });
     });

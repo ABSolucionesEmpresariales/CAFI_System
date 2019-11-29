@@ -5,15 +5,49 @@ $(document).ready(function () {
   let idnego = "";
   let acceso = "";
   obtenerAcceso();
-  obtenerDatosTablaUsuarios();
-  function obtenerAcceso() {
+
+  function obtenerAcceso(){
     $.ajax({
       url: "../Controllers/login.php",
       type: "POST",
-      data: "accesoPersona=accesoPersona",
+      data:"accesoPersona=accesoPersona",
 
       success: function (response) {
-        acceso = response
+        acceso = response;
+        $.ajax({
+          url: "../Controllers/trabajadorCafi.php",
+          type: "POST",
+          data: "tabla=tabla",
+          success: function (response) {
+            let datos = JSON.parse(response);
+            let template = "";
+            $.each(datos, function (i, item) {
+              template +=`<tr>`;
+              if(acceso == 'CEO'){
+                template +=`
+                <td><input type="checkbox" value="si"></td>`;
+              }
+              template += `
+                  <td class="text-nowrap text-center email">${item[0]}</td>
+                  <td class="text-nowrap text-center">${item[1]}</td>
+                  <td class="text-nowrap text-center">${item[2]}</td>
+                  <td class="text-nowrap text-center">${item[3]}</td>
+                  <td class="text-nowrap text-center">${item[4]}</td>
+                  <td class="text-nowrap text-center">${item[5]}</td>
+                  <td class="text-nowrap text-center">${item[6]}</td>
+                  <td class="text-nowrap text-center">${item[7]}</td>
+                  <td class="text-nowrap text-center">${item[8]}</td>
+                  <td class="text-nowrap text-center">${item[9]}</td>
+                  <td class="text-nowrap text-center">${item[10]}</td>
+                  <td class="text-nowrap text-center">${item[11]}</td>
+                  <td class="text-nowrap text-center">${item[12]}</td>
+                  <td class="text-nowrap text-center">${item[13]}</td>
+                  <td class="text-nowrap text-center">${item[14]}</td>
+              `;
+            });
+            $("#cuerpo").html(template); 
+          }
+        });
       }
     });
   }
@@ -72,7 +106,7 @@ $(document).ready(function () {
         $("#mensaje").css("color", "red");
         $("#email").focus();
       }
-      obtenerDatosTablaUsuarios();
+      obtenerAcceso();
     });
     e.preventDefault();
   });
@@ -139,54 +173,55 @@ $(document).ready(function () {
                 touchtime = new Date().getTime();
               }
             }
-        }); 
-        */
-
-
-
-  function obtenerDatosTablaUsuarios() {
-    $.ajax({
-      url: "../Controllers/trabajadorCafi.php",
-      type: "POST",
-      data: "tabla=tabla",
-      success: function (response) {
-        let datos = JSON.parse(response);
-        let template = "";
-        $.each(datos, function (i, item) {
-          template += `<tr>`;
-          if (acceso == 'CEO') {
-            template += `
-                <td><input type="checkbox" value="si"></td>`;
           }
-          template += `
-                  <td class="text-nowrap text-center email">${item[0]}</td>
-                  <td class="text-nowrap text-center">${item[1]}</td>
-                  <td class="text-nowrap text-center">${item[2]}</td>
-                  <td class="text-nowrap text-center">${item[3]}</td>
-                  <td class="text-nowrap text-center">${item[4]}</td>
-                  <td class="text-nowrap text-center">${item[5]}</td>
-                  <td class="text-nowrap text-center">${item[6]}</td>
-                  <td class="text-nowrap text-center">${item[7]}</td>
-                  <td class="text-nowrap text-center">${item[8]}</td>
-                  <td class="text-nowrap text-center">${item[9]}</td>
-                  <td class="text-nowrap text-center">${item[10]}</td>
-                  <td class="text-nowrap text-center">${item[11]}</td>
-                  <td class="text-nowrap text-center">${item[12]}</td>
-                  <td class="text-nowrap text-center">${item[13]}</td>
-                  <td class="text-nowrap text-center">${item[14]}</td>
-              `;
-        });
-        $("#cuerpo").html(template);
-      }
-    });
-  }
+      }); 
+      */
 
-  function enviarDatos() {
-    var valores = "";
-    $('#cuerpo').children("tr").find("td").find("input").each(function () {
-      if ($(this).prop('checked')) {
-        valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+      function enviarDatos(){
+        var valores = "";
+        $('#cuerpo').children("tr").find("td").find("input").each(function () {
+            if($(this).prop('checked')){
+                valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+            }
+        }); 
+        valores += "0";
+        result = valores.split("?");
+        console.log(result);
+         $.ajax({
+          url: "../Controllers/trabajadorCafi.php",
+          type: "POST",
+          data: {'array': JSON.stringify(result)},
+  
+          success: function (response) {
+            console.log(response);
+                return response;
+          }
+        }); 
       }
+
+      $(document).on('click','.eliminar',function(){
+        swal({
+            title: "Esta seguro que desea eliminar ?",
+            text: "Esta accion eliminara los datos!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Si, eliminarlo!",
+            closeOnConfirm: false
+          },
+          function(){
+              if(typeof (enviarDatos()) != 'undefined'){
+                swal("Exito!", 
+                "Sus datos han sido eliminados.",
+                 "success");
+              }else{
+                swal("Error!", 
+                "Ups, algo salio mal.",
+                 "warning");
+              }
+              $('.check').prop("checked", false);
+              obtenerAcceso();
+          });
     });
     valores += "0";
     result = valores.split("?");
@@ -201,7 +236,7 @@ $(document).ready(function () {
         return response;
       }
     });
-  }
+
 
   $(document).on('click', '.eliminar', function () {
     swal({
@@ -246,7 +281,5 @@ $(document).ready(function () {
   $('.close').click(function () {
     $('#formulario').trigger('reset');
   });
-
-
 
 });

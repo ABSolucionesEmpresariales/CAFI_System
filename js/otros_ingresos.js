@@ -4,7 +4,6 @@ $(document).ready(function (){
     let idotrosIngresos = "";
     let acceso = '';
     obtenerAcceso();
-    obtenerDatosTablaOtrosIngresos();
 
     function obtenerAcceso(){
         $.ajax({
@@ -13,39 +12,36 @@ $(document).ready(function (){
           data:"accesoPersona=accesoPersona",
     
           success: function (response) {
-            acceso = response
+            acceso = response;
+            $.ajax({
+                url: '../Controllers/otros_ingresos.php',
+                type: 'POST',
+                data:'tabla=tabla',
+    
+                success: function(response){
+                    let datos = JSON.parse(response);
+                    let template = '';
+                $.each(datos, function (i, item) {
+                        template+=`<tr>`;
+                        if(acceso == 'CEO'){
+                            template+=`<td><input type="checkbox" value="si"></td>`;   
+                        }
+                        template+=`
+                        <td class="text-nowrap text-center d-none">${item[0]}</td>
+                        <td class="text-nowrap text-center">$${item[1]}</td>
+                        <td class="text-nowrap text-center">${item[2]}</td>
+                        <td class="text-nowrap text-center">${item[3]}</td>
+                        <td class="text-nowrap text-center">${item[4]}</td>
+                        <td class="text-nowrap text-center">${item[5]}</td>
+                        <td class="text-nowrap text-center">${item[6]}</td>`;
+                    });
+                    $('#cuerpo').html(template);
+                }
+            });
           }
         });
       }
 
-      
-    function obtenerDatosTablaOtrosIngresos(){
-        $.ajax({
-            url: '../Controllers/otros_ingresos.php',
-            type: 'POST',
-            data:'tabla=tabla',
-
-            success: function(response){
-                let datos = JSON.parse(response);
-                let template = '';
-            $.each(datos, function (i, item) {
-                    template+=`<tr>`;
-                    if(acceso == 'CEO'){
-                        template+=`<td><input type="checkbox" value="si"></td>`;   
-                    }
-                    template+=`
-                    <td class="text-nowrap text-center d-none">${item[0]}</td>
-                    <td class="text-nowrap text-center">$${item[1]}</td>
-                    <td class="text-nowrap text-center">${item[2]}</td>
-                    <td class="text-nowrap text-center">${item[3]}</td>
-                    <td class="text-nowrap text-center">${item[4]}</td>
-                    <td class="text-nowrap text-center">${item[5]}</td>
-                    <td class="text-nowrap text-center">${item[6]}</td>`;
-                });
-                $('#cuerpo').html(template);
-            }
-        });
-    }
 
     $(document).on('click','.check',function(){
 
@@ -182,7 +178,7 @@ $(document).ready(function (){
                     $("#mensaje").css("color", "red");
                     $("#email").focus();
                   }
-                  obtenerDatosTablaOtrosIngresos();
+                  obtenerAcceso();
             }
         });
     }
