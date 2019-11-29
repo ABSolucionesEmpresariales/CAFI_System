@@ -4,30 +4,6 @@ $(document).ready(function () {
   let idgastos = "";
   let acceso = "";
   obtenerAcceso();
-  obtenerDatosTablaGastos();
-  obtenerTrabajadores();
-  $("#divtrabajadores").css("display", "none");
-  function obtenerTrabajadores() {
-    $.ajax({
-      url: "../Controllers/gastos.php",
-      type: "POST",
-      data: "combo=combo",
-
-      success: function (response) {
-        let datos = JSON.parse(response);
-
-        let template = null;
-        template += `
-        <option></option>`;
-
-        $.each(datos, function (i, item) {
-          template += `
-          <option>${item[0]}</option>`;
-        });
-        $("#strabajadores").html(template);
-      }
-    });
-  }
 
   function obtenerAcceso() {
     $.ajax({
@@ -37,6 +13,32 @@ $(document).ready(function () {
 
       success: function (response) {
         acceso = response;
+        $.ajax({
+          url: "../Controllers/gastos.php",
+          type: "POST",
+          data: "tabla=tabla",
+    
+          success: function(response) {
+            let datos = JSON.parse(response);
+    
+            let template = null;
+            $.each(datos, function(i, item) {
+              template += `<tr>`;
+                if(acceso ==  'CEO'){
+                  template += `<td><input type="checkbox" value="si"></td>`;            
+                }
+              template += `
+                        <td class="datos d-none">${item[0]}</td>
+                        <td class="datos">${item[1]}</td>
+                        <td class="datos">${item[2]}</td>
+                        <td class="datos">${item[3]}</td>
+                        <td class="datos">$${item[4]}</td>
+                        <td class="datos">${item[5]}</td>
+                        <td class="datos">${item[6]}</td> `;
+            });
+            $("#cuerpo").html(template);
+          }
+        });
       }
     });
   }
@@ -84,17 +86,20 @@ $(document).ready(function () {
         confirmButtonText: "Si, eliminarlo!",
         closeOnConfirm: false
       },
-      function () {
-        if (enviarDatos() != "0") {
-          swal("Exito!", "Sus datos han sido eliminados.", "success");
-        } else {
-          swal("Error!", "Ups, algo salio mal.", "warning");
-        }
-        $(".check").prop("checked", false);
-        obtenerDatosTablaGastos();
-      }
-    );
-  });
+      function(){
+          if(enviarDatos() != '0'){
+            swal("Exito!", 
+            "Sus datos han sido eliminados.",
+             "success");
+          }else{
+            swal("Error!", 
+            "Ups, algo salio mal.",
+             "warning");
+          }
+          $('.check').prop("checked", false);
+          obtenerAcceso();
+      });
+});
 
   $(document).on("click", ".check", function () {
     if ($(this).prop("checked")) {
@@ -127,36 +132,7 @@ $(document).ready(function () {
     $("#formulario").trigger("reset");
   });
 
-  function obtenerDatosTablaGastos() {
-    $.ajax({
-      url: "../Controllers/gastos.php",
-      type: "POST",
-      data: "tabla=tabla",
-
-      success: function (response) {
-        let datos = JSON.parse(response);
-
-        let template = null;
-        $.each(datos, function (i, item) {
-          template += `<tr>`;
-          if (acceso == "CEO") {
-            template += `<td><input class = "check"  type="checkbox" value="si"></td>`;
-          }
-          template += `
-                    <td class="datos d-none">${item[0]}</td>
-                    <td class="datos">${item[1]}</td>
-                    <td class="datos">${item[2]}</td>
-                    <td class="datos">${item[3]}</td>
-                    <td class="datos">$${item[4]}</td>
-                    <td class="datos">${item[5]}</td>
-                    <td class="datos">${item[6]}</td> `;
-        });
-        $("#cuerpo").html(template);
-      }
-    });
-  }
-
-  $("#formulario").submit(function (e) {
+  $("#formulario").submit(function(e) {
     if (editar === false) {
       $.post(
         "../Controllers/gastos.php",
@@ -174,7 +150,7 @@ $(document).ready(function () {
             $("#mensaje").css("color", "red");
             $("#concepto").focus();
           }
-          obtenerDatosTablaGastos();
+          obtenerAcceso();
         }
       );
     } else {
@@ -196,8 +172,7 @@ $(document).ready(function () {
           $("#concepto").focus();
         }
       });
-
-      obtenerDatosTablaGastos();
+      obtenerAcceso();
     }
     e.preventDefault();
   });

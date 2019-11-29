@@ -25,7 +25,52 @@ $(document).ready(function () {
       data:"accesoPersona=accesoPersona",
 
       success: function (response) {
-        acceso = response
+        acceso = response;
+        $.ajax({
+          url: "../Controllers/productos.php",
+          type: "POST",
+          data: "tabla=" + $('#negocio').val(),
+    
+          success: function (response) {
+            let datos = JSON.parse(response);
+            var dat = "";
+            let template = "";
+            $.each(datos, function (i, item) {
+              for(var j = 0; j <= item.length; j++){
+                    if(item[j] == 'null'){
+                      item[j] = "";
+                    }
+              }
+              template += `<tr>`;
+             if(acceso == 'CEO'){
+              template += `<td class="text-nowrap text-center"><input type="checkbox" value="si"></td>`;
+             }
+              template += `
+                    <td class="text-nowrap text-center">${item[0]}</td>
+                    <td class="text-nowrap text-center">${item[1]}</td>
+                    <td class="text-nowrap text-center">${item[2]}</td>
+                    <td class="text-nowrap text-center">${item[3]}</td>
+                    <td class="text-nowrap text-center">${item[4]}</td>
+                    <td class="text-nowrap text-center">${item[5]}</td>
+                    <td class="text-nowrap text-center">${item[6]}</td>
+                    <td class="text-nowrap text-center">${item[7]}</td>
+                    <td><img src="${item[8]}" height="100" width="100"></td>
+                    <td class="text-nowrap text-center">$${item[9]}</td>
+                    <td class="text-nowrap text-center">$${item[10]}</td>
+                    <td class="text-nowrap text-center">${item[11]}</td>
+                    <td class="text-nowrap text-center">${item[12]}</td>
+                    <td class="text-nowrap text-center">${item[13]}</td>
+                    <td class="text-nowrap text-center">${item[14]}</td>
+                    <td class="text-nowrap text-center">${item[15]}</td>
+                    <td class="text-nowrap text-center">${item[16]}</td>
+                    <td class="text-nowrap text-center">${item[17]}</td>
+                    <td class="text-nowrap text-center">${item[18]}</td>
+                    <td class="text-nowrap text-center">${item[19]}</td>
+              `;
+            });
+            $("#cuerpo").html(template);
+          }
+        });
       }
     });
   }
@@ -165,7 +210,7 @@ $(document).ready(function () {
   }
 
   $(document).on('change','#negocio',function(){
-    obtenerDatosTablaProductos($(this).val());;
+    obtenerAcceso();
   });
 
   function obtenerNegocios(){
@@ -403,7 +448,7 @@ $(document).ready(function () {
           $("#mensaje2").css("color", "red");
           $("#codigo_barras").focus();
         }
-        obtenerDatosTablaProductos($('#negocio').val());
+        obtenerAcceso();
         obtenerProductosInventario();
       }
     });
@@ -445,7 +490,7 @@ $(document).on('click','.eliminar',function(){
            "warning");
         }
         $('.check').prop("checked", false);
-        obtenerDatosTablaProductos($('#negocio').val());
+        obtenerAcceso();
     });
 });
 
@@ -484,7 +529,7 @@ function enviarDatos(){
 
       success: function (response) {
         console.log(response);
-        if (response == "1") {
+        if (response == 1) {
           if ($("#accion").val() == 'true') {
             $(".modal").modal("hide");
             $("#mensaje").css("display", "none");
@@ -499,7 +544,7 @@ function enviarDatos(){
           $("#mensaje").css("color", "red");
           $("#codigo_barras").focus();
         }
-        obtenerDatosTablaProductos($('#negocio').val());
+        obtenerAcceso();
       }
     });
     e.preventDefault();
@@ -517,52 +562,4 @@ function enviarDatos(){
     $('.ocultarCodigo').show();
   });
 
-  function obtenerDatosTablaProductos(negocio) {
-    $.ajax({
-      url: "../Controllers/productos.php",
-      type: "POST",
-      data: "tabla=" + negocio,
-
-      success: function (response) {
-        let datos = JSON.parse(response);
-        var dat = "";
-        let template = "";
-        $.each(datos, function (i, item) {
-          for(var j = 0; j <= item.length; j++){
-                if(item[j] == 'null'){
-                  item[j] = "";
-                }
-          }
-
-          template += `<tr>`;
-         if(acceso == 'CEO'){
-          template += `<td class="text-nowrap text-center"><input type="checkbox" value="si"></td>`;
-         }
-          template += `
-                <td class="text-nowrap text-center">${item[0]}</td>
-                <td class="text-nowrap text-center">${item[1]}</td>
-                <td class="text-nowrap text-center">${item[2]}</td>
-                <td class="text-nowrap text-center">${item[3]}</td>
-                <td class="text-nowrap text-center">${item[4]}</td>
-                <td class="text-nowrap text-center">${item[5]}</td>
-                <td class="text-nowrap text-center">${item[6]}</td>
-                <td class="text-nowrap text-center">${item[7]}</td>
-                <td><img src="${item[8]}" height="100" width="100"></td>
-                <td class="text-nowrap text-center">$${item[9]}</td>
-                <td class="text-nowrap text-center">$${item[10]}</td>
-                <td class="text-nowrap text-center">${item[11]}</td>
-                <td class="text-nowrap text-center">${item[12]}</td>
-                <td class="text-nowrap text-center">${item[13]}</td>
-                <td class="text-nowrap text-center">${item[14]}</td>
-                <td class="text-nowrap text-center">${item[15]}</td>
-                <td class="text-nowrap text-center">${item[16]}</td>
-                <td class="text-nowrap text-center">${item[17]}</td>
-                <td class="text-nowrap text-center">${item[18]}</td>
-                <td class="text-nowrap text-center">${item[19]}</td>
-          `;
-        });
-        $("#cuerpo").html(template);
-      }
-    });
-  }
 });

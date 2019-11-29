@@ -75,11 +75,6 @@ $(document).ready(function () {
     }
   });
 
-  /*     $("#form2").submit(function(e) {
-        
-        e.preventDefault();
-      }); */
-
   $(document).on("change", ".anosFiltro", function () {
 
     $.post("../Controllers/flujoefectivo.php",

@@ -3,7 +3,6 @@ $(document).ready(function () {
   idabono = "";
   let acceso = '';
   obtenerAcceso();
-  obtenerDatosTablaAbonos();
 
   function obtenerAcceso(){
     $.ajax({
@@ -13,6 +12,36 @@ $(document).ready(function () {
 
       success: function (response) {
         acceso = response
+        $.ajax({
+          url: "../Controllers/consultasadeudos.php",
+          type: "POST",
+          data: "tabla_abonos=tabla_abonos",
+          success: function (response) {
+           let datos = JSON.parse(response);
+            let template = "";
+            console.log(acceso);
+            $.each(datos, function (i, item) {
+              template += `<tr>`;
+              if(acceso == 'CEO'){
+                template +=`<td class="text-nowrap text-center"><input type="checkbox" value="si"></td>`;
+              }
+              template +=`
+                    <td class="text-nowrap text-center d-none">${item[0]}</td>
+                    <td class="text-nowrap text-center">${item[1]}</td>
+                    <td class="text-nowrap text-center text-success font-weight-bold">$${item[2]}</td>
+                    <td class="text-nowrap text-center">$${item[3]}</td>
+                    <td class="text-nowrap text-center text-warning font-weight-bold">${item[4]}</td>
+                    <td class="text-nowrap text-center">$${item[5]}</td>
+                    <td class="text-nowrap text-center">${item[6]}</td>
+                    <td class="text-nowrap text-center">${item[7]}</td>
+                    <td class="text-nowrap text-center">${item[8]}</td>
+                    <td class="text-nowrap text-center">${item[9]}</td>
+              `;
+            });
+            console.log(template);
+            $("#cuerpo").html(template);
+          }
+        });
       }
     });
   }
@@ -27,7 +56,8 @@ $(document).ready(function () {
         $("#mensaje").css("color", "red");
         $("#email").focus();
       }
-      obtenerDatosTablaAbonos();
+      obtenerAcceso();
+
     });
     e.preventDefault();
   });
@@ -73,7 +103,8 @@ $(document).ready(function () {
             }
             $('.check').prop("checked", false);
             console.log(response);
-             obtenerDatosTablaAbonos();
+            obtenerAcceso();
+
                 return response;
           }
         }); 
@@ -94,40 +125,6 @@ $(document).ready(function () {
     }
 });
 
-  function enviarDatos(){
-
-}
-
-  function obtenerDatosTablaAbonos() {
-    $.ajax({
-      url: "../Controllers/consultasadeudos.php",
-      type: "POST",
-      data: "tabla_abonos=tabla_abonos",
-      success: function (response) {
-       let datos = JSON.parse(response);
-        let template = "";
-        $.each(datos, function (i, item) {
-          template += `<tr>`;
-          if(acceso == 'CEO'){
-            template +=`<td><input type="checkbox" value="si"></td>`;
-          }
-          template +=`
-                <td class="text-nowrap text-center d-none">${item[0]}</td>
-                <td class="text-nowrap text-center">${item[1]}</td>
-                <td class="text-nowrap text-center text-success font-weight-bold">$${item[2]}</td>
-                <td class="text-nowrap text-center">$${item[3]}</td>
-                <td class="text-nowrap text-center text-warning font-weight-bold">${item[4]}</td>
-                <td class="text-nowrap text-center">$${item[5]}</td>
-                <td class="text-nowrap text-center">${item[6]}</td>
-                <td class="text-nowrap text-center">${item[7]}</td>
-                <td class="text-nowrap text-center">${item[8]}</td>
-                <td class="text-nowrap text-center">${item[9]}</td>
-          `;
-        });
-        $("#cuerpo").html(template);
-      }
-    });
-  }
 
   var touchtime = 0;
   $(document).on("click", "td", function () {
