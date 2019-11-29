@@ -4,7 +4,6 @@ $(document).ready(function() {
   let banco = null;
   let acceso = '';
   obtenerAcceso();
-  obtenerDatosDeTabla();
   obtenerDinero();
 
   function obtenerAcceso(){
@@ -14,7 +13,35 @@ $(document).ready(function() {
       data:"accesoPersona=accesoPersona",
 
       success: function (response) {
-        acceso = response
+        acceso = response;
+        $.ajax({
+          url: "../Controllers/retiros.php",
+          type: "POST",
+          data: "tabla=tabla",
+    
+          success: function(response) {
+            let datos = JSON.parse(response);
+            console.log(acceso);
+            let template = null;
+            $.each(datos, function(i, item) {
+              template += `<tr>`;
+              if(acceso == 'CEO'){
+                template += `<td><input type="checkbox" value="si"></td>`;  
+              }          
+              template += `<td class="datos d-none">${item[0]}</td>
+                        <td>${item[1]}</td>
+                        <td>${item[2]}</td>
+                        <td>${item[3]}</td>
+                        <td>${item[4]}</td>
+                        <td>${item[5]}</td>
+                        <td>${item[6]}</td>
+                        <td class="datos">${item[7]}</td>
+                        <td>${item[8]}</td>
+                       </tr> `;
+            });
+            $("#cuerpo").html(template);
+          }
+        });
       }
     });
   }
@@ -54,7 +81,7 @@ $(document).on('click','.eliminar',function(){
            "warning");
         }
         $('.check').prop("checked", false);
-        obtenerDatosDeTabla();
+        obtenerAcceso();
     });
 });
 
@@ -108,41 +135,10 @@ function enviarDatos(){
     });
   }
 
-  function obtenerDatosDeTabla() {
-    $.ajax({
-      url: "../Controllers/retiros.php",
-      type: "POST",
-      data: "tabla=tabla",
-
-      success: function(response) {
-        let datos = JSON.parse(response);
-        console.log(acceso);
-        let template = null;
-        $.each(datos, function(i, item) {
-          template += `<tr>`;
-          if(acceso == 'CEO'){
-            template += `<td><input type="checkbox" value="si"></td>`;  
-          }          
-          template += `<td class="datos d-none">${item[0]}</td>
-                    <td>${item[1]}</td>
-                    <td>${item[2]}</td>
-                    <td>${item[3]}</td>
-                    <td>${item[4]}</td>
-                    <td>${item[5]}</td>
-                    <td>${item[6]}</td>
-                    <td class="datos">${item[7]}</td>
-                    <td>${item[8]}</td>
-                   </tr> `;
-        });
-        $("#cuerpo").html(template);
-      }
-    });
-  }
-
   $("#formulario1").submit(function(e) {
     let cantidad = $("#cant").val();
     let tipo = $("#de").val();
-    let concepto = $("#cant").val();
+    let concepto = $("#concepto").val();
     let descripcion = $("#desc").val();
 
     if (concepto == "Corte de caja" && tipo == "Banco") {
@@ -172,7 +168,7 @@ function enviarDatos(){
           }
         }
       );
-      obtenerDatosDeTabla();
+      obtenerAcceso();
       obtenerDinero();
     } else if (tipo == "Caja" && cantidad > efectivo) {
       swal({
@@ -198,7 +194,7 @@ function enviarDatos(){
             $(".mensaje").css("color", "red");
             $("#cant").focus();
           }
-          obtenerDatosDeTabla();
+          obtenerAcceso();
           obtenerDinero();
         }
       );
@@ -230,7 +226,7 @@ function enviarDatos(){
           $(".mensaje").text("Registro fallido");
           $(".mensaje").css("color", "red");
         }
-        obtenerDatosDeTabla();
+        obtenerAcceso();
         obtenerDinero();
       
       }

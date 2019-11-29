@@ -3,7 +3,6 @@ $(document).ready(function () {
     let editar = false;
     let acceso = "";
     obtenerAcceso();
-    obteneDatosProveedor();
 
     $(document).on('click','.agregar',function(){
        editar = false;
@@ -24,7 +23,40 @@ $(document).ready(function () {
         data:"accesoPersona=accesoPersona",
   
         success: function (response) {
-          acceso = response
+          acceso = response;
+          $.ajax({
+            url: "../Controllers/proveedores.php",
+            type: "POST",
+            data: "tabla=tabla",
+      
+            success: function (response) {
+              console.log(response);
+              let datos = JSON.parse(response);
+              let template = "";
+              $.each(datos, function (i, item) {
+                template+=`<tr>`;
+                if(acceso == 'CEO'){
+                  template+=` <td><input type="checkbox" value="si" ></td>`;
+                }
+                template+=`
+                    <td class="text-nowrap text-center d-none">${item[0]}</td>
+                    <td class="text-nowrap text-center">${item[1]}</td>
+                    <td class="text-nowrap text-center">${item[2]}</td>
+                    <td class="text-nowrap text-center">${item[3]}</td>
+                    <td class="text-nowrap text-center">${item[4]}</td>
+                    <td class="text-nowrap text-center">${item[5]}</td>
+                    <td class="text-nowrap text-center">${item[6]}</td>
+                    <td class="text-nowrap text-center">${item[7]}</td>
+                    <td class="text-nowrap text-center">${item[8]}</td>
+                    <td class="text-nowrap text-center">${item[9]}</td>
+                    <td class="text-nowrap text-center">${item[10]}</td>
+                    <td class="text-nowrap text-center">${item[11]}</td>
+                </tr>
+                `;
+              });
+              $("#cuerpo").html(template);
+          }
+        });
         }
       });
     }
@@ -86,7 +118,7 @@ $(document).ready(function () {
                  "warning");
               }
               $('#eliminar').prop("checked", false);
-              obteneDatosProveedor();
+              obtenerAcceso();
           });
     });
 
@@ -162,44 +194,9 @@ $(document).ready(function () {
             $("#mensaje").css("color", "red");
             $("#email").focus();
           }
-          obteneDatosProveedor();
+          obtenerAcceso();
         });
         e.preventDefault();
       });
 
-    function obteneDatosProveedor(){
-        $.ajax({
-            url: "../Controllers/proveedores.php",
-            type: "POST",
-            data: "tabla=tabla",
-      
-            success: function (response) {
-              console.log(response);
-              let datos = JSON.parse(response);
-              let template = "";
-              $.each(datos, function (i, item) {
-                template+=`<tr>`;
-                if(acceso == 'CEO'){
-                  template+=` <td><input type="checkbox" value="si" ></td>`;
-                }
-                template+=`
-                    <td class="text-nowrap text-center d-none">${item[0]}</td>
-                    <td class="text-nowrap text-center">${item[1]}</td>
-                    <td class="text-nowrap text-center">${item[2]}</td>
-                    <td class="text-nowrap text-center">${item[3]}</td>
-                    <td class="text-nowrap text-center">${item[4]}</td>
-                    <td class="text-nowrap text-center">${item[5]}</td>
-                    <td class="text-nowrap text-center">${item[6]}</td>
-                    <td class="text-nowrap text-center">${item[7]}</td>
-                    <td class="text-nowrap text-center">${item[8]}</td>
-                    <td class="text-nowrap text-center">${item[9]}</td>
-                    <td class="text-nowrap text-center">${item[10]}</td>
-                    <td class="text-nowrap text-center">${item[11]}</td>
-                </tr>
-                `;
-              });
-              $("#cuerpo").html(template);
-          }
-        });
-    }
 });

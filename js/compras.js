@@ -4,17 +4,17 @@ $(document).ready(function () {
     let compra = "";
     $('#accion').val('false');
     console.log($('#accion').val());
+    obtenerAcceso();
     obtenerColores();
     obtenerMarcas();
     obtenerCategorias();
     obtenerProveedores2();
     obtenerProveedores();
     obtenerProductos();
-    obtenerAcceso();
     verificarJSON();
     datosFactura();
     pintarTablaCarrito();
-    obtenerDatosTabla();
+    
 
     $(document).on('keyup','#porcentaje',function(){
       if($(this).val() != ''){
@@ -140,7 +140,7 @@ $(document).ready(function () {
                 if (response == "1") {
                   $('#modalFormMostrar').modal('hide');
                   $("#mensaje").css("display", "none");
-                  obtenerDatosTabla();
+                  obtenerAcceso();
                 } else {
                   $("#mensaje").css("display", "block");
                   $("#mensaje").text("Registro fallido");
@@ -150,7 +150,7 @@ $(document).ready(function () {
             }
         }
           });
-        obtenerDatosTabla();
+          obtenerAcceso();
         e.preventDefault();
       });
 
@@ -223,6 +223,43 @@ $(document).on('click','.bconcepto',function(){
     
           success: function (response) {
             acceso = response
+            $.ajax({
+              url: "../Controllers/compras.php",
+              type: "POST",
+              data:"tabla=tabla",
+      
+              success: function (response) {
+                  let datos = JSON.parse(response);
+                  console.log(datos);
+                  let template = '';
+                  $.each(datos, function (i, item) {
+                      template += `<tr>`;
+                      if(acceso == 'CEO'){
+                          template += `<td class="text-nowrap text-center"><input type="checkbox" value="si"></td>`;
+                      }
+                      template += ` 
+                      <td  class="text-nowrap text-center d-none datos">${item[0]}</td>
+                      <td><button class="bconcepto btn btn-info">Mostrar</button></td>
+                      <td  class="text-nowrap text-center">${item[1]}</td>
+                      <td  class="text-nowrap text-center">${item[2]}</td>
+                      <td  class="text-nowrap text-center">${item[3]}</td>
+                      <td  class="text-nowrap text-center">${item[4]}</td>
+                      <td  class="text-nowrap text-center">${item[5]}</td>
+                      <td  class="text-nowrap text-center">${item[6]}</td>
+                      <td  class="text-nowrap text-center">${item[7]}</td>
+                      <td  class="text-nowrap text-center">${item[8]}</td>
+                      <td  class="text-nowrap text-center">${item[9]}</td>
+                      <td  class="text-nowrap text-center">${item[10]}</td>
+                      <td  class="text-nowrap text-center">${item[11]}</td>
+                      <td  class="text-nowrap text-center">${item[12]}</td>
+                      <td  class="text-nowrap text-center">${item[13]}</td>
+                      <td  class="text-nowrap text-center">${item[14]}</td>
+                      <td  class="text-nowrap text-center datos">${item[15]}</td>
+                  </tr>`;
+                  });
+                  $('#cuerpo2').html(template);
+              }
+            });  
           }
         });
       }
@@ -360,7 +397,7 @@ $(document).on('click','.bconcepto',function(){
   
           success: function (response) {
             console.log(response);
-            obtenerDatosTabla();
+            obtenerAcceso();
             if(response == 1){
               return 1;
             }
@@ -551,7 +588,7 @@ $(document).on('click','.bconcepto',function(){
                     sessionStorage.setItem('info-facturas', JSON.stringify(null));
                     verificarJSON();
                     pintarTablaCarrito(); 
-                    obtenerDatosTabla();
+                    obtenerAcceso();
                   }
                 }
               });  
@@ -687,46 +724,6 @@ $(document).on('click','.bconcepto',function(){
             $('#anticipo').val(factura[9]); 
         }
 
-      }
-
-      function obtenerDatosTabla(){
-        $.ajax({
-            url: "../Controllers/compras.php",
-            type: "POST",
-            data:"tabla=tabla",
-    
-            success: function (response) {
-                let datos = JSON.parse(response);
-                console.log(datos);
-                let template = '';
-                $.each(datos, function (i, item) {
-                    template += `<tr>`;
-                    if(acceso == 'CEO'){
-                        template += `<td class="text-nowrap text-center"><input type="checkbox" value="si"></td>`;
-                    }
-                    template += ` 
-                    <td  class="text-nowrap text-center d-none datos">${item[0]}</td>
-                    <td><button class="bconcepto btn btn-info">Mostrar</button></td>
-                    <td  class="text-nowrap text-center">${item[1]}</td>
-                    <td  class="text-nowrap text-center">${item[2]}</td>
-                    <td  class="text-nowrap text-center">${item[3]}</td>
-                    <td  class="text-nowrap text-center">${item[4]}</td>
-                    <td  class="text-nowrap text-center">${item[5]}</td>
-                    <td  class="text-nowrap text-center">${item[6]}</td>
-                    <td  class="text-nowrap text-center">${item[7]}</td>
-                    <td  class="text-nowrap text-center">${item[8]}</td>
-                    <td  class="text-nowrap text-center">${item[9]}</td>
-                    <td  class="text-nowrap text-center">${item[10]}</td>
-                    <td  class="text-nowrap text-center">${item[11]}</td>
-                    <td  class="text-nowrap text-center">${item[12]}</td>
-                    <td  class="text-nowrap text-center">${item[13]}</td>
-                    <td  class="text-nowrap text-center">${item[14]}</td>
-                    <td  class="text-nowrap text-center datos">${item[15]}</td>
-                </tr>`;
-                });
-                $('#cuerpo2').html(template);
-            }
-          });  
       }
 
 
