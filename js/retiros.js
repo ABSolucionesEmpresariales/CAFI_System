@@ -142,7 +142,7 @@ function enviarDatos(){
   $("#formulario1").submit(function(e) {
     let cantidad = $("#cant").val();
     let tipo = $("#de").val();
-    let concepto = $("#cant").val();
+    let concepto = $("#concepto").val();
     let descripcion = $("#desc").val();
 
     if (concepto == "Corte de caja" && tipo == "Banco") {

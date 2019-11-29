@@ -11,9 +11,9 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
 
     echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ii", false, null));
 } else if (
-    isset($_POST['idgastos']) && isset($_POST['Sconcepto']) && isset($_POST['Spago'])
-    && isset($_POST['Tdescripcion']) && isset($_POST['Tmonto'])  && isset($_POST['Sestado'])
-    && isset($_POST['Dfecha'])
+    isset($_POST['idgastos']) && !empty($_POST['Sconcepto']) && !empty($_POST['Spago'])
+    && !empty($_POST['Tdescripcion']) && !empty($_POST['Tmonto'])  && !empty($_POST['Sestado'])
+    && !empty($_POST['Dfecha'])
 ) {
     $conexion = new Models\Conexion();
 

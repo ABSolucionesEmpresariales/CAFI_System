@@ -15,8 +15,8 @@ $_POST['Stalla_numero'],
 $_POST['accion'])
 ; */
 if (
-    isset($_POST['Tcodigo_barras']) && isset($_POST['Tnombre']) && isset($_POST['Nprecio_venta']) 
-    &&  isset($_POST['Sunidad_medida']) && isset($_POST['Nstock']) 
+    !empty($_POST['Tcodigo_barras']) && !empty($_POST['Tnombre']) && !empty($_POST['Nprecio_venta']) 
+    &&  !empty($_POST['Sunidad_medida']) && !empty($_POST['Nstock']) 
 ) {
 /*   var_dump($_POST['Tcodigo_barras'],$_POST['Tmodelo'],$_POST['Tnombre'],$_POST['Tdescripcion'],
 $_POST['Scategoria'],$_POST['Smarca'],$_POST['Tproveedor'],$_POST['Scolor'],

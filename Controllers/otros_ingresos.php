@@ -16,8 +16,8 @@ if (isset($_POST['array'])) {
     echo $result;
 }
 
-if(isset($_POST['Tcantidad']) && isset($_POST['Stipo']) && isset($_POST['Sforma_ingreso']) && isset($_POST['Dfecha']) 
-&& isset($_POST['Sestado'])){
+if(!empty($_POST['Tcantidad']) && !empty($_POST['Stipo']) && !empty($_POST['Sforma_ingreso']) && !empty($_POST['Dfecha']) 
+&& !empty($_POST['Sestado'])){
     $conexion = new Models\Conexion();
     if($_POST['accion'] == 'false'){
         $datos_ingresos = array(

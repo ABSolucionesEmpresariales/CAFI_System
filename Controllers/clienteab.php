@@ -3,9 +3,9 @@ include_once '../Models/Conexion.php';
 require_once '../Models/Email.php';
 
 if (
-  isset($_POST['Temail']) && isset($_POST['Trfc'])  && isset($_POST['Tnombre'])  && isset($_POST['Tcp'])  && isset($_POST['Tcalle_numero'])
-  && isset($_POST['Tcolonia'])  && isset($_POST['DLlocalidad'])  && isset($_POST['Tmunicipio'])  && isset($_POST['Sestado'])  && isset($_POST['Ttelefono'])
-  && isset($_POST['Dfecha_nacimiento']) && isset($_POST['Ssexo']) && isset($_POST['Sentrada_sistema'])  && isset($_POST['Pcontrasena']) && isset($_POST['accion'])
+  !empty($_POST['Temail']) && isset($_POST['Trfc'])  && !empty($_POST['Tnombre'])  && isset($_POST['Tcp'])  && isset($_POST['Tcalle_numero'])
+  && isset($_POST['Tcolonia'])  && !empty($_POST['DLlocalidad'])  && isset($_POST['Tmunicipio'])  && isset($_POST['Sestado'])  && !empty($_POST['Ttelefono'])
+  && isset($_POST['Dfecha_nacimiento']) && isset($_POST['Ssexo']) && !empty($_POST['Sentrada_sistema'])  && !empty($_POST['Pcontrasena']) && isset($_POST['accion'])
 ) {
 
   $conexion = new Models\Conexion();

@@ -117,13 +117,7 @@ privilegios("Todos");
                 <h5 class="importante">Teléfono:</h5>
                 <input id="telefono" class="form form-control" type="text" onkeypress="return check(event)" name="Ttelefono" placeholder="Teléfono" autocomplete="new-password" required><br>
               </div>
-              <div class="col-lg-6">
-                <h5 class="importante">Acceso:</h5>
-                <select class="form form-control" id="acceso" name="Sacceso" required>
-                  <option value="Manager">Manager</option>
-                  <option value="Employe">Empleado</option>
-                </select> <br>
-              </div>
+           
             </div>
             <div class="d-block d-lg-flex row">
               <div class="col-lg-6">
@@ -168,6 +162,7 @@ privilegios("Todos");
               <div class="col-lg-6">
                 <h5 class="general">Estado:</h5>
                 <select class="form form-control" id="estado" name="Sestado">
+                  <option value=""></option>
                   <option value="Aguascalientes">Aguascalientes</option>
                   <option value="Baja California">Baja California </option>
                   <option value="Baja California Sur">Baja California Sur</option>

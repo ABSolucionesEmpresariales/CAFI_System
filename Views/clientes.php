@@ -148,6 +148,7 @@ privilegios("Superiores");
               <div class="col-lg-6">
                 <h5 class="general">Estado:</h5>
                 <select class="form form-control" id="estado" name="Sestado">
+                  <option value=""></option>
                   <option value="Aguascalientes">Aguascalientes</option>
                   <option value="Baja California">Baja California </option>
                   <option value="Baja California Sur">Baja California Sur</option>
@@ -187,6 +188,7 @@ privilegios("Superiores");
               <div class="col-lg-6">
                 <h5 class="general">Sexo:</h5>
                 <select class="form form-control" id="sexo" name="Ssexo">
+                  <option value=""></option>
                   <option value="M">Masculino</option>
                   <option value="F">Femenino</option>
                 </select><br>
