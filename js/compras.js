@@ -47,19 +47,48 @@ $(document).ready(function () {
     });
 
     $(document).on('keyup','#costo_producto',function(){
-      if($(this).val() != '' || $(this).val() > 0){
-        if($('#porcentaje').val() != '0' && $('#precio_venta').val() != '0'){
-            if($('#porcentaje').val() != '' || $('#porcentaje').val() != '0'){
-              porsentaje = $('#porcentaje').val();
-              precio = $(this).val();
-              $('#precio_venta').val( parseFloat(precio) + (parseFloat(precio) * parseFloat("."+ porsentaje)) );
-            }else if($('#precio_venta').val() != ''){
-              $('#porcentaje').val(parseFloat($(this).val()) / ((parseFloat($('#precio_venta').val()) - parseFloat($(this).val())) * 100) );
-            }
-        }
-    }else{
+      console.log(parseInt($(this).val()));
+      if($(this).val() == ''){
+        $('#precio_venta').val('0');
+        $('#porcentaje').val('0');
+      }else{
+        if(parseInt($(this).val()) > 0){
+          if($('#porcentaje').val() != '0' && $('#precio_venta').val() != '0'){
+              if($('#porcentaje').val() != '' || $('#porcentaje').val() != '0'){
+                porsentaje = $('#porcentaje').val();
+                precio = $(this).val();
+                $('#precio_venta').val( parseFloat(precio) + (parseFloat(precio) * parseFloat("."+ porsentaje)) );
+              }else if($('#precio_venta').val() != ''){
+                $('#porcentaje').val(parseFloat($(this).val()) / ((parseFloat($('#precio_venta').val()) - parseFloat($(this).val())) * 100) );
+              }
+          }
+      }
+      }
+    });
 
-    }
+    $(document).on('keyup','#codigo_producto',function(){
+
+      if($(this).val().length > 3){
+        $.ajax({
+          url: "../Controllers/compras.php",
+          type: "POST",
+          data: "idproducto="+$(this).val(),
+          success: function(response) {
+            console.log(response);
+            if(response != '[]'){
+              let datos = JSON.parse(response);
+              let template = null;
+              $.each(datos, function(i, item) {
+                $('#nombre_producto').val(item[0]);
+                $('#unidad_medida').val(item[1]);
+              });
+            }
+          }
+        });
+      }else{
+        $('#nombre_producto').val('');
+        $('#unidad_medida').val('');
+      }
     });
 
     var touchtime = 0;

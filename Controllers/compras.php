@@ -148,3 +148,9 @@ if(isset($_POST['producto'])){
     $datos = array($_SESSION['negocio']);
     echo json_encode($conexion->consultaPreparada($datos, $consulta,2, "i", false,null));
 }
+if(isset($_POST['idproducto'])){
+    $conexion = new Models\Conexion();
+    $consulta = "SELECT nombre,unidad_medida FROM producto WHERE codigo_barras = ?";
+    $datos = array($_POST['idproducto']);
+    echo json_encode($conexion->consultaPreparada($datos, $consulta,2, "s", false,null));
+}
