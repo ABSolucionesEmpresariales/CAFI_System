@@ -113,7 +113,7 @@ privilegios("Master");
                     </select>
                 </div>
 
-                <button class="btn btn-primary ml-3" data-toggle="modal" data-target="#modalForm">Filtrar</button>
+                <!-- <button class="btn btn-primary ml-3" data-toggle="modal" data-target="#modalForm">Filtrar</button> -->
             </div>
 
         

@@ -119,7 +119,7 @@ if (isset($_POST['tablacantidades'])) {
     $jsonstring = json_encode($json);
     echo $jsonstring;
 } else if (
-    isset($_POST['idretiro']) && isset($_POST['Sconcepto']) && isset($_POST['Stipo']) && isset($_POST['Tcantidad'])
+    isset($_POST['idretiro']) && !empty($_POST['Sconcepto']) && !empty($_POST['Stipo']) && !empty($_POST['Tcantidad'])
     && isset($_POST['TAdescripcion'])
 ) {
 

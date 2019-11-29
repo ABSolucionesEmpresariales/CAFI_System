@@ -3,9 +3,9 @@ session_start();
 include_once '../Models/Conexion.php';
 
 if (
-    isset($_POST['Tnombre']) && isset($_POST['Sgiro']) && isset($_POST['Tcalle_numero']) && isset($_POST['Tcolonia'])
-    && isset($_POST['Tlocalidad']) && isset($_POST['Tmunicipio']) && isset($_POST['Sestado'])  && isset($_POST['Spais'])
-    && isset($_POST['Ttelefono']) && isset($_POST['Simpresora']) && isset($_POST['Sdueno']) && isset($_POST['idnegocios'])
+    empty($_POST['Tnombre']) && empty($_POST['Sgiro']) && empty($_POST['Tcalle_numero']) && empty($_POST['Tcolonia'])
+    && empty($_POST['Tlocalidad']) && empty($_POST['Tmunicipio']) && empty($_POST['Sestado'])  && empty($_POST['Spais'])
+    && isset($_POST['Ttelefono']) && empty($_POST['Simpresora']) && empty($_POST['Sdueno']) && isset($_POST['idnegocios'])
 ) {
     $conexion = new Models\Conexion();
     $datos_negocio = array(
