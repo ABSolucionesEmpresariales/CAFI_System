@@ -4,8 +4,8 @@ include_once '../Models/Conexion.php';
 
 
 if (
-    isset($_POST['Dfecha_activacion']) && isset($_POST['Dfecha_vencimiento']) && isset($_POST['Sestado'])
-    && isset($_POST['Spaquete']) && isset($_POST['Susuario_extra'])  && isset($_POST['Tmonto'])
+    isset($_POST['Dfecha_activacion']) && isset($_POST['Dfecha_vencimiento']) && !empty($_POST['Sestado'])
+    && !empty($_POST['Spaquete']) && isset($_POST['Susuario_extra'])  && isset($_POST['Tmonto'])
     && isset($_POST['idsuscripcion'])
 ) {
     $conexion = new Models\Conexion();

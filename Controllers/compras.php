@@ -3,7 +3,7 @@ session_start();
 require_once '../Models/Conexion.php';
 require_once '../Models/Fecha.php';
 if (
-    isset($_POST['Tfolio_factura']) && isset($_POST['Sproveedor']) && isset($_POST['Sforma_pago']) && isset($_POST['Dfecha_factura'])
+    isset($_POST['Tfolio_factura']) && isset($_POST['Sproveedor']) && !empty($_POST['Sforma_pago']) && isset($_POST['Dfecha_factura'])
     && isset($_POST['Dfecha_vencimiento_factura']) && isset($_POST['Dfecha_vencimiento_credito']) && isset($_POST['Tanticipo']) && isset($_POST['Tdescuento'])
     && isset($_POST['total']) && isset($_POST['tasa_iva']) && isset($_POST['Smetodo_pago']) && isset($_POST['arraycarrito'])
 ) {

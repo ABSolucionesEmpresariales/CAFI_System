@@ -82,7 +82,7 @@ privilegios("Todos");
                 <!-- Modal Body -->
                 <div class="modal-body">
                   <p class="statusMsg"></p>
-                  <form class="form-group" id="formulario">
+                  <form class="form-group" id="formulario" autocomplete="off">
                     <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                     <div class="d-block d-lg-flex row">
                       <div class="col-lg-4">

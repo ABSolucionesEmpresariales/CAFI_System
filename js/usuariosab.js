@@ -68,6 +68,29 @@ $(document).ready(function () {
     });
 
 
+    $('#cp').keyup(function (e) {
+      let codigopostal = $('#cp').val();
+      if (codigopostal.length === 5) {
+        fetch('https://api-codigos-postales.herokuapp.com/v2/codigo_postal/' + codigopostal)
+          .then(res => res.json())
+          .then(data => {
+            let template = '';
+            for (i = 0; i < data.colonias.length; i++) {
+              template += ` <option value="${data.colonias[i]}">`;
+            }
+            $("#localidad").html(template);
+            $("#municipio").val(data.municipio);
+            $("#estado").val(data.estado);
+  
+          });
+      }else{
+        $("#localidad").empty();
+        $("#Tlocalidad").val('');
+        $("#municipio").val('');
+        $("#estado").val('');
+      }
+  
+    });
 
     $(document).on('click','.eliminar',function(){
         swal({
@@ -232,7 +255,7 @@ $(document).ready(function () {
           $("#sexo").val(datos[13]);
           $("#acceso").val(datos[14]);
           $("#entrada_sistema").val(datos[15]);
-          $("#contrasena").val(datos[16]);
+          $("#contrasena").val("");
           editar = true;
           touchtime = 0;
           $("#modalForm").modal("show");

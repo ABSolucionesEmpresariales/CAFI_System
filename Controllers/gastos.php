@@ -9,11 +9,11 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     $consulta = "SELECT idgastos,concepto,pago,descripcion,monto,estado,fecha,usuariocafi 
     FROM gastos WHERE negocio = ? AND eliminado != ?";
 
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ii", false,null));
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ii", false, null));
 } else if (
-    isset($_POST['idgastos']) && isset($_POST['Sconcepto']) && isset($_POST['Spago'])
-    && isset($_POST['Tdescripcion']) && isset($_POST['Tmonto'])  && isset($_POST['Sestado'])
-    && isset($_POST['Dfecha'])
+    isset($_POST['idgastos']) && !empty($_POST['Sconcepto']) && !empty($_POST['Spago'])
+    && !empty($_POST['Tdescripcion']) && !empty($_POST['Tmonto'])  && !empty($_POST['Sestado'])
+    && !empty($_POST['Dfecha'])
 ) {
     $conexion = new Models\Conexion();
 
@@ -31,8 +31,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
 
     $consulta = "INSERT INTO gastos (idgastos,concepto,pago,descripcion,monto,
         estado,fecha,usuariocafi,negocio) VALUES (?,?,?,?,?,?,?,?,?)";
-    echo $conexion->consultaPreparada($datos, $consulta, 1, "ssssssssi", false,null);
-
+    echo $conexion->consultaPreparada($datos, $consulta, 1, "ssssssssi", false, null);
 } else if (isset($_POST['idgastos']) && isset($_POST['Sestado'])) {
 
     $conexion = new Models\Conexion();
@@ -42,10 +41,9 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
         $_POST['idgastos']
     );
 
-   $consulta = "UPDATE gastos SET estado = ? , usuariocafi = ? WHERE idgastos = ?";
-   echo $conexion->consultaPreparada($datos, $consulta, 1, "ssi", false,null);
-   
-}else if (isset($_POST['array'])) {
+    $consulta = "UPDATE gastos SET estado = ? , usuariocafi = ? WHERE idgastos = ?";
+    echo $conexion->consultaPreparada($datos, $consulta, 1, "ssi", false, null);
+} else if (isset($_POST['array'])) {
     $conexion = new Models\Conexion();
     $data = json_decode($_POST['array']);
     $tipo_datos = "ii";
@@ -53,8 +51,19 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     for ($i = 0; $i < count($data); $i++) {
         if ($data[$i] != '0') {
             $datos = array(1, $data[$i]);
-            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
+            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false, null);
         }
     }
     echo $result;
+} else if (isset($_POST['combo']) && $_POST['combo'] === "combo") {
+    $conexion = new Models\Conexion();
+    $datos = array(
+        "CEO",
+        $_SESSION['negocio']
+    );
+
+    $consulta = "SELECT nombre FROM persona INNER JOIN 
+   usuarioscafi ON persona.email = usuarioscafi.email
+   WHERE acceso != ? AND negocio =  ?";
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "si", false, null));
 }
