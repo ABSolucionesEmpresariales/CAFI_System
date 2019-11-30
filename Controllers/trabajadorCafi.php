@@ -8,7 +8,6 @@ if (
   && isset($_POST['Tcolonia'])  && !empty($_POST['DLlocalidad'])  && isset($_POST['Tmunicipio'])  && isset($_POST['Sestado']) && !empty($_POST['Ttelefono'])
   && isset($_POST['Dfecha_nacimiento']) && isset($_POST['Ssexo']) && !empty($_POST['Sacceso'])  && !empty($_POST['Sentrada_sistema'])  && !empty($_POST['Pcontrasena']) && isset($_POST['accion'])
 ) {
-  echo "entro";
   function editar(){
     $conexion = new Models\Conexion();
     $datos_usuarioab = array(
@@ -116,8 +115,7 @@ if (
       $consulta_estado = "SELECT entrada_sistema FROM usuarioscafi WHERE email = ?";
       $datos_estado = array($_POST['Temail']);
       $result_estado = $conexion->consultaPreparada($datos_estado, $consulta_estado, 2,'s', false, null);
-      echo "entro";
-    if($_POST['Sestado'] == 'A' && $result_estado[0][0] != $_POST['Sestado']){
+    if($result_estado[0][0] != $_POST['Sentrada_sistema'] && $_POST['Sentrada_sistema'] == "A"){
       $trabajadores = 0;
       $trabajadores_extra = 0;
       $datos_suscripcion = array($_SESSION['negocio']);
@@ -134,7 +132,6 @@ if (
       } else if ($result_usuarios[0][0] == 3) {
         $trabajadores = 4 + $trabajadores_extra;
       }
-  
       if ($trabajadores != (int) $result_contar[0][0] ) {
         editar();
       }else{
