@@ -75,7 +75,6 @@ privilegios("Superiores");
                   <th class="text-nowrap text-center" onclick="sortTable(13)">Sexo</th>
                   <th class="text-nowrap text-center" onclick="sortTable(14)">Acceso</th>
                   <th class="text-nowrap text-center" onclick="sortTable(15)">Entrada</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(16)">Contrasena</th>
                 </tr>
               </thead>
               <tbody id="cuerpo"></tbody>
@@ -102,52 +101,63 @@ privilegios("Superiores");
           <p class="statusMsg"></p>
           <form class="form-group" id="formulario">
             <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
-
             <div class="d-block d-lg-flex row">
-              <div class="col-lg-6 ocultar">
+              <div id="divemail" class="col-lg-6 ocultar">
                 <h5 class="importante">Email:</h5>
-                <input id="email" class="form form-control" onkeypress="return check(event)" type="email" name="Temail" placeholder="email" autocomplete="new-password" required>
+                <input id="email" class="form form-control" onkeypress="return check(event)" type="email" name="Temail" placeholder="email" autocomplete="new-password" required> <br>
               </div>
-              <div class="col-lg-6">
-                <h5 class="general">RFC:</h5>
-                <input id="rfc" class="form form-control" onkeypress="return check(event)" type="text" name="Trfc" placeholder="rfc" autocomplete="new-password">
-              </div>
-            </div>
-
-            <div class="d-block d-lg-flex row">
               <div class="col-lg-6">
                 <h5 class="importante">Nombre:</h5>
-                <input id="nombre" class="form form-control" onkeypress="return check(event)" type="text" name="Tnombre" placeholder="Nombre" autocomplete="new-password" required>
-              </div>
-              <div class="col-lg-6">
-                <h5 class="general">Codigo Postal:</h5>
-                <input id="cp" class="form form-control" onkeypress="return check(event)" type="text" name="Tcp" placeholder="Código postal" autocomplete="new-password">
+                <input id="nombre" class="form form-control" onkeypress="return check(event)" type="text" name="Tnombre" placeholder="Nombre" autocomplete="new-password" required> <br>
               </div>
             </div>
             <div class="d-block d-lg-flex row">
               <div class="col-lg-6">
-                <h5 class="general">Calle y número:</h5>
-                <input id="calle_numero" class="form form-control" onkeypress="return check(event)" type="text" name="Tcalle_numero" placeholder="Calle y número" autocomplete="new-password">
+                <h5 class="importante">Teléfono:</h5>
+                <input id="telefono" class="form form-control" type="text" onkeypress="return check(event)" name="Ttelefono" placeholder="Teléfono" autocomplete="new-password" required><br>
               </div>
+           
+            </div>
+            <div class="d-block d-lg-flex row">
+              <div class="col-lg-6">
+                <h5 class="importante">Entrada al sistema:</h5>
+                <select class="form form-control" id="entrada_sistema" name="Sentrada_sistema">
+                  <option value="A">Activa</option>
+                  <option value="I">Inactiva</option>
+                </select> <br>
+              </div>
+              <div id="divpass" class="col-lg-6">
+                <h5 class="importante">Contraseña:</h5>
+                <input id="contrasena" class="form form-control" type="password" name="Pcontrasena" placeholder="Contraseña" autocomplete="new-password" required><br>
+              </div>
+            </div>
+            <div class="d-block d-lg-flex row">
+              <div class="col-lg-6">
+                <h5 class="general">Codigo Postal:</h5>
+                <input id="cp" class="form form-control" onkeypress="return check(event)" type="text" name="Tcp" placeholder="Código postal" autocomplete="new-password"><br>
+              </div>
+              <div class="col-lg-6">
+                <h5 class="general">Calle y número:</h5>
+                <input id="calle_numero" class="form form-control" onkeypress="return check(event)" type="text" name="Tcalle_numero" placeholder="Calle y número" autocomplete="new-password"> <br>
+              </div>
+            </div>
+            <div class="d-block d-lg-flex row">
               <div class="col-lg-6">
                 <h5 class="general">Colonia:</h5>
                 <input id="colonia" class="form form-control" type="text" onkeypress="return check(event)" name="Tcolonia" placeholder="Colonia" autocomplete="new-password"><br>
               </div>
-            </div>
-            <div class="d-block d-lg-flex row">
-
               <div class="col-lg-6">
                 <h5 class="importante">Localidad:</h5>
                 <input id="Tlocalidad" list="localidad" class="form form-control" name="DLlocalidad" onkeypress="return check(event)" autocomplete="new-password">
                 <datalist id="localidad">
                 </datalist><br>
               </div>
+            </div>
+            <div class="d-block d-lg-flex row">
               <div class="col-lg-6">
                 <h5 class="general">Municipio:</h5>
                 <input id="municipio" class="form form-control" type="text" onkeypress="return check(event)" name="Tmunicipio" placeholder="Municipio" autocomplete="new-password"><br>
               </div>
-            </div>
-            <div class="d-block d-lg-flex row">
               <div class="col-lg-6">
                 <h5 class="general">Estado:</h5>
                 <select class="form form-control" id="estado" name="Sestado">
@@ -184,51 +194,32 @@ privilegios("Superiores");
                   <option value="Veracruz">Veracruz</option>
                   <option value="Yucatán">Yucatán</option>
                   <option value="Zacatecas">Zacatecas</option>
-                </select>
-              </div>
-            </div>
-            <div class="d-block d-lg-flex row">
-              <div class="col-lg-6">
-                <h5 class="importante">Teléfono:</h5>
-                <input id="telefono" class="form form-control" type="text" onkeypress="return check(event)" name="Ttelefono" placeholder="Teléfono" autocomplete="new-password" required><br>
-              </div>
-              <div class="col-lg-6">
-                <h5 class="general">Fecha de nacimiento:</h5>
-                <input id="fecha_nacimiento" class="form form-control" type="date" onkeypress="return check(event)" name="Dfecha_nacimiento" placeholder="Fecha de nacimiento" autocomplete="new-password"><br>
+                </select> <br>
               </div>
             </div>
             <div class="d-block d-lg-flex row">
               <div class="col-lg-6">
                 <h5 class="general">Sexo:</h5>
                 <select class="form form-control" id="sexo" name="Ssexo">
+                  <option value=""></option>
                   <option value="M">Masculino</option>
                   <option value="F">Femenino</option>
-                </select>
+                </select> <br>
               </div>
               <div class="col-lg-6">
-                <h5 class="importante">Acceso:</h5>
-                <select class="form form-control" id="acceso" name="Sacceso" required>
-                  <option value="CEOAB">CEO</option>
-                  <option value="ManagerAB">Manager</option>
-                </select>
+                <h5 class="general">RFC:</h5>
+                <input id="rfc" class="form form-control" onkeypress="return check(event)" type="text" name="Trfc" placeholder="rfc" autocomplete="new-password"> <br>
               </div>
             </div>
 
             <div class="d-block d-lg-flex row">
               <div class="col-lg-6">
-                <h5 class="importante">Entrada al sistema:</h5>
-                <select class="form form-control" id="entrada_sistema" name="Sentrada_sistema" required>
-                  <option value="A">Activa</option>
-                  <option value="I">Inactiva</option>
-                </select>
-              </div>
-              <div class="col-lg-6 ocultar">
-                <h5 class="importante">Contraseña:</h5>
-                <input id="contrasena" class="form form-control" type="password" name="Pcontrasena" placeholder="Contraseña" autocomplete="new-password" required><br>
+                <h5 class="general">Fecha de nacimiento:</h5>
+                <input id="fecha_nacimiento" class="form form-control" type="date" onkeypress="return check(event)" name="Dfecha_nacimiento" placeholder="Fecha de nacimiento" autocomplete="new-password"><br>
               </div>
             </div>
 
-            <input id="bclose" type="submit" class="mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">
+            <input id="bclose" type="submit" class="mt-3 btn bg-dark text-white btn-lg btn-block" value="Guardar">
           </form>
           <div id="tableHolder" class="row justify-content-center"></div>
         </div>

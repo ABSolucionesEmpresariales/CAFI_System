@@ -92,7 +92,7 @@ if (
   //obtencion del json para pintar la tabla
   $conexion = new Models\Conexion();
   $consulta = "SELECT persona.email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento,
-    sexo,entrada_sistema,contrasena FROM persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email WHERE acceso = ? AND persona.eliminado = ?";
+    sexo,entrada_sistema FROM persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email WHERE acceso = ? AND persona.eliminado = ?";
   $datos = array("CEO", 0);
   $jsonstring = json_encode($conexion->consultaPreparada($datos, $consulta, 2, "si", false, null));
   echo $jsonstring;
