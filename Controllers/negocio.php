@@ -1,6 +1,14 @@
 <?php
 session_start();
 include_once '../Models/Conexion.php';
+
+$registro;
+if(isset($_SESSION['email'])){
+    $registro = $_SESSION['email'];
+}else{
+    $registro = $_POST['Sdueno'];
+}
+var_dump($_POST['Tnombre'] , $_POST['Sgiro'] , $_POST['Tcp'] , $_POST['Tcalle_numero'] , $_POST['Tcolonia'] , $_POST['DLlocalidad'] , $_POST['Tmunicipio'] , $_POST['Sestado'] , $_POST['Ttelefono'] , $_POST['Simpresora'] , $_POST['Sdueno'] , $_POST['idnegocios']);
 if (
     !empty($_POST['Tnombre']) && !empty($_POST['Sgiro']) && isset($_POST['Tcp']) && !empty($_POST['Tcalle_numero']) && !empty($_POST['Tcolonia'])
     && !empty($_POST['DLlocalidad']) && !empty($_POST['Tmunicipio']) && !empty($_POST['Sestado'])
@@ -21,7 +29,7 @@ if (
         $_POST['Ttelefono'],
         $_POST['Simpresora'],
         $_POST['Sdueno'],
-        $_SESSION['email']
+        $registro
     );
 
     if ($_POST['accion'] === 'false') {

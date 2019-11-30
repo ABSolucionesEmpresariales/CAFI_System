@@ -7,7 +7,6 @@ if (
   && isset($_POST['Tcolonia'])  && !empty($_POST['DLlocalidad'])  && isset($_POST['Tmunicipio'])  && isset($_POST['Sestado'])  && !empty($_POST['Ttelefono'])
   && isset($_POST['Dfecha_nacimiento']) && isset($_POST['Ssexo']) && !empty($_POST['Sentrada_sistema'])  && !empty($_POST['Pcontrasena']) && isset($_POST['accion'])
 ) {
-
   $conexion = new Models\Conexion();
   $email = new Models\Email();
   $datos_verificar = array($_POST['Temail']);
