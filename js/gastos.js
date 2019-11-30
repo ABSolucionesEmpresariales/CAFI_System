@@ -4,6 +4,29 @@ $(document).ready(function () {
   let idgastos = "";
   let acceso = "";
   obtenerAcceso();
+  obtenerTrabajadores();
+  $("#divtrabajadores").css("display", "none");
+  function obtenerTrabajadores() {
+    $.ajax({
+      url: "../Controllers/gastos.php",
+      type: "POST",
+      data: "combo=combo",
+
+      success: function (response) {
+        let datos = JSON.parse(response);
+
+        let template = null;
+        template += `
+        <option></option>`;
+
+        $.each(datos, function (i, item) {
+          template += `
+          <option>${item[0]}</option>`;
+        });
+        $("#strabajadores").html(template);
+      }
+    });
+  }
 
   function obtenerAcceso() {
     $.ajax({

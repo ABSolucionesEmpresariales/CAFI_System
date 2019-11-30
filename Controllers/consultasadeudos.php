@@ -84,24 +84,31 @@ if(isset($_POST['tabla_abonos'])){
 
 if(isset($_POST['Sestado']) && isset($_POST['idabono'])){
     $conexion = new Models\Conexion();
-    $consulta="";
-    $datos = array($_POST['Sestado'],$_SESSION['email'],$_POST['idabono']);
-    $tipo_datos = "ssi";
-    if($_POST['Sestado'] == "A"){
-        $consulta = "UPDATE adeudos INNER JOIN abono ON adeudos.idadeudos = abono.adeudos_id 
-        SET adeudos.totaldeuda = (adeudos.totaldeuda-abono.cantidad),abono.estado = ? ,abono.usuariocafi = ?
-        WHERE abono.idabono = ?";
+    $consulta = "";
+    $datos_adeudo = array($_POST['valor']);
+    $consulta_adeudo="SELECT estado FROM adeudos WHERE idadeudos = ?";
+    $result =  $conexion->consultaPreparada($datos_adeudo, $consulta_adeudo,2,"s", false,null);
+    if($result[0][0] == "I" && $_POST['Sestado'] == "A"){
+        echo "AdeudoInactivo";
     }else{
-        $consulta = "UPDATE adeudos INNER JOIN abono ON adeudos.idadeudos = abono.adeudos_id 
-        SET adeudos.totaldeuda = (adeudos.totaldeuda+abono.cantidad),abono.estado = ? ,abono.usuariocafi = ?
-        WHERE abono.idabono = ?";
+        $datos = array($_POST['Sestado'],$_SESSION['email'],$_POST['idabono']);
+        $tipo_datos = "ssi";
+        if($_POST['Sestado'] == "A"){
+            $consulta = "UPDATE adeudos INNER JOIN abono ON adeudos.idadeudos = abono.adeudos_id 
+            SET adeudos.totaldeuda = (adeudos.totaldeuda-abono.cantidad),abono.estado = ? ,abono.usuariocafi = ?
+            WHERE abono.idabono = ?";
+        }else{
+            $consulta = "UPDATE adeudos INNER JOIN abono ON adeudos.idadeudos = abono.adeudos_id 
+            SET adeudos.totaldeuda = (adeudos.totaldeuda+abono.cantidad),abono.estado = ? ,abono.usuariocafi = ?
+            WHERE abono.idabono = ?";
+        }
+        $result =  $conexion->consultaPreparada($datos, $consulta,1, $tipo_datos, false,null);
+/*         $datos2 = array("A",0.00);
+        $consulta="UPDATE adeudos SET estado = ? WHERE totaldeuda != ?";
+        $tipos = "si";
+        $conexion->consultaPreparada($datos2, $consulta,1, $tipos, false,null); */
+        echo $result;
     }
-    $result =  $conexion->consultaPreparada($datos, $consulta,1, $tipo_datos, false,null);
-    $datos2 = array("A",0.00);
-    $consulta="UPDATE adeudos SET estado = ? WHERE totaldeuda != ?";
-    $tipos = "si";
-    $conexion->consultaPreparada($datos2, $consulta,1, $tipos, false,null);
-    echo $result;
 }
 
 if (isset($_POST['array']) && isset($_POST['tabla_afectada'])) {

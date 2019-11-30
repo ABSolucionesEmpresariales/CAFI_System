@@ -10,7 +10,7 @@ $(document).ready(function () {
     $.ajax({
       url: "../Controllers/login.php",
       type: "POST",
-      data: "accesoPersona=accesoPersona",
+      data:"accesoPersona=accesoPersona",
 
       success: function (response) {
         acceso = response;
@@ -95,17 +95,18 @@ $(document).ready(function () {
         }
         $("#mensaje").text("Registro Exitoso");
         $("#mensaje").css("color", "green");
-        $("#email").focus();
         $("#formulario").trigger("reset");
+        $("#email").focus();
       } else if (response == "exceso") {
         $("#mensaje").text("Limite de usuarios exedido");
-        $("#mensaje").css("color", "red");
-        $("#email").focus();
+        $("#mensaje").css("color","red");
+        $("#nombre").focus();
       } else {
         $("#mensaje").text("Registro fallido");
         $("#mensaje").css("color", "red");
         $("#email").focus();
       }
+      
       obtenerAcceso();
     });
     e.preventDefault();
@@ -173,15 +174,55 @@ $(document).ready(function () {
                 touchtime = new Date().getTime();
               }
             }
-        }); 
-        */
+          }
+      }); 
+      */
 
-  function enviarDatos() {
-    var valores = "";
-    $('#cuerpo').children("tr").find("td").find("input").each(function () {
-      if ($(this).prop('checked')) {
-        valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+      function enviarDatos(){
+        var valores = "";
+        $('#cuerpo').children("tr").find("td").find("input").each(function () {
+            if($(this).prop('checked')){
+                valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+            }
+        }); 
+        valores += "0";
+        result = valores.split("?");
+        console.log(result);
+         $.ajax({
+          url: "../Controllers/trabajadorCafi.php",
+          type: "POST",
+          data: {'array': JSON.stringify(result)},
+  
+          success: function (response) {
+            console.log(response);
+                return response;
+          }
+        }); 
       }
+
+      $(document).on('click','.eliminar',function(){
+        swal({
+            title: "Esta seguro que desea eliminar ?",
+            text: "Esta accion eliminara los datos!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Si, eliminarlo!",
+            closeOnConfirm: false
+          },
+          function(){
+              if(typeof (enviarDatos()) != 'undefined'){
+                swal("Exito!", 
+                "Sus datos han sido eliminados.",
+                 "success");
+              }else{
+                swal("Error!", 
+                "Ups, algo salio mal.",
+                 "warning");
+              }
+              $('.check').prop("checked", false);
+              obtenerAcceso();
+          });
     });
     valores += "0";
     result = valores.split("?");
@@ -196,7 +237,7 @@ $(document).ready(function () {
         return response;
       }
     });
-  }
+
 
   $(document).on('click', '.eliminar', function () {
     swal({
@@ -241,7 +282,5 @@ $(document).ready(function () {
   $('.close').click(function () {
     $('#formulario').trigger('reset');
   });
-
-
 
 });
