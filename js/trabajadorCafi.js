@@ -145,7 +145,7 @@ $(document).ready(function () {
         $("#sexo").val(datos[13]);
         $("#acceso").val(datos[14]);
         $("#entrada_sistema").val(datos[15]);
-        $("#contrasena").val("");
+        $("#contrasena").val("null");
         editar = true;
         $("#modalForm").modal("show");
       } else {

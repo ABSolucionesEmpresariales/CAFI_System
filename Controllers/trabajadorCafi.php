@@ -8,6 +8,34 @@ if (
   && isset($_POST['Tcolonia'])  && !empty($_POST['DLlocalidad'])  && isset($_POST['Tmunicipio'])  && isset($_POST['Sestado']) && !empty($_POST['Ttelefono'])
   && isset($_POST['Dfecha_nacimiento']) && isset($_POST['Ssexo']) && !empty($_POST['Sacceso'])  && !empty($_POST['Sentrada_sistema'])  && !empty($_POST['Pcontrasena']) && isset($_POST['accion'])
 ) {
+  echo "entro";
+  function editar(){
+    $conexion = new Models\Conexion();
+    $datos_usuarioab = array(
+      $_POST['Trfc'],
+      $_POST['Tnombre'],
+      $_POST['Tcp'],
+      $_POST['Tcalle_numero'],
+      $_POST['Tcolonia'],
+      $_POST['DLlocalidad'],
+      $_POST['Tmunicipio'],
+      $_POST['Sestado'],
+      "México",
+      $_POST['Ttelefono'],
+      $_POST['Dfecha_nacimiento'],
+      $_POST['Ssexo'],
+      0,
+      $_POST['Sacceso'],
+      $_POST['Sentrada_sistema'],
+      $_SESSION['negocio'],
+      $_POST['Temail']
+    );
+    $editar = "UPDATE persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email SET rfc= ?, nombre = ?, cp = ?, calle_numero = ?, colonia = ?, localidad = ?, municipio = ?, 
+          estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?, eliminado=?, acceso = ?, entrada_sistema = ?,negocio = ? WHERE persona.email= ?";
+    $tipo_datos = "sssssssssssssssss";
+    //respuesta al front
+    echo $conexion->consultaPreparada($datos_usuarioab, $editar, 1, $tipo_datos, false, null);
+  }
 
   $conexion = new Models\Conexion();
   $email = new Models\Email();
@@ -19,6 +47,7 @@ if (
   } else {
     $_POST['accion'] = 'true';
   }
+
   if ($_POST['accion'] == 'false') {
     $trabajadores = 0;
     $trabajadores_extra = 0;
@@ -75,38 +104,45 @@ if (
       if ($result == 1) {
         // $email->enviarEmailConfirmacion();
         echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false, null);
-      } else {
+      } 
+      
+    }else {
         echo "exceso";
       }
     
       //respuesta al front
-    }
+    
   } else {
-    //editar  
-    $datos_usuarioab = array(
-      $_POST['Trfc'],
-      $_POST['Tnombre'],
-      $_POST['Tcp'],
-      $_POST['Tcalle_numero'],
-      $_POST['Tcolonia'],
-      $_POST['DLlocalidad'],
-      $_POST['Tmunicipio'],
-      $_POST['Sestado'],
-      "México",
-      $_POST['Ttelefono'],
-      $_POST['Dfecha_nacimiento'],
-      $_POST['Ssexo'],
-      0,
-      $_POST['Sacceso'],
-      $_POST['Sentrada_sistema'],
-      $_SESSION['negocio'],
-      $_POST['Temail']
-    );
-    $editar = "UPDATE persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email SET rfc= ?, nombre = ?, cp = ?, calle_numero = ?, colonia = ?, localidad = ?, municipio = ?, 
-          estado = ?, pais = ?, telefono = ?,fecha_nacimiento= ?,sexo= ?, eliminado=?, acceso = ?, entrada_sistema = ?,negocio = ? WHERE persona.email= ?";
-    $tipo_datos = "sssssssssssssssss";
-    //respuesta al front
-    echo $conexion->consultaPreparada($datos_usuarioab, $editar, 1, $tipo_datos, false, null);
+      $consulta_estado = "SELECT entrada_sistema FROM usuarioscafi WHERE email = ?";
+      $datos_estado = array($_POST['Temail']);
+      $result_estado = $conexion->consultaPreparada($datos_estado, $consulta_estado, 2,'s', false, null);
+      echo "entro";
+    if($_POST['Sestado'] == 'A' && $result_estado[0][0] != $_POST['Sestado']){
+      $trabajadores = 0;
+      $trabajadores_extra = 0;
+      $datos_suscripcion = array($_SESSION['negocio']);
+      $datos_contar = array($_SESSION['negocio'], "A");
+      $consulta_usuarios = "SELECT paquete,usuario_extra FROM suscripcion WHERE negocio = ?";
+      $consulta_contar = "SELECT COUNT(negocio) FROM usuarioscafi WHERE negocio = ? AND entrada_sistema = ?";
+      $result_usuarios = $conexion->consultaPreparada($datos_suscripcion, $consulta_usuarios, 2, 'i', false, null);
+      $trabajadores_extra = (int) $result_usuarios[0][1];
+      $result_contar = $conexion->consultaPreparada($datos_contar, $consulta_contar, 2, 'is', false, null);
+      if ($result_usuarios[0][0] == 1) {
+        $trabajadores = 2 + $trabajadores_extra;
+      } else if ($result_usuarios[0][0] == 2) {
+        $trabajadores = 3 + $trabajadores_extra;
+      } else if ($result_usuarios[0][0] == 3) {
+        $trabajadores = 4 + $trabajadores_extra;
+      }
+  
+      if ($trabajadores != (int) $result_contar[0][0] ) {
+        editar();
+      }else{
+        echo "exceso";
+      }
+    }else{
+        editar();
+    }
   }
 }
 

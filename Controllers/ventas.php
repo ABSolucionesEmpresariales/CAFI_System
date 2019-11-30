@@ -147,7 +147,6 @@ function actualizarStock($dato, $conexion, $operecion)
 {
 
     if ($operecion === "-") {
-
         $consulta = "SELECT (stock - cantidad) AS stock, stock.producto  FROM
         stock INNER JOIN detalle_venta ON stock.producto = detalle_venta.producto
         WHERE detalle_venta.idventa= ?";
@@ -157,18 +156,15 @@ function actualizarStock($dato, $conexion, $operecion)
         stock INNER JOIN detalle_venta ON stock.producto = detalle_venta.producto
         WHERE detalle_venta.idventa= ?";
     }
-
-
     $result = $conexion->consultaPreparada($dato, $consulta, 2, "s", false, null);
-
     $consulta = "UPDATE stock SET stock = ? WHERE producto= ? AND negocio = ?";
-
     if ($result != null) {
         for ($i = 0; $i < sizeof($result); $i++) {
             array_push($result[$i], $_SESSION['negocio']);
             $conexion->consultaPreparada($result[$i], $consulta, 1, "sss", false, null);
         }
     }
+    
 }
 
 if (isset($_POST['array'])) {
