@@ -15,15 +15,48 @@ obtenerDatosMarcas();
             closeOnConfirm: false
           },
           function(){
-              if(enviarDatos() != 'error'){
-                swal("Exito!", 
-                "Sus datos han sido eliminados.",
-                 "success");
-              }else{
-                swal("Error!", 
-                "Ups, algo salio mal.",
-                 "warning");
+            var valores = "";
+            let val = "";
+        
+            $('#cuerpoColores').children("tr").find("td").find("input").each(function () {
+                if($(this).prop('checked')){
+                    valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+                }
+            }); 
+           $('#cuerpoMarcas').find("tr").find("td").find(".check").each(function () {
+                if($(this).prop('checked')){
+                    valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+                }
+            }); 
+            $('#cuerpoCategoria').find("tr").find("td").find(".check").each(function () {
+                if($(this).prop('checked')){
+                    valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+                }
+            });   
+            valores += "0";
+            result = valores.split("?");
+            console.log(result);
+             $.ajax({
+              url: "../Controllers/CCM.php",
+              type: "POST",
+              data: {'array': JSON.stringify(result)},
+      
+              success: function (response) {
+                console.log(response);
+                if(enviarDatos() != 'error'){
+                    swal("Exito!", 
+                    "Sus datos han sido eliminados.",
+                     "success");
+                  }else{
+                    swal("Error!", 
+                    "Ups, algo salio mal.",
+                     "warning");
+                  }
+                    obtenerDatosMarcas();
+                    obtenerDatosColores();
+                    obtenerDatosCategoria();
               }
+            }); 
               $('#checkMarca').prop("checked", false);
               $('#checkCategoria').prop("checked", false);
               $('#checkColores').prop("checked", false);
@@ -31,40 +64,7 @@ obtenerDatosMarcas();
     });
 
     function enviarDatos(){
-        var valores = "";
-        let val = "";
-    
-        $('#cuerpoColores').children("tr").find("td").find("input").each(function () {
-            if($(this).prop('checked')){
-                valores += $(this).parents("tr").find("td").eq(1).text() + "?";
-            }
-        }); 
-       $('#cuerpoMarcas').find("tr").find("td").find(".check").each(function () {
-            if($(this).prop('checked')){
-                valores += $(this).parents("tr").find("td").eq(1).text() + "?";
-            }
-        }); 
-        $('#cuerpoCategoria').find("tr").find("td").find(".check").each(function () {
-            if($(this).prop('checked')){
-                valores += $(this).parents("tr").find("td").eq(1).text() + "?";
-            }
-        });   
-        valores += "0";
-        result = valores.split("?");
-        console.log(result);
-         $.ajax({
-          url: "../Controllers/CCM.php",
-          type: "POST",
-          data: {'array': JSON.stringify(result)},
-  
-          success: function (response) {
-            console.log(response);
-                obtenerDatosMarcas();
-                obtenerDatosColores();
-                obtenerDatosCategoria();
-                return response;
-          }
-        }); 
+
     }
 
 

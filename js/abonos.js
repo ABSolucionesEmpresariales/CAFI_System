@@ -97,7 +97,7 @@ $(document).ready(function () {
           data: postData,
     
           success: function (response) {
-            if(typeof(response) != 'undefined'){
+            if(typeof(response) != '0'){
               swal("Exito!", 
               "Sus datos han sido eliminados.",
                "success");

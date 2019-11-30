@@ -77,7 +77,6 @@ $(document).ready(function () {
     });
     
     $(document).on('click','.check',function(){
-
       if($(this).prop('checked')){
           $('#cuerpo').children("tr").find("td").find("input").each(function () {
                    $(this).prop("checked", true);
@@ -85,7 +84,6 @@ $(document).ready(function () {
       }else{
           $('#cuerpo').children("tr").find("td").find("input").each(function () {
                    $(this).prop("checked", false);
-              
           });    
       }
   });
@@ -103,44 +101,38 @@ $(document).ready(function () {
           closeOnConfirm: false
         },
         function(){
-            if(typeof (enviarDatos()) != 'undefined'){
-              swal("Exito!", 
-              "Sus datos han sido eliminados.",
-               "success");
-            }else{
-              swal("Error!", 
-              "Ups, algo salio mal.",
-               "warning");
+          var valores = "";
+  
+          $('#cuerpo').children("tr").find("td").find("input").each(function () {
+              if($(this).prop('checked')){
+                  valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+              }
+          }); 
+          valores += "0";
+          result = valores.split("?");
+          console.log(result);
+           $.ajax({
+            url: "../Controllers/clienteab.php",
+            type: "POST",
+            data: {'array': JSON.stringify(result)},
+    
+            success: function (response) {
+              console.log(response);
+              if(typeof (response) != '0'){
+                swal("Exito!", 
+                "Sus datos han sido eliminados.",
+                 "success");
+              }else{
+                swal("Error!", 
+                "Ups, algo salio mal.",
+                 "warning");
+              }
+              obtenerAcceso();
             }
+          }); 
             $('.check').prop("checked", false);
-            
         });
   });
-
-
-  function enviarDatos(){
-      var valores = "";
-  
-      $('#cuerpo').children("tr").find("td").find("input").each(function () {
-          if($(this).prop('checked')){
-              valores += $(this).parents("tr").find("td").eq(1).text() + "?";
-          }
-      }); 
-      valores += "0";
-      result = valores.split("?");
-      console.log(result);
-       $.ajax({
-        url: "../Controllers/clienteab.php",
-        type: "POST",
-        data: {'array': JSON.stringify(result)},
-
-        success: function (response) {
-          console.log(response);
-          obtenerAcceso();
-              return response;
-        }
-      }); 
-  }
 
     $(".close").click(function () {
       $("#formulario").trigger("reset");
@@ -214,6 +206,7 @@ $(document).ready(function () {
               valores += $(this).html() + "?";
             });
             datos = valores.split("?");
+            $("#mensaje").css("display", "none");
             console.log(datos);
             $('.ocultar').hide();
             $("#email").val(datos[1]);

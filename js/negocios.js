@@ -139,6 +139,7 @@ $(document).ready(function () {
           $(this).parents("tr").find("td").each(function () {
             valores += $(this).html() + "?";
           });
+          $("#mensaje").css("display", "none");
           datos = valores.split("?");
           console.log(datos);
           idnegocio = datos[0];

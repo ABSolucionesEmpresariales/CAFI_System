@@ -101,44 +101,38 @@ $(document).ready(function () {
             closeOnConfirm: false
           },
           function(){
-              if(enviarDatos() != '0'){
-                swal("Exito!", 
-                "Sus datos han sido eliminados.",
-                 "success");
-              }else{
-                swal("Error!", 
-                "Ups, algo salio mal.",
-                 "warning");
+            var valores = "";
+    
+            $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                if($(this).prop('checked')){
+                    valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+                }
+            }); 
+            valores += "0";
+            result = valores.split("?");
+            console.log(result);
+             $.ajax({
+              url: "../Controllers/usuariosab.php",
+              type: "POST",
+              data: {'array': JSON.stringify(result)},
+      
+              success: function (response) {
+                if(response != '0'){
+                  swal("Exito!", 
+                  "Sus datos han sido eliminados.",
+                   "success");
+                }else{
+                  swal("Error!", 
+                  "Ups, algo salio mal.",
+                   "warning");
+                }
+                obtenerAcceso();
               }
+            }); 
               $('.check').prop("checked", false);
               
           });
     });
-
-
-    function enviarDatos(){
-        var valores = "";
-    
-        $('#cuerpo').children("tr").find("td").find("input").each(function () {
-            if($(this).prop('checked')){
-                valores += $(this).parents("tr").find("td").eq(1).text() + "?";
-            }
-        }); 
-        valores += "0";
-        result = valores.split("?");
-        console.log(result);
-         $.ajax({
-          url: "../Controllers/usuariosab.php",
-          type: "POST",
-          data: {'array': JSON.stringify(result)},
-  
-          success: function (response) {
-            console.log(response);
-            obtenerAcceso();
-                return response;
-          }
-        }); 
-    }
 
 
   $(".close").click(function () {
@@ -236,7 +230,7 @@ $(document).ready(function () {
           $(this).parents("tr").find("td").each(function () {
             valores += $(this).html() + "?";
           });
-
+          $("#mensaje").css("display", "none");
           datos = valores.split("?");
           console.log(datos);
           $('.ocultar').hide();

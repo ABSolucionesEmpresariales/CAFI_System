@@ -273,7 +273,7 @@ $(document).ready(function () {
           $(this).parent("tr").find("td").each(function () {
             valores += $(this).html() + "?";
           });
-  
+          $("#mensaje").css("display", "none");
           datos = valores.split("?");
           $('.ocultarCodigo').hide();
           $("#codigo_barras").val(datos[1]);
@@ -485,42 +485,38 @@ $(document).on('click','.eliminar',function(){
       closeOnConfirm: false
     },
     function(){
-        if(enviarDatos() != '0'){
-          swal("Exito!", 
-          "Sus datos han sido eliminados.",
-           "success");
-        }else{
-          swal("Error!", 
-          "Ups, algo salio mal.",
-           "warning");
+      var valores = "";
+
+      $('#cuerpo').children("tr").find("td").find("input").each(function () {
+          if($(this).prop('checked')){
+              valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+          }
+      }); 
+      valores += "0";
+      result = valores.split("?");
+      console.log(result);
+       $.ajax({
+        url: "../Controllers/productos.php",
+        type: "POST",
+        data: {'array': JSON.stringify(result)},
+    
+        success: function (response) {
+          if(response != '0'){
+            swal("Exito!", 
+            "Sus datos han sido eliminados.",
+             "success");
+          }else{
+            swal("Error!", 
+            "Ups, algo salio mal.",
+             "warning");
+          }
         }
+      }); 
         $('.check').prop("checked", false);
         obtenerAcceso();
     });
 });
 
-function enviarDatos(){
-  var valores = "";
-
-  $('#cuerpo').children("tr").find("td").find("input").each(function () {
-      if($(this).prop('checked')){
-          valores += $(this).parents("tr").find("td").eq(1).text() + "?";
-      }
-  }); 
-  valores += "0";
-  result = valores.split("?");
-  console.log(result);
-   $.ajax({
-    url: "../Controllers/productos.php",
-    type: "POST",
-    data: {'array': JSON.stringify(result)},
-
-    success: function (response) {
-      console.log(response);
-          return response;
-    }
-  }); 
-}
 
   $("#formulario").submit(function (e) {
 
