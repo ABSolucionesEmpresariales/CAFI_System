@@ -6,6 +6,7 @@ $(document).ready(function () {
   obtenerAcceso();
   obtenerTrabajadores();
   $("#divtrabajadores").css("display", "none");
+  
   function obtenerTrabajadores() {
     $.ajax({
       url: "../Controllers/gastos.php",
