@@ -132,6 +132,7 @@ privilegios("Todos");
                     <div class="col-lg-6">
                         <h5 class="general">Estado:</h5>
                         <select class="form form-control" id="estado" name="Sestado">
+                          <option value="">Elegir</option>
                           <option value="Aguascalientes">Aguascalientes</option>
                           <option value="Baja California">Baja California	</option>
                           <option value="Baja California Sur">Baja California Sur</option>
