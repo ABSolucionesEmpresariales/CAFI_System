@@ -136,7 +136,7 @@ $(document).ready(function () {
         $("#cp").val(datos[4]);
         $("#calle_numero").val(datos[5]);
         $("#colonia").val(datos[6]);
-        $("#localidad").val(datos[7]);
+        $("#Tlocalidad").val(datos[7]);
         $("#municipio").val(datos[8]);
         $("#estado").val(datos[9]);
         $("#pais").val(datos[10]);
@@ -145,7 +145,7 @@ $(document).ready(function () {
         $("#sexo").val(datos[13]);
         $("#acceso").val(datos[14]);
         $("#entrada_sistema").val(datos[15]);
-        $("#contrasena").val("");
+        $("#contrasena").val("null");
         editar = true;
         $("#modalForm").modal("show");
       } else {
