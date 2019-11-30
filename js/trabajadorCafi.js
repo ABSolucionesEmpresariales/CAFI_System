@@ -180,7 +180,7 @@ $(document).ready(function () {
       */
 
 
-      $(document).on('click','.eliminar',function(){
+    $(document).on('click','.eliminar',function(){
         swal({
             title: "Esta seguro que desea eliminar ?",
             text: "Esta accion eliminara los datos!",
@@ -220,19 +220,6 @@ $(document).ready(function () {
               $('.check').prop("checked", false);
               obtenerAcceso();
           });
-    });
-    valores += "0";
-    result = valores.split("?");
-    console.log(result);
-    $.ajax({
-      url: "../Controllers/trabajadorCafi.php",
-      type: "POST",
-      data: { 'array': JSON.stringify(result) },
-
-      success: function (response) {
-        console.log(response);
-        return response;
-      }
     });
 
   $(document).on('click', '.check', function () {
