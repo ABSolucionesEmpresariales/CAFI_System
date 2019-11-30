@@ -6,7 +6,7 @@ $(document).ready(function () {
   let acceso = "";
   obtenerAcceso();
 
-  function obtenerAcceso(){
+  function obtenerAcceso() {
     $.ajax({
       url: "../Controllers/login.php",
       type: "POST",
@@ -22,30 +22,30 @@ $(document).ready(function () {
             let datos = JSON.parse(response);
             let template = "";
             $.each(datos, function (i, item) {
-              template +=`<tr>`;
-              if(acceso == 'CEO'){
-                template +=`
-                <td><input type="checkbox" value="si"></td>`;
+              template += `<tr>`;
+              if (acceso == 'CEO') {
+                template += `
+                    <td><input type="checkbox" value="si"></td>`;
               }
               template += `
-                  <td class="text-nowrap text-center email">${item[0]}</td>
-                  <td class="text-nowrap text-center">${item[1]}</td>
-                  <td class="text-nowrap text-center">${item[2]}</td>
-                  <td class="text-nowrap text-center">${item[3]}</td>
-                  <td class="text-nowrap text-center">${item[4]}</td>
-                  <td class="text-nowrap text-center">${item[5]}</td>
-                  <td class="text-nowrap text-center">${item[6]}</td>
-                  <td class="text-nowrap text-center">${item[7]}</td>
-                  <td class="text-nowrap text-center">${item[8]}</td>
-                  <td class="text-nowrap text-center">${item[9]}</td>
-                  <td class="text-nowrap text-center">${item[10]}</td>
-                  <td class="text-nowrap text-center">${item[11]}</td>
-                  <td class="text-nowrap text-center">${item[12]}</td>
-                  <td class="text-nowrap text-center">${item[13]}</td>
-                  <td class="text-nowrap text-center">${item[14]}</td>
-              `;
+                      <td class="text-nowrap text-center email">${item[0]}</td>
+                      <td class="text-nowrap text-center">${item[1]}</td>
+                      <td class="text-nowrap text-center">${item[2]}</td>
+                      <td class="text-nowrap text-center">${item[3]}</td>
+                      <td class="text-nowrap text-center">${item[4]}</td>
+                      <td class="text-nowrap text-center">${item[5]}</td>
+                      <td class="text-nowrap text-center">${item[6]}</td>
+                      <td class="text-nowrap text-center">${item[7]}</td>
+                      <td class="text-nowrap text-center">${item[8]}</td>
+                      <td class="text-nowrap text-center">${item[9]}</td>
+                      <td class="text-nowrap text-center">${item[10]}</td>
+                      <td class="text-nowrap text-center">${item[11]}</td>
+                      <td class="text-nowrap text-center">${item[12]}</td>
+                      <td class="text-nowrap text-center">${item[13]}</td>
+                      <td class="text-nowrap text-center">${item[14]}</td>
+                  `;
             });
-            $("#cuerpo").html(template); 
+            $("#cuerpo").html(template);
           }
         });
       }
@@ -136,7 +136,7 @@ $(document).ready(function () {
         $("#cp").val(datos[4]);
         $("#calle_numero").val(datos[5]);
         $("#colonia").val(datos[6]);
-        $("#localidad").val(datos[7]);
+        $("#Tlocalidad").val(datos[7]);
         $("#municipio").val(datos[8]);
         $("#estado").val(datos[9]);
         $("#pais").val(datos[10]);
@@ -145,7 +145,7 @@ $(document).ready(function () {
         $("#sexo").val(datos[13]);
         $("#acceso").val(datos[14]);
         $("#entrada_sistema").val(datos[15]);
-        $("#contrasena").val("");
+        $("#contrasena").val("null");
         editar = true;
         $("#modalForm").modal("show");
       } else {
@@ -259,7 +259,7 @@ $(document).ready(function () {
             "warning");
         }
         $('.check').prop("checked", false);
-        obtenerDatosTablaUsuarios();
+        obtenerAcceso();
       });
   });
 

@@ -19,7 +19,7 @@ $(document).ready(function () {
         console.log(response);
         let template = "";
         datos = JSON.parse(response);
-        arrayTitulos = ["Ingresos por venta","Otros ingresos","Total de ingreso","Total de egresos","Flujo operacional"];
+        arrayTitulos = ["ingresos por venta", "Otros ingresos", "total de ingreso", "total de egresos", "flujo operacional"];
         $.each(datos, function (i, item) {
           template += ` 
           <tr>
@@ -74,11 +74,6 @@ $(document).ready(function () {
       }
     }
   });
-
-  /*     $("#form2").submit(function(e) {
-        
-        e.preventDefault();
-      }); */
 
   $(document).on("change", ".anosFiltro", function () {
 

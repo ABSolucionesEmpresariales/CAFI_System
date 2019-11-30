@@ -19,9 +19,8 @@ $(document).ready(function () {
           type: "POST",
           data: "tabla=tabla",
           success: function (response) {
-            
+            console.log(response);
            let datos = JSON.parse(response);
-           console.log(datos);
             let template = "";
             $.each(datos, function (i, item) {
               template += `<tr>`;
@@ -43,7 +42,6 @@ $(document).ready(function () {
                   <td class="text-nowrap text-center">${item[12]}</td>
                   <td class="text-nowrap text-center">${item[13]}</td>
                   <td class="text-nowrap text-center">${item[14]}</td>
-                  <td class="text-nowrap text-center">${item[15]}</td>
               `;
             });
             $("#cuerpo").html(template); 
@@ -152,6 +150,7 @@ $(document).ready(function () {
     editar = false;
     $("#formulario").trigger("reset");
     $("#mensaje").css("display", "none");
+    $("#contrasena").attr('required');
     $('.ocultar').show();
   });
 
@@ -224,6 +223,7 @@ $(document).ready(function () {
 
   var touchtime = 0;
   $(document).on("click", "td", function () {
+    $("#contrasena").removeAttr('required');
       if (touchtime == 0) {
         touchtime = new Date().getTime();
       } else {
@@ -246,7 +246,7 @@ $(document).ready(function () {
           $("#cp").val(datos[4]);
           $("#calle_numero").val(datos[5]);
           $("#colonia").val(datos[6]);
-          $("#localidad").val(datos[7]);
+          $("#Tlocalidad").val(datos[7]);
           $("#municipio").val(datos[8]);
           $("#estado").val(datos[9]);
           $("#pais").val(datos[10]);
@@ -255,7 +255,7 @@ $(document).ready(function () {
           $("#sexo").val(datos[13]);
           $("#acceso").val(datos[14]);
           $("#entrada_sistema").val(datos[15]);
-          $("#contrasena").val("");
+          $("#contrasena").val("null");
           editar = true;
           touchtime = 0;
           $("#modalForm").modal("show");

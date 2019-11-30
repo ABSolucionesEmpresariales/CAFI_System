@@ -237,7 +237,7 @@ $(document).ready(function () {
             $("#nombre").val(datos[3]);
             $("#cp").val(datos[4]);
             $("#calle_numero").val(datos[5]);
-            $("#colonia").val(datos[6]);
+            $("#Tlocalidad").val(datos[6]);
             $("#localidad").val(datos[7]);
             $("#municipio").val(datos[8]);
             $("#estado").val(datos[9]);

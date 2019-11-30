@@ -1,5 +1,6 @@
 <?php
 include_once '../Models/Conexion.php';
+
 if (
   !empty($_POST['Temail']) && isset($_POST['Trfc'])  && !empty($_POST['Tnombre'])  && isset($_POST['Tcp'])  && isset($_POST['Tcalle_numero'])
   && isset($_POST['Tcolonia'])  && !empty($_POST['DLlocalidad'])  && isset($_POST['Tmunicipio'])  && isset($_POST['Sestado']) && !empty($_POST['Ttelefono'])
