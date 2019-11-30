@@ -12,6 +12,7 @@ $(document).ready(function () {
   
     $('.agregar').click(function(){
       editar = false;
+      $("#mensaje").css("display", "none");
     });
   
     $("#login").keyup(function () {
@@ -88,6 +89,7 @@ $(document).ready(function () {
       $(this).parents("tr").find("td").each(function () {
         valores += $(this).html() + "?";
       });
+      $("#mensaje").css("display", "none");
       datos = valores.split("?");
       idSuscripcion = datos[0];
       $("#fecha_activacion").val(datos[1]);

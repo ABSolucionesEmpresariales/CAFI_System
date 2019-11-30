@@ -6,6 +6,7 @@ $(document).ready(function () {
   obtenerAcceso();
   obtenerTrabajadores();
   $("#divtrabajadores").css("display", "none");
+  
   function obtenerTrabajadores() {
     $.ajax({
       url: "../Controllers/gastos.php",
@@ -66,38 +67,6 @@ $(document).ready(function () {
     });
   }
 
-  function enviarDatos() {
-    var valores = "";
-
-    $("#cuerpo")
-      .children("tr")
-      .find("td")
-      .find("input")
-      .each(function () {
-        if ($(this).prop("checked")) {
-          valores +=
-            $(this)
-              .parents("tr")
-              .find("td")
-              .eq(1)
-              .text() + "?";
-        }
-      });
-    valores += "0";
-    result = valores.split("?");
-    console.log(result);
-    $.ajax({
-      url: "../Controllers/gastos.php",
-      type: "POST",
-      data: { array: JSON.stringify(result) },
-
-      success: function (response) {
-        console.log(response);
-        return response;
-      }
-    });
-  }
-
   $(document).on("click", ".eliminar", function () {
     swal(
       {
@@ -110,15 +79,33 @@ $(document).ready(function () {
         closeOnConfirm: false
       },
       function(){
-          if(enviarDatos() != '0'){
-            swal("Exito!", 
-            "Sus datos han sido eliminados.",
-             "success");
-          }else{
-            swal("Error!", 
-            "Ups, algo salio mal.",
-             "warning");
+        var valores = "";
+
+        $("#cuerpo").children("tr").find("td").find("input").each(function () {
+            if ($(this).prop("checked")) {
+              valores +=$(this).parents("tr").find("td").eq(1).text() + "?";
+            }
+          });
+        valores += "0";
+        result = valores.split("?");
+        console.log(result);
+        $.ajax({
+          url: "../Controllers/gastos.php",
+          type: "POST",
+          data: { array: JSON.stringify(result) },
+    
+          success: function (response) {
+            if(response != '0'){
+              swal("Exito!", 
+              "Sus datos han sido eliminados.",
+               "success");
+            }else{
+              swal("Error!", 
+              "Ups, algo salio mal.",
+               "warning");
+            }
           }
+        });
           $('.check').prop("checked", false);
           obtenerAcceso();
       });

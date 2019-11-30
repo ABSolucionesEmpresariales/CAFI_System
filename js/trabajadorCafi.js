@@ -128,6 +128,7 @@ $(document).ready(function () {
         $(this).parents("tr").find("td").each(function () {
           valores += $(this).html() + "?";
         });
+        $("#mensaje").css("display", "none");
         datos = valores.split("?");
         console.log(datos);
         $(".ocultar").hide();
@@ -178,29 +179,8 @@ $(document).ready(function () {
       }); 
       */
 
-      function enviarDatos(){
-        var valores = "";
-        $('#cuerpo').children("tr").find("td").find("input").each(function () {
-            if($(this).prop('checked')){
-                valores += $(this).parents("tr").find("td").eq(1).text() + "?";
-            }
-        }); 
-        valores += "0";
-        result = valores.split("?");
-        console.log(result);
-         $.ajax({
-          url: "../Controllers/trabajadorCafi.php",
-          type: "POST",
-          data: {'array': JSON.stringify(result)},
-  
-          success: function (response) {
-            console.log(response);
-                return response;
-          }
-        }); 
-      }
 
-      $(document).on('click','.eliminar',function(){
+    $(document).on('click','.eliminar',function(){
         swal({
             title: "Esta seguro que desea eliminar ?",
             text: "Esta accion eliminara los datos!",
@@ -211,58 +191,36 @@ $(document).ready(function () {
             closeOnConfirm: false
           },
           function(){
-              if(typeof (enviarDatos()) != 'undefined'){
-                swal("Exito!", 
-                "Sus datos han sido eliminados.",
-                 "success");
-              }else{
-                swal("Error!", 
-                "Ups, algo salio mal.",
-                 "warning");
+            var valores = "";
+            $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                if($(this).prop('checked')){
+                    valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+                }
+            }); 
+            valores += "0";
+            result = valores.split("?");
+            console.log(result);
+             $.ajax({
+              url: "../Controllers/trabajadorCafi.php",
+              type: "POST",
+              data: {'array': JSON.stringify(result)},
+      
+              success: function (response) {
+                if(typeof (response)!= '0'){
+                  swal("Exito!", 
+                  "Sus datos han sido eliminados.",
+                   "success");
+                }else{
+                  swal("Error!", 
+                  "Ups, algo salio mal.",
+                   "warning");
+                }
               }
+            }); 
               $('.check').prop("checked", false);
               obtenerAcceso();
           });
     });
-    valores += "0";
-    result = valores.split("?");
-    console.log(result);
-    $.ajax({
-      url: "../Controllers/trabajadorCafi.php",
-      type: "POST",
-      data: { 'array': JSON.stringify(result) },
-
-      success: function (response) {
-        console.log(response);
-        return response;
-      }
-    });
-
-
-  $(document).on('click', '.eliminar', function () {
-    swal({
-      title: "Esta seguro que desea eliminar ?",
-      text: "Esta accion eliminara los datos!",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonClass: "btn-danger",
-      confirmButtonText: "Si, eliminarlo!",
-      closeOnConfirm: false
-    },
-      function () {
-        if (typeof (enviarDatos()) != 'undefined') {
-          swal("Exito!",
-            "Sus datos han sido eliminados.",
-            "success");
-        } else {
-          swal("Error!",
-            "Ups, algo salio mal.",
-            "warning");
-        }
-        $('.check').prop("checked", false);
-        obtenerAcceso();
-      });
-  });
 
   $(document).on('click', '.check', function () {
 
@@ -281,6 +239,7 @@ $(document).ready(function () {
 
   $('.close').click(function () {
     $('#formulario').trigger('reset');
+    $("#mensaje").css("display", "none");
   });
 
 });

@@ -103,44 +103,39 @@ $(document).ready(function () {
             closeOnConfirm: false
           },
           function(){
-              if(typeof (enviarDatos2()) != 'undefined'){
-                swal("Exito!", 
-                "Sus datos han sido eliminados.",
-                 "success");
-              }else{
-                swal("Error!", 
-                "Ups, algo salio mal.",
-                 "warning");
+            var valores = "";
+    
+            $('#cuerpo').children("tr").find("td").find("input").each(function () {
+                if($(this).prop('checked')){
+                    valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+                }
+            }); 
+            valores += "0";
+            result = valores.split("?");
+            console.log(result);
+             $.ajax({
+              url: "../Controllers/clientes.php",
+              type: "POST",
+              data: {'array': JSON.stringify(result)},
+      
+              success: function (response) {
+                console.log(response);
+                if(typeof (response) != '0'){
+                  swal("Exito!", 
+                  "Sus datos han sido eliminados.",
+                   "success");
+                }else{
+                  swal("Error!", 
+                  "Ups, algo salio mal.",
+                   "warning");
+                }
               }
+            }); 
               $('.check').prop("checked", false);
               obtenerAcceso();
           });
     });
 
-    
-
-    function enviarDatos2(){
-        var valores = "";
-    
-        $('#cuerpo').children("tr").find("td").find("input").each(function () {
-            if($(this).prop('checked')){
-                valores += $(this).parents("tr").find("td").eq(1).text() + "?";
-            }
-        }); 
-        valores += "0";
-        result = valores.split("?");
-        console.log(result);
-         $.ajax({
-          url: "../Controllers/clientes.php",
-          type: "POST",
-          data: {'array': JSON.stringify(result)},
-  
-          success: function (response) {
-            console.log(response);
-                return response;
-          }
-        }); 
-    }
 
     $('.close').click(function () {
         $('#formulario').trigger('reset');

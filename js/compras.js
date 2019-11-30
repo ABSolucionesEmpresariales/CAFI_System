@@ -287,10 +287,34 @@ $(document).on('click','.bconcepto',function(){
             closeOnConfirm: false
           },
           function(){  
-              enviarDatos3();
-              swal("Exito!", 
-              "Sus datos han sido eliminados.",
-               "success");
+            var valores = "";
+            $('#cuerpo2').children("tr").find("td").find("input").each(function () {
+                if($(this).prop('checked')){
+                    valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+                }
+            }); 
+            valores += "0";
+            result = valores.split("?");
+    
+             $.ajax({
+              url: "../Controllers/compras.php",
+              type: "POST",
+              data: {'array': JSON.stringify(result)},
+      
+              success: function (response) {
+                console.log(response);
+                if(typeof (response) != '0'){
+                  swal("Exito!", 
+                  "Sus datos han sido eliminados.",
+                   "success");
+                }else{
+                  swal("Error!", 
+                  "Ups, algo salio mal.",
+                   "warning");
+                }
+                obtenerAcceso();
+              }
+            }); 
               $('.check').prop("checked", false);
           });
     });
@@ -378,33 +402,6 @@ $(document).on('click','.bconcepto',function(){
       }
     });
   }
-
-
-    function enviarDatos3(){
-        var valores = "";
-        $('#cuerpo2').children("tr").find("td").find("input").each(function () {
-            if($(this).prop('checked')){
-                valores += $(this).parents("tr").find("td").eq(1).text() + "?";
-            }
-        }); 
-        valores += "0";
-        result = valores.split("?");
-
-         $.ajax({
-          url: "../Controllers/compras.php",
-          type: "POST",
-          data: {'array': JSON.stringify(result)},
-  
-          success: function (response) {
-            console.log(response);
-            obtenerAcceso();
-            if(response == 1){
-              return 1;
-            }
-            return response;
-          }
-        }); 
-    }
 
     $("#formulario").submit(function (e) {
 

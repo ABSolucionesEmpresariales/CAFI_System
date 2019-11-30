@@ -115,8 +115,7 @@ if (isset($_POST['array']) && isset($_POST['tabla_afectada'])) {
     $conexion = new Models\Conexion();
     $data = json_decode($_POST['array']);
     $tipo_datos = "isi";
-
-
+    
     for ($i = 0; $i < count($data); $i++) {
         if ($data[$i] != '0') {
                 $consulta = "UPDATE abono SET eliminado = ?, estado = ? WHERE idabono = ?";
