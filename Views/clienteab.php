@@ -170,14 +170,14 @@ privilegios("Todos");
                   <option value="Chiapas">Chiapas</option>
                   <option value="Chihuahua">Chihuahua</option>
                   <option value="Ciudad de México">Ciudad de México</option>
-                  <option value="Coahuila">Coahuila</option>
+                  <option value="Coahuila de Zaragoza">Coahuila</option>
                   <option value="Colima">Colima</option>
                   <option value="Durango">Durango</option>
+                  <option value="México">México</option>
                   <option value="Guanajuato">Guanajuato</option>
                   <option value="Guerrero">Guerrero</option>
                   <option value="Hidalgo">Hidalgo</option>
                   <option value="Jalisco">Jalisco</option>
-                  <option value="México">México</option>
                   <option value="Michoacán de Ocampo">Michoacán</option>
                   <option value="Morelos">Morelos</option>
                   <option value="Nayarit">Nayarit</option>
@@ -192,7 +192,7 @@ privilegios("Todos");
                   <option value="Tabasco">Tabasco</option>
                   <option value="Tamaulipas">Tamaulipas</option>
                   <option value="Tlaxcala">Tlaxcala</option>
-                  <option value="Veracruz">Veracruz</option>
+                  <option value="Veracruz de Ignacio de la Llave">Veracruz</option>
                   <option value="Yucatán">Yucatán</option>
                   <option value="Zacatecas">Zacatecas</option>
                 </select> <br>
