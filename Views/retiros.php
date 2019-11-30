@@ -50,7 +50,7 @@ privilegios("Todos");
                             <div class="col-lg-6">
                                 <h5 class="importante">Desde:</h5>
                                 <select id="de" class="form form-control" name="Stipo">
-                                    <option></option>
+                                    <option value="">Elegir</option>
                                     <option value="Caja">Caja</option>
                                     <option value="Banco">Banco</option>
                                 </select>
@@ -60,7 +60,7 @@ privilegios("Todos");
                             <div class="col-lg-6">
                                 <h5 class="importante">Concepto:</h5>
                                 <select id="concepto" class="form form-control" name="Sconcepto">
-                                    <option></option>
+                                    <option value="">Elegir</option>
                                     <option value="Retiro">Retiro</option>
                                     <option value="Corte de caja">Corte de caja</option>
                                 </select>

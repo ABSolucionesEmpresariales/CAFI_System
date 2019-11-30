@@ -45,12 +45,12 @@ privilegios("Todos");
                         <div class="row">
                             <div class="col-lg-4">
                                 <h5 class="importante">Nombre:</h5>
-                                <input id="nombre" class="form form-control" onkeypress="return check(event)" type="text" name="Tnombre" placeholder="Nombre" autocomplete="new-password">
+                                <input id="nombre" class="form form-control" onkeypress="return check(event)" type="text" name="Tnombre" placeholder="Nombre" autocomplete="new-password" required>
                             </div>
                             <div class="col-lg-4">
                                 <h5 class="importante">Giro:</h5>
                                 <select class="form form-control" id="giro" name="Sgiro" required>
-                                    <option value=""></option>
+                                    <option value="">Elegir</option>
                                     <option value="Tienda">Tienda de ropa</option>
                                     <option value="Zapateria">Zapateria</option>
                                     <option value="Otros">Otros</option>
@@ -58,7 +58,7 @@ privilegios("Todos");
                             </div>
                             <div class="col-lg-4">
                                 <h5 class="importante">Domicilio:</h5>
-                                <input id="calle_numero" class="form form-control" onkeypress="return check(event)" type="text" name="Tcalle_numero" placeholder="Domicilio" autocomplete="new-password">
+                                <input id="calle_numero" class="form form-control" onkeypress="return check(event)" type="text" name="Tcalle_numero" placeholder="Domicilio" autocomplete="new-password" required>
                             </div>
                         </div>
                         <div class="row">
@@ -68,22 +68,22 @@ privilegios("Todos");
                             </div>
                             <div class="col-lg-4">
                                 <h5 class="importante">Colonia:</h5>
-                                <input id="colonia" class="form form-control" onkeypress="return check(event)" type="text" name="Tcolonia" placeholder="Colonia" autocomplete="new-password">
+                                <input id="colonia" class="form form-control" onkeypress="return check(event)" type="text" name="Tcolonia" placeholder="Colonia" autocomplete="new-password" required>
                             </div>
                             <div class="col-lg-4">
                                 <h5 class="importante">Localidad:</h5>
-                                <input id="Tlocalidad" list="localidad" class="form form-control" name="DLlocalidad" onkeypress="return check(event)" autocomplete="new-password">
+                                <input id="Tlocalidad" list="localidad" class="form form-control" name="DLlocalidad" onkeypress="return check(event)" autocomplete="new-password" required>
                                 <datalist id="localidad">
                                 </datalist><br>
                             </div>
                             <div class="col-lg-4">
                                 <h5 class="importante">Municipio:</h5>
-                                <input id="municipio" class="form form-control" type="text" onkeypress="return check(event)" name="Tmunicipio" placeholder="Municipio" autocomplete="new-password">
+                                <input id="municipio" class="form form-control" type="text" onkeypress="return check(event)" name="Tmunicipio" placeholder="Municipio" autocomplete="new-password" required>
                             </div>
                             <div class="col-lg-4">
                                 <h5 class="importante">Estado:</h5>
                                 <select class="form form-control" id="estado" name="Sestado" required>
-                                    <option value=""></option>
+                                    <option value="">Elegir</option>
                                     <option value="Aguascalientes">Aguascalientes</option>
                                     <option value="Baja California">Baja California </option>
                                     <option value="Baja California Sur">Baja California Sur</option>
@@ -123,16 +123,15 @@ privilegios("Todos");
                             </div>
                             <div class="col-lg-4">
                                 <h5 class="importante">Impresora:</h5>
-                                <select class="form form-control" id="impresora" name="Simpresora">
+                                <select class="form form-control" id="impresora" name="Simpresora" required>
                                     <option value="A">Activo</option>
                                     <option value="I">Inactivo</option>
                                 </select>
                             </div>
                             <div>
                                 <h5 class="importante">Dueño:</h5>
-                                <input id="dueno" class="form form-control" list="clientes" name="Sdueno" autocomplete="new-password" required>
-                                <datalist id="clientes">
-                                </datalist>
+                                <select name="Sdueno"  class="form form-control" id="clientes" required>
+                                </select>
                             </div>
                         </div>
 

@@ -188,7 +188,7 @@ $(document).ready(function () {
       success: function (response) {
         let datos = JSON.parse(response);
         console.log(datos);
-        let template = "<option value = ''>Elejir</option>";
+        let template =`<option value = ''>Elejir</option>`;
         $.each(datos, function (i, item) {
           for(var j = 0; j <= item.length; j++){
             if(item[j] == 'null'){
@@ -197,7 +197,7 @@ $(document).ready(function () {
           }
           template+=`<option value="${item[0]}">${item[1]} ${item[2]} ${item[3]} ${item[4]}</option>`;
         });
-        $('#Sproducto').html(template);
+        $('#selectpro').html(template);
       }
     });
   }
