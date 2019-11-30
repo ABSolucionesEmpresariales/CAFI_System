@@ -37,7 +37,7 @@ $(document).ready(function () {
             let template = "";
             $.each(datos, function (i, item) {
               for(var j = 0; j <= item.length; j++){
-                    if(item[j] == 'null'){
+                    if(item[j] == 'null' || item[j] === null){
                       item[j] = "";
                     }
               }
@@ -53,8 +53,13 @@ $(document).ready(function () {
                     <td class="text-nowrap text-center">${item[4]}</td>
                     <td class="text-nowrap text-center">${item[5]}</td>
                     <td class="text-nowrap text-center">${item[6]}</td>
-                    <td class="text-nowrap text-center">${item[7]}</td>
-                    <td><img src="${item[8]}" height="100" width="100"></td>
+                    <td class="text-nowrap text-center">${item[7]}</td>`;
+                    if(item[8] != ''){
+              template += `<td><img src="${item[8]}" height="100" width="100"></td>`;
+                    }else{
+              template += `<td><img src="" height="100" width="100"></td>`; 
+                    }
+              template += `
                     <td class="text-nowrap text-center">$${item[9]}</td>
                     <td class="text-nowrap text-center">$${item[10]}</td>
                     <td class="text-nowrap text-center">${item[11]}</td>
@@ -183,7 +188,7 @@ $(document).ready(function () {
       success: function (response) {
         let datos = JSON.parse(response);
         console.log(datos);
-        let template = "<option value = ''>Elejir</option>";
+        let template =`<option value = ''>Elejir</option>`;
         $.each(datos, function (i, item) {
           for(var j = 0; j <= item.length; j++){
             if(item[j] == 'null'){
@@ -192,7 +197,7 @@ $(document).ready(function () {
           }
           template+=`<option value="${item[0]}">${item[1]} ${item[2]} ${item[3]} ${item[4]}</option>`;
         });
-        $('#Sproducto').html(template);
+        $('#selectpro').html(template);
       }
     });
   }
@@ -528,13 +533,14 @@ function enviarDatos(){
       processData: false,
 
       success: function (response) {
-        console.log(response);
+ 
         if (response == 1) {
           if ($("#accion").val() == 'true') {
             $(".modal").modal("hide");
             $("#mensaje").css("display", "none");
             $("#accion").val("false");
           }
+          $("#mensaje").css("display", "block");
           $("#mensaje").text("Registro Exitoso");
           $("#mensaje").css("color", "green");
           $("#codigo_barras").focus();

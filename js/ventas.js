@@ -26,7 +26,6 @@ function mandarporPost(){
     totaldeuda: totalglobal-anticipo,
     anticipo: anticipo,
     cliente: cliente
-  
   };
   $.post('../Controllers/ventas.php', postData, function (response) {
     console.log(response);
@@ -501,7 +500,7 @@ $(document).on('click','.beliminar',function(){
       totalglobal +=  parseInt(item[4]);
       template += `<tr id="${item[0]}">
       <td><button class="beliminar btn btn-danger">Eliminar</button></td>
-      <td class="datos d-none">${item[0]}</td>
+      <td class="datos">${item[0]}</td>
       <td class="datos">${item[1]}</td>
       <td class="datos">${item[2]}</td>
       <td class="datos">${item[3]}</td>

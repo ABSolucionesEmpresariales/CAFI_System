@@ -127,7 +127,7 @@ privilegios("Superiores");
             </div>
             <div class="d-block col-lg-6">
               <p class="importante">Forma de pago:</p>
-              <select id="forma_de_pago" class="form form-control form-control-sm">
+              <select id="forma_de_pago" class="form form-control form-control-sm" required>
                 <option value="">Elejir</option>
                 <option value="De Contado">De Contado</option>
                 <option value="Credito">Credito</option>
@@ -153,17 +153,17 @@ privilegios("Superiores");
           <div class="row">
             <div class="d-block col-lg-4">
               <p class="importante">Codigo:</p>
-              <input name="" id="codigo_producto" placeholder="Codigo Producto" class="form form-control form-control-sm">
+              <input name="" id="codigo_producto" placeholder="Codigo Producto" class="form form-control form-control-sm" required>
               <datalist id="lproductos">
               </datalist>
             </div>
             <div class="d-block col-lg-4">
               <p class="importante">Nombre:</p>
-              <input id="nombre_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="Nombre Producto" autocomplete="off">
+              <input id="nombre_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="Nombre Producto" autocomplete="off" required>
             </div>
             <div class="d-block col-lg-4">
               <p class="importante">Cantidad:</p>
-              <input type="number" min="1" id="cantidad" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="Cantidad" autocomplete="off">
+              <input type="number" min="1" id="cantidad" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="Cantidad" autocomplete="off" required>
             </div>
 
           </div>
@@ -179,7 +179,7 @@ privilegios("Superiores");
               </div>
             <div class="d-block col-lg-3">
               <p class="importante">Costo:</p>
-              <input type="number" min="1" value="0" id="costo_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="Costo producto" autocomplete="off">
+              <input type="number" min="1" value="0" id="costo_producto" class="form form-control form-control-sm" onkeypress="return check(event)" type="text" name="TMonto" placeholder="Costo producto" autocomplete="off" required>
             </div>
             <div class="d-block col-lg-3">
               <p class="general">Ganancia %</p>

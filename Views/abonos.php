@@ -107,8 +107,9 @@ privilegios("Todos");
                                     </select>  
                                 </div>
                             </div>
+                            
                         </div>
-
+                        <input type="hidden" id="valor" name="valor">
                         <input id="bclose" type="submit" class="mt-3 btn btn-lg btn-block btn-dark text-primary" name="submit" value="Guardar">
                     </form>
                     <div id="tableHolder">

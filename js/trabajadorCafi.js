@@ -95,17 +95,18 @@ $(document).ready(function () {
         }
         $("#mensaje").text("Registro Exitoso");
         $("#mensaje").css("color", "green");
-        $("#email").focus();
         $("#formulario").trigger("reset");
+        $("#email").focus();
       } else if (response == "exceso") {
         $("#mensaje").text("Limite de usuarios exedido");
-        $("#mensaje").css("color", "red");
-        $("#email").focus();
+        $("#mensaje").css("color","red");
+        $("#nombre").focus();
       } else {
         $("#mensaje").text("Registro fallido");
         $("#mensaje").css("color", "red");
         $("#email").focus();
       }
+      
       obtenerAcceso();
     });
     e.preventDefault();

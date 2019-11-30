@@ -38,7 +38,6 @@ $(document).ready(function () {
                     <td class="text-nowrap text-center">${item[9]}</td>
               `;
             });
-            console.log(template);
             $("#cuerpo").html(template);
           }
         });
@@ -51,8 +50,14 @@ $(document).ready(function () {
       console.log(response);
       if (response == "1") {
         $('.modal').modal('hide');
+      }else if(response == "AdeudoInactivo"){
+        $("#mensaje").css("display","block");
+        $("#mensaje").text("Adeudo correspondiente inavilitado");
+        $("#mensaje").css("color", "red");
+        $("#email").focus();
       } else {
-        $("#mensaje").text("Registro fallido");
+        $("#mensaje").css("display","block");
+        $("#mensaje").text("Error");
         $("#mensaje").css("color", "red");
         $("#email").focus();
       }
@@ -143,9 +148,10 @@ $(document).ready(function () {
           });
           datos = valores.split("?");
           console.log(datos);
-
+          console.log(datos[10]);
           idabono = datos[1];
           $("#estado").val(datos[2]);
+          $('#valor').val(datos[10]);
           $("#modalForm").modal("show");
 
         } else {

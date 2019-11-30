@@ -48,14 +48,14 @@
                         <li class="nav-item mx-2 text-center">
                             <a id="orange" class="<?php if ($sel === 'usuarios') {
                                                         echo seleccionado;
-                                                    } ?> nav-link text-white" onclick="window.location.href='VUsuarios_ab.php'" title="Usuarios"><img src="../img/clientes.png">Usuarios</a>
+                                                    } ?> nav-link text-white" onclick="window.location.href='usuariosab.php'" title="Usuarios"><img src="../img/clientes.png">Usuarios</a>
                         </li>
                     </div>
                     <div class="col-6">
                         <li class="nav-item mx-2 text-center">
                             <a class="<?php if ($sel === 'clientes') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VClienteab.php'" title="Clientes"><img src="../img/client.png">Clientes</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='clienteab.php'" title="Clientes"><img src="../img/client.png">Clientes</a>
                         </li>
                     </div>
                 </div>
@@ -65,14 +65,14 @@
                         <li class="nav-item mx-2 text-center">
                             <a class="<?php if ($sel === 'negocios') {
                                             echo seleccionado;
-                                        } ?> nav-link text-white" onclick="window.location.href='VNegociosab.php'" title="Negocios"><img src="../img/store.png">Negocios</a>
+                                        } ?> nav-link text-white" onclick="window.location.href='negocio.php'" title="Negocios"><img src="../img/store.png">Negocios</a>
                         </li>
                     </div>
                     <div class="col-6">
                         <li class="nav-item mx-2 text-center">
                             <a id="orange" class="<?php if ($sel === 'suscripciones') {
                                                         echo seleccionado;
-                                                    } ?> nav-link text-white" onclick="window.location.href='VSuscripcion.php'" title="Suscripciones"><img src="../img/calendar.png">Suscripciones</a>
+                                                    } ?> nav-link text-white" onclick="window.location.href='suscripcion.php'" title="Suscripciones"><img src="../img/calendar.png">Suscripciones</a>
                         </li>
                     </div>
                 </div>

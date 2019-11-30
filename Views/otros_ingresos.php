@@ -107,7 +107,7 @@ privilegios("Superiores");
                                 <div class="col-lg-6">
                                     <h5 class="importante">Tipo :</h5>
                                     <select id="tipo" name="Stipo" id="concepto" class="form form-control" >
-                                        <option></option>
+                                        <option value="">Elegir</option>
                                         <option>Dinero a caja</option>
                                         <option>Capital Externo</option>
                                         <option>Prestamo</option>
@@ -118,7 +118,7 @@ privilegios("Superiores");
                                 <div class="col-lg-6">
                                     <h5 class="importante">Forma de Ingreso :</h5>
                                     <select name="Sforma_ingreso" id="forma_ingreso" class="form form-control" >
-                                        <option></option>
+                                        <option value="">Elegir</option>
                                         <option>Efectivo</option>
                                         <option>Banco</option>
                                     </select> <br>

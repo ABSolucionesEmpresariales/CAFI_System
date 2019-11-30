@@ -100,7 +100,7 @@ privilegios("Todos");
                     <div class="d-block d-lg-flex row">
                     <div class="col-lg-6">
                         <h5 class="importante">Nombre:</h5>
-                        <input id="nombre" class="form form-control" onkeypress="return check(event)" type="text" name="Tnombre" placeholder="Nombre" autocomplete="new-password">
+                        <input id="nombre" class="form form-control" onkeypress="return check(event)" type="text" name="Tnombre" placeholder="Nombre" autocomplete="new-password" required>
                       </div>
                       <div class="col-lg-6">
                         <h5 class="general">RFC:</h5>
@@ -132,6 +132,7 @@ privilegios("Todos");
                     <div class="col-lg-6">
                         <h5 class="general">Estado:</h5>
                         <select class="form form-control" id="estado" name="Sestado">
+                          <option value="">Elegir</option>
                           <option value="Aguascalientes">Aguascalientes</option>
                           <option value="Baja California">Baja California	</option>
                           <option value="Baja California Sur">Baja California Sur</option>
@@ -174,11 +175,11 @@ privilegios("Todos");
                     <div class="d-block d-lg-flex row">
                       <div class="col-lg-6">
                         <h5 class="importante">Teléfono:</h5>
-                        <input id="telefono" class="form form-control" type="text" onkeypress="return check(event)" name="Ttelefono" placeholder="Teléfono" autocomplete="new-password"><br>
+                        <input id="telefono" class="form form-control" type="text" onkeypress="return check(event)" name="Ttelefono" placeholder="Teléfono" autocomplete="new-password" required><br>
                       </div>
                       <div class="col-lg-6">
                         <h5 class="importante">Email:</h5>
-                        <input id="email" class="form form-control" type="email" onkeypress="return check(event)" name="Temail" placeholder="Email" autocomplete="new-password"><br>
+                        <input id="email" class="form form-control" type="email" onkeypress="return check(event)" name="Temail" placeholder="Email" autocomplete="new-password" required><br>
                       </div>
                     </div>
 
