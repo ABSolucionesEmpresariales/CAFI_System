@@ -122,7 +122,7 @@ privilegios("Todos");
             <div class="d-block d-lg-flex row">
               <div class="col-lg-6">
                 <h5 class="importante">Entrada al sistema:</h5>
-                <select class="form form-control" id="entrada_sistema" name="Sentrada_sistema">
+                <select class="form form-control" id="entrada_sistema" name="Sentrada_sistema" required>
                   <option value="A">Activa</option>
                   <option value="I">Inactiva</option>
                 </select> <br>
@@ -149,7 +149,7 @@ privilegios("Todos");
               </div>
               <div class="col-lg-6">
                 <h5 class="importante">Localidad:</h5>
-                <input id="Tlocalidad" list="localidad" class="form form-control" name="DLlocalidad" onkeypress="return check(event)" autocomplete="new-password">
+                <input id="Tlocalidad" list="localidad" class="form form-control" name="DLlocalidad" onkeypress="return check(event)" autocomplete="new-password" required>
                 <datalist id="localidad">
                 </datalist><br>
               </div>
@@ -162,7 +162,7 @@ privilegios("Todos");
               <div class="col-lg-6">
                 <h5 class="general">Estado:</h5>
                 <select class="form form-control" id="estado" name="Sestado">
-                  <option value=""></option>
+                  <option value="">Elegir</option>
                   <option value="Aguascalientes">Aguascalientes</option>
                   <option value="Baja California">Baja California </option>
                   <option value="Baja California Sur">Baja California Sur</option>
@@ -202,7 +202,7 @@ privilegios("Todos");
               <div class="col-lg-6">
                 <h5 class="general">Sexo:</h5>
                 <select class="form form-control" id="sexo" name="Ssexo">
-                  <option value=""></option>
+                  <option value="">Elegir</option>
                   <option value="M">Masculino</option>
                   <option value="F">Femenino</option>
                 </select> <br>

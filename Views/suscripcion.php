@@ -95,7 +95,7 @@ privilegios("Todos");
                       </div>
                       <div class="col-lg-4">
                         <h5 class="importante">Estado del sistema:</h5>
-                        <select class="form form-control" id="estado" name="Sestado">
+                        <select class="form form-control" id="estado" name="Sestado" required>
                           <option value="A">Activo</option>
                           <option value="I">Inactivo</option>
                       </select>
@@ -104,7 +104,7 @@ privilegios("Todos");
                     <div class="d-block d-lg-flex row">
                       <div class="col-lg-4">
                         <h5 class="importante">Paquete:</h5>
-                        <select class="form form-control" name="Spaquete" id="paquete">
+                        <select class="form form-control" name="Spaquete" id="paquete" required>
                           <option value="0">Elegir</option>
                           <option value="1">Basic</option>
                           <option value="2">Standard</option>

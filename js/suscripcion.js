@@ -87,7 +87,7 @@ $(document).ready(function () {
       success: function (response) {
         let datos = JSON.parse(response);
         console.log(datos);
-        let template1 = "";
+        let template1 = `<option value="">Elegir</option>`;
 
         $.each(datos, function(i, item) {
           template1 += `

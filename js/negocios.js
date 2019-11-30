@@ -26,11 +26,9 @@ $(document).ready(function () {
       success: function (response) {
         console.log(response);
         let datos = JSON.parse(response);
-        let template = "";
+        let template = `<option value="">Elegir</option>`;
         $.each(datos, function (i, item) {
-          template += `
-          <option>${item[0]}<option>
-          `;
+          template +=`<option value="${item[0]}">${item[0]}</option>`;
         });
         $("#clientes").html(template);
     }

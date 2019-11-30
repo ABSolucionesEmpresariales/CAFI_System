@@ -98,7 +98,6 @@ privilegios("Todos");
               <div class="col-lg-4 ocultar">
                 <h5 class="importante">Concepto:</h5>
                 <select name="Sconcepto" id="concepto" class="form form-control" required>
-                  <option></option>
                   <option>Renta</option>
                   <option>Luz</option>
                   <option>Agua</option>

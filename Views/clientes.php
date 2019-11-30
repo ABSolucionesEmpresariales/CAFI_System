@@ -135,7 +135,7 @@ privilegios("Superiores");
               </div>
               <div class="col-lg-6">
                 <h5 class="importante">Localidad:</h5>
-                <input id="Tlocalidad" list="localidad" class="form form-control" name="DLlocalidad" onkeypress="return check(event)"  autocomplete="new-password">
+                <input id="Tlocalidad" list="localidad" class="form form-control" name="DLlocalidad" onkeypress="return check(event)"  autocomplete="new-password" required>
                 <datalist id="localidad">
                 </datalist><br>
               </div>

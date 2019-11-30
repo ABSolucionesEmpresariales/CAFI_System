@@ -124,6 +124,7 @@ $(document).ready(function () {
   $(".agregar").click(function () {
     $(".ocultar").show();
     $("#mensaje").css("display", "none");
+    $("#divtrabajadores").css("display", "none");
     editar = false;
     console.log(editar);
   });
