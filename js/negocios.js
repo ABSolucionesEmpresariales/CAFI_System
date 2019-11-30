@@ -37,6 +37,30 @@ $(document).ready(function () {
   });
   }
 
+  $('#cp').keyup(function (e) {
+    let codigopostal = $('#cp').val();
+    if (codigopostal.length === 5) {
+      fetch('https://api-codigos-postales.herokuapp.com/v2/codigo_postal/' + codigopostal)
+        .then(res => res.json())
+        .then(data => {
+          let template = '';
+          for (i = 0; i < data.colonias.length; i++) {
+            template += ` <option value="${data.colonias[i]}">`;
+          }
+          $("#localidad").html(template);
+          $("#municipio").val(data.municipio);
+          $("#estado").val(data.estado);
+
+        });
+    }else{
+      $("#localidad").empty();
+      $("#Tlocalidad").val('');
+      $("#municipio").val('');
+      $("#estado").val('');
+    }
+
+  });
+
   $("#formulario").submit(function (e) {
     $.post("../Controllers/negocio.php",$("#formulario").serialize() + '&idnegocios=' + idnegocio + '&accion=' + editar, function (response) {
       console.log(response);
@@ -88,7 +112,8 @@ $(document).ready(function () {
                 <td class="text-nowrap text-center">${item[8]}</td>
                 <td class="text-nowrap text-center">${item[9]}</td>
                 <td class="text-nowrap text-center">${item[10]}</td>
-                <td class="text-nowrap text-center">${item[11]}</td>`;
+                <td class="text-nowrap text-center">${item[11]}</td>
+                <td class="text-nowrap text-center">${item[12]}</td>`;
                 if(item[12] == null){
                   template += `<td class="text-nowrap text-center"></td>
                   `;
@@ -121,15 +146,15 @@ $(document).ready(function () {
           idnegocio = datos[0];
           $("#nombre").val(datos[1]);
           $("#giro").val(datos[2]);
-          $("#calle_numero").val(datos[3]);
-          $("#colonia").val(datos[4]);
-          $("#localidad").val(datos[5]);
-          $("#municipio").val(datos[6]);
-          $("#estado").val(datos[7]);
-          $("#pais").val(datos[8]);
-          $("#telefono").val(datos[9]);
-          $("#impresora").val(datos[10]);
-          $("#dueno").val(datos[11]);
+          $("#cp").val(datos[3]);
+          $("#calle_numero").val(datos[4]);
+          $("#colonia").val(datos[5]);
+          $("#Tlocalidad").val(datos[6]);
+          $("#municipio").val(datos[7]);
+          $("#estado").val(datos[8]);
+          $("#telefono").val(datos[10]);
+          $("#impresora").val(datos[11]);
+          $("#dueno").val(datos[12]);
           editar = true;
         $("#modalForm").modal("show");
         } else {

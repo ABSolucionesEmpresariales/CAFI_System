@@ -116,7 +116,13 @@ privilegios("Superiores");
                 <h5 class="importante">Teléfono:</h5>
                 <input id="telefono" class="form form-control" type="text" onkeypress="return check(event)" name="Ttelefono" placeholder="Teléfono" autocomplete="new-password" required><br>
               </div>
-           
+              <div class="col-lg-6">
+                <h5 class="importante">Acceso:</h5>
+                <select class="form form-control" id="acceso" name="Sacceso" required>
+                  <option value="ManagerAB">Manager</option>
+                  <option value="CEOAB">CEO</option>
+                </select> <br>
+              </div>
             </div>
             <div class="d-block d-lg-flex row">
               <div class="col-lg-6">
@@ -126,7 +132,7 @@ privilegios("Superiores");
                   <option value="I">Inactiva</option>
                 </select> <br>
               </div>
-              <div id="divpass" class="col-lg-6">
+              <div id="divpass" class="col-lg-6 ocultar">
                 <h5 class="importante">Contraseña:</h5>
                 <input id="contrasena" class="form form-control" type="password" name="Pcontrasena" placeholder="Contraseña" autocomplete="new-password" required><br>
               </div>
