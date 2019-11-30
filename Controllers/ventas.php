@@ -22,7 +22,32 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     $conexion = new Models\Conexion();
     $datos = array($_POST['estado'], $_POST['venta']);
     $consulta = "UPDATE venta SET estado_venta = ? WHERE idventas = ?";
-    echo $conexion->consultaPreparada($datos, $consulta, 1, "ss", false,null);
+    $reult = $conexion->consultaPreparada($datos, $consulta,1, "ss", false,null);
+    if($reult == 1){
+        $datos = array($_POST['venta']);
+        $cosulta_venta = "SELECT forma_pago FROM venta WHERE idventas = ?";
+        $reult6 = $conexion->consultaPreparada($datos,$cosulta_venta,2, "s", false,null);
+        if($reult6[0][0] == 'Crédito'){
+            $cosulta_estado = "UPDATE adeudos SET estado = ? WHERE venta = ?";
+            $datos_estado = array($_POST['estado'],$_POST['venta']);
+            $reult2 = $conexion->consultaPreparada($datos_estado,$cosulta_estado,1,"ss", false,null);
+            if( $reult2 == 1){
+                $datos = array($_POST['venta']);
+                $consulta = "SELECT idadeudos FROM adeudos WHERE venta = ?";
+                $reult_adeuso = $conexion->consultaPreparada($datos,$consulta,2,"s", false,null);
+                $id_adeudo = $reult_adeuso[0][0];
+                $datos_abono = array($_POST['estado'],$id_adeudo);
+                $consulta_abonos = "UPDATE abono SET estado = ? WHERE adeudos_id = ?";
+                echo $reult_adeuso = $conexion->consultaPreparada($datos_abono,$consulta_abonos,1,"ss", false,null);
+            }else{
+                echo $reult2;
+            }
+        }else{
+            echo $reult;
+        }
+    }else{
+        echo $reult;
+    }
     $venta = array($_POST['venta']);
     if ($_POST['estado'] === "A") {
         actualizarStock($venta, $conexion, "+");
