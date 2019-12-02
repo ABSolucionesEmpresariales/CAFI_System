@@ -469,7 +469,7 @@ $(document).on('click','.beliminar',function(){
     var cont = 0;
     var cont2 = 0;
     var filas = "";
-    var datostabla = [];
+      
   
      $('#tbcarrito').find("tr").find(".datos").each(function() {
        if(cont == 4){

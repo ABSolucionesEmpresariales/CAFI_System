@@ -110,8 +110,7 @@ $(document).ready(function () {
                 <td class="text-nowrap text-center">${item[8]}</td>
                 <td class="text-nowrap text-center">${item[9]}</td>
                 <td class="text-nowrap text-center">${item[10]}</td>
-                <td class="text-nowrap text-center">${item[11]}</td>
-                <td class="text-nowrap text-center">${item[12]}</td>`;
+                <td class="text-nowrap text-center">${item[11]}</td>`;
                 if(item[12] == null){
                   template += `<td class="text-nowrap text-center"></td>
                   `;

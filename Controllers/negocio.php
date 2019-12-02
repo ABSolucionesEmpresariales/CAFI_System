@@ -31,7 +31,7 @@ if (
         //respuesta al front
     } else {
         $consulta = "UPDATE negocios SET nombre = ?, giro = ?, cp = ?, calle_numero = ?, colonia = ?, localidad = ?, municipio = ?, 
-    estado = ?, pais = ?, telefono = ?,impresora = ?, dueno = ?, usuarioab = ? WHERE idnegocios = ?";
+        estado = ?, pais = ?, telefono = ?,impresora = ?, dueno = ?, usuarioab = ? WHERE idnegocios = ?";
         $tipo_datos = "sssssssssssssi";
         echo $conexion->consultaPreparada($datos_negocio, $consulta, 1, $tipo_datos, true,null);
         //respuesta al front
