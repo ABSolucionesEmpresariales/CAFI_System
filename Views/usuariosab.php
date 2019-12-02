@@ -61,20 +61,21 @@ privilegios("Superiores");
                     <th class="text-nowrap text-center" onclick="sortTable(0)"><input class="check" type="checkbox" value="si"></th>
                   <?php } ?>
                   <th class="text-nowrap text-center" onclick="sortTable(1)">Email</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(2)">RFC</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(3)">Nombre</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(4)">Codigo Postal</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(5)">Calle</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(6)">Colonia</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(7)">Localidad</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(8)">Municipio</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(9)">Estado</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(10)">Pais</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(11)">Telefono</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(12)">Fecha nacimiento</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(13)">Sexo</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(14)">Acceso</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(15)">Entrada</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(2)">Verificación</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(3)">RFC</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(4)">Nombre</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(5)">Codigo Postal</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(6)">Calle</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(7)">Colonia</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(8)">Localidad</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(9)">Municipio</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(10)">Estado</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(11)">Pais</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(12)">Telefono</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(13)">Fecha nacimiento</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(14)">Sexo</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(15)">Acceso</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(16)">Entrada</th>
                 </tr>
               </thead>
               <tbody id="cuerpo"></tbody>
@@ -175,14 +176,14 @@ privilegios("Superiores");
                   <option value="Chiapas">Chiapas</option>
                   <option value="Chihuahua">Chihuahua</option>
                   <option value="Ciudad de México">Ciudad de México</option>
-                  <option value="Coahuila">Coahuila</option>
+                  <option value="Coahuila de Zaragoza">Coahuila</option>
                   <option value="Colima">Colima</option>
                   <option value="Durango">Durango</option>
+                  <option value="México">México</option>
                   <option value="Guanajuato">Guanajuato</option>
                   <option value="Guerrero">Guerrero</option>
                   <option value="Hidalgo">Hidalgo</option>
                   <option value="Jalisco">Jalisco</option>
-                  <option value="México">México</option>
                   <option value="Michoacán de Ocampo">Michoacán</option>
                   <option value="Morelos">Morelos</option>
                   <option value="Nayarit">Nayarit</option>
@@ -197,7 +198,7 @@ privilegios("Superiores");
                   <option value="Tabasco">Tabasco</option>
                   <option value="Tamaulipas">Tamaulipas</option>
                   <option value="Tlaxcala">Tlaxcala</option>
-                  <option value="Veracruz">Veracruz</option>
+                  <option value="Veracruz de Ignacio de la Llave">Veracruz</option>
                   <option value="Yucatán">Yucatán</option>
                   <option value="Zacatecas">Zacatecas</option>
                 </select> <br>

@@ -145,7 +145,7 @@ if (
 
 if (isset($_POST['tabla'])) {
   $conexion = new Models\Conexion();
-  $consulta = "SELECT persona.email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento, sexo,acceso,entrada_sistema,negocio 
+  $consulta = "SELECT persona.email,verificado,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento, sexo,acceso,entrada_sistema,negocio 
     FROM persona INNER JOIN usuarioscafi ON persona.email=usuarioscafi.email WHERE eliminado != ? 
     AND usuarioscafi.acceso != ? AND usuarioscafi.negocio = ?";
   $datos = array(1, "CEO", $_SESSION['negocio']);
