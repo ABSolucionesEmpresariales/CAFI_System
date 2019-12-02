@@ -10,7 +10,7 @@ $(document).ready(function () {
     $.ajax({
       url: "../Controllers/login.php",
       type: "POST",
-      data:"accesoPersona=accesoPersona",
+      data: "accesoPersona=accesoPersona",
 
       success: function (response) {
         acceso = response;
@@ -21,7 +21,15 @@ $(document).ready(function () {
           success: function (response) {
             let datos = JSON.parse(response);
             let template = "";
+            let color;
             $.each(datos, function (i, item) {
+              if (item[1] === "0") {
+                item[1] = "Realizada";
+                color = "text-success";
+              } else {
+                item[1] = "No realizada"
+                color = "text-danger";
+              }
               template += `<tr>`;
               if (acceso == 'CEO') {
                 template += `
@@ -29,7 +37,7 @@ $(document).ready(function () {
               }
               template += `
                       <td class="text-nowrap text-center email">${item[0]}</td>
-                      <td class="text-nowrap text-center">${item[1]}</td>
+                      <td class="text-nowrap text-center ${color}">${item[1]}</td>
                       <td class="text-nowrap text-center">${item[2]}</td>
                       <td class="text-nowrap text-center">${item[3]}</td>
                       <td class="text-nowrap text-center">${item[4]}</td>
@@ -43,6 +51,7 @@ $(document).ready(function () {
                       <td class="text-nowrap text-center">${item[12]}</td>
                       <td class="text-nowrap text-center">${item[13]}</td>
                       <td class="text-nowrap text-center">${item[14]}</td>
+                      <td class="text-nowrap text-center">${item[15]}</td>
                   `;
             });
             $("#cuerpo").html(template);
@@ -67,7 +76,7 @@ $(document).ready(function () {
           $("#estado").val(data.estado);
 
         });
-    }else{
+    } else {
       $("#localidad").empty();
       $("#Tlocalidad").val('');
       $("#municipio").val('');
@@ -99,14 +108,14 @@ $(document).ready(function () {
         $("#email").focus();
       } else if (response == "exceso") {
         $("#mensaje").text("Limite de usuarios exedido");
-        $("#mensaje").css("color","red");
+        $("#mensaje").css("color", "red");
         $("#nombre").focus();
       } else {
         $("#mensaje").text("Registro fallido");
         $("#mensaje").css("color", "red");
         $("#email").focus();
       }
-      
+
       obtenerAcceso();
     });
     e.preventDefault();
@@ -133,20 +142,20 @@ $(document).ready(function () {
         console.log(datos);
         $(".ocultar").hide();
         $("#email").val(datos[1]);
-        $("#rfc").val(datos[2]);
-        $("#nombre").val(datos[3]);
-        $("#cp").val(datos[4]);
-        $("#calle_numero").val(datos[5]);
-        $("#colonia").val(datos[6]);
-        $("#Tlocalidad").val(datos[7]);
-        $("#municipio").val(datos[8]);
-        $("#estado").val(datos[9]);
-        $("#pais").val(datos[10]);
-        $("#telefono").val(datos[11]);
-        $("#fecha_nacimiento").val(datos[12]);
-        $("#sexo").val(datos[13]);
-        $("#acceso").val(datos[14]);
-        $("#entrada_sistema").val(datos[15]);
+        $("#rfc").val(datos[3]);
+        $("#nombre").val(datos[4]);
+        $("#cp").val(datos[5]);
+        $("#calle_numero").val(datos[6]);
+        $("#colonia").val(datos[7]);
+        $("#Tlocalidad").val(datos[8]);
+        $("#municipio").val(datos[9]);
+        $("#estado").val(datos[10]);
+        $("#pais").val(datos[11]);
+        $("#telefono").val(datos[12]);
+        $("#fecha_nacimiento").val(datos[13]);
+        $("#sexo").val(datos[14]);
+        $("#acceso").val(datos[15]);
+        $("#entrada_sistema").val(datos[16]);
         $("#contrasena").val("null");
         editar = true;
         $("#modalForm").modal("show");
@@ -180,47 +189,47 @@ $(document).ready(function () {
       */
 
 
-    $(document).on('click','.eliminar',function(){
-        swal({
-            title: "Esta seguro que desea eliminar ?",
-            text: "Esta accion eliminara los datos!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Si, eliminarlo!",
-            closeOnConfirm: false
-          },
-          function(){
-            var valores = "";
-            $('#cuerpo').children("tr").find("td").find("input").each(function () {
-                if($(this).prop('checked')){
-                    valores += $(this).parents("tr").find("td").eq(1).text() + "?";
-                }
-            }); 
-            valores += "0";
-            result = valores.split("?");
-            console.log(result);
-             $.ajax({
-              url: "../Controllers/trabajadorCafi.php",
-              type: "POST",
-              data: {'array': JSON.stringify(result)},
-      
-              success: function (response) {
-                if(typeof (response)!= '0'){
-                  swal("Exito!", 
-                  "Sus datos han sido eliminados.",
-                   "success");
-                }else{
-                  swal("Error!", 
-                  "Ups, algo salio mal.",
-                   "warning");
-                }
-              }
-            }); 
-              $('.check').prop("checked", false);
-              obtenerAcceso();
-          });
-    });
+  $(document).on('click', '.eliminar', function () {
+    swal({
+      title: "Esta seguro que desea eliminar ?",
+      text: "Esta accion eliminara los datos!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Si, eliminarlo!",
+      closeOnConfirm: false
+    },
+      function () {
+        var valores = "";
+        $('#cuerpo').children("tr").find("td").find("input").each(function () {
+          if ($(this).prop('checked')) {
+            valores += $(this).parents("tr").find("td").eq(1).text() + "?";
+          }
+        });
+        valores += "0";
+        result = valores.split("?");
+        console.log(result);
+        $.ajax({
+          url: "../Controllers/trabajadorCafi.php",
+          type: "POST",
+          data: { 'array': JSON.stringify(result) },
+
+          success: function (response) {
+            if (typeof (response) != '0') {
+              swal("Exito!",
+                "Sus datos han sido eliminados.",
+                "success");
+            } else {
+              swal("Error!",
+                "Ups, algo salio mal.",
+                "warning");
+            }
+          }
+        });
+        $('.check').prop("checked", false);
+        obtenerAcceso();
+      });
+  });
 
   $(document).on('click', '.check', function () {
 

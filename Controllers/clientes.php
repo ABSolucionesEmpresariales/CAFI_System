@@ -5,7 +5,7 @@ require_once '../Models/Email.php';
 
 if (isset($_POST['tabla'])) {
     $conexion = new Models\Conexion();
-    $consulta_tabla = "SELECT p.email,p.rfc,p.nombre,p.cp,p.calle_numero,p.colonia,p.localidad,p.municipio,
+    $consulta_tabla = "SELECT p.email,verificado,p.rfc,p.nombre,p.cp,p.calle_numero,p.colonia,p.localidad,p.municipio,
     p.estado,p.pais,p.telefono,p.fecha_nacimiento,p.sexo,c.credito,c.plazo_credito,c.limite_credito,c.usuariocafi 
     FROM persona p INNER JOIN cliente c WHERE p.email = c.email AND c.negocio = $_SESSION[negocio] AND p.eliminado = 0";
     $jsonstring = json_encode($conexion->obtenerDatosDeTabla($consulta_tabla));

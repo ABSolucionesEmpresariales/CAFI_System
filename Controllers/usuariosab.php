@@ -82,7 +82,7 @@ if (
 } else if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
   //obtencion del json para pintar la tabla
   $conexion = new Models\Conexion();
-  $consulta = "SELECT persona.email,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento,
+  $consulta = "SELECT persona.email,verificado,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento,
     sexo,acceso,entrada_sistema FROM persona INNER JOIN usuariosab ON persona.email=usuariosab.email WHERE eliminado != ?";
   $datos = array(1);
 
