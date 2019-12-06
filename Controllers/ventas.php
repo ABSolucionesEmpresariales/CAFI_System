@@ -59,13 +59,14 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     $conexion = new Models\Conexion();
 
     $consulta = "SELECT producto.codigo_barras,imagen,nombre,marca,modelo,color,talla_numero,unidad_medida,precio_venta,stock FROM producto INNER JOIN stock ON codigo_barras = producto
-    WHERE CONCAT_WS(' ',nombre,marca,modelo,color,descripcion,talla_numero,codigo_barras) LIKE ? AND negocio = ?";
+    WHERE CONCAT_WS(' ',nombre,marca,modelo,color,descripcion,talla_numero,codigo_barras) LIKE ? AND negocio = ? AND eliminado != ?";
 
     $datos = array(
         "%" . $_POST['searchproducto'] . "%",
-        $_SESSION['negocio']
+        $_SESSION['negocio'],
+        1
     );
-    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ss", false,null));
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "sss", false,null));
 } else if (isset($_POST['searchcliente'])) {
 
     $conexion = new Models\Conexion();
