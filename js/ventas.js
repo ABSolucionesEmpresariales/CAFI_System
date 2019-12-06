@@ -499,12 +499,11 @@ $(document).on('click','.beliminar',function(){
     $.each(carrito, function (i, item) {
       totalglobal +=  parseInt(item[4]);
       template += `<tr id="${item[0]}">
-      <td><button class="beliminar btn btn-danger">Eliminar</button></td>
-      <td class="datos">${item[0]}</td>
-      <td class="datos">${item[1]}</td>
-      <td class="datos">${item[2]}</td>
-      <td class="datos">${item[3]}</td>
-      <td class="datos">${item[4]}</td>
+      <td><button class="beliminar btn btn-danger text-center font-weight-bold">-</button></td>
+      <td class="datos text-center">${item[1]}</td>
+      <td class="datos text-center">$${item[2]}</td>
+      <td class="datos text-center">${item[3]}</td>
+      <td class="datos text-center">$${item[4]}</td>
    </tr>`;
     });
     $('#tbcarrito').html(template);

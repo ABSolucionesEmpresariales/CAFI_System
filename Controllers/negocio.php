@@ -10,7 +10,7 @@ if(isset($_SESSION['email'])){
 }
 var_dump($_POST['Tnombre'] , $_POST['Sgiro'] , $_POST['Tcp'] , $_POST['Tcalle_numero'] , $_POST['Tcolonia'] , $_POST['DLlocalidad'] , $_POST['Tmunicipio'] , $_POST['Sestado'] , $_POST['Ttelefono'] , $_POST['Simpresora'] , $_POST['Sdueno'] , $_POST['idnegocios']);
 if (
-    !empty($_POST['Tnombre']) && !empty($_POST['Sgiro']) && isset($_POST['Tcp']) && !empty($_POST['Tcalle_numero']) && !empty($_POST['Tcolonia'])
+    !empty($_POST['Tnombre']) && !empty($_POST['Sgiro']) && isset($_POST['Tcp']) && !empty($_POST['Tcalle_numero']) && !isset($_POST['Tcp']) && !empty($_POST['Tcolonia'])
     && !empty($_POST['DLlocalidad']) && !empty($_POST['Tmunicipio']) && !empty($_POST['Sestado'])
     && isset($_POST['Ttelefono']) && !empty($_POST['Simpresora']) && !empty($_POST['Sdueno']) && isset($_POST['idnegocios'])
 ) {
@@ -21,6 +21,7 @@ if (
         $_POST['Sgiro'],
         $_POST['Tcp'],
         $_POST['Tcalle_numero'],
+        $_POST['Tcp'],
         $_POST['Tcolonia'],
         $_POST['DLlocalidad'],
         $_POST['Tmunicipio'],
