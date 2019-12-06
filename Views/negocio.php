@@ -25,137 +25,15 @@ privilegios("Todos");
     $sel = "negocios";
     include("../Controllers/NavbarAB.php")
     ?>
-    <!-- Modal -->
-    <div class="modal fade" id="modalForm" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header administrador">
-                    <button type="button" class="bclose close" data-dismiss="modal">
-                        <span aria-hidden="true">×</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                </div>
-
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    <p class="statusMsg"></p>
-                    <form class="form-group" id="formulario">
-                        <div id="mensaje" style="text-align: center; margin: 10px; font-weight: bold;"></div>
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <h5 class="importante">Nombre:</h5>
-                                <input id="nombre" class="form form-control" onkeypress="return check(event)" type="text" name="Tnombre" placeholder="Nombre" autocomplete="new-password" required>
-                            </div>
-                            <div class="col-lg-4">
-                                <h5 class="importante">Giro:</h5>
-                                <select class="form form-control" id="giro" name="Sgiro" required>
-                                    <option value="">Elegir</option>
-                                    <option value="Tienda">Tienda de ropa</option>
-                                    <option value="Zapateria">Zapateria</option>
-                                    <option value="Otros">Otros</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-4">
-                                <h5 class="importante">Domicilio:</h5>
-                                <input id="calle_numero" class="form form-control" onkeypress="return check(event)" type="text" name="Tcalle_numero" placeholder="Domicilio" autocomplete="new-password" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <h5 class="general">Codigo Postal:</h5>
-                                <input id="cp" class="form form-control" onkeypress="return check(event)" type="text" name="Tcp" placeholder="Código postal" autocomplete="new-password"><br>
-                            </div>
-                            <div class="col-lg-4">
-                                <h5 class="importante">Colonia:</h5>
-                                <input id="colonia" class="form form-control" onkeypress="return check(event)" type="text" name="Tcolonia" placeholder="Colonia" autocomplete="new-password" required>
-                            </div>
-                            <div class="col-lg-4">
-                                <h5 class="importante">Localidad:</h5>
-                                <input id="Tlocalidad" list="localidad" class="form form-control" name="DLlocalidad" onkeypress="return check(event)" autocomplete="new-password" required>
-                                <datalist id="localidad">
-                                </datalist><br>
-                            </div>
-                            <div class="col-lg-4">
-                                <h5 class="importante">Municipio:</h5>
-                                <input id="municipio" class="form form-control" type="text" onkeypress="return check(event)" name="Tmunicipio" placeholder="Municipio" autocomplete="new-password" required>
-                            </div>
-                            <div class="col-lg-4">
-                                <h5 class="importante">Estado:</h5>
-                                <select class="form form-control" id="estado" name="Sestado" required>
-                                    <option value="">Elegir</option>
-                                    <option value="Aguascalientes">Aguascalientes</option>
-                                    <option value="Baja California">Baja California </option>
-                                    <option value="Baja California Sur">Baja California Sur</option>
-                                    <option value="Campeche">Campeche</option>
-                                    <option value="Chiapas">Chiapas</option>
-                                    <option value="Chihuahua">Chihuahua</option>
-                                    <option value="Coahuila">Coahuila</option>
-                                    <option value="Colima">Colima</option>
-                                    <option value="Durango">Durango</option>
-                                    <option value="Guanajuato">Guanajuato</option>
-                                    <option value="Guerrero">Guerrero</option>
-                                    <option value="Hidalgo">Hidalgo</option>
-                                    <option value="Jalisco">Jalisco</option>
-                                    <option value="México">México</option>
-                                    <option value="Michoacán">Michoacán</option>
-                                    <option value="Morelos">Morelos</option>
-                                    <option value="Nayarit">Nayarit</option>
-                                    <option value="Nuevo León">Nuevo León</option>
-                                    <option value="Oaxaca">Oaxaca</option>
-                                    <option value="Puebla">Puebla</option>
-                                    <option value="Querétaro">Querétaro</option>
-                                    <option value="Quintana Roo">Quintana Roo</option>
-                                    <option value="San Luis Potosí">San Luis Potosí</option>
-                                    <option value="Sinaloa">Sinaloa</option>
-                                    <option value="Sonora">Sonora</option>
-                                    <option value="Tabasco">Tabasco</option>
-                                    <option value="Tamaulipas">Tamaulipas</option>
-                                    <option value="Tlaxcala">Tlaxcala</option>
-                                    <option value="Veracruz">Veracruz</option>
-                                    <option value="Yucatán">Yucatán</option>
-                                    <option value="Zacatecas">Zacatecas</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-4">
-                                <h5 class="general">Telefono:</h5>
-                                <input id="telefono" class="form form-control" type="text" onkeypress="return check(event)" name="Ttelefono" placeholder="Telefono" autocomplete="new-password">
-                            </div>
-                            <div class="col-lg-4">
-                                <h5 class="importante">Impresora:</h5>
-                                <select class="form form-control" id="impresora" name="Simpresora" required>
-                                    <option value="A">Activo</option>
-                                    <option value="I">Inactivo</option>
-                                </select>
-                            </div>
-                            <div>
-                                <h5 class="importante">Dueño:</h5>
-                                <select name="Sdueno"  class="form form-control" id="clientes" required>
-                                </select>
-                            </div>
-                        </div>
-
-                        <input type="submit" class="bclose mt-3 btn bg-dark text-primary btn-lg btn-block" value="Guardar">
-                    </form>
-                    <div id="tableHolder" class="row justify-content-center">
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><!-- Modal -->
-
     <div class="contenedor container-fluid">
         <div class="row align-items-start">
             <div class="col-md-12">
                 <div id="tableContainer" class="d-block col-lg-12">
                     <div class="input-group mb-2">
-                        <button class="agregar d-lg-none btn btn-info col-12 mb-3 p-3" data-toggle="modal" data-target="#modalForm">Agregar</button>
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-search"></i></div>
                         </div>
                         <input class="form-control col-12 col-lg-4" type="text" id="busqueda" onkeypress="return check(event)" onkeyup="busqueda()" placeholder="Buscar..." title="Type in a name" value="">
-                        <button class="d-none d-lg-flex btn btn-primary ml-3 agregar" data-toggle="modal" data-target="#modalForm">Agregar</button>
                     </div>
                     <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                         <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">

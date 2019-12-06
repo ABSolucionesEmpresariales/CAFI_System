@@ -54,22 +54,23 @@ privilegios("Superiores");
                     <th class="text-nowrap text-center" onclick="sortTable(0)"><input class="check" type="checkbox" value="si"></th>
                   <?php } ?>
                   <th class="text-nowrap text-center" onclick="sortTable(1)">EMAIL</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(2)">RFC</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(3)">Nombre</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(4)">Codigo Postal</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(5)">Calle</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(6)">Colonia</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(7)">Localidad</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(8)">Municipio</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(9)">Estado</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(10)">Pais</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(11)">Telefono</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(12)">Fecha nacimiento</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(13)">Sexo</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(14)">Credito</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(15)">Plazo a credito</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(16)">Limite a credito</th>
-                  <th class="text-nowrap text-center" onclick="sortTable(17)">Usuario</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(2)">Verificación</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(3)">RFC</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(4)">Nombre</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(5)">Codigo Postal</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(6)">Calle</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(7)">Colonia</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(8)">Localidad</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(9)">Municipio</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(10)">Estado</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(11)">Pais</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(12)">Telefono</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(13)">Fecha nacimiento</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(14)">Sexo</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(15)">Credito</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(16)">Plazo a credito</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(17)">Limite a credito</th>
+                  <th class="text-nowrap text-center" onclick="sortTable(18)">Usuario</th>
                 </tr>
               </thead>
               <tbody id="cuerpo">
