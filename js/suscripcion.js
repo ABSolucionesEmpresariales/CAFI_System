@@ -3,9 +3,9 @@ $(document).ready(function () {
   obtenerTabla();
   function obtenerTabla() {
     $.ajax({
-      url: "../Controllers/moduloab.php",
+      url: "../Controllers/suscripcion.php",
       type: "POST",
-      data: "tabla=suscripciones",
+      data: "tabla=tabla",
       success: function (response) {
 
        let datos = JSON.parse(response);
