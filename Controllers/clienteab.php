@@ -1,6 +1,6 @@
 <?php
 include_once '../Models/Conexion.php';
-require_once '../Models/Email.php';
+include_once '../Models/Email.php';
 
 if (
   !empty($_POST['Temail']) && isset($_POST['Trfc'])  && !empty($_POST['Tnombre'])  && isset($_POST['Tcp'])  && isset($_POST['Tcalle_numero'])
@@ -33,6 +33,8 @@ if (
     $datos_usuariocafi = array(
       $_POST['Temail'],
       "CEO",
+      "fijo",
+      NULL,
       $_POST['Sentrada_sistema'],
       password_hash($_POST['Pcontrasena'], PASSWORD_DEFAULT),
       NULL
@@ -41,8 +43,8 @@ if (
 
     $consulta_persona = "INSERT INTO persona (email,vkey,verificado,rfc,nombre,cp,calle_numero,colonia,localidad,municipio,estado,pais,telefono,fecha_nacimiento,sexo,eliminado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     $tipo_datos_persona = "ssissssssssssssi";
-    $consulta_usuariocafi = "INSERT INTO usuarioscafi (email,acceso,entrada_sistema,contrasena,negocio) VALUES (?,?,?,?,?)";
-    $tipo_datos_usuariocafi = "sssss";
+    $consulta_usuariocafi = "INSERT INTO usuarioscafi (email,acceso,tipo,fecha_vencimiento,entrada_sistema,contrasena,negocio) VALUES (?,?,?,?,?,?,?)";
+    $tipo_datos_usuariocafi = "sssssss";
     $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false, null);
     if ($result == 1) {
       echo $conexion->consultaPreparada($datos_usuariocafi, $consulta_usuariocafi, 1, $tipo_datos_usuariocafi, false, 3);
