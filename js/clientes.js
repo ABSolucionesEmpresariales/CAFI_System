@@ -11,9 +11,9 @@ $(document).ready(function () {
       success: function (response) {
         acceso = response;
         $.ajax({
-          url: "../Controllers/moduloab.php",
+          url: "../Controllers/clienteab.php",
           type: "POST",
-          data: "tabla=clientes",
+          data: "tabla=tabla",
 
           success: function (response) {
             console.log(response);

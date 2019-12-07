@@ -1,0 +1,17 @@
+[
+    {
+        "id":496115156,
+        "nickname":"TETE1622005",
+        "password":"qatest6500",
+        "site_status":"active",
+        "email":"test_user_24976299@testuser.com"
+    },
+    
+    {
+        "id":496115629,
+        "nickname":"TETE1741214",
+        "password":"qatest4999",
+        "site_status":"active",
+        "email":"test_user_98112940@testuser.com"
+    }
+]
