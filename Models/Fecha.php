@@ -35,7 +35,12 @@ class Fecha
             $descomposicion = explode("-", $this->fecha);
             $year = intval($descomposicion[0]);
             $mes = intval($descomposicion[1]);
-            $mes = $mes + 1;
+            if ($mes < 12) {
+                $mes = $mes + 1;
+            } else {
+                $year = $year + 1;
+                $mes = 1;
+            }
             $dias = intval($descomposicion[2]);
             $número_dias = cal_days_in_month(CAL_GREGORIAN, $mes, $year);
 
@@ -45,7 +50,6 @@ class Fecha
                 $fecha_vencimiento = $year . "-" . $mes . "-" . $dias;
                 $fecha_vencimiento;
             }
-                
         } else {
             $descomposicion = explode("-", $this->fecha);
             $year = intval($descomposicion[0]);
