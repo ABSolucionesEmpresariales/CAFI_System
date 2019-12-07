@@ -88,9 +88,6 @@ privilegios("Todos");
                         <h6 >Abono:</h6>
                         <input class="inabono form form-control"  name="Tabono" onkeypress="return check(event)" type="text" placeholder="" autocomplete="off"><br>
                         <div id="divefectivo">
-                        <h6 >Cantidad Recibida/Pago:</h6>
-                        <input class="tpago form form-control"  type="text" name="Tcantidad" onkeypress="return check(event)" placeholder="" autocomplete="off"><br>
-                        </div>
 
                     <input type="submit" class=" btn btn-dark text-danger font-weight-bold btn-large btn-block" value="Abonar">
                     </form>
