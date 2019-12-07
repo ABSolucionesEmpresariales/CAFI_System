@@ -23,8 +23,8 @@ privilegios("Todos");
 
 <body>
     <?php
-    //$sel = "venta";
-    //include("../Controllers/NavbarCafi.php");
+    $sel = "venta";
+    include("../Controllers/NavbarCafi.php");
     ?>
     <div class="contenedor container-fluid">
         <div class="row justify-content-between">
