@@ -186,8 +186,8 @@ $(document).ready(function () {
       data:"productosBarras=productosBarras",
 
       success: function (response) {
+        console.log(response);
         let datos = JSON.parse(response);
-        console.log(datos);
         let template =`<option value = ''>Elejir</option>`;
         $.each(datos, function (i, item) {
           for(var j = 0; j <= item.length; j++){
@@ -197,7 +197,7 @@ $(document).ready(function () {
           }
           template+=`<option value="${item[0]}">${item[1]} ${item[2]} ${item[3]} ${item[4]}</option>`;
         });
-        $('#selectpro').html(template);
+        $('#Sproducto').html(template);
       }
     });
   }

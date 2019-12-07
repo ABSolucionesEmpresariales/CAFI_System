@@ -111,35 +111,50 @@ if (
 } else if (isset($_POST['array'])) {
     $conexion = new Models\Conexion();
     $data = json_decode($_POST['array']);
-    $tipo_datos = "ii";
-    $consulta = "UPDATE compras SET eliminado = ? WHERE idcompras = ?";
-    for ($i = 0; $i < count($data); $i++) {
-        if ($data[$i] != '0') {
-            $datos = array(1, $data[$i]);
-            $result = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
-            if($result == 1){
-                $consulta2 = "UPDATE cpp SET eliminado = ? WHERE compra = ?";
-                $datos2 = array(1, $data[$i]);
-                $result = $conexion->consultaPreparada($datos2, $consulta2, 1,'ii', false,null);
+    if($data == ["0"]){
+        echo 0;
+    }else{
+        $data = json_decode($_POST['array']);
+        $tipo_datos = "ii";
+        $consulta = "UPDATE compras SET eliminado = ? WHERE idcompras = ?";
+        for ($i = 0; $i < count($data); $i++) {
+            if ($data[$i] != '0') {
+                $idcompra = $data[$i];
+                $datos = array(1, $data[$i]);
+                $result = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
                 if($result == 1){
-                    $datos_adeudo = array($data[$i]);
-                    $consulta_adeudo_compra = "SELECT idcpp FROM cpp WHERE compra = ?";
-                    $id_adeudo = json_encode($conexion->consultaPreparada($datos_adeudo,$consulta_adeudo_compra,2,'i',false,null));
-                    $result3 = json_decode($id_adeudo);
-                    $datos3 = array(1,$result3[0][0]);
-                    $consulta3 = "UPDATE abono_compras SET eliminado = ? WHERE compra = ?";
-                    $result = $conexion->consultaPreparada($datos3, $consulta3, 1,'ii', false,null);  
+                    $consulta2 = "UPDATE cpp SET eliminado = ? WHERE compra = ?";
+                    $datos2 = array(1, $data[$i]);
+                    $result = $conexion->consultaPreparada($datos2, $consulta2, 1,'ii', false,null);
+                    if($result == 1){
+                        $datos_adeudo = array($data[$i]);
+                        $consulta_adeudo_compra = "SELECT idcpp FROM cpp WHERE compra = ?";
+                        $id_adeudo = json_encode($conexion->consultaPreparada($datos_adeudo,$consulta_adeudo_compra,2,'i',false,null));
+                        $result3 = json_decode($id_adeudo);
+                        $datos3 = array(1,$idcompra);
+                        $consulta3 = "UPDATE abono_compras SET eliminado = ? WHERE compra = ?";
+                        $result = $conexion->consultaPreparada($datos3, $consulta3, 1,'ii', false,null);  
+                    }
                 }
             }
         }
+        echo $result;
     }
-    echo $result;
 } else if (isset($_POST['estado']) && isset($_POST['idcompras'])) {
-
     $conexion = new Models\Conexion();
     $consulta = "UPDATE compras SET estado = ? WHERE idcompras = ?";
     $datos = array($_POST['estado'], $_POST['idcompras']);
-    echo $conexion->consultaPreparada($datos, $consulta, 1, "ss", false,null);
+    $result =  $conexion->consultaPreparada($datos, $consulta, 1, "ss", false,null);
+    if($result == 1){
+        $consulta_cpp = "UPDATE cpp INNER JOIN compras on compras.idcompras = cpp.compra SET cpp.estado = ? WHERE compras.idcompras = ?";
+        $result =  $conexion->consultaPreparada($datos, $consulta_cpp, 1, "ss", false,null);
+        if($result == 1){
+            $consulta_anonos_compra = "UPDATE abono_compras INNER JOIN cpp ON cpp.compra = abono_compras.compra SET abono_compras.estado = ? WHERE abono_compras.compra = ?";
+            $result = $conexion->consultaPreparada($datos, $consulta_anonos_compra, 1, "ss", false,null);
+        }
+
+    }
+     echo $result;
 }
 
 if(isset($_POST['producto'])){

@@ -117,7 +117,6 @@ $(document).ready(function () {
 });
 
   $(document).on('click','.check',function(){
-
     if($(this).prop('checked')){
         $('#cuerpo').children("tr").find("td").find("input").each(function () {
                  $(this).prop("checked", true);
@@ -125,7 +124,6 @@ $(document).ready(function () {
     }else{
         $('#cuerpo').children("tr").find("td").find("input").each(function () {
                  $(this).prop("checked", false);
-            
         });    
     }
 });

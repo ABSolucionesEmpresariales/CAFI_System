@@ -295,6 +295,7 @@ $(document).on('click','.bconcepto',function(){
             }); 
             valores += "0";
             result = valores.split("?");
+            console.log(result);
     
              $.ajax({
               url: "../Controllers/compras.php",
@@ -303,7 +304,7 @@ $(document).on('click','.bconcepto',function(){
       
               success: function (response) {
                 console.log(response);
-                if(typeof (response) != '0'){
+                if(response != '0'){
                   swal("Exito!", 
                   "Sus datos han sido eliminados.",
                    "success");

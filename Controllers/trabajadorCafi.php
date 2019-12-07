@@ -38,6 +38,7 @@ if (
 
   $conexion = new Models\Conexion();
   $email = new Models\Email();
+  
   $datos_verificar = array($_POST['Temail']);
   $consulta_verificar = "SELECT * FROM persona WHERE email = ?";
   $respuesta = json_encode($conexion->consultaPreparada($datos_verificar, $consulta_verificar, 2, 's', false, null));
@@ -50,13 +51,16 @@ if (
   if ($_POST['accion'] == 'false') {
     $trabajadores = 0;
     $trabajadores_extra = 0;
+
     $datos_suscripcion = array($_SESSION['negocio']);
-    $datos_contar = array($_SESSION['negocio'], "A");
     $consulta_usuarios = "SELECT paquete,usuario_extra FROM suscripcion WHERE negocio = ?";
-    $consulta_contar = "SELECT COUNT(negocio) FROM usuarioscafi WHERE negocio = ? AND entrada_sistema = ?";
     $result_usuarios = $conexion->consultaPreparada($datos_suscripcion, $consulta_usuarios, 2, 'i', false, null);
     $trabajadores_extra = (int) $result_usuarios[0][1];
+
+    $datos_contar = array($_SESSION['negocio'],0);
+    $consulta_contar = "SELECT COUNT(negocio) FROM usuarioscafi WHERE negocio = ? AND eliminado = ?";
     $result_contar = $conexion->consultaPreparada($datos_contar, $consulta_contar, 2, 'is', false, null);
+
     if ($result_usuarios[0][0] == 1) {
       $trabajadores = 2 + $trabajadores_extra;
     } else if ($result_usuarios[0][0] == 2) {

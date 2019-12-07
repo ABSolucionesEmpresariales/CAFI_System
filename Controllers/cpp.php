@@ -12,17 +12,8 @@ if(isset($_POST['Tabono']) && isset($_POST['Tcantidad']) && isset($_POST['idcpp'
     $conexion = new Models\Conexion();
     $fecha = new Models\Fecha();
     //var_dump($_POST['Tabono'], $_POST['Tcantidad'], $_POST['idcpp'], $_POST['totaldeuda']);
-    $datos_abono = array(
-        NULL,
-        "A",
-        $fecha->getFecha(),
-        $_POST['Tabono'],
-        $_POST['idcpp'],
-        $_SESSION['email'],
-        $_SESSION['negocio'],
-        0
-    );
-/*     var_dump(        
+
+/*      var_dump(        
     NULL,
     "A",
     $fecha->getFecha(),
@@ -30,7 +21,17 @@ if(isset($_POST['Tabono']) && isset($_POST['Tcantidad']) && isset($_POST['idcpp'
     $_POST['idcpp'],
     $_SESSION['email'],
     $_SESSION['negocio'],
-    0); */
+    0);   */
+    $datos_abono = array(
+        NULL,
+        "A",
+        $fecha->getFecha(),
+        $_POST['Tabono'],
+        $_POST['idcompra'],
+        $_SESSION['email'],
+        $_SESSION['negocio'],
+        0
+    );
     $consulta_abonos = "INSERT INTO abono_compras (idpago,estado,fecha_abono,abono,compra,usuariocafi,
     negocio,eliminado) VALUES(?,?,?,?,?,?,?,?)";
     $consulta_adeudo = "UPDATE cpp SET totaldeuda = ? WHERE idcpp = ?";
@@ -68,7 +69,7 @@ if(isset($_POST['tabla'])){
 
 if(isset($_POST['tabla_abonos_compras'])){
     $conexion = new Models\Conexion();
-    $consulta_tabla = "SELECT * FROM abono_compras WHERE eliminado = 0";
+    $consulta_tabla = "SELECT * FROM abono_compras WHERE eliminado = 0 AND negocio = $_SESSION[negocio]";
     $jsonstring = json_encode($conexion->obtenerDatosDeTabla($consulta_tabla));
     echo $jsonstring;
 }
@@ -78,12 +79,13 @@ if(isset($_POST['Sestado']) && isset($_POST['idpago'])){
     $consulta="";
     $datos = array($_POST['Sestado'],$_SESSION['email'],$_POST['idpago']);
     $tipo_datos = "ssi";
+   // var_dump($datos);
     if($_POST['Sestado'] == "A"){
-        $consulta = "UPDATE cpp INNER JOIN abono_compras ON cpp.idcpp = abono_compras.compra 
+        $consulta = "UPDATE cpp INNER JOIN abono_compras ON cpp.compra = abono_compras.compra 
         SET cpp.totaldeuda = (cpp.totaldeuda-abono_compras.abono),abono_compras.estado = ? ,abono_compras.usuariocafi = ?
         WHERE abono_compras.idpago = ?";
     }else{
-        $consulta = "UPDATE cpp INNER JOIN abono_compras ON cpp.idcpp = abono_compras.compra 
+        $consulta = "UPDATE cpp INNER JOIN abono_compras ON cpp.compra = abono_compras.compra 
         SET cpp.totaldeuda = (cpp.totaldeuda+abono_compras.abono),abono_compras.estado = ? ,abono_compras.usuariocafi = ?
         WHERE abono_compras.idpago = ?";
     }
@@ -99,16 +101,30 @@ if(isset($_POST['Sestado']) && isset($_POST['idpago'])){
     $conexion = new Models\Conexion();
     $data = json_decode($_POST['array']);
     $tipo_datos = "ii";
-    if($_POST['tabla_afectada'] === "abono_compra"){
-        $consulta = "UPDATE abono_compras SET eliminado = ? WHERE idpago = ?";
-    }else if($_POST['tabla_afectada'] === "cpp"){
-        $consulta = "UPDATE cpp SET eliminado = ? WHERE idcpp = ?";
-    }
+
+    $conexion = new Models\Conexion();
+    $data = json_decode($_POST['array']);
+    $tipo_datos = "isi";
+    
     for ($i = 0; $i < count($data); $i++) {
         if ($data[$i] != '0') {
-            $datos = array(1, $data[$i]);
-            $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
+                $consulta = "UPDATE abono_compras SET eliminado = ?,estado = ? WHERE idpago = ?";
+                $datos = array(1,"I",$data[$i]);
+                $result = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
+                if( $result == 1){
+                    $consulta2 = "UPDATE cpp INNER JOIN abono_compras ON abono_compras.compra = cpp.compra 
+                    SET cpp.totaldeuda = (cpp.totaldeuda+abono_compras.abono), abono_compras.usuariocafi = ?
+                    WHERE abono_compras.idpago = ?";
+
+                    $datos2 = array($_SESSION['email'],$data[$i]);
+                    $result2 = $conexion->consultaPreparada($datos2, $consulta2, 1,"si", false, null);
+                    $datos3 = array("A",0.00);
+                    $consulta3="UPDATE adeudos SET estado = ? WHERE totaldeuda != ?";
+                    $tipos3 = "si";
+                    $conexion->consultaPreparada($datos3, $consulta3,1, $tipos3, false, null);
+                }
+
         }
     }
-    echo $result;
+    echo $result2; 
 }

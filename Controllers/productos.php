@@ -251,11 +251,10 @@ if(isset($_POST['Tstock2']) && isset($_POST['Sproducto'])){
 
 if(isset($_POST['productosBarras'])){
     $conexion = new Models\Conexion();
-    $datos = array($_SESSION['negocio']);
-    $tipo = "i";
-    $sql = "SELECT p.codigo_barras,p.nombre,p.color,p.marca,p.talla_numero FROM producto p, stock s WHERE p.codigo_barras = s.producto AND S.negocio = ?";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false,null));
-    echo $jsonstring;
+    $datos = array($_SESSION['negocio'],0);
+    $tipo = "ii";
+    $sql = "SELECT p.codigo_barras,p.nombre,p.color,p.marca,p.talla_numero FROM producto p, stock s WHERE p.codigo_barras = s.producto AND s.negocio = ? AND s.eliminado = ?";
+    echo $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false,null));
 }
 
 if(isset($_POST['negocioActual'])){
@@ -290,11 +289,11 @@ if(isset($_POST['categorias'])){
 if (isset($_POST['array'])) {
     $conexion = new Models\Conexion();
     $data = json_decode($_POST['array']);
-    $tipo_datos = "is";
-    $consulta = "UPDATE stock SET eliminado = ? WHERE producto = ? ";
+    $tipo_datos = "iss";
+    $consulta = "UPDATE stock SET eliminado = ? WHERE producto = ? AND negocio = ?";
     for ($i = 0; $i < count($data); $i++) {
         if ($data[$i] != '0') {
-            $datos = array(1, $data[$i]);
+            $datos = array(1, $data[$i],$_SESSION['negocio']);
             $result =  $respuesta = $conexion->consultaPreparada($datos, $consulta, 1, $tipo_datos, false,null);
         }
     }

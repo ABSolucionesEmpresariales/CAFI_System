@@ -28,6 +28,7 @@ $(document).ready(function () {
         console.log(datos[1]);
         console.log(datos[0]);
         idcpp = datos[0];
+        idcompra = datos[4];
         total = datos[1].split("$") ;
         totaldeuda = total[1];
         console.log(totaldeuda);
@@ -104,7 +105,7 @@ $(document).ready(function () {
 
     function enviarDatos(){
         $.post("../Controllers/cpp.php",$("#formulario").serialize() + 
-        "&accion=" + accion +"&idcpp=" + idcpp +"&totaldeuda=" + totaldeuda +"&cambio="+ cambio,function(response){
+        "&accion=" + accion +"&idcpp=" + idcpp +"&totaldeuda=" + totaldeuda +"&cambio="+ cambio +"&idcompra="+idcompra,function(response){
             if(response == 1){
                 swal({
                     title: 'Exito',
