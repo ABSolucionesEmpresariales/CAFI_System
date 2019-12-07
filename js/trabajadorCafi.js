@@ -5,6 +5,7 @@ $(document).ready(function () {
   let idnego = "";
   let acceso = "";
   obtenerAcceso();
+  tablaExtra();
 
   function obtenerAcceso() {
     $.ajax({
@@ -23,6 +24,11 @@ $(document).ready(function () {
             let template = "";
             let color;
             $.each(datos, function (i, item) {
+              for(var j = 0; j <= item.length; j++){
+                if(item[j] == 'null' || item[j] === null){
+                  item[j] = "";
+                }
+              }
               if (item[1] === "0") {
                 item[1] = "Realizada";
                 color = "text-success";
@@ -52,6 +58,8 @@ $(document).ready(function () {
                       <td class="text-nowrap text-center">${item[13]}</td>
                       <td class="text-nowrap text-center">${item[14]}</td>
                       <td class="text-nowrap text-center">${item[15]}</td>
+                      <td class="text-nowrap text-center">${item[16]}</td>
+                      <td class="text-nowrap text-center">${item[17]}</td>
                   `;
             });
             $("#cuerpo").html(template);
@@ -74,7 +82,6 @@ $(document).ready(function () {
           $("#localidad").html(template);
           $("#municipio").val(data.municipio);
           $("#estado").val(data.estado);
-
         });
     } else {
       $("#localidad").empty();
@@ -82,7 +89,28 @@ $(document).ready(function () {
       $("#municipio").val('');
       $("#estado").val('');
     }
+  });
 
+  $('#cp2').keyup(function (e) {
+    let codigopostal = $('#cp2').val();
+    if (codigopostal.length === 5) {
+      fetch('https://api-codigos-postales.herokuapp.com/v2/codigo_postal/' + codigopostal)
+        .then(res => res.json())
+        .then(data => {
+          let template = '';
+          for (i = 0; i < data.colonias.length; i++) {
+            template += ` <option value="${data.colonias[i]}">`;
+          }
+          $("#localidad2").html(template);
+          $("#municipio2").val(data.municipio);
+          $("#estado2").val(data.estado);
+        });
+    } else {
+      $("#localidad2").empty();
+      $("#Tlocalidad2").val('');
+      $("#municipio2").val('');
+      $("#estado2").val('');
+    }
   });
 
   $(document).on('click', '.agregar', function () {
@@ -115,8 +143,49 @@ $(document).ready(function () {
         $("#mensaje").css("color", "red");
         $("#email").focus();
       }
-
       obtenerAcceso();
+    });
+    e.preventDefault();
+  });
+
+  function tablaExtra(){
+    $.ajax({
+      url: "../Controllers/trabajadorCafi.php",
+      type: "POST",
+      data: "tablaExtra=tablaExtra",
+
+      success: function (response) {
+        let datos = JSON.parse(response);
+        let template = "";
+        $.each(datos, function (i, item) {
+          template += `<tr>
+                  <td class="text-nowrap text-center pagar">${item[0]}</td>
+                  <td class="text-nowrap text-center">${item[1]}</td>
+                  <td class="text-nowrap text-center">${item[2]}</td>
+                  <td class="text-nowrap text-center"><button class="agregar d-none d-lg-flex btn btn-primary ml-3">Pagar</button></td>
+              `;
+        });
+        $("#cuerpoExtras").html(template);
+      }
+    });
+  }
+
+  $("#agregarUsuarioExtra").submit(function (e) {
+    $.post("../Controllers/trabajadorCafi.php", $("#agregarUsuarioExtra").serialize() + '&extra=extra', function (response) {
+      $("#mensaje").css("display", "block");
+      console.log(response);
+      if (response == "1") {
+        $("#2mensaje").text("Registro Exitoso");
+        $("#2mensaje").css("color", "green");
+        $("#agregarUsuarioExtra").trigger("reset");
+        $("#email2").focus();
+      }else {
+        $("#mensaje2").text("Registro fallido");
+        $("#mensaje2").css("color", "red");
+        $("#email2").focus();
+      }
+      obtenerAcceso();
+      tablaExtra();
     });
     e.preventDefault();
   });
@@ -142,20 +211,19 @@ $(document).ready(function () {
         console.log(datos);
         $(".ocultar").hide();
         $("#email").val(datos[1]);
-        $("#rfc").val(datos[3]);
-        $("#nombre").val(datos[4]);
-        $("#cp").val(datos[5]);
-        $("#calle_numero").val(datos[6]);
-        $("#colonia").val(datos[7]);
-        $("#Tlocalidad").val(datos[8]);
-        $("#municipio").val(datos[9]);
-        $("#estado").val(datos[10]);
-        $("#pais").val(datos[11]);
-        $("#telefono").val(datos[12]);
-        $("#fecha_nacimiento").val(datos[13]);
-        $("#sexo").val(datos[14]);
-        $("#acceso").val(datos[15]);
-        $("#entrada_sistema").val(datos[16]);
+        $("#rfc").val(datos[5]);
+        $("#nombre").val(datos[6]);
+        $("#cp").val(datos[7]);
+        $("#calle_numero").val(datos[8]);
+        $("#colonia").val(datos[9]);
+        $("#Tlocalidad").val(datos[10]);
+        $("#municipio").val(datos[11]);
+        $("#estado").val(datos[12]);
+        $("#pais").val(datos[13]);
+        $("#telefono").val(datos[14]);
+        $("#fecha_nacimiento").val(datos[15]);
+        $("#sexo").val(datos[16]);
+        $("#acceso").val(datos[17]);
         $("#contrasena").val("null");
         editar = true;
         $("#modalForm").modal("show");
@@ -243,6 +311,10 @@ $(document).ready(function () {
 
       });
     }
+  });
+
+  $('#agregarUsuarioExtra').submit(function(e){
+    e.preventDefault();
   });
 
 
