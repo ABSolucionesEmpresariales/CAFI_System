@@ -8,7 +8,8 @@ if (
   && isset($_POST['Tcolonia'])  && !empty($_POST['DLlocalidad'])  && isset($_POST['Tmunicipio'])  && isset($_POST['Sestado']) && !empty($_POST['Ttelefono'])
   && isset($_POST['Dfecha_nacimiento']) && isset($_POST['Ssexo']) && !empty($_POST['Sacceso'])   && !empty($_POST['Pcontrasena']) && isset($_POST['accion'])
 ) {
-  function editar(){
+  function editar()
+  {
     $conexion = new Models\Conexion();
     $datos_usuarioab = array(
       $_POST['Trfc'],
@@ -37,7 +38,7 @@ if (
 
   $conexion = new Models\Conexion();
   $email = new Models\Email();
-  
+
   $datos_verificar = array($_POST['Temail']);
   $consulta_verificar = "SELECT * FROM persona WHERE email = ?";
   $respuesta = json_encode($conexion->consultaPreparada($datos_verificar, $consulta_verificar, 2, 's', false, null));
@@ -55,7 +56,7 @@ if (
     $consulta_usuarios = "SELECT paquete FROM suscripcion WHERE negocio = ?";
     $result_usuarios = $conexion->consultaPreparada($datos_suscripcion, $consulta_usuarios, 2, 'i', false, null);
 
-    $datos_contar = array($_SESSION['negocio'],0);
+    $datos_contar = array($_SESSION['negocio'], 0);
     $consulta_contar = "SELECT COUNT(usuarioscafi.negocio) FROM usuarioscafi INNER JOIN persona 
     ON persona.email = usuarioscafi.email WHERE usuarioscafi.negocio = ? AND persona.eliminado = ?";
     $result_contar = $conexion->consultaPreparada($datos_contar, $consulta_contar, 2, 'is', false, null);
@@ -107,15 +108,28 @@ if (
       if ($result == 1) {
         // $email->enviarEmailConfirmacion();
         echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false, null);
-      } 
-    }else {
-        echo "exceso";
       }
-    
-      //respuesta al front
-    
+    } else {
+      echo "exceso";
+    }
+
+    //respuesta al front
+
   } else {
-        editar();
+    editar();
+  }
+} else if (!empty($_POST['emailusuariocafi']) && !empty($_POST['tiempo']) && !empty($_POST['pago'])) {
+
+  $conexion = new Models\Conexion();
+  $fecha = new Models\Fecha();
+  $datos = array(
+    $fecha->getFechaVencimientoSuscripcion($_POST['tiempo']),
+    "A",
+    $_POST['emailusuariocafi']
+  );
+  if ($_POST['pago'] === "SUCCESS") {
+    $consulta = "UPDATE usuarioscafi  SET fecha_vencimiento = ? , entrada_sistema = ? WHERE email = ?";
+    echo  $conexion->consultaPreparada($datos, $consulta, 1, "ssss", false, null);
   }
 }
 
@@ -153,7 +167,7 @@ if (isset($_POST['array'])) {
   }
 }
 
-if(isset($_POST['extra'])){
+if (isset($_POST['extra'])) {
   $conexion = new Models\Conexion();
   $email = new Models\Email();
   $datos_persona = array(
@@ -192,16 +206,14 @@ if(isset($_POST['extra'])){
   if ($result == 1) {
     // $email->enviarEmailConfirmacion();
     echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false, null);
-  } 
-  
+  }
 }
 
-if(isset($_POST['tablaExtra'])){
+if (isset($_POST['tablaExtra'])) {
   $conexion = new Models\Conexion();
-  $datos = array("I",$_SESSION['negocio'],"extra",0);
+  $datos = array("I", $_SESSION['negocio'], "extra", 0);
   $consulta = "SELECT u.email,p.nombre,u.entrada_sistema FROM usuarioscafi u 
   INNER JOIN persona p ON p.email = u.email WHERE u.entrada_sistema = ? 
   AND u.negocio = ? AND u.tipo = ? AND p.eliminado = ?";
-  echo json_encode($conexion->consultaPreparada($datos, $consulta,2, "sisi", false, null));
-
+  echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "sisi", false, null));
 }
