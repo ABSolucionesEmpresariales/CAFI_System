@@ -26,7 +26,12 @@ privilegios("Todos");
     //$sel = "venta";
     //include("../Controllers/NavbarCafi.php");
     ?>
-    <div class="contenedor container-fluid" style="top: 20px;">
+    <div class="container-fluid">
+        <div class="row justify">
+            <button class="btn btn-primary col-2">Inicio</button>
+        </div>
+    </div>
+    <div class="contenedor container-fluid">
         <div class="row justify-content-between">
             <div class="input-group mb-2 col-3">
                 <div class="input-group-prepend">
@@ -34,12 +39,11 @@ privilegios("Todos");
                 </div>
                 <input autofocus style="border-color: gray;" onkeypress="return check(event)" class="form-control col-12" type="search" id="busquedap" autocomplete="off" placeholder="Buscar Producto...">
             </div>
-            <!-- <button class="btn btn-primary col-1">CheckbCredito</button>
+            <button class="btn btn-primary col-1">CheckbCredito</button>
             <button class="btn btn-danger col-1">CheckbFacturar</button>
-            <button class="btn btn-primary col-1">Clientes</button> -->
+            <button class="btn btn-primary col-1">Clientes</button>
             <p class="border text-white text-align-right col-2">Nombre del Cliente?</p>
             <p class="border text-white text-align-right col-2">Nombre del Trabajador</p>
-            <button value="Inicio" class="col-12 col-lg-2 m-1 bpago3 btn btn-primary text-white font-weight-bold" type="button">Inicio</button>
         </div>
         <div class="row">
             <div class="col-12 col-lg-12 p-3 order-2 order-lg-1">
@@ -66,8 +70,8 @@ privilegios("Todos");
                 </div>
                 <div class="d-block d-lg-flex justify-content-between p-2" style="background:  #262626; border-radius: 7px;">
                     <button value="Efectivo" class="col-12 col-lg-2 m-1 bpago1 btn btn-primary text-white font-weight-bold" type="button">Pagar</button>
-                    <button value="Crédito" class="col-12 col-lg-2 m-1 bpago2 btn btn-primary text-white font-weight-bold" type="button">Crédito</button>
-                    <button value="Tarjeta" class="col-12 col-lg-2 m-1 bpago3 btn btn-primary text-white font-weight-bold" type="button">Tarjeta</button>
+                    <!-- <button value="Crédito" class="col-12 col-lg-2 m-1 bpago2 btn btn-primary text-white font-weight-bold" type="button">Crédito</button>
+                    <button value="Tarjeta" class="col-12 col-lg-2 m-1 bpago3 btn btn-primary text-white font-weight-bold" type="button">Tarjeta</button> -->
                     <div id="divtotal" class="text-white text-right font-weight-bold p-1 col-6">
                         <h1 class="totalcarrito font-weight-bold"></h1>
                     </div>
@@ -167,8 +171,8 @@ privilegios("Todos");
                         <input class="tanticipo form form-control" type="text" onkeypress="return check(event)" placeholder="$" autocomplete="off"><br>
                     </div>
                     <div class="mb-1 text-center">
-<!--                         <button class="btn btn-primary">Efectivo</button>
-                        <button class="btn btn-danger">Tarjeta</button> -->
+                        <button class="btn btn-primary">Efectivo</button>
+                        <button class="btn btn-danger">Tarjeta</button>
                     </div>
                     <div id="divpago" class="mt-4">
                         <h6 class="font-weight-bold">Cantidad Recibida/Pago:</h6>
