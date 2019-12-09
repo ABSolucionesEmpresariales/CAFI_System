@@ -3,7 +3,7 @@ session_start();
 include_once '../Models/Conexion.php';
 include_once '../Models/Fecha.php';
 if (!empty($_POST['Spaquete']) && isset($_POST['Susuario_extra'])  && isset($_POST['Tmonto'])
-    && isset($_POST['idsuscripcion'])
+    && isset($_POST['idsuscripcion']) && isset($_POST['Snegocio'])
 ) {
     $conexion = new Models\Conexion();
     $fecha = new Models\Fecha();
