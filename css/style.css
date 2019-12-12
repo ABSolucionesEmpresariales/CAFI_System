@@ -245,8 +245,8 @@ nav.fixed{
     /*TABLAS VENTA*/
     .table-wrapper
     {
-        width: 416px;
-        height: 350px;
+        width: 1330px;
+        height: 390px;
         overflow: auto;
     }
     .table-wrapper-productos{
@@ -265,9 +265,11 @@ nav.fixed{
     /*TABLAS VENTA*/
     .table-wrapper
     {
-        width: 536px;
-        height: 350px;
+        width: 1330px;
+        height: 390px;
         overflow: auto;
+
+        background-color: white;
     }
     .table-wrapper-productos{
         width: 765px;

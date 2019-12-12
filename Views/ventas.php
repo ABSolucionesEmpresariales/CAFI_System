@@ -32,13 +32,15 @@ privilegios("Todos");
                 <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fa fa-search"></i></div>
                 </div>
-                <input autofocus style="border-color: gray;" onkeypress="return check(event)" class="form-control col-12" type="search" id="busquedap" autocomplete="off" placeholder="Buscar Producto...">
+                <input list="productos" autofocus style="border-color: gray;" onkeypress="return check(event)" class="form-control col-12" type="input" id="busquedap" autocomplete="off" placeholder="Buscar Producto...">
+                <datalist id="productos">
+
+                </datalist>
             </div>
             <!-- <button class="btn btn-primary col-1">CheckbCredito</button>
             <button class="btn btn-danger col-1">CheckbFacturar</button>
             <button class="btn btn-primary col-1">Clientes</button> -->
-            <p class="border text-white text-align-right col-2">Nombre del Cliente?</p>
-            <p class="border text-white text-align-right col-2">Nombre del Trabajador</p>
+            <p class="border text-white text-align-right col-2">Bienvenido: <?php echo $_SESSION['nombre']; ?></p>
             <button value="Inicio" class="col-12 col-lg-2 m-1 bpago3 btn btn-primary text-white font-weight-bold" type="button">Inicio</button>
         </div>
         <div class="row">
@@ -141,22 +143,22 @@ privilegios("Todos");
                             </div>
                             <input autocomplete="off" style="border-color: gray;" class="form-control col-12 col-lg-4" type="search" id="busquedac" placeholder="Buscar Cliente...">
                         </div>
-                        
+
                         <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
                             <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th class="text-nowrap text-center"></th>
-                                    <th class="text-nowrap text-center">Email</th>
-                                    <th class="text-nowrap text-center">Nombre</th>
-                                    <th class="text-nowrap text-center">Telefono</th>  
-                                    <th class="text-nowrap text-center">Credito</th>
-                                    <th class="text-nowrap text-center">Adeudos</th>
-                                </tr>
-                            </thead>
-                            <tbody id="cuerpotcliente">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="text-nowrap text-center"></th>
+                                        <th class="text-nowrap text-center">Email</th>
+                                        <th class="text-nowrap text-center">Nombre</th>
+                                        <th class="text-nowrap text-center">Telefono</th>
+                                        <th class="text-nowrap text-center">Credito</th>
+                                        <th class="text-nowrap text-center">Adeudos</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cuerpotcliente">
 
-                            </tbody>
+                                </tbody>
                             </table>
                         </div>
 
@@ -167,7 +169,7 @@ privilegios("Todos");
                         <input class="tanticipo form form-control" type="text" onkeypress="return check(event)" placeholder="$" autocomplete="off"><br>
                     </div>
                     <div class="mb-1 text-center">
-<!--                         <button class="btn btn-primary">Efectivo</button>
+                        <!--                         <button class="btn btn-primary">Efectivo</button>
                         <button class="btn btn-danger">Tarjeta</button> -->
                     </div>
                     <div id="divpago" class="mt-4">

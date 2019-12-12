@@ -2,7 +2,7 @@
 session_start();
 include_once '../Models/Conexion.php';
 include_once '../Models/Fecha.php';
-
+//respuesta de tabla de las ventas realizadas
 if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
 
     $conexion = new Models\Conexion();
@@ -10,6 +10,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     $consulta = "SELECT idventas,descuento,total,pago,cambio,forma_pago,fecha,hora,estado_venta,usuariocafi
     FROM venta WHERE negocio = ? AND eliminado != ?";
     echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ii", false,null));
+    //respuesta del concepto de la venta
 } else if (isset($_POST['idventa']) && !isset($_POST['forma_pago'])) {
 
     $conexion = new Models\Conexion();
@@ -17,6 +18,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     $consulta = "SELECT cantidad,nombre,imagen,marca,color,unidad_medida,talla_numero,subtotal FROM producto INNER JOIN
     detalle_venta ON codigo_barras = producto INNER JOIN venta ON idventas = idventa WHERE idventa = ? ";
     echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "s", false,null));
+
 } else if (isset($_POST['venta']) && isset($_POST['estado'])) {
 
     $conexion = new Models\Conexion();
@@ -54,15 +56,27 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     } else if ($_POST['estado'] === 'I') {
         actualizarStock($venta, $conexion, "-");
     }
-} else if (isset($_POST['searchproducto'])) {
+} else if (isset($_POST['combo']) && $_POST['combo'] === "combo") {
 
     $conexion = new Models\Conexion();
 
-    $consulta = "SELECT producto.codigo_barras,imagen,nombre,marca,modelo,color,talla_numero,unidad_medida,precio_venta,stock FROM producto INNER JOIN stock ON codigo_barras = producto
-    WHERE CONCAT_WS(' ',nombre,marca,modelo,color,descripcion,talla_numero,codigo_barras) LIKE ? AND negocio = ? AND eliminado != ?";
+    $consulta = "SELECT producto.codigo_barras,nombre,marca,color,talla_numero,unidad_medida,precio_venta FROM producto 
+    INNER JOIN stock ON codigo_barras = producto WHERE negocio = ? AND eliminado != ?";
 
     $datos = array(
-        "%" . $_POST['searchproducto'] . "%",
+        $_SESSION['negocio'],
+        1
+    );
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "ss", false,null));
+    //obtencion de los datos del producto selecionado del datalist
+}else if(!empty($_POST["codigobarrasproducto"])){
+    $conexion = new Models\Conexion();
+
+    $consulta = "SELECT producto.codigo_barras,nombre,marca,color,talla_numero,unidad_medida,precio_venta FROM producto 
+    INNER JOIN stock ON codigo_barras = producto WHERE  producto.codigo_barras = ? AND negocio = ? AND eliminado != ?";
+
+    $datos = array(
+        $_POST["codigobarrasproducto"],
         $_SESSION['negocio'],
         1
     );

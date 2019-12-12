@@ -162,7 +162,7 @@ if (isset($_POST['tablacantidades'])) {
 
     echo $conexion->consultaPreparada($datos, $consulta, 1, "si", false,null);
 
-}else if (isset($_POST['array'])) {
+}else if (isset($_POST['array'])){
     $conexion = new Models\Conexion();
     $data = json_decode($_POST['array']);
     $tipo_datos = "ii";
