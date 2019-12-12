@@ -10,7 +10,7 @@ if (isset($_POST['Pcontrasena']) && isset($_POST['Temail'])) {
         $_POST['Temail']
     );
 
-    $consulta = "SELECT email,acceso,entrada_sistema,contrasena,negocio FROM usuarioscafi WHERE BINARY email = ?";
+    $consulta = "SELECT persona.email,acceso,entrada_sistema,contrasena,negocio,nombre FROM usuarioscafi INNER JOIN persona ON persona.email = usuarioscafi.email WHERE BINARY persona.email = ?";
     $tipo_datos = "s";
     $respuesta = json_encode($conexion->consultaPreparada($login, $consulta, 2, $tipo_datos, false, null));
     $result = json_decode($respuesta);
@@ -40,13 +40,14 @@ if (isset($_POST['Pcontrasena']) && isset($_POST['Temail'])) {
             }
         }
     }
-    //para el back
 
+//si el usuario y contrasena es correcta
     if ($respuesta != "[]" && $result[0][2] === "A") {
         $_SESSION['email'] = $result[0][0];
         $_SESSION['acceso'] = $result[0][1];
         $_SESSION['entrada_sistema'] = $result[0][2];
-        if (isset($negocio)) {
+        $_SESSION['nombre'] =  $result[0][5];
+        if (!empty($negocio)) {
             $_SESSION['negocio'] = $negocio;
         }
         token();
