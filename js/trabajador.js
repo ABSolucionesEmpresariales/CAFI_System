@@ -53,6 +53,7 @@ $(document).ready(function () {
         type: "POST",
         data: "tabla=tabla",
         success: function (response) {
+          
   
          let datos = JSON.parse(response);
           let template = "";
