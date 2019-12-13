@@ -72,7 +72,7 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
 }else if(!empty($_POST["codigobarrasproducto"])){
     $conexion = new Models\Conexion();
 
-    $consulta = "SELECT producto.codigo_barras,nombre,marca,color,talla_numero,unidad_medida,precio_venta FROM producto 
+    $consulta = "SELECT producto.codigo_barras,nombre,marca,color,talla_numero,unidad_medida,precio_venta,descuento FROM producto 
     INNER JOIN stock ON codigo_barras = producto WHERE  producto.codigo_barras = ? AND negocio = ? AND eliminado != ?";
 
     $datos = array(

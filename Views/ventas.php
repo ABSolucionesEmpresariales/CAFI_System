@@ -51,13 +51,13 @@ privilegios("Todos");
                         <table class="scroll table table-hover table-striped table-light">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th class="text-nowrap text-center"></th>
                                     <th class="text-nowrap text-center">Codigo</th>
                                     <th class="text-nowrap text-center">Producto</th>
                                     <th class="text-nowrap text-center">Precio</th>
                                     <th class="text-nowrap text-center">Descuento</th>
                                     <th class="text-nowrap text-center">Cant</th>
                                     <th class="text-nowrap text-center">Subtotal</th>
+                                    <th class="text-nowrap text-center"></th>
                                 </tr>
                             </thead>
                             <tbody id="tbcarrito">
