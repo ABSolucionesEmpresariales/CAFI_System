@@ -206,6 +206,7 @@ $(document).ready(function () {
     subtotal = costo[1] * cantidad;
     $(this).parents("tr").find("td").eq(5).html("$" + subtotal);
     console.log(subtotal);
+    
 
   });
 
@@ -231,6 +232,7 @@ $(document).ready(function () {
           .find("td").find("input")
           .each(function () {
             encontrado = true;
+
             //Esto suma el valor que ya existe con el nuevo This valor + 1
             $(this).val(parseInt($(this).val()) + 1).trigger("change") + "?";
           });
