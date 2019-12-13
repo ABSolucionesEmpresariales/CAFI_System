@@ -69,7 +69,7 @@ $(document).ready(function () {
       }
     });
   }
-  
+
   function convertirJsonCarritoenArray() {
     var carrito = sessionStorage.getItem("info");
     var carrito = JSON.parse(carrito);
@@ -185,22 +185,76 @@ $(document).ready(function () {
   });
 
   $("#busquedap").keydown(function (event) {
-    if (event.which === 8) {
+    if (event.which === 13) {
+      agregarProducto();
+      $("#busquedap").val("");
+    } else if (event.which === 8) {
       $("#busquedap").val("");
     }
   });
 
-  //optener la informacion del producto seleccionado
-  $(document).on("change", "#busquedap", function () {
-    if ($("#busquedap").val().length === 13) {
+  $(document).on("change", ".tcantidad", function () {
+    let cantidad = $(this).val();
+    let costo;
+    let subtotal;
+    $(this)
+      .parents("tr")
+      .find(".precios")
+      .each(function () {
+        costo = $(this).html().split("$");
+      });
+    subtotal = costo[1] * cantidad;
+    $(this).parents("tr").find("td").eq(5).html("$" + subtotal);
+    console.log(subtotal);
+
+  });
+
+
+
+
+  function agregarProducto() {
+    if ($("#busquedap").val().length > 10) {
       const postData = {
         codigobarrasproducto: $("#busquedap").val()
       };
       $.post("../Controllers/ventas.php", postData, function (response) {
-        console.log(response);
+        let result = JSON.parse(response);
+        if (result[0][4] == null || result[0][4] == "null") {
+          talla = "";
+        } else {
+          var talla = "T:";
+        }
+        encontrado = "";
+        val = "";
+        $("#tbcarrito")
+          .find("#" + result[0][0])
+          .find("td").find("input")
+          .each(function () {
+            encontrado = true;
+            //Esto suma el valor que ya existe con el nuevo This valor + 1
+            $(this).val(parseInt($(this).val()) + 1).trigger("change") + "?";
+          });
+
+        if (encontrado != true) {
+          template = `<tr id= "${result[0][0]}" >
+            <td class="datos text-center">${result[0][0]}</td>
+            <td class="datos text-center">${result[0][1]} ${result[0][2]} ${result[0][3]} ${talla} ${result[0][4]}</td>
+            <td class="datos precios text-center">$${result[0][6]}</td>
+            <td class="datos text-center">$${result[0][7]}</td>
+            <td class="datos text-center"><input class="tcantidad" type="number" min = "1" value="1"></td>
+            <td class="datos text-center">$${result[0][6]}</td>
+            <td><button class="beliminar btn btn-danger">Eliminar</button></td>
+         </tr>`;
+          $("#tbcarrito").append(template);
+        }
+        //obtenerDatosCarrito();
       });
     }
+  }
 
+  //optener la informacion del producto seleccionado
+  $(document).on("change", "#busquedap", function () {
+    agregarProducto();
   });
 
   //boton descuento en pesos
@@ -431,68 +485,6 @@ $(document).ready(function () {
     $(this)
       .parents("tr")
       .remove();
-    obtenerDatosCarrito();
-  });
-
-  //boton agregar al concepto venta
-  $(document).on("click", ".bagregardv", function () {
-    let encontrado = false;
-    let cantidadinput = $(this)
-      .parents("tr")
-      .find("#incantidad")
-      .val();
-    var valores = "";
-    let val = "";
-
-    $(this)
-      .parents("tr")
-      .find(".datos")
-      .each(function () {
-        valores += $(this).html() + "?";
-      });
-
-    valores += cantidadinput;
-    result = valores.split("?");
-
-    $("#tbcarrito")
-      .find("#" + result[1])
-      .find("td")
-      .each(function () {
-        encontrado = true;
-        val += $(this).html() + "?";
-      });
-    row = val.split("?");
-
-    let costo = parseFloat(result[2]);
-    let cantidad = parseInt(result[3]);
-    let subtotal = cantidad * costo;
-
-    if (encontrado === false) {
-      template = `<tr id="${result[1]}">
-    <td><button class="beliminar btn btn-danger">Eliminar</button></td>
-    <td class="datos d-none">${result[1]}</td>
-    <td class="datos">${result[0]}</td>
-    <td class="datos">${result[2]}</td>
-    <td class="datos">${cantidad}</td>
-    <td class="datos">${subtotal}</td>
- </tr>`;
-    } else {
-      $("#tbcarrito")
-        .find("#" + result[1])
-        .remove();
-      cantidad += parseInt(row[4]);
-      subtotal = cantidad * costo;
-      template = `<tr id="${result[1]}">
-    <td><button class="beliminar btn btn-danger">Eliminar</button></td>
-    <td class="datos d-none">${result[1]}</td>
-    <td class="datos">${result[0]}</td>
-    <td class="datos">${result[2]}</td>
-    <td class="datos">${cantidad}</td>
-    <td class="datos">${subtotal}</td>
- </tr>`;
-    }
-
-    $("#tbcarrito").append(template);
     obtenerDatosCarrito();
   });
 
