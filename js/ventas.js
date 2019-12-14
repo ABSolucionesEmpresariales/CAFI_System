@@ -101,7 +101,8 @@ $(document).ready(function () {
           type: "warning"
         });
       } else {
-        cambio = valor - totalglobal;
+        cambio = pago - totalglobal;
+        cambio = cambio.toFixed(2);
         camiostring = cambio.toString();
         swal(
           {
@@ -138,6 +139,7 @@ $(document).ready(function () {
       anticipo = parseFloat($(".tanticipo").val());
       if (pago >= anticipo && anticipo < totalglobal) {
         cambio = pago - anticipo;
+        cambio = cambio.toFixed(2);
         camiostring = cambio.toString();
         swal(
           {
@@ -277,6 +279,7 @@ $(document).ready(function () {
       valor = $(".indescuento").val();
       descuento = valor = parseFloat(valor);
       totalventa = totalventa - valor;
+      totalventa = totalventa.toFixed(2);
       stringtotal = totalventa.toString();
 
       swal(
@@ -318,6 +321,7 @@ $(document).ready(function () {
       descuento = descuento / 100;
       totalventa = descuento;
       totalventa = totalglobal - totalventa;
+      totalventa = totalventa.toFixed(2);
       stringtotal = totalventa.toString();
 
       swal(
@@ -538,7 +542,7 @@ $(document).ready(function () {
     totalglobal = 0.0;
     $.each(carrito, function (i, item) {
       total_split = item[5].split("$");
-      totalglobal += parseInt(total_split[1]);
+      totalglobal += parseFloat(total_split[1]);
       template += `
       <tr id= "${item[0]}" >
             <td class="datos text-center">${item[0]}</td>
@@ -550,6 +554,7 @@ $(document).ready(function () {
             <td><button class="beliminar btn btn-danger">Eliminar</button></td>
          </tr>`;
     });
+    totalglobal = totalglobal.toFixed(2);
     $("#tbcarrito").html(template);
     $(".totalcarrito").html("Total: $" + totalglobal);
   }
