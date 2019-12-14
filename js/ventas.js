@@ -14,6 +14,8 @@ $(document).ready(function () {
     //hacer la suma de los subtotales para la variable global total
   });
   function mandarporPost() {
+    var carrito = sessionStorage.getItem("info");
+    var carrito = JSON.parse(carrito);
     const postData = {
       idventa: "",
       descuento: descuento,

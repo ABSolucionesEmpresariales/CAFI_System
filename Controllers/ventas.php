@@ -163,7 +163,6 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
     $consulta = "INSERT INTO detalle_venta(idventa,producto,descuento,cantidad,subtotal) VALUES(?,?,?,?,?)";
     $jsonstring = $_POST['json_string'];
     $carrito = json_decode($jsonstring);
-    var_dump($carrito);
     for ($i = 0; $i < sizeof($carrito); $i++) {
         unset($carrito[$i][1],$carrito[$i][2]); //elimina la posicion uno del array que es el producto y la dos que es el costo del producto / solo se necesita la posicion cero que es el codigo de barras
         $carrito[$i]= array_values($carrito[$i]); //una vez eliminado se reordena las posciones de los datos del array 
