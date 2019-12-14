@@ -199,10 +199,8 @@ $(document).ready(function () {
     }
 
     if (editar == false) {
-
       console.log('entro');
       enviarDatos();
-
     } else {
       console.log("sisisis");
       enviarDatos();

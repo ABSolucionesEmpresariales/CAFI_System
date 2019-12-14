@@ -21,7 +21,7 @@ $(document).ready(function () {
       pago: pago,
       cambio: cambio,
       forma_pago: forma_pago,
-      json_string: convertirJsonCarritoenArray(),
+      json_string: JSON.stringify(carrito),
       idadeudo: "",
       totaldeuda: totalglobal - anticipo,
       anticipo: anticipo,
@@ -70,7 +70,7 @@ $(document).ready(function () {
     });
   }
 
-  function convertirJsonCarritoenArray() {
+/*   function convertirJsonCarritoenArray() {
     var carrito = sessionStorage.getItem("info");
     var carrito = JSON.parse(carrito);
     for (i = 0; i < carrito.length; i++) {
@@ -80,9 +80,8 @@ $(document).ready(function () {
         }
       }
     }
-
     return JSON.stringify(carrito);
-  }
+  } */
 
   //terminar la venta
   $(document).on("click", ".bvender", function () {
@@ -529,6 +528,55 @@ $(document).ready(function () {
       sessionStorage.setItem("info", JSON.stringify(datostabla));
       pintarTablaCarrito();
   }
+
+  $('#cp').keyup(function (e) {
+    let codigopostal = $('#cp').val();
+    if (codigopostal.length === 5) {
+      fetch('https://api-codigos-postales.herokuapp.com/v2/codigo_postal/' + codigopostal)
+        .then(res => res.json())
+        .then(data => {
+          let template = '';
+          for (i = 0; i < data.colonias.length; i++) {
+            template += ` <option value="${data.colonias[i]}">`;
+          }
+          $("#localidad").html(template);
+          $("#municipio").val(data.municipio);
+          $("#estado").val(data.estado);
+
+        });
+    } else {
+      $("#localidad").empty();
+      $("#Tlocalidad").val('');
+      $("#municipio").val('');
+      $("#estado").val('');
+    }
+
+  });
+
+  $('#formularioCliente').submit(function (e) {
+    editar = "false";
+    $.ajax({
+      url: "../Controllers/clientes.php",
+      type: "POST",
+      data: $('#formularioCliente').serialize() + "&accion=" + editar,
+
+      success: function (response) {
+        console.log(response);
+        $("#mensaje3").css("display", "block");
+        if (response == "1") {
+          $("#mensaje3").text("Registro Exitoso");
+          $("#mensaje3").css("color", "green");
+          $("#email").focus();
+          $("#formularioCliente").trigger("reset");
+        } else {
+          $("#mensaje3").text("Registro fallido");
+          $("#mensaje3").css("color", "red");
+          $("#email").focus();
+        }
+      }
+    });
+      e.preventDefault();
+  });
 
   function pintarTablaCarrito() {
     var carrito = sessionStorage.getItem("info");
