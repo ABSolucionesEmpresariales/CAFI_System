@@ -43,7 +43,7 @@ if ($result != null) {
 $tipoVenta = (isset($anticipo)) ? "VENTA A CRÉDITO " . $idventa : "VENTA " . $idventa; /*Define la descripcion del tipo de venta */
 $fechaYHora = $fecha . " " . $hora;
 
-$consulta = "SELECT nombre,color,marca,precio_venta, cantidad, unidad_medida,talla_numero,subtotal FROM
+$consulta = "SELECT nombre,color,marca,precio_venta, cantidad, unidad_medida,talla_numero,subtotal,detalle_venta.descuento FROM
 producto INNER JOIN detalle_venta ON producto = codigo_barras WHERE
 detalle_venta.idventa = ?";
 $result = $conexion->consultaPreparada($datos = array($idventa), $consulta, 2, "s", false, null);
@@ -86,11 +86,12 @@ $result = $conexion->consultaPreparada($datos = array($idventa), $consulta, 2, "
     <div style="width: 380px; max-width: 380px; line-height: 13px;" class="ml-1">
         <?php if ($result != null) for ($i = 0; $i < sizeof($result); $i++) {
             ?>
-            <span class="font-weight-bold"><?php echo $result[$i][4] . "x"; ?></span>
-            <span class="font-weight-bold"><?php echo $result[$i][0]; ?> <?php echo $result[$i][2]; ?></span>
-            <span class="font-weight-bold"><?php echo $result[$i][1];  ?></span>
-            <span class="font-weight-bold"><?php echo $result[$i][5];  ?></span>
-            <span class="font-weight-bold"><?php echo $result[$i][6];  ?></span>
+            <span class="font-weight-bold"><?php if($result[$i][4] != null && $result[$i][4] != "null" )echo $result[$i][4] . "x";?></span>
+            <span class="font-weight-bold"><?php if($result[$i][0] != null && $result[$i][0] != "null" )echo $result[$i][0];?> <?php if($result[$i][2] != null && $result[$i][2] != "null" )echo $result[$i][2]; ?></span>
+            <span class="font-weight-bold"><?php if($result[$i][1] != null && $result[$i][1] != "null" )echo $result[$i][1];?> </span>
+            <span class="font-weight-bold"><?php if($result[$i][5] != null && $result[$i][5] != "null" )echo $result[$i][5];?> </span>
+            <span class="font-weight-bold"><?php if($result[$i][6] != null && $result[$i][6] != "null" )echo $result[$i][6];?> </span>
+            <span class="font-weight-bold"><?php if($result[$i][8] == 0 || $result[$i][8] === null || $result[$i][8] === "" || $result[$i][8] === "null" ) {}else{echo "($".$result[$i][8]." de descuento x producto)";} ?></span>
             <p class="text-right">
                 <span class="font-weight-bold text-right"><?php echo "$" . $result[$i][7] ?></span>
                 <p>
@@ -103,7 +104,7 @@ $result = $conexion->consultaPreparada($datos = array($idventa), $consulta, 2, "
         <div class="justify-content-right">
             <?php if (isset($anticipo)) {
                 if ($descuento > 0.00) { ?>
-                    <p class="text-right font-weight-bold"><span class="font-weight-bold">DESCUENTO: </span><?php echo "$" . $descuento; ?></p>
+                    <p class="text-right font-weight-bold"><span class="font-weight-bold">DESCUENTO ESPECIAL: </span><?php echo "$" . $descuento; ?></p>
                 <?php   } ?>
                 <p class="text-right font-weight-bold"><span class="font-weight-bold">TOTAL: </span><?php echo "$" . $total; ?></p>
                 <p class="text-right font-weight-bold"><span class="font-weight-bold">ANTICIPO: </span><?php echo "$" . $anticipo; ?></p>
@@ -116,7 +117,7 @@ $result = $conexion->consultaPreparada($datos = array($idventa), $consulta, 2, "
                     <p class="text-right font-weight-bold"><span class="font-weight-bold">ADEUDO: </span><?php echo "$" . $totaldeuda ?></p>
                     <?php } else {
                         if ($descuento > 0.00) { ?><br>
-                        <p class="text-right font-weight-bold"><span class="font-weight-bold">DESCUENTO: </span><?php echo "$" . $descuento; ?></p>
+                        <p class="text-right font-weight-bold"><span class="font-weight-bold">DESCUENTO ESPECIAL: </span><?php echo "$" . $descuento; ?></p>
                     <?php } ?>
                     <p class="text-right font-weight-bold"><span class="font-weight-bold">TOTAL: </span><?php echo "$" . $total; ?></p>
                     <p class="text-right font-weight-bold"><span class="font-weight-bold">PAGO: </span><?php echo "$" . $pago; ?></p>

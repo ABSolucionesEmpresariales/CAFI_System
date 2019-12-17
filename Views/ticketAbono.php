@@ -17,7 +17,7 @@ INNER JOIN venta ON venta.idventas = adeudos.venta
 INNER JOIN negocios ON venta.negocio = negocios.idnegocios 
 WHERE idabono = ?";
 
-$result = $conexion->consultaPreparada($datos = array($idabono), $consulta, 2, "s", false);
+$result = $conexion->consultaPreparada($datos = array($idabono), $consulta, 2, "s", false,null);
 if ($result != null) {
     $anticipo = $result[0][0];
     $cantidad = $result[0][1];
@@ -35,10 +35,10 @@ if ($result != null) {
     $telefono = $result[0][14];
     $negocio = $result[0][15];
     
-    $consulta = "SELECT nombre,color,marca,precio_venta, cantidad, unidad_medida,talla_numero,subtotal FROM
+    $consulta = "SELECT nombre,color,marca,precio_venta, cantidad, unidad_medida,talla_numero,subtotal,detalle_venta.descuento FROM
     producto INNER JOIN detalle_venta ON producto = codigo_barras WHERE
     detalle_venta.idventa = ?";
-    $result = $conexion->consultaPreparada($datos = array($venta), $consulta, 2, "s", false);
+    $result = $conexion->consultaPreparada($datos = array($venta), $consulta, 2, "s", false,null);
 
 }
 
@@ -81,11 +81,12 @@ $fechaYHora = $fecha. " " . $hora;
         <div style="width: 380px; max-width: 380px; line-height: 13px;">
         <?php if ($result != null) for ($i = 0; $i < sizeof($result); $i++) {
             ?>
-            <span class="font-weight-bold"><?php echo $result[$i][4] . "x"; ?></span>
-            <span class="font-weight-bold"><?php echo $result[$i][0]; ?> <?php echo $result[$i][2]; ?></span>
-            <span class="font-weight-bold"><?php echo $result[$i][1];  ?></span>
-            <span class="font-weight-bold"><?php echo $result[$i][5];  ?></span>
-            <span class="font-weight-bold"><?php echo $result[$i][6];  ?></span>
+          <span class="font-weight-bold"><?php if($result[$i][4] != null && $result[$i][4] != "null" )echo $result[$i][4] . "x";?></span>
+            <span class="font-weight-bold"><?php if($result[$i][0] != null && $result[$i][0] != "null" )echo $result[$i][0];?> <?php if($result[$i][2] != null && $result[$i][2] != "null" )echo $result[$i][2]; ?></span>
+            <span class="font-weight-bold"><?php if($result[$i][1] != null && $result[$i][1] != "null" )echo $result[$i][1];?> </span>
+            <span class="font-weight-bold"><?php if($result[$i][5] != null && $result[$i][5] != "null" )echo $result[$i][5];?> </span>
+            <span class="font-weight-bold"><?php if($result[$i][6] != null && $result[$i][6] != "null" )echo $result[$i][6];?> </span>
+            <span class="font-weight-bold"><?php if($result[$i][8] == 0 || $result[$i][8] === null || $result[$i][8] === "" || $result[$i][8] === "null" ) {}else{echo "($".$result[$i][8]." de descuento x producto)";} ?></span>
             <p class="text-right">
                 <span class="font-weight-bold text-right"><?php echo "$" . $result[$i][7] ?></span>
                 <p>
