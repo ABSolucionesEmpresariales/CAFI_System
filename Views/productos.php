@@ -278,10 +278,7 @@ privilegios("Superiores");
 
                 </select>
               </div>
-              <div class="col-lg-6">
-                <h5 class="general">Descuento:</h5>
-                <input id="descuento" class="form form-control" type="text" onkeypress="return check(event)" name="Ndescuento" placeholder="Descuento" autocomplete="new-password"><br>
-              </div>
+
             </div>
 
 
@@ -310,7 +307,7 @@ privilegios("Superiores");
             </div>
 
             <div class="d-block d-lg-flex row">
-              <div class="col-lg-12">
+              <div class="col-lg-6">
                 <h5 class="general">Tipo de producto:</h5>
                 <select class="form form-control" id="categoria" name="Stipo_producto">
                   <option value="">Elejir</option>
@@ -318,6 +315,22 @@ privilegios("Superiores");
                   <option value="Ropa">Ropa</option>
                   <option value="Otros">Otros</option>
                 </select>
+              </div>
+              <div class="col-lg-6">
+                <div class="row">
+                  <div class="col-lg-6">
+                  <h5 class="general">Descuento:</h5>
+                  </div>
+                  <div class="col-lg-3">
+                  <input type="button" id="porsentaje" value="%">  
+                    </div>
+                    <div class="col-lg-3">
+                    <input type="button" id="dinero" value="$"> 
+                    </div>
+                </div>
+                <input id="descuento2" class="form form-control" type="text" onkeypress="return check(event)"placeholder="Descuento"><br>
+                <input id="descuento" class="form form-control" type="hidden" onkeypress="return check(event)" name="Ndescuento" placeholder="Descuento" autocomplete="new-password"><br>
+                <div class="mensajedecuento"></div>
               </div>
             </div>
             <div class="d-block d-lg-flex row">

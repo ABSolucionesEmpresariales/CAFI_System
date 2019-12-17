@@ -21,7 +21,7 @@ $(document).ready(function () {
       pago: pago,
       cambio: cambio,
       forma_pago: forma_pago,
-      json_string: JSON.stringify(carrito),
+      json_string: convertirJsonCarritoenArray(),
       idadeudo: "",
       totaldeuda: totalglobal - anticipo,
       anticipo: anticipo,
@@ -70,18 +70,18 @@ $(document).ready(function () {
     });
   }
 
-/*   function convertirJsonCarritoenArray() {
+   function convertirJsonCarritoenArray() {
     var carrito = sessionStorage.getItem("info");
     var carrito = JSON.parse(carrito);
     for (i = 0; i < carrito.length; i++) {
       for (j = 0; j < carrito[i].length; j++) {
         if (j === 1) {
-          carrito[i].splice(j, 2);
+          carrito[i].splice(j,1);
         }
       }
     }
     return JSON.stringify(carrito);
-  } */
+  } 
 
   //terminar la venta
   $(document).on("click", ".bvender", function () {

@@ -1,6 +1,7 @@
 $(document).ready(function () {
   preciocompra = 0.0;
   precioventa = 0.0;
+  let venta = 0;
   iva = 0.0;
   let id_negocio_actual = '';
   let acceso = "";
@@ -178,6 +179,7 @@ $(document).ready(function () {
     $("#formulario").trigger("reset");
   });
 
+
   function obtenerProductosCodigoBarras(){
     
     $.ajax({
@@ -273,6 +275,7 @@ $(document).ready(function () {
           $(this).parent("tr").find("td").each(function () {
             valores += $(this).html() + "?";
           });
+          $('.mensajedecuento').hide();
           $("#mensaje").css("display", "none");
           datos = valores.split("?");
           $('.ocultarCodigo').hide();
@@ -517,6 +520,24 @@ $(document).on('click','.eliminar',function(){
     });
 });
 
+$(document).on('click','#porsentaje',function(){
+  $('.mensajedecuento').show();
+  descuento = parseInt($('#descuento2').val());
+  precioVenta =  parseFloat($('#precio_venta').val());
+  descuentoTotal = precioVenta - (precioVenta * parseFloat("." + descuento)); 
+  $('.mensajedecuento').html("Preview precio: "+ descuentoTotal);
+  $('#descuento').val(precioVenta * parseFloat("." + descuento));
+  console.log(precioVenta * parseFloat("." + descuento));
+});
+
+$(document).on('click','#dinero',function(){
+  $('.mensajedecuento').show();
+  descuento = parseInt($('#descuento2').val());
+  precioVenta =  parseFloat($('#precio_venta').val());
+  $('.mensajedecuento').html("Preview precio: " + (precioVenta - descuento)); 
+  $('#descuento').val(descuento);
+  console.log(precioVenta - descuento);
+});
 
   $("#formulario").submit(function (e) {
 
@@ -562,6 +583,7 @@ $(document).on('click','.eliminar',function(){
     $("#formularioInventario").trigger("reset");
     $("#mensaje").css("display", "none");
     $('.ocultarCodigo').show();
+    $('.mensajedecuento').hide();
   });
-
 });
+
