@@ -70,19 +70,18 @@ $(document).ready(function () {
     });
   }
 
-  function convertirJsonCarritoenArray() {
+   function convertirJsonCarritoenArray() {
     var carrito = sessionStorage.getItem("info");
     var carrito = JSON.parse(carrito);
     for (i = 0; i < carrito.length; i++) {
       for (j = 0; j < carrito[i].length; j++) {
         if (j === 1) {
-          carrito[i].splice(j, 2);
+          carrito[i].splice(j,1);
         }
       }
     }
-
     return JSON.stringify(carrito);
-  }
+  } 
 
   //terminar la venta
   $(document).on("click", ".bvender", function () {
@@ -206,6 +205,7 @@ $(document).ready(function () {
     subtotal = costo[1] * cantidad;
     $(this).parents("tr").find("td").eq(5).html("$" + subtotal);
     console.log(subtotal);
+    obtenerDatosCarrito();
     
 
   });
@@ -220,11 +220,20 @@ $(document).ready(function () {
       };
       $.post("../Controllers/ventas.php", postData, function (response) {
         let result = JSON.parse(response);
-        if (result[0][4] == null || result[0][4] == "null") {
-          talla = "";
-        } else {
-          var talla = "T:";
-        }
+        console.log(result);
+        $.each(result, function (i, item) {
+          for (i = 0; i < item.length; i++) {
+            if (item[i] == null || item[i] == "null") {
+              item[i] = "";
+            }
+          }
+          if (item[4] === "") {
+            talla = "";
+          } else {
+            talla = "T:";
+          }
+        });
+
         encontrado = "";
         val = "";
         $("#tbcarrito")
@@ -232,13 +241,13 @@ $(document).ready(function () {
           .find("td").find("input")
           .each(function () {
             encontrado = true;
-
             //Esto suma el valor que ya existe con el nuevo This valor + 1
             $(this).val(parseInt($(this).val()) + 1).trigger("change") + "?";
           });
-
+        
         if (encontrado != true) {
-          template = `<tr id= "${result[0][0]}" >
+          template = `
+          <tr id= "${result[0][0]}" >
             <td class="datos text-center">${result[0][0]}</td>
             <td class="datos text-center">${result[0][1]} ${result[0][2]} ${result[0][3]} ${talla} ${result[0][4]}</td>
             <td class="datos precios text-center">$${result[0][6]}</td>
@@ -249,7 +258,8 @@ $(document).ready(function () {
          </tr>`;
           $("#tbcarrito").append(template);
         }
-        //obtenerDatosCarrito();
+        obtenerDatosCarrito();
+        
       });
     }
   }
@@ -494,12 +504,9 @@ $(document).ready(function () {
     var cont = 0;
     var cont2 = 0;
     var filas = "";
-
-    $("#tbcarrito")
-      .find("tr")
-      .find(".datos")
-      .each(function () {
-        if (cont == 4) {
+    var datostabla = [];
+    $("#tbcarrito").find("tr").find(".datos").each(function () {
+        if(cont == 5) {
           filas += $(this).html();
           datos = filas.split("?");
           datostabla[cont2] = datos;
@@ -507,14 +514,69 @@ $(document).ready(function () {
           cont = 0;
           filas = "";
           cont2++;
-        } else {
+        }else if(cont == 4){
+          $(this).find("input").each(function (){
+            filas += $(this).val() + "?";
+            cont++;
+          });
+        }else{
           filas += $(this).html() + "?";
           cont++;
         }
       });
-    sessionStorage.setItem("info", JSON.stringify(datostabla));
-    pintarTablaCarrito();
+      console.log(datostabla);
+      sessionStorage.setItem("info", JSON.stringify(datostabla));
+      pintarTablaCarrito();
   }
+
+  $('#cp').keyup(function (e) {
+    let codigopostal = $('#cp').val();
+    if (codigopostal.length === 5) {
+      fetch('https://api-codigos-postales.herokuapp.com/v2/codigo_postal/' + codigopostal)
+        .then(res => res.json())
+        .then(data => {
+          let template = '';
+          for (i = 0; i < data.colonias.length; i++) {
+            template += ` <option value="${data.colonias[i]}">`;
+          }
+          $("#localidad").html(template);
+          $("#municipio").val(data.municipio);
+          $("#estado").val(data.estado);
+
+        });
+    } else {
+      $("#localidad").empty();
+      $("#Tlocalidad").val('');
+      $("#municipio").val('');
+      $("#estado").val('');
+    }
+
+  });
+
+  $('#formularioCliente').submit(function (e) {
+    editar = "false";
+    $.ajax({
+      url: "../Controllers/clientes.php",
+      type: "POST",
+      data: $('#formularioCliente').serialize() + "&accion=" + editar,
+
+      success: function (response) {
+        console.log(response);
+        $("#mensaje3").css("display", "block");
+        if (response == "1") {
+          $("#mensaje3").text("Registro Exitoso");
+          $("#mensaje3").css("color", "green");
+          $("#email").focus();
+          $("#formularioCliente").trigger("reset");
+        } else {
+          $("#mensaje3").text("Registro fallido");
+          $("#mensaje3").css("color", "red");
+          $("#email").focus();
+        }
+      }
+    });
+      e.preventDefault();
+  });
 
   function pintarTablaCarrito() {
     var carrito = sessionStorage.getItem("info");
@@ -523,14 +585,18 @@ $(document).ready(function () {
     var template = "";
     totalglobal = 0.0;
     $.each(carrito, function (i, item) {
-      totalglobal += parseInt(item[4]);
-      template += `<tr id="${item[0]}">
-      <td><button class="beliminar btn btn-danger text-center font-weight-bold">-</button></td>
-      <td class="datos text-center">${item[1]}</td>
-      <td class="datos text-center">$${item[2]}</td>
-      <td class="datos text-center">${item[3]}</td>
-      <td class="datos text-center">$${item[4]}</td>
-   </tr>`;
+      total_split = item[5].split("$");
+      totalglobal += parseInt(total_split[1]);
+      template += `
+      <tr id= "${item[0]}" >
+            <td class="datos text-center">${item[0]}</td>
+            <td class="datos text-center">${item[1]}</td>
+            <td class="datos precios text-center">${item[2]}</td>
+            <td class="datos text-center">${item[3]}</td>
+            <td class="datos text-center"><input class="tcantidad" type="number" min = "1" value="${item[4]}"></td>
+            <td class="datos text-center">${item[5]}</td>
+            <td><button class="beliminar btn btn-danger">Eliminar</button></td>
+         </tr>`;
     });
     $("#tbcarrito").html(template);
     $(".totalcarrito").html("Total: $" + totalglobal);

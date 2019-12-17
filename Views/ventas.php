@@ -115,70 +115,222 @@ privilegios("Todos");
                         <span class="sr-only">Close</span>
                     </button>
                 </div>
+<!----------------------------------------------------------------------------------------------------- --->
+<div class="modal-body">
+                    <p class="statusMsg"></p>
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="nav-extra-tab" data-toggle="tab" href="#extra" role="tab" aria-controls="extra" aria-selected="false">Pagar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="nav-user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="user" aria-selected="true">Agregar cliente</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="extra" role="tabpanel" aria-labelledby="extra-tab">
+                                    <div class="col-12"><br>
+                                                            <p class="statusMsg"></p>
+                                            <div>
+                                                <td class="text-nowrap text-center" colspan="8">
+                                                    <h3 style="text-align: right;" class="hmtotal p-2 font-weight-bold"></h3>
+                                                </td>
+                                            </div>
+                                            <div class="divpagotarjeta text-center my-5">
+                                                <h5>Ingrese la tarjeta en la terminal y cobre el total</h5>
+                                            </div>
+                                            <button class="bdescuento btn btn-block btn-large btn-dark text-white" type="button">Aplicar descuento</button><br>
+                                            <div id="divdescuento" class="mb-3">
+                                                <h6>Descuento (El mensaje esta de mas):</h6>
+                                                <input class="indescuento form form-control" onkeypress="return check(event)" type="text" placeholder="Ingrese el descuento" autocomplete="off"><br>
+                                                <button type="button" class="bporcentaje btn btn-dark btn-lg">%</button>
+                                                <button type="button" class="bpesos btn btn-dark btn-lg">$</button>
+                                            </div>
+
+                                            <div id="tablacliente" class="mt-4">
+                                                <div class="input-group mb-2">
+                                                    <button class="d-lg-none btn btn-primary col-12 mb-3 p-3" data-toggle="modal" data-target="#modalForm">Agregar</button>
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="fa fa-search"></i></div>
+                                                    </div>
+                                                    <input autocomplete="off" style="border-color: gray;" class="form-control col-12 col-lg-4" type="search" id="busquedac" placeholder="Buscar Cliente...">
+                                                </div>
+
+                                                <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
+                                                    <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
+                                                        <thead class="thead-light">
+                                                            <tr>
+                                                                <th class="text-nowrap text-center"></th>
+                                                                <th class="text-nowrap text-center">Email</th>
+                                                                <th class="text-nowrap text-center">Nombre</th>
+                                                                <th class="text-nowrap text-center">Telefono</th>
+                                                                <th class="text-nowrap text-center">Credito</th>
+                                                                <th class="text-nowrap text-center">Adeudos</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="cuerpotcliente">
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+
+                                            <div id="divanticipo">
+                                                <h6>Anticipo:</h6>
+                                                <input class="tanticipo form form-control" type="text" onkeypress="return check(event)" placeholder="$" autocomplete="off"><br>
+                                            </div>
+                                            <div class="mb-1 text-center">
+                                                <!--                         <button class="btn btn-primary">Efectivo</button>
+                                                <button class="btn btn-danger">Tarjeta</button> -->
+                                            </div>
+                                            <div id="divpago" class="mt-4">
+                                                <h6 class="font-weight-bold">Cantidad Recibida/Pago:</h6>
+                                                <input class="tpago form form-control" type="text" onkeypress="return check(event)" placeholder="" autocomplete="off"><br>
+                                            </div>
+                                            <button style="color: white;" type="button" class="bvender btn btn-block bg-dark font-weight-bold p-3">
+                                                <h5>Pagar</h5>
+                                            </button>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab">
+                                    <div class="col-12">
+                                    <form class="form-group" id="formularioCliente">
+                                        <div id="mensaje3" style="text-align: center; margin: 10px; font-weight: bold;"></div>
+                                        <div class="d-block d-lg-flex row">
+                                        <div class="col-lg-6 ocultar">
+                                            <h5 class="general" style="color: #EF5602">Email:</h5>
+                                            <input id="email" class="form form-control" onkeypress="return check(event)" type="email" name="Temail" placeholder="Email" autocomplete="new-password" required> <br>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h5 class="general" style="color: #EF5602">Nombre:</h5>
+                                            <input id="nombre" class="form form-control" onkeypress="return check(event)" type="text" name="Tnombre" placeholder="Nombre" autocomplete="new-password" required> <br>
+                                        </div>
+                                        </div>
+                                        <div class="d-block d-lg-flex row">
+                                        <div class="col-lg-6">
+                                            <h5 class="general" style="color: #EF5602">Teléfono:</h5>
+                                            <input id="telefono" class="form form-control" type="text" onkeypress="return check(event)" name="Ttelefono" placeholder="Teléfono" autocomplete="new-password" required><br>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h5 class="general" style="color: #EF5602">Credito:</h5>
+                                            <select class="form form-control" id="credito" name="Scredito" required>
+                                            <option value="A">Activa</option>
+                                            <option value="I">Inactiva</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h5 class="general">Codigo Postal:</h5>
+                                            <input id="cp" class="form form-control" onkeypress="return check(event)" type="text" name="Tcp" placeholder="Código postal" autocomplete="new-password"><br>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h5 class="general">Calle y número:</h5>
+                                            <input id="calle_numero" class="form form-control" onkeypress="return check(event)" type="text" name="Tcalle_numero" placeholder="Calle y número" autocomplete="new-password"><br>
+                                        </div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-lg-6">
+                                            <h5 class="general">Colonia:</h5>
+                                            <input id="colonia" class="form form-control" type="text" onkeypress="return check(event)" name="Tcolonia" placeholder="Colonia" autocomplete="new-password"><br>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h5 class="importante">Localidad:</h5>
+                                            <input id="Tlocalidad" list="localidad" class="form form-control" name="DLlocalidad" onkeypress="return check(event)"  autocomplete="new-password" required>
+                                            <datalist id="localidad">
+                                            </datalist><br>
+                                        </div>
+                                        </div>
+                                        <div class="d-block d-lg-flex row">
+                                        <div class="col-lg-6">
+                                            <h5 class="general">Municipio:</h5>
+                                            <input id="municipio" class="form form-control" type="text" onkeypress="return check(event)" name="Tmunicipio" placeholder="Municipio" autocomplete="new-password"><br>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h5 class="general">Estado:</h5>
+                                            <select class="form form-control" id="estado" name="Sestado">
+                                            <option value="">Elegir</option>
+                                            <option value="Aguascalientes">Aguascalientes</option>
+                                            <option value="Baja California">Baja California </option>
+                                            <option value="Baja California Sur">Baja California Sur</option>
+                                            <option value="Campeche">Campeche</option>
+                                            <option value="Chiapas">Chiapas</option>
+                                            <option value="Chihuahua">Chihuahua</option>
+                                            <option value="Ciudad de México">Ciudad de México</option>
+                                            <option value="Coahuila de Zaragoza">Coahuila</option>
+                                            <option value="Colima">Colima</option>
+                                            <option value="Durango">Durango</option>
+                                            <option value="México">México</option>
+                                            <option value="Guanajuato">Guanajuato</option>
+                                            <option value="Guerrero">Guerrero</option>
+                                            <option value="Hidalgo">Hidalgo</option>
+                                            <option value="Jalisco">Jalisco</option>
+                                            <option value="Michoacán de Ocampo">Michoacán</option>
+                                            <option value="Morelos">Morelos</option>
+                                            <option value="Nayarit">Nayarit</option>
+                                            <option value="Nuevo León">Nuevo León</option>
+                                            <option value="Oaxaca">Oaxaca</option>
+                                            <option value="Puebla">Puebla</option>
+                                            <option value="Querétaro">Querétaro</option>
+                                            <option value="Quintana Roo">Quintana Roo</option>
+                                            <option value="San Luis Potosí">San Luis Potosí</option>
+                                            <option value="Sinaloa">Sinaloa</option>
+                                            <option value="Sonora">Sonora</option>
+                                            <option value="Tabasco">Tabasco</option>
+                                            <option value="Tamaulipas">Tamaulipas</option>
+                                            <option value="Tlaxcala">Tlaxcala</option>
+                                            <option value="Veracruz de Ignacio de la Llave">Veracruz</option>
+                                            <option value="Yucatán">Yucatán</option>
+                                            <option value="Zacatecas">Zacatecas</option>
+                                            </select> <br>
+                                        </div>
+                                        </div>
+                                        <div class="d-block d-lg-flex row">
+                                        <div class="col-lg-6">
+                                            <h5 class="general">Sexo:</h5>
+                                            <select class="form form-control" id="sexo" name="Ssexo">
+                                            <option value="">Elegir</option>
+                                            <option value="M">Masculino</option>
+                                            <option value="F">Femenino</option>
+                                            </select><br>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h5 class="general">RFC:</h5>
+                                            <input id="rfc" class="form form-control" onkeypress="return check(event)" type="text" name="Trfc" placeholder="RFC" autocomplete="new-password"> <br>
+                                        </div>
+                                        </div>
+                                        <div class="d-block d-lg-flex row">
+                                        <div class="col-lg-6">
+                                            <h5 class="general">Fecha de nacimiento:</h5>
+                                            <input id="fecha_nacimiento" class="form form-control" type="date" onkeypress="return check(event)" name="Dfecha_nacimiento" placeholder="Fecha de nacimiento" autocomplete="new-password"><br>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h5 class="general">Plazo de credito:</h5>
+                                            <input id="plazo_credito" class="form form-control" type="text" onkeypress="return check(event)" name="Tplazo_credito" placeholder="Plazo Credito" autocomplete="new-password"><br>
+                                        </div>
+                                        </div>
+                                        <div class="row">
+                                        <div class="col-lg-6">
+                                            <h5 class="general">Limite de credito:</h5>
+                                            <input id="limite_credito" class="form form-control" type="text" onkeypress="return check(event)" name="Tlimite_credito" placeholder="Limite de credito" autocomplete="new-password"><br>
+                                        </div>
+                                        </div>
+                                        <input id="bclose" type="submit" class="mt-3 btn btn-lg btn-block btn-dark text-white" value="Guardar">
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tableHolder" class="row justify-content-center">
+
+                    </div>
+                </div>
+<!----------------------------------------------------------------------------------------------------- --->
 
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <p class="statusMsg"></p>
-                    <div>
-                        <td class="text-nowrap text-center" colspan="8">
-                            <h3 style="text-align: right;" class="hmtotal p-2 font-weight-bold"></h3>
-                        </td>
-                    </div>
-                    <div class="divpagotarjeta text-center my-5">
-                        <h5>Ingrese la tarjeta en la terminal y cobre el total</h5>
-                    </div>
-                    <button class="bdescuento btn btn-block btn-large btn-dark text-white" type="button">Aplicar descuento</button><br>
-                    <div id="divdescuento" class="mb-3">
-                        <h6>Descuento (El mensaje esta de mas):</h6>
-                        <input class="indescuento form form-control" onkeypress="return check(event)" type="text" placeholder="Ingrese el descuento" autocomplete="off"><br>
-                        <button type="button" class="bporcentaje btn btn-dark btn-lg">%</button>
-                        <button type="button" class="bpesos btn btn-dark btn-lg">$</button>
-                    </div>
 
-                    <div id="tablacliente" class="mt-4">
-                        <div class="input-group mb-2">
-                            <button class="d-lg-none btn btn-primary col-12 mb-3 p-3" data-toggle="modal" data-target="#modalForm">Agregar</button>
-                            <div class="input-group-prepend">
-                                <div class="input-group-text"><i class="fa fa-search"></i></div>
-                            </div>
-                            <input autocomplete="off" style="border-color: gray;" class="form-control col-12 col-lg-4" type="search" id="busquedac" placeholder="Buscar Cliente...">
-                        </div>
-
-                        <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
-                            <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th class="text-nowrap text-center"></th>
-                                        <th class="text-nowrap text-center">Email</th>
-                                        <th class="text-nowrap text-center">Nombre</th>
-                                        <th class="text-nowrap text-center">Telefono</th>
-                                        <th class="text-nowrap text-center">Credito</th>
-                                        <th class="text-nowrap text-center">Adeudos</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="cuerpotcliente">
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-
-                    <div id="divanticipo">
-                        <h6>Anticipo:</h6>
-                        <input class="tanticipo form form-control" type="text" onkeypress="return check(event)" placeholder="$" autocomplete="off"><br>
-                    </div>
-                    <div class="mb-1 text-center">
-                        <!--                         <button class="btn btn-primary">Efectivo</button>
-                        <button class="btn btn-danger">Tarjeta</button> -->
-                    </div>
-                    <div id="divpago" class="mt-4">
-                        <h6 class="font-weight-bold">Cantidad Recibida/Pago:</h6>
-                        <input class="tpago form form-control" type="text" onkeypress="return check(event)" placeholder="" autocomplete="off"><br>
-                    </div>
-                    <button style="color: white;" type="button" class="bvender btn btn-block bg-dark font-weight-bold p-3">
-                        <h5>Pagar</h5>
-                    </button>
 
                 </div>
             </div>
