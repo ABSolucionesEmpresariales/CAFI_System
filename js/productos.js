@@ -158,9 +158,9 @@ $(document).ready(function () {
         console.log(datos);
         let template = "<option value = ''>Elejir</option>";
         $.each(datos, function (i, item) {
-          template+=`<option value="${item[0]}">${item[0]}</option>`;
+          template+=`<option value="${item[0]}">${item[1]}</option>`;
         });
-        $('#categoria2').html(template);
+        $('#categoria3').html(template);
       }
     });
   }

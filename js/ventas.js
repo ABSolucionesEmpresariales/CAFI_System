@@ -6,8 +6,12 @@ $(document).ready(function () {
   let forma_pago;
   let totalglobal = 0.0;
   let cliente = "";
+  editar = false;
   optenerProductos();
   pintarTablaCarrito();
+  $('.factura1').hide();
+  $('.factura2').hide();
+  $('#tablapagoFacturas').hide();
   //cerrar el modal
   $(document).on("click", ".close", function () {
     pintarTablaCarrito();
@@ -359,6 +363,10 @@ $(document).ready(function () {
     $("#divdescuento").show();
   });
 
+  $(document).on('click','#factura1',function(){
+    $('#tablapagoFacturas').show();
+  });
+
   //boton pago en efectivo
   $(document).on("click", ".bpago1", function () {
     forma_pago = $(".bpago1").val();
@@ -369,6 +377,9 @@ $(document).ready(function () {
     $(".bdescuento").show();
     $("#divpago").show();
     $(".modal").modal("show");
+    $('.factura1').show();
+    $('.factura2').hide();
+    $('#tablapagoFacturas').hide();
 
     stringtotal = totalglobal.toString();
     let menseaje = "Total: $" + stringtotal;
@@ -386,6 +397,9 @@ $(document).ready(function () {
     $(".bdescuento").show();
     $("#tablacliente").show();
     $(".modal").modal("show");
+    $('.factura1').hide();
+    $('.factura2').show();
+    $('#tablapagoFacturas').hide();
 
     stringtotal = totalglobal.toString();
     let menseaje = "Total: $" + stringtotal;
@@ -403,6 +417,7 @@ $(document).ready(function () {
     $("#tablacliente").hide();
     $(".divpagotarjeta").show();
     $(".modal").modal("show");
+    $('#tablapagoFacturas').hide();
 
     stringtotal = totalglobal.toString();
     let menseaje = "Total: $" + stringtotal;
@@ -438,6 +453,101 @@ $(document).ready(function () {
       }
     });
   }
+
+  $('#busquedac2').keyup(function (e){
+    if($(this).val()){
+      pintarTablaClientesFactura($(this).val());
+    }else{
+      $("#cuerpoClienteFacturaPago").html("");
+    }
+  });
+
+  function pintarTablaClientesFactura(valor){
+    $.ajax({
+      url: "../Controllers/ventas.php",
+      type: "POST",
+      data:"busquedaCliente="+valor,
+      success: function (response) {
+        let datos = JSON.parse(response);
+        let template = "";
+        $.each(datos, function (i, item) {
+          template += `<tr>
+                      <td><button class="text-nowrap text-center bagregarc2 btn bg-secondary text-white">ok</button></td>
+                      <td class="text-nowrap text-center datoscliente">${item[0]}</td>
+                      <td class="text-center ">${item[1]}</td>
+                      <td class="text-nowrap text-center">${item[6]}</td>
+                      <td class="text-nowrap text-center">${item[8]}</td>
+                      <td class="text-nowrap datoscliente text-center">${item[9]}</td>
+                      <td class="text-nowrap datoscliente text-center">${item[10]}</td>
+                      <td class="text-nowrap text-center"><button class = "editarCliente bg-secondary text-white">Editar</button></td>
+                    
+                      </tr>`;
+        });
+        $("#cuerpoClienteFacturaPago").html(template);
+      }
+    });
+  }
+
+  $(document).on('click','.bagregarc2',function(){
+    let valores = "";
+    $(this)
+      .parents("tr")
+      .find(".datoscliente")
+      .each(function () {
+        valores += $(this).html() + "?";
+      });
+    renglon = valores.split("?");
+    
+    console.log(renglon);
+    if(renglon[1] == "" || renglon[2] == ""){
+      $('.mensaje-factura').css('color','red');
+      $('.mensaje-factura').html("El cliente no cumple con los requisitos");
+    }else{
+      $('.mensaje-factura').css('color','green');
+      $('.mensaje-factura').html("El cliente a sido agregado para la factura");
+    }
+  });
+
+  $(document).on('click','.editarCliente',function(){
+    let valores = "";
+    $(this)
+      .parents("tr")
+      .find(".datoscliente")
+      .each(function () {
+        valores += $(this).html() + "?";
+      });
+    renglon = valores.split("?");
+
+    $.ajax({
+      url: "../Controllers/ventas.php",
+      type: "POST",
+      data: 'datosCliente='+renglon[0],
+      success: function (response) {
+        let datos = JSON.parse(response);
+        console.log(datos);
+        $.each(datos, function (i, item) {
+          $('#email').val(item[0]);
+          $('.ocultar-email').hide();
+          $('#nombre').val(item[1]);
+          $('#telefono').val(item[2]);
+          $('#credito').val(item[3]);
+          $('#cp').val(item[4]);
+          $('#calle_numero').val(item[5]);
+          $('#colonia').val(item[6]);
+          $('#Tlocalidad').val(item[7]);
+          $('#municipio').val(item[8]);
+          $('#estado').val(item[9]);
+          $('#sexo').val(item[10]);
+          $('#rfc').val(item[11]);
+          $('#fecha_nacimiento').val(item[12]);
+          $('#plazo_credito').val(item[13]);
+          $('#limite_credito').val(item[14]);
+          editar = true;
+          $('#nav-user-tab').click();
+        });
+      }
+    });
+  });
 
   //filtrado tabla clientes
   $("#busquedac").keyup(function (e) {
@@ -560,7 +670,6 @@ $(document).ready(function () {
   });
 
   $('#formularioCliente').submit(function (e) {
-    editar = "false";
     $.ajax({
       url: "../Controllers/clientes.php",
       type: "POST",
@@ -570,6 +679,11 @@ $(document).ready(function () {
         console.log(response);
         $("#mensaje3").css("display", "block");
         if (response == "1") {
+          if(editar == true){
+            pintarTablaClientesFactura($('#busquedac2').val());
+            editar = false;
+            $('#nav-extra-tab').click();
+          }
           $("#mensaje3").text("Registro Exitoso");
           $("#mensaje3").css("color", "green");
           $("#email").focus();
@@ -592,11 +706,7 @@ $(document).ready(function () {
     totalglobal = 0.0;
     $.each(carrito, function (i, item) {
       total_split = item[5].split("$");
-<<<<<<< HEAD
-      totalglobal += parseInt(total_split[1]);
-=======
       totalglobal += parseFloat(total_split[1]);
->>>>>>> 8a9767b79dd0e5be85fdaa0f6853a273367dea0e
       template += `
       <tr id= "${item[0]}" >
             <td class="datos text-center">${item[0]}</td>

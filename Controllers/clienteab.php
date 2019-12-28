@@ -47,7 +47,12 @@ if (
     $tipo_datos_usuariocafi = "sssssss";
     $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false, null);
     if ($result == 1) {
-      echo $conexion->consultaPreparada($datos_usuariocafi, $consulta_usuariocafi, 1, $tipo_datos_usuariocafi, false, 3);
+      $total =  $conexion->consultaPreparada($datos_usuariocafi, $consulta_usuariocafi, 1, $tipo_datos_usuariocafi, false, 3);
+      if($total == 1){
+
+      }else{
+        echo $total;
+      }
     } else {
       echo 0;
     }

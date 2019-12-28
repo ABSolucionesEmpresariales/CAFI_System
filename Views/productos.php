@@ -336,9 +336,9 @@ privilegios("Superiores");
             <div class="d-block d-lg-flex row">
               <div class="col-lg-6">
                 <h5 class="general">Categoria:</h5>
-                <select class="form form-control" id="categoria2" name="Scategoria">
-
-                </select>
+                <input class="form form-control" id="categoria2" list="categoria3" name="Scategoria">
+                <datalist id="categoria3">
+                </datalist>
               </div>
               <div class="col-lg-6">
                 <h5 class="importante">Unidad de medida:</h5>

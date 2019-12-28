@@ -147,6 +147,16 @@ privilegios("Todos");
                                                 <button type="button" class="bporcentaje btn btn-dark btn-lg">%</button>
                                                 <button type="button" class="bpesos btn btn-dark btn-lg">$</button>
                                             </div>
+                                            <div class="factura1">
+                                                <button style="color: white;" type="button" class="bvender btn btn-block bg-dark font-weight-bold m-1" id="factura1">
+                                                <h6>Facturar</h6>
+                                                </button>
+                                            </div>
+                                            <div class="factura2">
+                                                <button style="color: white;" type="button" class="bvender btn btn-block bg-dark font-weight-bold m-1" id="factura">
+                                                <h6>Facturar</h6>
+                                                </button>
+                                            </div>
 
                                             <div id="tablacliente" class="mt-4">
                                                 <div class="input-group mb-2">
@@ -177,6 +187,37 @@ privilegios("Todos");
 
                                             </div>
 
+                                            <div id="tablapagoFacturas" class="mt-4">
+                                                <div class="input-group mb-2">
+                                                    <button class="d-lg-none btn btn-primary col-12 mb-3 p-3" data-toggle="modal" data-target="#modalForm">Agregar</button>
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text"><i class="fa fa-search"></i></div>
+                                                    </div>
+                                                    <input autocomplete="off" style="border-color: gray;" class="form-control col-12 col-lg-4" type="search" id="busquedac2" placeholder="Buscar Cliente...">
+                                                </div>
+                                                
+                                                <div class="mensaje-factura text-center"></div>
+                                                <div style="border-radius: 10px;" class="contenedorTabla table-responsive">
+                                                    <table style="border-radius: 10px;" class="table table-bordered table-hover table-striped table-light">
+                                                        <thead class="thead-light">
+                                                            <tr>
+                                                                <th class="text-nowrap text-center"></th>
+                                                                <th class="text-nowrap text-center">Email</th>
+                                                                <th class="text-nowrap text-center">Nombre</th>
+                                                                <th class="text-nowrap text-center">Telefono</th>
+                                                                <th class="text-nowrap text-center">Credito</th>
+                                                                <th class="text-nowrap text-center">RFC</th>
+                                                                <th class="text-nowrap text-center">Codigo Postal</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="cuerpoClienteFacturaPago">
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+
                                             <div id="divanticipo">
                                                 <h6>Anticipo:</h6>
                                                 <input class="tanticipo form form-control" type="text" onkeypress="return check(event)" placeholder="$" autocomplete="off"><br>
@@ -189,6 +230,7 @@ privilegios("Todos");
                                                 <h6 class="font-weight-bold">Cantidad Recibida/Pago:</h6>
                                                 <input class="tpago form form-control" type="text" onkeypress="return check(event)" placeholder="" autocomplete="off"><br>
                                             </div>
+
                                             <button style="color: white;" type="button" class="bvender btn btn-block bg-dark font-weight-bold p-3">
                                                 <h5>Pagar</h5>
                                             </button>
@@ -199,7 +241,7 @@ privilegios("Todos");
                                     <form class="form-group" id="formularioCliente">
                                         <div id="mensaje3" style="text-align: center; margin: 10px; font-weight: bold;"></div>
                                         <div class="d-block d-lg-flex row">
-                                        <div class="col-lg-6 ocultar">
+                                        <div class="col-lg-6 ocultar-email">
                                             <h5 class="general" style="color: #EF5602">Email:</h5>
                                             <input id="email" class="form form-control" onkeypress="return check(event)" type="email" name="Temail" placeholder="Email" autocomplete="new-password" required> <br>
                                         </div>

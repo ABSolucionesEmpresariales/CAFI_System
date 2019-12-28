@@ -153,13 +153,10 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
             $_POST['cliente'], //agregar el cliente en el front
             0
         );
-
         $consulta = "INSERT INTO adeudos (idadeudos,totaldeuda,anticipo,estado,venta,cliente,eliminado) VALUES(?,?,?,?,?,?,?)";
         $conexion->consultaPreparada($datos2, $consulta, 1, "ssssssi", false,null);
         $_SESSION['idventa'] = $venta; // para poder imprimir el ticket
     }
-
-
     $consulta = "INSERT INTO detalle_venta(idventa,producto,descuento,cantidad,subtotal) VALUES(?,?,?,?,?)";
     $jsonstring = $_POST['json_string'];
     $carrito = json_decode($jsonstring);
@@ -167,8 +164,50 @@ if (isset($_POST['tabla']) && $_POST['tabla'] === "tabla") {
         unset($carrito[$i][1],$carrito[$i][2]); //elimina la posicion uno del array que es el producto y la dos que es el costo del producto / solo se necesita la posicion cero que es el codigo de barras
         $carrito[$i]= array_values($carrito[$i]); //una vez eliminado se reordena las posciones de los datos del array 
         array_unshift($carrito[$i], $venta);// se agrega el id de la venta al inicio del array
-        $conexion->consultaPreparada($carrito[$i], $consulta, 1, "sssss", false,null); //se inserta
+        $respuesta_detalle = $conexion->consultaPreparada($carrito[$i], $consulta, 1, "sssss", false,null); //se inserta
     }
+
+    if($respuesta_detalle == 1){
+        
+    }
+    
+
+/* $datos = array(
+            array("2250000","002","Tasa","0.160000","360000","","","01010101","F52","00001","1.5","TONELADA","ACERO","1500000","2250000",""),
+            array("2250000","002","Tasa","0.160000","360000","","","01010101","F52","00001","1.5","TONELADA","ACERO","1500000","2250000",""),
+            array("2250000","002","Tasa","0.160000","360000","","","01010101","F52","00001","1.5","TONELADA","ACERO","1500000","2250000","")
+            );
+                $etiqueta_traslado_atributos = array("Base","Impuesto","TipoFactor","TasaOCuota","Importe",
+                "cfdi:Traslado","cfdi:Traslados","ClaveProdServ","ClaveUnidad","NoIdentificacion","Cantidad",
+                "Unida","Descripcion","ValorUnitario","Importe","cfdi:Impuestos");
+                $datos_traslado_producto = array();
+                $datos_traslados = array();
+                $datos_inpuesto = array();
+                $datos_Concepto = array();
+                $datos_cfdi_Concepto = array();
+                for($i = 0; $i < count($datos); $i++){
+                    for($y =0; $y < count($datos[$i]); $y++){
+                        if($etiqueta_traslado_atributos[$y] == "cfdi:Traslado"){
+                            $datosTotal = array($etiqueta_traslado_atributos[$y] => $datos_traslado_producto);
+                        }
+                        if($etiqueta_traslado_atributos[$y] == "cfdi:Traslados"){
+                            $datos_traslados = array("cfdi:Traslados" => $datosTotal);
+                        }
+                        if($y >= 7){
+                            if($etiqueta_traslado_atributos[$y] == "cfdi:Impuestos"){
+                                $datos_Concepto += [$etiqueta_traslado_atributos[$y] => $datos_traslados];
+                            }else{
+                            $datos_Concepto += [$etiqueta_traslado_atributos[$y] => $datos[$i][$y]];
+                            }
+                        }
+                        $datos_traslado_producto += [$etiqueta_traslado_atributos[$y] => $datos[$i][$y]];
+                    }
+                    $datos_cfdi_Concepto += ["cfdi:Concepto_$i" =>  $datos_Concepto];
+
+                }
+*/
+
+var_dump($datos_total_tras);
 
     $dato = array($venta);
     actualizarStock($dato, $conexion, "-");
@@ -240,3 +279,30 @@ if (isset($_POST['array'])) {
     }
     echo $result;
 }
+
+if(isset($_POST['busquedaCliente'])){
+    $conexion = new Models\Conexion();
+    $consulta = "SELECT persona.email,nombre,calle_numero,colonia,localidad,municipio,telefono, estado,credito,persona.rfc,persona.cp,(SELECT COUNT(idadeudos) AS total FROM adeudos
+    WHERE cliente = persona.email AND estado = ? AND adeudos.eliminado != ?) AS totaladeudos FROM cliente INNER JOIN persona ON cliente.email = persona.email
+      WHERE  CONCAT_WS(' ',persona.email,nombre,calle_numero,colonia,localidad,municipio,telefono,estado)  
+      LIKE ? AND  negocio = ? AND persona.eliminado != ? ";
+    $datos = array(
+        "A",
+        1,
+        "%" . $_POST['busquedaCliente'] . "%",
+        $_SESSION['negocio'],
+        1
+    );
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "sisii", false,null));
+}
+
+if(isset($_POST['datosCliente'])){
+    $conexion = new Models\Conexion();
+    $datos = array($_POST['datosCliente']);
+    $consulta = "SELECT p.email,p.nombre,p.telefono,c.credito,p.cp,p.calle_numero,p.colonia,p.localidad,p.municipio,
+    p.estado,p.sexo,p.rfc,p.fecha_nacimiento,c.plazo_credito,c.limite_credito FROM persona p 
+    INNER JOIN cliente c ON c.email = p.email WHERE p.email = ?";
+    echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "s", false,null));
+}
+
+

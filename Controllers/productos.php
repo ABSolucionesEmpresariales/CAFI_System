@@ -279,10 +279,8 @@ if(isset($_POST['marcas'])){
 }
 if(isset($_POST['categorias'])){
     $conexion = new Models\Conexion();
-    $datos = array($_SESSION['negocio']);
-    $tipo = "i";
-    $sql = "SELECT nombre,tipo FROM ccm WHERE tipo = 'Categoria' AND negocio = ?";
-    $jsonstring = json_encode($conexion->consultaPreparada($datos, $sql,2, $tipo, false,null));
+    $sql = "SELECT * FROM `clave_producto`";
+    $jsonstring = json_encode($conexion->obtenerDatosDeTabla($sql));
     echo $jsonstring;
 }
 
