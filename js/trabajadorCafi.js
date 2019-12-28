@@ -72,16 +72,29 @@ $(document).ready(function () {
   $('#cp').keyup(function (e) {
     let codigopostal = $('#cp').val();
     if (codigopostal.length === 5) {
-      fetch('https://api-codigos-postales.herokuapp.com/v2/codigo_postal/' + codigopostal)
+      
+      //const uri = 'https://api-sepomex.hckdrk.mx/query/info_cp/'+codigopostal+'?type=simplified';
+
+/*       let req = new Request(uri, {
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "https://api-sepomex.hckdrk.mx",
+        },
+        "mode": 'no-cors'
+      }) */
+
+      fetch('https://api-sepomex.hckdrk.mx/query/info_cp/'+codigopostal+'?type=simplified')
         .then(res => res.json())
         .then(data => {
           let template = '';
-          for (i = 0; i < data.colonias.length; i++) {
-            template += ` <option value="${data.colonias[i]}">`;
+          for (i = 0; i < data.response.asentamiento.length; i++) {
+            template += ` <option value="${data.response.asentamiento[i]}">`;
           }
           $("#localidad").html(template);
-          $("#municipio").val(data.municipio);
-          $("#estado").val(data.estado);
+          $("#municipio").val(data.response.municipio);
+          $("#estado").val(data.response.estado);
+
         });
     } else {
       $("#localidad").empty();
