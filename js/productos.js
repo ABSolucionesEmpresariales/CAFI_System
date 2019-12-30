@@ -14,10 +14,30 @@ $(document).ready(function () {
   obtenerMarcas();
   obtenerCategorias();
   obtenerProveedores();
+  obtenerUnidad();
   $('.esconderCantidad').hide();
   $('.esconderProducto').hide();
   $("#accion").val("true");
   $('.esconder').css('display','none');
+
+  function obtenerUnidad(){
+    $.ajax({
+      url: "../Controllers/productos.php",
+      type: "POST",
+      data:"unidadMedida=unidadMedida",
+      success: function (response) {
+        let datos = JSON.parse(response);
+        console.log(datos);
+        let template = "<option value = ''>Elejir</option>";
+        $.each(datos, function (i, item) {
+          template+=`<option value="${item[0]}">${item[1]}</option>`;
+        });
+        $('#unidad_medida2').html(template);
+      }
+    });
+
+    
+  }
   
   function obtenerAcceso(){
     $.ajax({

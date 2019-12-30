@@ -304,5 +304,10 @@ if(isset($_POST['datosCliente'])){
     INNER JOIN cliente c ON c.email = p.email WHERE p.email = ?";
     echo json_encode($conexion->consultaPreparada($datos, $consulta, 2, "s", false,null));
 }
+if(isset($_POST['usoCFDI'])){
+    $conexion = new Models\Conexion();
+    $consulta = "SELECT * FROM usocfdi";
+    echo json_encode($conexion->obtenerDatosDeTabla($consulta));
+}
 
 

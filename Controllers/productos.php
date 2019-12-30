@@ -284,6 +284,13 @@ if(isset($_POST['categorias'])){
     echo $jsonstring;
 }
 
+if(isset($_POST['unidadMedida'])){
+    $conexion = new Models\Conexion();
+    $sql = "SELECT * FROM `clave_unidad`";
+    $jsonstring = json_encode($conexion->obtenerDatosDeTabla($sql));
+    echo $jsonstring;
+}
+
 if (isset($_POST['array'])) {
     $conexion = new Models\Conexion();
     $data = json_decode($_POST['array']);

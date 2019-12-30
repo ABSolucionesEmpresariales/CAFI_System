@@ -190,10 +190,21 @@ privilegios("Todos");
                                             <div id="tablapagoFacturas" class="mt-4">
                                                 <div class="input-group mb-2">
                                                     <button class="d-lg-none btn btn-primary col-12 mb-3 p-3" data-toggle="modal" data-target="#modalForm">Agregar</button>
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text"><i class="fa fa-search"></i></div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text"><i class="fa fa-search"></i></div>
+                                                        </div>
+                                                            <input autocomplete="off" style="border-color: gray;" class="form-control col-12" type="search" id="busquedac2" placeholder="Buscar Cliente...">
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <h6>Uso CFDI:</h6>
+                                                            <input type="text" list="listaCFDI" class="form-control col-12">
+                                                            <datalist id="listaCFDI">
+                                                            </datalist>
+                                                        </div>
                                                     </div>
-                                                    <input autocomplete="off" style="border-color: gray;" class="form-control col-12 col-lg-4" type="search" id="busquedac2" placeholder="Buscar Cliente...">
                                                 </div>
                                                 
                                                 <div class="mensaje-factura text-center"></div>

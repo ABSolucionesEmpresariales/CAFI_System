@@ -1,6 +1,6 @@
 <?php
 
-/* $datos_venta_total = array(
+  $datos_venta_total = array(
     array("167ABC","2017-10-30T09:09:23","2269400","1436012.00","I","01","PUE","CONDICIONES","0.00","1","45079"),
     array("01","LAHH850905BZ4","HORACIO LLANOS","608","A39DA66B-52CA-49E3-879B-5C05185B0EF7"),
     array("HEPR930322977","RAFAEL ALEJANDRO HERNÁNDEZ PALACIOS","G01"),
@@ -11,18 +11,17 @@
         ),
     array("002","2720","002","Tasa","0.160000","363104"),
     array("5CB8D806-7BDF-4D24-AC4C-4C469EB4F57A","2017-10-31T17:39:42","SFE0807172W7")
-    ); */
+    );  
 
 
 
-    function estructurar_Arrays($datos_venta_total){
+    function estructurar_Arrays($datos_venta_total,$sello,$NoCertificado,$Certificado){
 
     $etiqueta_traslado_atributos = array("Base","Impuesto","TipoFactor","TasaOCuota","Importe",
     "cfdi:Traslado","cfdi:Traslados","ClaveProdServ","ClaveUnidad","NoIdentificacion","Cantidad",
     "Unida","Descripcion","ValorUnitario","Importe","cfdi:Impuestos");
 
     $primera_etiqueta = array();
-    $segunda_etiqueta_relacionados = array();
     $tercera_etiqueta_emisor = array();
     $cuarta_etiqueta_receptor = array();
     $quinta_etiqueta_impuestos = array();
@@ -44,9 +43,9 @@
                                     "Serie" => "A", 
                                     "Folio" => $datos_venta_total[$u][0], 
                                     "Fecha" => $datos_venta_total[$u][1], 
-                                    "Sello" => "", 
-                                    "NoCertificado" => "", 
-                                    "Certificado" => "", 
+                                    "Sello" => $sello, 
+                                    "NoCertificado" => $NoCertificado, 
+                                    "Certificado" => $Certificado, 
                                     "SubTotal" => $datos_venta_total[$u][2], 
                                     "Moneda" => "MXN", 
                                     "Total" => $datos_venta_total[$u][3], 
@@ -59,12 +58,6 @@
                                     "LugarExpedicion" => $datos_venta_total[$u][10],
                                 ];
             }else if($u == 1){
-                $segunda_etiqueta_relacionados = [
-                    "TipoRelacion" => $datos_venta_total[$u][0],
-                    "cfdi:CfdiRelacionado" => 
-                        array(
-                            "UUID" => $datos_venta_total[$u][4])
-                    ];
             $tercera_etiqueta_emisor = [
                     "Rfc" => $datos_venta_total[$u][1], 
                     "Nombre" => $datos_venta_total[$u][2], 
@@ -133,8 +126,6 @@
                         )];
             }
         }
-
-        $primera_etiqueta += ["cfdi:CfdiRelacionados" => $segunda_etiqueta_relacionados];
         $primera_etiqueta += ["cfdi:Emisor" => $tercera_etiqueta_emisor];
         $primera_etiqueta += ["cfdi:Receptor" => $cuarta_etiqueta_receptor];
         $primera_etiqueta += ["cfdi:Conceptos" => $datos_cfdi_Concepto];

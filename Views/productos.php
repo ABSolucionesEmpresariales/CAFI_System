@@ -342,11 +342,9 @@ privilegios("Superiores");
               </div>
               <div class="col-lg-6">
                 <h5 class="importante">Unidad de medida:</h5>
-                <select class="form form-control" id="unidad_medida" name="Sunidad_medida" required>
-                  <option value="pieza">Pieza</option>
-                  <option value="par">Par</option>
-                  <option value="paquete">Paquete</option>
-                </select>
+                <input type="text" id="unidad_medida" name="Sunidad_medida" list="unidad_medida2" class="form form-control" required>
+                <datalist  id="unidad_medida2">
+                </datalist>
               </div>
 
             </div>

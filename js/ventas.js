@@ -9,6 +9,7 @@ $(document).ready(function () {
   editar = false;
   optenerProductos();
   pintarTablaCarrito();
+  pintarUsoCFDI();
   $('.factura1').hide();
   $('.factura2').hide();
   $('#tablapagoFacturas').hide();
@@ -17,6 +18,26 @@ $(document).ready(function () {
     pintarTablaCarrito();
     //hacer la suma de los subtotales para la variable global total
   });
+
+  function pintarUsoCFDI(){
+    $.ajax({
+      url: "../Controllers/ventas.php",
+      type: "POST",
+      data: "usoCFDI=usoCFDI",
+      success: function (response) {
+        let datos = JSON.parse(response);
+        console.log(datos);
+        let template = "<option value=''>Elije</option>";
+        $.each(datos, function (i, item) {
+          template += `
+          <option value="${item[0]}">${item[1]}</option>`;
+        });
+        $("#listaCFDI").html(template);
+      }
+    });
+  }
+
+
   function mandarporPost() {
     var carrito = sessionStorage.getItem("info");
     var carrito = JSON.parse(carrito);
