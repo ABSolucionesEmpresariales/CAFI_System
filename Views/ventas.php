@@ -40,13 +40,8 @@ privilegios("Todos");
             <!-- <button class="btn btn-primary col-1">CheckbCredito</button>
             <button class="btn btn-danger col-1">CheckbFacturar</button>
             <button class="btn btn-primary col-1">Clientes</button> -->
-            <p class="border text-white text-align-right col-2">Bienvenido: <?php echo $_SESSION['nombre']; ?></p>
-            <button value="Inicio" class="col-12 col-lg-2 m-1 bpago3 btn btn-primary text-white font-weight-bold" type="button">Inicio</button>
-        </div>
-        <div class="row">
-            <div class="col-12 col-lg-12 p-3 order-2 order-lg-1">
-                <!-- <h3 style="background-color: #282d33; border-radius: 7px;" class="text-center bg-dark text-white mb-3">Venta</h3> -->
-                <div class="contenedorTabla table-wrapper">
+            <p class="border text-white text-align-right col-2">Nombre del Trabajador</p>
+            <a id="orange" class="col-12 col-lg-2 m-1 btn btn-primary text-white font-weight-bold" onclick="window.location.href='trabajadorCafi.php'" title="Inicio">Inicio</a></button>   
                     <div class="table-responsive">
                         <table class="scroll table table-hover table-striped table-light">
                             <thead class="thead-dark">
