@@ -47,6 +47,7 @@ if (isset($_POST['Pcontrasena']) && isset($_POST['Temail'])) {
         $_SESSION['acceso'] = $result[0][1];
         $_SESSION['entrada_sistema'] = $result[0][2];
         $_SESSION['nombre'] =  $result[0][5];
+        $_SESSION['estructuraxml'] = NULL;
         if (!empty($negocio)) {
             $_SESSION['negocio'] = $negocio;
         }
