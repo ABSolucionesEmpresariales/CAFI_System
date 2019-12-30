@@ -63,13 +63,3 @@
         print_r($errors);
       }
    }
-?>
-<html>
-  <body>
-    <form action="" method="POST" enctype="multipart/form-data">
-      <input type="file" name="cer" />
-      <input type="file" name="key" />
-      <input type="submit"/>
-    </form>
-  </body>
-</html>

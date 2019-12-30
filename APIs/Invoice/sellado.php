@@ -15,22 +15,26 @@ $proc = new XSLTProcessor;
 error_reporting(E_ALL ^ E_WARNING);//Desactivamos los Warnings de PHP para que solo se muestre la cadena original y se borre toda la cagada de PHP.
 $proc->importStyleSheet($xsl);
 $cadenaOriginal = $proc->transformToXML($xml);
-$file = 'cache/'.$nombreXML.'-cadena_original.txt';
+$file = 'tmp/'.$nombreXML.'-cadena_original.txt';
 file_put_contents($file, $cadenaOriginal);
 
 //echo $cadenaOriginal;
 error_reporting(-1);//Volvemos a activar los Warnings de PHP para debuggear.
 
 //SELLADO
-shell_exec('openssl dgst -sha256 -sign '.$KeyPem.' -out "cache/'.$nombreXML.'-digest.txt" "cache/'.$nombreXML.'-cadena_original.txt"');
-shell_exec('openssl enc -in "cache/'.$nombreXML.'-digest.txt" -out "cache/'.$nombreXML.'-sello.txt" -base64 -A -K '.$KeyPem);
+shell_exec('openssl dgst -sha256 -sign '.$KeyPem.' -out "tmp/'.$nombreXML.'-digest.txt" "tmp/'.$nombreXML.'-cadena_original.txt"');
+shell_exec('openssl enc -in "tmp/'.$nombreXML.'-digest.txt" -out "tmp/'.$nombreXML.'-sello.txt" -base64 -A -K '.$KeyPem);
 
-$sello = readfile('cache/'.$nombreXML.'-sello.txt');
+$sello = readfile('tmp/'.$nombreXML.'-sello.txt');
 //echo $sello;
 
 //Agregar sello al XML
 
-//Borrar archivos generados en el cache
-unlink("cache/".$nombreXML."-cadena_original.txt");
-unlink("cache/".$nombreXML."-digest.txt");
-unlink("cache/".$nombreXML."-sello.txt");
+//Guardar el XML
+//Guardar el registro en la tabla facturas
+//Mandar a timbrar el xml
+
+//Borrar archivos generados en el tmp
+unlink("tmp/".$nombreXML."-cadena_original.txt");
+unlink("tmp/".$nombreXML."-digest.txt");
+unlink("tmp/".$nombreXML."-sello.txt");
