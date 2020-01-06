@@ -36,7 +36,7 @@ class Email
             //Recipients
             $mail->setFrom('soporte@cafionline.com', 'Equipo de soporte CAFI');
             $mail->addAddress($this->email);     // Add a recipient
-            $mail->addReplyTo('soportw@cafionline.com', 'Equipo de soporte CAFI');
+            $mail->addReplyTo('soporte@cafionline.com', 'Equipo de soporte CAFI');
 
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
@@ -45,7 +45,6 @@ class Email
             $mail->AltBody = "<a 'http://wwww.cafionline.com/Views/verify.php?vkey=$this->vkey'>Verificar cuenta</a>";
 
             $mail->send();
-
             //echo 'Message has been sent';
 
         } catch (Exception $e) {

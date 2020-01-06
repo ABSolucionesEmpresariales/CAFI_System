@@ -108,12 +108,13 @@ privilegios("Superiores");
                 <th class="text-nowrap text-center" onclick="sortTable(12)">Descuento</th>
                 <th class="text-nowrap text-center" onclick="sortTable(13)">Tipo Producto</th>
                 <th class="text-nowrap text-center" onclick="sortTable(14)">Unidad de medida</th>
-                <th class="text-nowrap text-center" onclick="sortTable(15)">Tasa de iva</th>
-                <th class="text-nowrap text-center" onclick="sortTable(16)">Tasa de ipes</th>
-                <th class="text-nowrap text-center" onclick="sortTable(17)">Talla numero</th>
-                <th class="text-nowrap text-center" onclick="sortTable(18)">Localización</th>
-                <th class="text-nowrap text-center" onclick="sortTable(19)">Stock</th>
-                <th class="text-nowrap text-center" onclick="sortTable(20)">Stock Minimo</th>
+                <th class="text-nowrap text-center" onclick="sortTable(15)">Tasa de iva compra</th>
+                <th class="text-nowrap text-center" onclick="sortTable(16)">Tasa de iva venta</th>
+                <th class="text-nowrap text-center" onclick="sortTable(17)">Tasa de ipes</th>
+                <th class="text-nowrap text-center" onclick="sortTable(18)">Talla numero</th>
+                <th class="text-nowrap text-center" onclick="sortTable(19)">Localización</th>
+                <th class="text-nowrap text-center" onclick="sortTable(20)">Stock</th>
+                <th class="text-nowrap text-center" onclick="sortTable(21)">Stock Minimo</th>
               </tr>
             </thead>
             <tbody id="cuerpo"></tbody>
@@ -295,14 +296,21 @@ privilegios("Superiores");
             </div>
 
             <div class="d-block d-lg-flex row">
-              <div class="col-lg-6">
-                <h5 class="general">Precio compra:</h5>
-                <input id="precio_compra" class="form form-control" type="text" onkeypress="return check(event)" name="Nprecio_compra" placeholder="Precio compra" autocomplete="new-password"><br>
+              <div class="col-lg-4">
+                <p class="importante">Precio compra:</p>
+                <input id="precio_compra" class="form form-control" type="number" onkeypress="return check(event)" name="Nprecio_compra" placeholder="Precio compra" autocomplete="new-password" required><br>
+                <input id="iva_compra" type="hidden" name="iva_compra">
               </div>
 
-              <div class="col-lg-6">
-                <h5 class="importante">Precio venta:</h5>
-                <input id="precio_venta" class="form form-control" type="text" onkeypress="return check(event)" name="Nprecio_venta" placeholder="Precio venta" autocomplete="new-password" required><br>
+              <div class="col-lg-4">
+                <p class="importante">Ganancia %:</p>
+                <input id="ganancia" class="form form-control" type="number" onkeypress="return check(event)" placeholder="Precio compra" autocomplete="new-password" required><br>
+              </div>
+
+              <div class="col-lg-4">
+                <p class="importante">Precio Venta:</p>
+                <input id="precio_venta" class="form form-control" value="0" type="text" onkeypress="return check(event)" name="Nprecio_venta" placeholder="Precio venta" autocomplete="new-password" required><br>
+                <input id="iva_venta" type="hidden" name="iva_venta">
               </div>
             </div>
 
@@ -354,10 +362,6 @@ privilegios("Superiores");
                 <div class="mostrar_producto">
                   <input type="hidden" value="null" name="Stalla_numero">
                 </div>
-              </div>
-              <div class="col-lg-6">
-                <h5 class="general">Tasa IVA:</h5>
-                <label><input id="tasa_iva" type="checkbox" name="Ntasa_iva" value="si">Iva incluido</label>
               </div>
 
             </div>

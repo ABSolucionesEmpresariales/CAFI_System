@@ -92,6 +92,7 @@ $(document).ready(function () {
                     <td class="text-nowrap text-center">${item[17]}</td>
                     <td class="text-nowrap text-center">${item[18]}</td>
                     <td class="text-nowrap text-center">${item[19]}</td>
+                    <td class="text-nowrap text-center">${item[20]}</td>
               `;
             });
             $("#cuerpo").html(template);
@@ -330,16 +331,12 @@ $(document).ready(function () {
           $("#descuento").val(datos[12]);
           $("#categoria").val(datos[13]);
           $("#unidad_medida").val(datos[14]);  
-          if (datos[15] == "Si") {
-            $("#tasa_iva").prop("checked", true);
-          } else {
-            $("#tasa_iva").prop("checked", false);
-          }
-          $("#tasa_ipes").val(datos[16]);
-          $("#talla_numero").val(datos[17]);
-          $("#localizacion").val(datos[18]);
-          $("#stock").val(datos[19]);
-          $("#stock_minimo").val(datos[20]);
+    
+          $("#tasa_ipes").val(datos[17]);
+          $("#talla_numero").val(datos[18]);
+          $("#localizacion").val(datos[19]);
+          $("#stock").val(datos[20]);
+          $("#stock_minimo").val(datos[21]);
           $("#modalForm").modal("show");
           $("#accion").val("true");
           touchtime = 0;
@@ -560,6 +557,10 @@ $(document).on('click','#dinero',function(){
 });
 
   $("#formulario").submit(function (e) {
+    compra = $('#precio_compra').val();
+    venta = $('#precio_venta').val();
+    $('#iva_compra').val(compra * .16);    
+    $('#iva_venta').val(venta * .16);
 
     var formData = new FormData(this);
     $.ajax({
@@ -570,7 +571,7 @@ $(document).on('click','#dinero',function(){
       processData: false,
 
       success: function (response) {
- 
+        console.log(response);
         if (response == 1) {
           if ($("#accion").val() == 'true') {
             $(".modal").modal("hide");
@@ -605,5 +606,57 @@ $(document).on('click','#dinero',function(){
     $('.ocultarCodigo').show();
     $('.mensajedecuento').hide();
   });
+
+  $(document).on('keyup','#ganancia',function(){
+    if($(this).val() != ''){
+      precio = $('#precio_compra').val();
+      dato = 0;
+      if(precio != 0 || precio != ''){
+        dato = precio * parseFloat('.'+$('#ganancia').val());
+        $('#precio_venta').val(parseFloat(precio) + dato);
+      } 
+    }else{
+      $('#precio_venta').val('0');
+    }
+  });
+
+  $(document).on('keyup','#precio_venta',function(){
+    if($(this).val() != ''){
+      precio = $('#precio_compra').val();
+      dato = 0;
+      if(precio != 0 || precio != ''){
+        dato = 100 * (parseFloat($(this).val()) - parseFloat(precio));
+        if(dato > 0){
+          $('#ganancia').val(dato / precio);
+        }else{
+          $('#ganancia').val(0);
+        }
+      }
+    }else{
+      $('#ganancia').val('0');
+    }
+  });
+
+  $(document).on('keyup','#precio_compra',function(){
+    console.log(parseInt($(this).val()));
+    if($(this).val() == ''){
+      $('#precio_venta').val('0');
+      $('#ganancia').val('0');
+    }else{
+      if(parseInt($(this).val()) > 0){
+        if($('#ganancia').val() != '0' && $('#precio_venta').val() != '0'){
+            if($('#ganancia').val() != '' || $('#ganancia').val() != '0'){
+              porsentaje = $('#ganancia').val();
+              precio = $(this).val();
+              $('#precio_venta').val( parseFloat(precio) + (parseFloat(precio) * parseFloat("."+ porsentaje)) );
+            }else if($('#precio_venta').val() != ''){
+              $('#ganancia').val(parseFloat($(this).val()) / ((parseFloat($('#precio_venta').val()) - parseFloat($(this).val())) * 100) );
+            }
+        }
+    }
+    }
+  });
+
+
 });
 
