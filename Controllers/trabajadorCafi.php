@@ -107,7 +107,7 @@ if (
       $result = $conexion->consultaPreparada($datos_persona, $consulta_persona, 1, $tipo_datos_persona, false, null);
       if ($result == 1) {
         // $email->enviarEmailConfirmacion();
-        echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false, null);
+        echo $conexion->consultaPreparada($datos_usuarioab, $consulta_usuarioab, 1, $tipo_datos_usuarioab, false, 4);
       }
     } else {
       echo "exceso";
